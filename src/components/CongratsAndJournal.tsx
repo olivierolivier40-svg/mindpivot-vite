@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { Ritual, BadgeId } from '../types.ts';
+import React, { useState, useEffect } from 'react';
+import { Ritual, BadgeId } from '../types.ts';
 import { Button } from './Button.tsx';
 import { BADGES } from '../constants.ts';
 import { Card } from './Card.tsx';
@@ -35,7 +35,7 @@ const FEELING_STATES: FeelingState[] = [
 ];
 
 // FIX: Added the missing CongratsAndJournal component definition and export.
-export const CongratsAndJournal = ({ ritual, onDone, onRestart, newlyUnlockedBadgeId }: CongratsAndJournalProps) => {
+export const CongratsAndJournal: React.FC<CongratsAndJournalProps> = ({ ritual, onDone, onRestart, newlyUnlockedBadgeId }) => {
   const { t } = useI18n();
   const [journalText, setJournalText] = useState('');
   const [selectedFeelings, setSelectedFeelings] = useState<Set<string>>(new Set());

@@ -1,5 +1,6 @@
-import type { Session, Streaks, BadgeId, CompletedProgram } from './types.ts';
+import { Session, Streaks, BadgeId, CompletedProgram } from './types.ts';
 import { RITUELS } from './constants.ts';
+import { calculateStreaks } from './utils.ts';
 
 // Note: The logic for PARCOURS_TERMINE will need access to completedPrograms state.
 // A simple placeholder is used for now. This should be passed in if needed.

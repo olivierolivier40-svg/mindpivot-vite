@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
-import { RITUELS, SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
+import { SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
 import { Button } from './Button.tsx';
-import { Card } from './Card.tsx';
 import { Modal } from './Modal.tsx';
 import { RingDonut } from './RingDonut.tsx';
 import { CongratsAndJournal } from './CongratsAndJournal.tsx';
@@ -21,8 +20,6 @@ interface PlayerProps {
   checkinData: Record<string, number>;
 }
 
-const BellIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-5-5.917V5a1 1 0 00-2 0v.083A6 6 0 006 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>;
-const SoundIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>;
 const ListIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>;
 const DiceIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M16 8h.01"></path><path d="M12 12h.01"></path><path d="M8 16h.01"></path><path d="M8 8h.01"></path><path d="M16 16h.01"></path></svg>;
 const SparkleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3L9.5 8.5 4 11l5.5 2.5L12 19l2.5-5.5L20 11l-5.5-2.5z"/></svg>;
@@ -58,7 +55,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [preStartStepIndex, setPreStartStepIndex] = useState(0);
   const [newlyUnlockedBadgeId, setNewlyUnlockedBadgeId] = useState<BadgeId | null>(null);
   const [donutLabel, setDonutLabel] = useState(t('player_ready'));
-  const [showDonut, setShowDonut] = useState(ritual.donut !== 'off');
+  const [showDonut, setShowDonut] = useState(!!(ritual.donut && ritual.donut !== 'off'));
   const [phaseTime, setPhaseTime] = useState({current: 0, total: 0});
   const [phaseProgress, setPhaseProgress] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
@@ -106,7 +103,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setTimeLeft(initialRitual.dureeSec);
       setInstruction(initialRitual.instructions || '');
       setDynamicInstruction(RITUAL_INSTRUCTIONS[initialRitual.id]?.[0]?.text || '');
-      setShowDonut(initialRitual.donut && initialRitual.donut !== 'off');
+      setShowDonut(!!(initialRitual.donut && initialRitual.donut !== 'off'));
       setIsRunning(false);
       setIsPaused(false);
       setIsComplete(false);
@@ -225,10 +222,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         setTimeLeft(ritual.dureeSec - Math.floor(elapsedSec));
         
         let currentPhaseProgress = 0;
-        let sessionProgressRatio = 0;
-        if (ritual.dureeSec > 0) {
-          sessionProgressRatio = Math.min(1, elapsedSec / ritual.dureeSec);
-        }
 
         if (ritual.id === 'rit.coherence_bento' && elapsedSec >= 60 && bentoPhase === 'short' && !bentoReadyForPhase2) {
           setBentoReadyForPhase2(true);
