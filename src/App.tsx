@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { GoogleGenAI } from "@google/genai";
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
-import type { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, Program, ActiveProgram, CompletedProgram } from './types.ts';
+import { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, Program, ActiveProgram, CompletedProgram } from './types.ts';
 import { calculateStreaks } from './utils.ts';
 import { useI18n } from './hooks/useI18n.tsx';
 import { isBadgeUnlocked } from './badgeLogic.ts';
-import { generateGeminiText } from './services/geminiService.ts';
 
 // --- Importing Components from their files ---
 import { Button } from './components/Button.tsx';
@@ -68,6 +68,7 @@ function App() {
   const [showInstallModal, setShowInstallModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
   const [geminiCheckinFeedback, setGeminiCheckinFeedback] = useState('');
   const [isLoadingCheckinFeedback, setIsLoadingCheckinFeedback] = useState(false);
   const [isLoadingJournalFeedbackForSession, setIsLoadingJournalFeedbackForSession] = useState<string | null>(null);
@@ -284,14 +285,24 @@ function App() {
         setShowPremiumModal(true);
         return;
     }
+    
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+        console.error("Clé API Gemini manquante.");
+        alert("La fonctionnalité de feedback IA n'est pas configurée.");
+        return;
+    }
 
     setIsLoadingJournalFeedbackForSession(session.id);
     try {
+        const ai = new GoogleGenAI({ apiKey });
         const prompt = `Tu es un coach de bien-être, bienveillant et perspicace. Un utilisateur vient de terminer le rituel "${t(ritual.label)}" et a écrit la note suivante dans son journal : "${session.journal}". Rédige une courte réflexion (2-3 phrases, 40 mots max) en français qui valide son ressenti, offre un encouragement ou pose une question douce pour approfondir sa pensée. Adresse-toi à l'utilisateur avec "tu". Ne retourne que la réponse, sans introduction ni conclusion.`;
-        const feedback = await generateGeminiText(prompt);
+
+        const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+        const feedback = response.text.trim();
 
         setSessions(prevSessions => {
-            const updatedSessions = prevSessions.map(s => s.id === session.id ? { ...s, iaFeedback: feedback.trim() } : s);
+            const updatedSessions = prevSessions.map(s => s.id === session.id ? { ...s, iaFeedback: feedback } : s);
             localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions));
             return updatedSessions;
         });
@@ -300,6 +311,10 @@ function App() {
     } finally {
         setIsLoadingJournalFeedbackForSession(null);
     }
+  };
+
+  const handleLogout = async () => {
+    alert("La déconnexion n'est pas applicable dans ce prototype.");
   };
 
   const handleOnboardingComplete = () => {
@@ -407,18 +422,24 @@ function App() {
   useEffect(() => {
     if (currentScreen === 'suggestions') {
       const fetchFeedback = async () => {
+        const apiKey = process.env.API_KEY;
+        if (!apiKey) {
+          console.error("Clé API Gemini manquante.");
+          return;
+        }
         setIsLoadingCheckinFeedback(true);
         try {
+          const ai = new GoogleGenAI({apiKey});
           const answers = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
           const summary = Object.entries(answers)
             .filter(([, value]) => value !== 0)
-            .map(([key, value]) => `${key}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
+            .map(([key, value]) => `${key}: ${t(LABELS[key as keyof typeof LABELS][value+2])}`)
             .join(', ');
           
           const prompt = `En te basant sur le check-in suivant d'un utilisateur (${summary}), rédige une phrase de synthèse courte (1-2 phrases, 30 mots max), empathique et sans jugement en français qui valide son état actuel. La phrase doit être encourageante et introduire les suggestions de rituels qui vont suivre. Adresse-toi à l'utilisateur avec "tu". Ne retourne que la phrase, sans aucune introduction ou conclusion. Exemple: "Il semble que ton énergie soit un peu basse et ton esprit agité. Voici quelques rituels pour t'aider à t'ancrer et retrouver de la sérénité."`;
           
-          const feedback = await generateGeminiText(prompt);
-          setGeminiCheckinFeedback(feedback.trim());
+          const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
+          setGeminiCheckinFeedback(response.text.trim());
         } catch (error) {
           console.error("Gemini feedback error:", error);
           setGeminiCheckinFeedback("");
@@ -462,7 +483,7 @@ function App() {
 
           return (
             <div {...screenProps} className="flex flex-col items-center text-center">
-              {currentProgram && activeProgram && (
+              {currentProgram && (
                 <Card className="mb-6 w-full">
                   <div className="text-center">
                     <p className="text-lg text-muted mb-4">
@@ -660,17 +681,17 @@ function App() {
                 <h3 className="font-bold text-lg mb-4 text-left">{t('journey_unlocked_badges', { unlockedCount: unlockedBadgeIds.length, totalCount: Object.keys(BADGES).length })}</h3>
                 {Object.entries(BADGE_CATEGORIES).map(([catKey, catValue]) => (
                     <div key={catKey} className="mb-4 text-left">
+                        {/* FIX: Cast catValue to string to satisfy the 't' function's type requirement. */}
                         <h4 className="font-semibold text-accent mb-2">{t(catValue as string)}</h4>
                         <div className="flex flex-wrap gap-4">
                         {Object.entries(BADGES)
-                          .filter(([, badge]) => (badge as Badge).category === catKey)
+                          .filter(([, badge]) => badge.category === catKey)
                           .map(([badgeId, badge]) => {
                             const isUnlocked = unlockedBadges[badgeId as BadgeId];
-                            const badgeData = badge as Badge;
                             return (
                                 <div key={badgeId} onClick={() => isUnlocked && setBadgeModal(badgeId as BadgeId)} className={`flex flex-col items-center text-center w-20 ${isUnlocked ? 'cursor-pointer' : 'opacity-40'}`}>
-                                    <div className="text-4xl p-2 rounded-full bg-white/5">{isUnlocked ? badgeData.icon : '❓'}</div>
-                                    <p className="text-xs mt-1">{t(badgeData.name)}</p>
+                                    <div className="text-4xl p-2 rounded-full bg-white/5">{isUnlocked ? badge.icon : '❓'}</div>
+                                    <p className="text-xs mt-1">{t(badge.name)}</p>
                                 </div>
                             );
                         })}
