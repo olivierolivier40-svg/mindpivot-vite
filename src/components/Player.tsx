@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { GoogleGenAI } from "@google/genai";
 import { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
 import { RITUELS, SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
 import { Button } from './Button.tsx';
@@ -10,6 +9,7 @@ import { CongratsAndJournal } from './CongratsAndJournal.tsx';
 import { EyeMovementAnimation } from './EyeMovementAnimation.tsx';
 import { SagesseMinutePlayer } from './SagesseMinutePlayer.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
+import { generateGeminiText } from '../services/geminiService.ts';
 
 interface PlayerProps {
   ritual: Ritual;
@@ -40,6 +40,13 @@ const protocolMap: Record<string, {n: string, s: number}[]> = {
     'on_custom_soupir': [{n:'breathe_in',s:4},{n:'ritual_soupir_physio_120_protocol_step_2',s:1},{n:'ritual_soupir_physio_120_protocol_step_3',s:8},{n:'ritual_soupir_physio_120_protocol_step_4',s:2}],
 };
 
+interface OrganState {
+  index: number;
+  name: string;
+  icon: string;
+  videoUrl?: string;
+}
+
 export const Player: React.FC<PlayerProps> = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, checkinData }) => {
   const { t } = useI18n();
   const [ritual, setRitual] = useState(initialRitual);
@@ -60,7 +67,7 @@ export const Player: React.FC<PlayerProps> = ({ ritual: initialRitual, onComplet
   const [currentQuote, setCurrentQuote] = useState<{q: string; a: string} | null>(null);
   const [currentColor, setCurrentColor] = useState('#3498DB');
   const [colorVirtue, setColorVirtue] = useState('');
-  const [currentOrgan, setCurrentOrgan] = useState({ index: -1, name: '', icon: '' });
+  const [currentOrgan, setCurrentOrgan] = useState<OrganState>({ index: -1, name: '', icon: '' });
   const [instruction, setInstruction] = useState('');
   const [dynamicInstruction, setDynamicInstruction] = useState('');
   const [audioError, setAudioError] = useState(false);
@@ -356,7 +363,8 @@ export const Player: React.FC<PlayerProps> = ({ ritual: initialRitual, onComplet
             const organDuration = ritual.dureeSec / ORGANES.length;
             const newIndex = Math.floor(elapsedSec / organDuration);
             if(newIndex < ORGANES.length && currentOrgan.index !== newIndex) {
-                setCurrentOrgan({ index: newIndex, ...ORGANES[newIndex] });
+                // FIX: Cast ORGANES[newIndex] to any to resolve incorrect type inference.
+                setCurrentOrgan({ index: newIndex, ...(ORGANES[newIndex] as any) });
             }
             if(organDuration > 0) currentPhaseProgress = (elapsedSec % organDuration) / organDuration;
         }
@@ -489,26 +497,19 @@ export const Player: React.FC<PlayerProps> = ({ ritual: initialRitual, onComplet
   };
 
   const handleAIGeneratedIntention = async () => {
-      const apiKey = process.env.API_KEY;
-      if (!apiKey) {
-        setCustomIntention("Erreur : Clé API non configurée.");
-        return;
-      }
-
       setIsGeneratingIntention(true);
       setCustomIntention(null);
 
       try {
-        const ai = new GoogleGenAI({ apiKey });
         const summary = Object.entries(checkinData)
             .filter(([, value]) => value !== 0)
-            .map(([key, value]) => `${t(`label_${key}_title`)}: ${t(LABELS[key as keyof typeof LABELS][value+2])}`)
+            .map(([key, value]) => `${t(`label_${key}_title`)}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
             .join(', ');
 
         const prompt = `Basé sur ce bilan matinal d'un utilisateur : "${summary || 'Aucun bilan fourni, se baser sur une intention générale positive'}", propose une seule intention de journée, laïque, subtile et introspective (15 mots max). L'intention doit être une phrase affirmative à la première personne (Je...). Ne retourne que l'intention, sans aucune introduction.`;
         
-        const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
-        setCustomIntention(response.text.trim());
+        const intention = await generateGeminiText(prompt);
+        setCustomIntention(intention.trim());
 
       } catch (error) {
         console.error("Gemini intention generation error:", error);
@@ -635,13 +636,13 @@ export const Player: React.FC<PlayerProps> = ({ ritual: initialRitual, onComplet
     if (ritual.playerType === 'sagesse-minute' && currentQuote) {
         return <SagesseMinutePlayer quote={currentQuote} phaseIndex={sagesseAgreementIndex} />
     }
-    if (ritual.playerType === 'organe-smile' && (currentOrgan as any).videoUrl) {
+    if (ritual.playerType === 'organe-smile' && currentOrgan.videoUrl) {
       return (
           <div className="w-full h-full flex flex-col items-center justify-center p-4">
               <div className="flex-1 w-full min-h-0 flex items-center justify-center rounded-lg overflow-hidden">
                 <video 
-                    key={(currentOrgan as any).videoUrl}
-                    src={(currentOrgan as any).videoUrl} 
+                    key={currentOrgan.videoUrl}
+                    src={currentOrgan.videoUrl} 
                     autoPlay 
                     loop 
                     muted={!isVideoSoundOn}

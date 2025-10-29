@@ -51,7 +51,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
                         <label className="block text-sm font-medium text-muted mb-2">{t('settings_theme')}</label>
                         <div className="flex flex-wrap gap-2">
                             {Object.entries(themeLabels).map(([key, value]) => (
-                                <Button key={key} variant={theme === key as Theme ? 'primary' : 'secondary'} size="small" onClick={() => setTheme(key as Theme)}>{t(value.labelKey)}</Button>
+                                // FIX: Cast `value` to access its properties.
+                                <Button key={key} variant={theme === key as Theme ? 'primary' : 'secondary'} size="small" onClick={() => setTheme(key as Theme)}>{t((value as { labelKey: string }).labelKey)}</Button>
                             ))}
                         </div>
                     </div>
