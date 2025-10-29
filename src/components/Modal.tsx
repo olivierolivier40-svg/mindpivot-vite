@@ -1,18 +1,18 @@
-import React, { useRef, useEffect, forwardRef } from 'react';
+import { useRef, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { Button } from './Button.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 
 interface ModalProps {
     title: string;
-    children: React.ReactNode;
+    children: ReactNode;
     onClose: () => void;
     show: boolean;
     hideHeaderCloseButton?: boolean;
     preStartNext?: () => void;
 }
 
-export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
-    ({ title, children, onClose, show, hideHeaderCloseButton, preStartNext }, ref) => {
+export const Modal = ({ title, children, onClose, show, hideHeaderCloseButton, preStartNext }: ModalProps) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const { t } = useI18n();
 
@@ -74,4 +74,4 @@ export const Modal = forwardRef<HTMLDialogElement, ModalProps>(
         }
       </dialog>
     );
-});
+};

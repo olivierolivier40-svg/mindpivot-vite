@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Ritual, BadgeId } from '../types.ts';
+import { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import type { Ritual, BadgeId } from '../types.ts';
 import { Button } from './Button.tsx';
 import { BADGES } from '../constants.ts';
 import { Card } from './Card.tsx';
@@ -14,7 +15,7 @@ interface CongratsAndJournalProps {
 
 interface FeelingState {
   id: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   tags: string[];
 }
@@ -25,7 +26,6 @@ const FocusedIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentCo
 const TiredIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>;
 const AgitatedIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h3l3-9 3 18 3-9 3 9h3"/></svg>;
 
-// FIX: Corrected the truncated FEELING_STATES array and completed the objects to match the FeelingState interface.
 const FEELING_STATES: FeelingState[] = [
     { id: 'serene', icon: <SereneIcon />, label: 'congrats_feeling_serene', tags: ['serein', 'calme', 'détendu'] },
     { id: 'energized', icon: <EnergizedIcon />, label: 'congrats_feeling_energized', tags: ['énergisé', 'dynamique', 'vivifié'] },
@@ -34,8 +34,7 @@ const FEELING_STATES: FeelingState[] = [
     { id: 'agitated', icon: <AgitatedIcon />, label: 'congrats_feeling_agitated', tags: ['agité', 'libéré', 'soulagé'] },
 ];
 
-// FIX: Added the missing CongratsAndJournal component definition and export.
-export const CongratsAndJournal: React.FC<CongratsAndJournalProps> = ({ ritual, onDone, onRestart, newlyUnlockedBadgeId }) => {
+export const CongratsAndJournal = ({ ritual, onDone, onRestart, newlyUnlockedBadgeId }: CongratsAndJournalProps) => {
   const { t } = useI18n();
   const [journalText, setJournalText] = useState('');
   const [selectedFeelings, setSelectedFeelings] = useState<Set<string>>(new Set());

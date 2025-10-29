@@ -1,4 +1,4 @@
-import { Ritual, Program, Badge, BadgeId } from './types.ts';
+import type { Ritual, Program, Badge, BadgeId } from './types.ts';
 
 export const SOUND_OPTIONS: Record<'bol' | 'diapason' | 'gong', { url: string }> = {
     bol: { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/sounds/bol-tibétain-fin.mp3' },
