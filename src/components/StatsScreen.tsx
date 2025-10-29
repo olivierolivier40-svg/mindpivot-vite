@@ -1,5 +1,4 @@
-import React from 'react';
-import { Session } from '../types.ts';
+import type { Session } from '../types.ts';
 import { RITUELS } from '../constants.ts';
 import { Card } from './Card.tsx';
 import { Button } from './Button.tsx';
@@ -10,7 +9,7 @@ interface StatsScreenProps {
     onBack: () => void;
 }
 
-export const StatsScreen: React.FC<StatsScreenProps> = ({ sessions, onBack }) => {
+export const StatsScreen = ({ sessions, onBack }: StatsScreenProps) => {
     const { t } = useI18n();
     const totalSeconds = sessions.reduce((acc, s) => acc + s.dureeSec, 0);
     const totalMinutes = Math.floor(totalSeconds / 60);
@@ -37,7 +36,7 @@ export const StatsScreen: React.FC<StatsScreenProps> = ({ sessions, onBack }) =>
     for (const [category, count] of Object.entries(categoryCounts)) {
         // FIX: Cast `count` to number for arithmetic operation.
         const percentage = ((count as number) / totalRituals) * 100;
-        gradientParts.push(`${categoryColors[category] || '#7f8c8d'} ${currentPercentage}% ${Number(currentPercentage) + Number(percentage)}%`);
+        gradientParts.push(`${categoryColors[category] || '#7f8c8d'} ${currentPercentage}% ${currentPercentage + percentage}%`);
         currentPercentage += percentage;
     }
     const conicGradient = `conic-gradient(${gradientParts.join(', ')})`;
@@ -75,6 +74,7 @@ export const StatsScreen: React.FC<StatsScreenProps> = ({ sessions, onBack }) =>
                             {Object.entries(categoryCounts).map(([category, count]) => (
                                 <div key={category} className="flex items-center gap-2">
                                     <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: categoryColors[category] || '#7f8c8d' }}></div>
+                                    {/* FIX: Cast `count` to number for arithmetic operation and rendering. */}
                                     <span>{category.charAt(0).toUpperCase() + category.slice(1)}: {count as number} ({(((count as number)/totalRituals)*100).toFixed(0)}%)</span>
                                 </div>
                             ))}
@@ -101,8 +101,7 @@ export const StatsScreen: React.FC<StatsScreenProps> = ({ sessions, onBack }) =>
                     return (
                         <div key={i} className="flex flex-col items-center h-full justify-end w-10">
                             <div className="text-xs text-muted font-bold h-4">{count > 0 ? count : ''}</div>
-                            {/* FIX: Cast `i` to number for arithmetic operation. */}
-                            <div className="w-6 bg-accent rounded-t-md transition-colors hover:bg-accent-strong animate-grow-bar" style={{ height: `${barHeight}%`, animationDelay: `${(i as number) * 100}ms` }} title={t('stats_rituals_on_date', { count: count, date: formattedDate })}></div>
+                            <div className="w-6 bg-accent rounded-t-md transition-colors hover:bg-accent-strong animate-grow-bar" style={{ height: `${barHeight}%`, animationDelay: `${i * 100}ms` }} title={t('stats_rituals_on_date', { count: count, date: formattedDate })}></div>
                             <div className="text-xs text-muted mt-1">{dayLabel}</div>
                         </div>
                     );

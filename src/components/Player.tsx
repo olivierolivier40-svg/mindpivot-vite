@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import type { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
 import { RITUELS, SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
 import { Button } from './Button.tsx';
 import { Card } from './Card.tsx';
@@ -47,7 +47,7 @@ interface OrganState {
   videoUrl?: string;
 }
 
-export const Player: React.FC<PlayerProps> = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, checkinData }) => {
+export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, checkinData }: PlayerProps) => {
   const { t } = useI18n();
   const [ritual, setRitual] = useState(initialRitual);
   const [timeLeft, setTimeLeft] = useState(ritual.dureeSec);
@@ -363,7 +363,6 @@ export const Player: React.FC<PlayerProps> = ({ ritual: initialRitual, onComplet
             const organDuration = ritual.dureeSec / ORGANES.length;
             const newIndex = Math.floor(elapsedSec / organDuration);
             if(newIndex < ORGANES.length && currentOrgan.index !== newIndex) {
-                // FIX: Cast ORGANES[newIndex] to any to resolve incorrect type inference.
                 setCurrentOrgan({ index: newIndex, ...(ORGANES[newIndex] as any) });
             }
             if(organDuration > 0) currentPhaseProgress = (elapsedSec % organDuration) / organDuration;

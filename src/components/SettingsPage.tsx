@@ -1,8 +1,7 @@
-import React from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { Button } from './Button.tsx';
 import { Card } from './Card.tsx';
-import { SoundSettings } from '../types.ts';
+import type { SoundSettings } from '../types.ts';
 import { SOUND_OPTIONS } from '../constants.ts';
 
 type Theme = 'dark' | 'light' | 'aurora' | 'dyslexia-tdah';
@@ -25,7 +24,7 @@ interface SettingsPageProps {
     themeLabels: Record<Theme, { labelKey: string, class: string }>;
 }
 
-export const SettingsPage: React.FC<SettingsPageProps> = ({
+export const SettingsPage = ({
     onNavigate,
     theme, setTheme,
     textSize, setTextSize,
@@ -36,7 +35,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
     isPremiumUser, setIsPremiumUser,
     clearAllData,
     themeLabels,
-}) => {
+}: SettingsPageProps) => {
     const { t } = useI18n();
 
     return (
@@ -51,7 +50,6 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
                         <label className="block text-sm font-medium text-muted mb-2">{t('settings_theme')}</label>
                         <div className="flex flex-wrap gap-2">
                             {Object.entries(themeLabels).map(([key, value]) => (
-                                // FIX: Cast `value` to access its properties.
                                 <Button key={key} variant={theme === key as Theme ? 'primary' : 'secondary'} size="small" onClick={() => setTheme(key as Theme)}>{t((value as { labelKey: string }).labelKey)}</Button>
                             ))}
                         </div>

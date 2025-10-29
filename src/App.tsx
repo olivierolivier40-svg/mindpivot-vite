@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
-import { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, Program, ActiveProgram, CompletedProgram } from './types.ts';
+import type { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, Program, ActiveProgram, CompletedProgram } from './types.ts';
 import { calculateStreaks } from './utils.ts';
 import { useI18n } from './hooks/useI18n.tsx';
 import { isBadgeUnlocked } from './badgeLogic.ts';
