@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindPivot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opendyslexic@latest/build/css/opendyslexic.min.css">
+    <style>
+      :root {
+        /* Default Dark Theme */
+        --color-bg: #121212;
+        --color-fg: #E0E0E0;
+        --color-card: #1E1E1E;
+        --color-muted: #888;
+        --color-muted-darker: #A0A0A0;
+        --color-accent: #0066FF;
+        --color-accent-secondary: #00B894;
+        --color-accent-tertiary: #FF6B35;
+        --color-accent-info: #29c2b4;
+        --color-accent-soft: rgba(0, 102, 255, 0.1);
+        --color-bad: #FF4757;
+        --color-link: #58a6ff;
+      }
+      .theme-light {
+        --color-bg: #F8F9FA;
+        --color-fg: #1A1A1A;
+        --color-card: #FFFFFF;
+        --color-muted: #6C757D;
+        --color-muted-darker: #495057;
+        --color-accent: #0066FF;
+        --color-accent-secondary: #00B894;
+        --color-accent-tertiary: #FF6B35;
+        --color-accent-info: #0084ff;
+        --color-accent-soft: rgba(0, 102, 255, 0.1);
+        --color-bad: #d93025;
+        --color-link: #0052CC;
+      }
+      .theme-aurora {
+        --color-bg: #0b0f22;
+        --color-fg: #e6e6fa;
+        --color-card: #1a1f38;
+        --color-muted: #c0c8f3;
+        --color-muted-darker: #a0a8e3;
+        --color-accent: #ff7f50;
+        --color-accent-secondary: #00B894;
+        --color-accent-tertiary: #FF6B35;
+        --color-accent-info: #b19cd9;
+        --color-accent-soft: rgba(255, 127, 80, 0.1);
+      }
+      .theme-dyslexia-tdah {
+        --color-bg: #faf4e6;
+        --color-fg: #2c2c2c;
+        --color-card: #ffffff;
+        --color-muted: #5a5a5a;
+        --color-muted-darker: #454545;
+        --color-accent: #005b96;
+        --color-accent-secondary: #00B894;
+        --color-accent-tertiary: #FF6B35;
+        --color-accent-info: #A0522D;
+        --color-accent-soft: rgba(0, 91, 150, 0.1);
+        --color-bad: #c70039;
+        --color-link: #005b96;
+      }
+      html.theme-aurora body { background-color: #0b0f22; background-image: linear-gradient(135deg, #2c0f38, #5a1a4f, #1e153f); background-attachment: fixed; }
+      html.theme-light body { background-color: var(--color-bg); background-image: radial-gradient(circle at 1% 1%, rgba(0, 184, 148, 0.1) 0%, transparent 30%), radial-gradient(circle at 99% 1%, rgba(255, 107, 53, 0.1) 0%, transparent 40%), radial-gradient(circle at 50% 99%, rgba(0, 102, 255, 0.1) 0%, transparent 40%); background-attachment: fixed; }
+      html.theme-dyslexia-tdah { font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important; letter-spacing: 0.05em; word-spacing: 0.1em; line-height: 1.7; }
+      html.theme-dyslexia-tdah *, html.theme-dyslexia-tdah *::before, html.theme-dyslexia-tdah *::after { animation-duration: 0s !important; transition-duration: 0s !important; animation: none !important; transition: none !important; }
+      html.theme-dyslexia-tdah p, html.theme-dyslexia-tdah li { text-align: left !important; hyphens: none; }
+      body { margin: 0; background-color: var(--color-bg); color: var(--color-fg); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow-x: hidden; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+      .font-poppins { font-family: 'Poppins', sans-serif; }
+      @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+      @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+      @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 40px var(--color-accent); } }
+      @keyframes subtle-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+      @keyframes emoji-pulse { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(5deg); } }
+      .animate-emoji-pulse { animation: emoji-pulse 3s infinite ease-in-out; }
+      @keyframes roll-dice { 0% { transform: rotate(0deg) scale(1); } 20% { transform: rotate(180deg) scale(0.8); } 40% { transform: rotate(360deg) scale(1.1); } 60% { transform: rotate(540deg) scale(0.9); } 80% { transform: rotate(720deg) scale(1.05); } 100% { transform: rotate(720deg) scale(1); } }
+      .group:hover .animate-roll-dice { animation: roll-dice 1s ease-out; }
+      .animate-subtle-pulse { animation: subtle-pulse 4s infinite ease-in-out; }
+      .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      .button-secondary-themed:hover { border-color: var(--color-accent); color: var(--color-accent); }
+      .btn-gradient-cta { background-image: linear-gradient(to right, var(--color-accent-tertiary) 0%, var(--color-accent) 50%, var(--color-accent-tertiary) 100%); background-size: 200% auto; color: white; transition: background-position 0.5s ease; border: none; }
+      .btn-gradient-cta:hover { background-position: right center; }
+      @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      .onboarding-icon { animation: fadeInUp 0.6s ease-out; }
+      @keyframes heartbeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.1); } 50% { transform: scale(1); } }
+      .heart-icon { animation: heartbeat 1.5s ease-in-out infinite; }
+      @keyframes eye-move { 0%, 100% { transform: translateX(-100px); } 50% { transform: translateX(100px); } }
+      @keyframes eye-move-slow { 0%, 100% { transform: translateX(-100px); } 50% { transform: translateX(100px); } }
+      @keyframes grow-bar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+      .animate-grow-bar { transform-origin: bottom; animation: grow-bar 0.5s ease-out forwards; }
+      .onboarding-container { background: linear-gradient(180deg, #FAFBFC 0%, #F0F2F5 100%); color: #1A1A1A; position: relative; overflow: hidden; }
+      .onboarding-slide::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.5; z-index: 0; }
+      .onboarding-bg-1::before { background-image: radial-gradient(circle at 10% 15%, rgba(102, 126, 234, 0.08) 0%, transparent 30%), radial-gradient(circle at 85% 90%, rgba(118, 75, 162, 0.08) 0%, transparent 40%); }
+      .onboarding-bg-2::before { background-image: radial-gradient(ellipse at 0% 50%, rgba(255, 107, 53, 0.08) 15%, transparent 25%), radial-gradient(ellipse at 100% 50%, rgba(255, 233, 120, 0.08) 15%, transparent 25%); background-size: 80px 160px; background-position: 0 0, 40px 80px; }
+      .onboarding-bg-3::before { background-image: radial-gradient(circle at 25% 75%, rgba(255, 105, 180, 0.08) 1px, transparent 2px), radial-gradient(circle at 75% 25%, rgba(255, 107, 107, 0.08) 1px, transparent 2px); background-size: 24px 24px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>
