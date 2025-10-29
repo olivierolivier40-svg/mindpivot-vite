@@ -1,10 +1,8 @@
-import React from 'react';
-
 interface EyeMovementAnimationProps {
     slow?: boolean;
 }
 
-export const EyeMovementAnimation: React.FC<EyeMovementAnimationProps> = ({slow}) => {
+export const EyeMovementAnimation = ({slow}: EyeMovementAnimationProps) => {
     return (
       <div className="w-full h-full flex items-center justify-center bg-black/20 rounded-lg overflow-hidden">
           <div className="relative w-[250px] h-8">

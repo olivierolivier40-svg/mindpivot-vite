@@ -1,4 +1,3 @@
-import React from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 
 interface SagesseMinutePlayerProps {
@@ -6,7 +5,7 @@ interface SagesseMinutePlayerProps {
     phaseIndex: number;
 }
 
-export const SagesseMinutePlayer: React.FC<SagesseMinutePlayerProps> = ({ quote, phaseIndex }) => {
+export const SagesseMinutePlayer = ({ quote, phaseIndex }: SagesseMinutePlayerProps) => {
     const { t } = useI18n();
     
     const phases = [

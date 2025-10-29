@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { supabase } from '../supabaseClient.ts';
 import { Button } from './Button.tsx';
 import { Card } from './Card.tsx';
@@ -7,7 +7,7 @@ interface AuthScreenProps {
     onAuthSuccess: () => void;
 }
 
-export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthSuccess }) => {
+export const AuthScreen = ({ onAuthSuccess }: AuthScreenProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLogin, setIsLogin] = useState(true);

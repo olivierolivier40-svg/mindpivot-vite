@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { Button } from './Button.tsx';
 
@@ -6,7 +6,7 @@ interface HowItWorksPageProps {
   onNavigate: (screen: string) => void;
 }
 
-export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) => {
+export const HowItWorksPage = ({ onNavigate }: HowItWorksPageProps) => {
   const { t } = useI18n();
   const [activeTab, setActiveTab] = useState('process');
 

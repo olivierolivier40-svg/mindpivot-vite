@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { Button } from './Button.tsx';
 
@@ -12,7 +12,7 @@ const ChevronDownIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const FAQPage: React.FC<FAQPageProps> = ({ onNavigate }) => {
+export const FAQPage = ({ onNavigate }: FAQPageProps) => {
   const { t } = useI18n();
   const [openId, setOpenId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState('all');

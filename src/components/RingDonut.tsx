@@ -1,12 +1,10 @@
-import React from 'react';
-
 interface RingDonutProps {
   label: string;
   ratio: number; // phase progress (0 to 1)
   sessionProgressRatio: number; // overall session progress
 }
 
-export const RingDonut: React.FC<RingDonutProps> = ({ label, ratio, sessionProgressRatio }) => {
+export const RingDonut = ({ label, ratio, sessionProgressRatio }: RingDonutProps) => {
   const size = 280;
   const outerRadius = 130;
   const innerRadius = 105;

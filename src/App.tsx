@@ -68,7 +68,6 @@ function App() {
   const [showInstallModal, setShowInstallModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
   const [geminiCheckinFeedback, setGeminiCheckinFeedback] = useState('');
   const [isLoadingCheckinFeedback, setIsLoadingCheckinFeedback] = useState(false);
   const [isLoadingJournalFeedbackForSession, setIsLoadingJournalFeedbackForSession] = useState<string | null>(null);
@@ -301,10 +300,6 @@ function App() {
     } finally {
         setIsLoadingJournalFeedbackForSession(null);
     }
-  };
-
-  const handleLogout = async () => {
-    alert("La déconnexion n'est pas applicable dans ce prototype.");
   };
 
   const handleOnboardingComplete = () => {

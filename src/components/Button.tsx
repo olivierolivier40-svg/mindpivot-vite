@@ -1,12 +1,13 @@
-import React from 'react';
+import { forwardRef } from 'react';
+import type { ReactNode, ButtonHTMLAttributes } from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
   variant?: 'primary' | 'secondary' | 'ghost' | 'info';
   size?: 'normal' | 'small' | 'large';
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant, size = 'normal', className, ...props }, ref) => {
     const baseClasses = 'font-poppins inline-flex items-center justify-center gap-2 font-semibold rounded-xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-center transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent';
     const sizeClasses = { 

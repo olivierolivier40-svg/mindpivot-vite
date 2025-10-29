@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from './Card.tsx';
 import { Button } from './Button.tsx';
 import { CheckinSlider } from './CheckinSlider.tsx';
@@ -17,7 +16,7 @@ interface CheckinPageProps {
   onHelp: (id: string) => void;
 }
 
-export const CheckinPage: React.FC<CheckinPageProps> = ({
+export const CheckinPage = ({
   energie,
   setEnergie,
   humeur,
@@ -27,7 +26,7 @@ export const CheckinPage: React.FC<CheckinPageProps> = ({
   onNavigate,
   onBack,
   onHelp,
-}) => {
+}: CheckinPageProps) => {
   const { t } = useI18n();
   return (
     <Card className="animate-fade-in">

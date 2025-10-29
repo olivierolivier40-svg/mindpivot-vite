@@ -1,9 +1,8 @@
-import React from 'react';
-import { Program } from '../types.ts';
+import type { Program } from '../types.ts';
 import { Button } from './Button.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 
-export const ProgramCard: React.FC<{ program: Program; onStart: (id: string) => void; onInfo: (id: string) => void; isLocked: boolean }> = ({ program, onStart, onInfo, isLocked }) => {
+export const ProgramCard = ({ program, onStart, onInfo, isLocked }: { program: Program; onStart: (id: string) => void; onInfo: (id: string) => void; isLocked: boolean }) => {
     const { t } = useI18n();
     return (
         <div className={`p-4 border border-white/10 rounded-xl bg-white/5 flex flex-col text-center gap-3 transition-all duration-200 hover:bg-white/[.08] ${isLocked ? 'opacity-60 grayscale-[50%]' : ''}`}>

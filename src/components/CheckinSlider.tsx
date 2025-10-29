@@ -1,17 +1,17 @@
-import React from 'react';
+import type { ChangeEvent, FC } from 'react';
 import { Button } from './Button.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 
 interface CheckinSliderProps {
     label: string;
     value: number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     labels: string[];
     helpId: string;
     onHelp: (id: string) => void;
 }
 
-export const CheckinSlider: React.FC<CheckinSliderProps> = ({ label, value, onChange, labels, helpId, onHelp }) => {
+export const CheckinSlider: FC<CheckinSliderProps> = ({ label, value, onChange, labels, helpId, onHelp }) => {
     const { t } = useI18n();
     return (
         <div className="py-3">

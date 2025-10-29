@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, forwardRef } from 'react';
+import { useRef, useEffect, forwardRef } from 'react';
 import { Button } from './Button.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 

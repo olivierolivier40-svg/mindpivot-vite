@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal } from './Modal.tsx';
 import { Button } from './Button.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
@@ -15,7 +14,7 @@ const CheckIcon = () => (
     </svg>
 );
 
-export const PremiumModal: React.FC<PremiumModalProps> = ({ show, onClose, onUpgrade }) => {
+export const PremiumModal = ({ show, onClose, onUpgrade }: PremiumModalProps) => {
     const { t } = useI18n();
     return (
         <Modal show={show} title={t('premium_modal_title')} onClose={onClose}>

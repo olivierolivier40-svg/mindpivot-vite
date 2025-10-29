@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from './Button.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 
@@ -30,7 +30,7 @@ interface OnboardingScreenProps {
   onComplete: () => void;
 }
 
-export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }) => {
+export const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
   const currentSlide = onboardingSlides[step];
