@@ -1,9 +1,8 @@
-import { type Dispatch, type SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { Button } from './Button.tsx';
 import { Card } from './Card.tsx';
 import type { SoundSettings } from '../types.ts';
-import { SOUND_OPTIONS } from '../constants.ts';
 
 type Theme = 'dark' | 'light' | 'aurora' | 'dyslexia-tdah';
 
