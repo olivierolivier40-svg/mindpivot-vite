@@ -773,6 +773,7 @@ const frTranslations: { [key: string]: string } = {
     "ritual_intention_matinale_modal_tips": "Une intention n'est pas un objectif à atteindre, mais une qualité d'être à cultiver (ex: 'patience', 'curiosité'). Gardez-la en tête tout au long de la journée.",
     "ritual_intention_matinale_modal_learn_more": "Fixer une intention matinale est une pratique de pleine conscience qui active le cortex préfrontal, nous aidant à passer d'un mode réactif à un mode proactif pour la journée.",
     "ritual_intention_matinale_modal_go_further": "• <a href='https://www.mindful.org/how-to-set-an-intention-for-your-day/' target='_blank' rel='noopener noreferrer'>How to Set an Intention for Your Day (Mindful.org)</a>",
+    "ritual_intention_matinale_instructions": "Choisissez l'énergie ou la qualité que vous souhaitez incarner pour donner une direction à votre journée.",
     "ritual_interrupteur_cosmique_label": "Interrupteur Cosmique",
     "ritual_interrupteur_cosmique_modal_title": "Interrupteur Cosmique",
     "ritual_interrupteur_cosmique_modal_why": "Ce rituel de visualisation t'aide à prendre de la distance par rapport à tes pensées ou problèmes en changeant radicalement de perspective.\n\nIl est particulièrement efficace contre la rumination mentale.",
