@@ -193,11 +193,23 @@ function App() {
   const closeInfoModal = () => { setInfoModalRitualId(null); infoTriggerRef.current?.focus(); };
   
   const handleRandomRitual = () => {
-      const availableRituals = RITUELS.filter(r => (!r.isPremium || isPremiumUser) && !r.id.endsWith('5m'));
+      const recentRitualIds = sessions.slice(-3).map(s => s.ritualId);
+      let availableRituals = RITUELS.filter(r => 
+          (!r.isPremium || isPremiumUser) && 
+          !r.id.endsWith('5m') && 
+          !recentRitualIds.includes(r.id)
+      );
+
       if (availableRituals.length === 0) {
-          setShowPremiumModal(true); // No free rituals available, prompt to upgrade
+          // Fallback if filtering leaves no options
+          availableRituals = RITUELS.filter(r => (!r.isPremium || isPremiumUser) && !r.id.endsWith('5m'));
+      }
+      
+      if (availableRituals.length === 0) {
+          setShowPremiumModal(true);
           return;
       }
+
       const randomRitual = availableRituals[Math.floor(Math.random() * availableRituals.length)];
       if (randomRitual) {
           handleStartRitual(randomRitual.id, 'random');
@@ -413,7 +425,7 @@ function App() {
           const answers = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
           const summary = Object.entries(answers)
             .filter(([, value]) => value !== 0)
-            .map(([key, value]) => `${key}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
+            .map(([key, value]) => `${t(`label_${key}_title`)}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
             .join(', ');
           
           const prompt = `En te basant sur le check-in suivant d'un utilisateur (${summary}), rédige une phrase de synthèse courte (1-2 phrases, 30 mots max), empathique et sans jugement en français qui valide son état actuel. La phrase doit être encourageante et introduire les suggestions de rituels qui vont suivre. Adresse-toi à l'utilisateur avec "tu". Ne retourne que la phrase, sans aucune introduction ou conclusion. Exemple: "Il semble que ton énergie soit un peu basse et ton esprit agité. Voici quelques rituels pour t'aider à t'ancrer et retrouver de la sérénité."`;
@@ -661,17 +673,16 @@ function App() {
                 <h3 className="font-bold text-lg mb-4 text-left">{t('journey_unlocked_badges', { unlockedCount: unlockedBadgeIds.length, totalCount: Object.keys(BADGES).length })}</h3>
                 {Object.entries(BADGE_CATEGORIES).map(([catKey, catValue]) => (
                     <div key={catKey} className="mb-4 text-left">
-                        <h4 className="font-semibold text-accent mb-2">{t(catValue as string)}</h4>
+                        <h4 className="font-semibold text-accent mb-2">{t(catValue)}</h4>
                         <div className="flex flex-wrap gap-4">
                         {Object.entries(BADGES)
-                          .filter(([, badge]) => (badge as Badge).category === catKey)
+                          .filter(([, badge]) => badge.category === catKey)
                           .map(([badgeId, badge]) => {
                             const isUnlocked = unlockedBadges[badgeId as BadgeId];
-                            const badgeData = badge as Badge;
                             return (
                                 <div key={badgeId} onClick={() => isUnlocked && setBadgeModal(badgeId as BadgeId)} className={`flex flex-col items-center text-center w-20 ${isUnlocked ? 'cursor-pointer' : 'opacity-40'}`}>
-                                    <div className="text-4xl p-2 rounded-full bg-white/5">{isUnlocked ? badgeData.icon : '❓'}</div>
-                                    <p className="text-xs mt-1">{t(badgeData.name)}</p>
+                                    <div className="text-4xl p-2 rounded-full bg-white/5">{isUnlocked ? badge.icon : '❓'}</div>
+                                    <p className="text-xs mt-1">{t(badge.name)}</p>
                                 </div>
                             );
                         })}
@@ -838,7 +849,7 @@ function App() {
         case 'player':
           if (activeRitual) {
             const checkinData = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
-            return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} checkinData={checkinData} />;
+            return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} checkinData={checkinData} onShowInfo={handleInfoRitual} />;
           }
           return null;
 
@@ -887,7 +898,7 @@ function App() {
         </footer>
       )}
 
-      {infoRitualData && <Modal show={!!infoRitualData} title={`${infoRitualData.modal.icon} ${t(infoRitualData.modal.titre)}`} onClose={closeInfoModal}>
+      {infoRitualData && <Modal show={!!infoRitualData} title={`${infoRitualData.modal.icon} ${t(infoRitualData.modal.titre)} (${Math.floor(infoRitualData.dureeSec / 60)} ${t('unit_min')})`} onClose={closeInfoModal}>
           <div className="space-y-4 max-h-[60vh] overflow-y-auto">
             <div><h4 className="font-bold text-accent">{t('why')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.pourquoi).replace(/\n/g, '<br />') }}></p></div>
             <div><h4 className="font-bold text-accent">{t('how')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.comment).replace(/\n/g, '<br />') }}></p></div>

@@ -34,8 +34,7 @@ export const StatsScreen = ({ sessions, onBack }: StatsScreenProps) => {
     let gradientParts: string[] = [];
     let currentPercentage = 0;
     for (const [category, count] of Object.entries(categoryCounts)) {
-        // FIX: Cast `count` to number for arithmetic operation.
-        const percentage = ((count as number) / totalRituals) * 100;
+        const percentage = (count / totalRituals) * 100;
         gradientParts.push(`${categoryColors[category] || '#7f8c8d'} ${currentPercentage}% ${currentPercentage + percentage}%`);
         currentPercentage += percentage;
     }
@@ -74,8 +73,7 @@ export const StatsScreen = ({ sessions, onBack }: StatsScreenProps) => {
                             {Object.entries(categoryCounts).map(([category, count]) => (
                                 <div key={category} className="flex items-center gap-2">
                                     <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: categoryColors[category] || '#7f8c8d' }}></div>
-                                    {/* FIX: Cast `count` to number for arithmetic operation and rendering. */}
-                                    <span>{category.charAt(0).toUpperCase() + category.slice(1)}: {count as number} ({(((count as number)/totalRituals)*100).toFixed(0)}%)</span>
+                                    <span>{category.charAt(0).toUpperCase() + category.slice(1)}: {count} ({((count/totalRituals)*100).toFixed(0)}%)</span>
                                 </div>
                             ))}
                         </div>

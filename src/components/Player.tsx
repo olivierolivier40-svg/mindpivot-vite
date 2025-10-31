@@ -18,6 +18,7 @@ interface PlayerProps {
   onCheckForNewBadges: (potentialSessions: Session[]) => BadgeId | null;
   soundSettings: SoundSettings;
   checkinData: Record<string, number>;
+  onShowInfo: (ritualId: string) => void;
 }
 
 const ListIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>;
@@ -44,7 +45,7 @@ interface OrganState {
   videoUrl?: string;
 }
 
-export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, checkinData }: PlayerProps) => {
+export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, checkinData, onShowInfo }: PlayerProps) => {
   const { t } = useI18n();
   const [ritual, setRitual] = useState(initialRitual);
   const [timeLeft, setTimeLeft] = useState(ritual.dureeSec);
@@ -58,7 +59,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [showDonut, setShowDonut] = useState(!!(ritual.donut && ritual.donut !== 'off'));
   const [phaseTime, setPhaseTime] = useState({current: 0, total: 0});
   const [phaseProgress, setPhaseProgress] = useState(0);
-  const [showInfo, setShowInfo] = useState(false);
   const [showMudraModal, setShowMudraModal] = useState(false);
   const [breathingDirection, setBreathingDirection] = useState<'apaisant' | 'dynamisant'>('apaisant');
   const [currentQuote, setCurrentQuote] = useState<{q: string; a: string} | null>(null);
@@ -356,7 +356,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
             const organDuration = ritual.dureeSec / ORGANES.length;
             const newIndex = Math.floor(elapsedSec / organDuration);
             if(newIndex < ORGANES.length && currentOrgan.index !== newIndex) {
-                setCurrentOrgan({ index: newIndex, ...(ORGANES[newIndex] as any) });
+                setCurrentOrgan({ index: newIndex, ...ORGANES[newIndex] });
             }
             if(organDuration > 0) currentPhaseProgress = (elapsedSec % organDuration) / organDuration;
         }
@@ -485,29 +485,27 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
   const handleRandomIntention = () => {
     const randomIndex = Math.floor(Math.random() * MORNING_INTENTIONS.length);
-    setCustomIntention(MORNING_INTENTIONS[randomIndex]);
+    setCustomIntention(t(MORNING_INTENTIONS[randomIndex]));
   };
 
   const handleAIGeneratedIntention = async () => {
       setIsGeneratingIntention(true);
       setCustomIntention(null);
-
       try {
-        const summary = Object.entries(checkinData)
-            .filter(([, value]) => value !== 0)
-            .map(([key, value]) => `${t(`label_${key}_title`)}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
-            .join(', ');
-
-        const prompt = `Basé sur ce bilan matinal d'un utilisateur : "${summary || 'Aucun bilan fourni, se baser sur une intention générale positive'}", propose une seule intention de journée, laïque, subtile et introspective (15 mots max). L'intention doit être une phrase affirmative à la première personne (Je...). Ne retourne que l'intention, sans aucune introduction.`;
-        
-        const intention = await generateGeminiText(prompt);
-        setCustomIntention(intention.trim());
-
+          const summary = Object.entries(checkinData)
+              .filter(([, value]) => value !== 0)
+              .map(([key, value]) => `${t(`label_${key}_title`)}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
+              .join(', ');
+  
+          const prompt = `Basé sur ce bilan matinal d'un utilisateur : "${summary || 'Aucun bilan fourni, se baser sur une intention générale positive'}", propose une seule intention de journée, laïque, subtile et introspective (15 mots max). L'intention doit être une phrase affirmative à la première personne (Je...). Ne retourne que l'intention, sans aucune introduction.`;
+          
+          const intention = await generateGeminiText(prompt);
+          setCustomIntention(intention.trim());
       } catch (error) {
-        console.error("Gemini intention generation error:", error);
-        setCustomIntention("Désolé, une erreur est survenue. Veuillez réessayer.");
+          console.error("Gemini intention generation error:", error);
+          setCustomIntention("Désolé, une erreur est survenue. Veuillez réessayer.");
       } finally {
-        setIsGeneratingIntention(false);
+          setIsGeneratingIntention(false);
       }
   };
   
@@ -737,7 +735,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       return (
           <Modal 
               show={true}
-              title={`${ritual.modal.icon} ${t(ritual.label)} - ${t('preparation')}`}
+              title={`${ritual.modal.icon} ${t(ritual.label)} - Préparation`}
               onClose={onBack}
               hideHeaderCloseButton={false}
               preStartNext={handlePreStartNext}
@@ -818,8 +816,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                     {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-48">{t('player_resume')}</Button>}
                 </div>
                 
-                <div className="flex-1 flex justify-end">
-                    {hasVideo && isRunning ? (
+                <div className="flex-1 flex justify-end items-center gap-2">
+                    {hasVideo && isRunning && (
                         <button 
                             onClick={() => setIsVideoSoundOn(p => !p)} 
                             className="w-10 h-10 flex items-center justify-center rounded-full bg-card hover:bg-white/10 transition-colors" 
@@ -828,7 +826,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                         >
                             {isVideoSoundOn ? <MusicOnIcon /> : <MusicOffIcon />}
                         </button>
-                    ) : <div className="w-10 h-10"></div>}
+                    )}
+                    <Button variant="ghost" size="small" onClick={() => onShowInfo(ritual.id)}>{t('player_know_more')}</Button>
                 </div>
             </footer>
 
@@ -838,14 +837,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                 </div>
             )}
         </div>
-        
-        <Modal show={showInfo} title={`${ritual.modal.icon} ${t(ritual.modal.titre)}`} onClose={() => setShowInfo(false)}>
-          <div className="space-y-4 max-h-[60vh] overflow-y-auto">
-            <div><h4 className="font-bold text-accent">{t('why')}</h4><p className="text-muted" dangerouslySetInnerHTML={{ __html: t(ritual.modal.sections.pourquoi).replace(/\n/g, '<br />') }}></p></div>
-            <div><h4 className="font-bold text-accent">{t('how')}</h4><p className="text-muted" dangerouslySetInnerHTML={{ __html: t(ritual.modal.sections.comment).replace(/\n/g, '<br />') }}></p></div>
-            {ritual.modal.sections.enSavoirPlus && <div><h4 className="font-bold text-accent">{t('learn_more')}</h4><p className="text-muted" dangerouslySetInnerHTML={{ __html: t(ritual.modal.sections.enSavoirPlus).replace(/\n/g, '<br />') }}></p></div>}
-          </div>
-        </Modal>
 
         <Modal show={showMudraModal} title={t('player_nadi_finger_position_title')} onClose={() => setShowMudraModal(false)}>
             <img src="https://www.magnetiseur-dax.fr/webapp/Aura/nasagra-mudra.jpg" referrerPolicy="no-referrer" alt={t('player_nadi_finger_position_title')} className="w-full rounded-lg mb-4"/>
@@ -854,13 +845,13 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
         <Modal show={showIntentionsModal} title="Exemples d'intentions" onClose={() => setShowIntentionsModal(false)}>
             <ul className="space-y-2">
-                {MORNING_INTENTIONS.map((intention, index) => (
+                {MORNING_INTENTIONS.map((intentionKey, index) => (
                     <li key={index}>
                         <button 
-                            onClick={() => { setCustomIntention(intention); setShowIntentionsModal(false); }} 
+                            onClick={() => { setCustomIntention(t(intentionKey)); setShowIntentionsModal(false); }} 
                             className="w-full text-left p-2 rounded-lg hover:bg-white/10"
                         >
-                            {intention}
+                            {t(intentionKey)}
                         </button>
                     </li>
                 ))}
