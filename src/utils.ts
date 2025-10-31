@@ -1,4 +1,4 @@
-import { Session, Streaks } from "./types.ts";
+import type { Session, Streaks } from './types';
 
 export const calculateStreaks = (sessions: Session[]): Streaks => {
     if (sessions.length < 1) return { current: 0, longest: 0 };
