@@ -1187,29 +1187,21 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_priere_du_soir_label',
         category: 'micro-rituel',
         playerType: 'phased-ritual',
-        dureeSec: 200,
+        dureeSec: 90,
         donut: 'off',
         haptique: {},
-        tags: ['sommeil', 'lacher-prise', 'gratitude', 'compassion', 'spiritualité'],
+        tags: ['sommeil', 'lacher-prise', 'gratitude', 'compassion'],
         isPremium: true,
-        instructions: 'ritual_priere_du_soir_instructions',
         data: {
           phases: [
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_1_name', instruction: 'ritual_priere_du_soir_phase_1_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_2_name', instruction: 'ritual_priere_du_soir_phase_2_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_3_name', instruction: 'ritual_priere_du_soir_phase_3_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_4_name', instruction: 'ritual_priere_du_soir_phase_4_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_5_name', instruction: 'ritual_priere_du_soir_phase_5_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_6_name', instruction: 'ritual_priere_du_soir_phase_6_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_7_name', instruction: 'ritual_priere_du_soir_phase_7_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_8_name', instruction: 'ritual_priere_du_soir_phase_8_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_9_name', instruction: 'ritual_priere_du_soir_phase_9_instruction', duration: 20 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_10_name', instruction: 'ritual_priere_du_soir_phase_10_instruction', duration: 20 },
+            { type: 'texte', name: 'ritual_priere_du_soir_phase_1_name', instruction: 'ritual_priere_du_soir_phase_1_instruction_new', duration: 30 },
+            { type: 'texte', name: 'ritual_priere_du_soir_phase_2_name', instruction: 'ritual_priere_du_soir_phase_2_instruction_new', duration: 30 },
+            { type: 'texte', name: 'ritual_priere_du_soir_phase_3_name', instruction: 'ritual_priere_du_soir_phase_3_instruction_new', duration: 30 },
           ]
         },
         modal: {
           titre: 'ritual_priere_du_soir_modal_title',
-          icon: '📿',
+          icon: '🌃',
           sections: {
             pourquoi: 'ritual_priere_du_soir_modal_why',
             comment: 'ritual_priere_du_soir_modal_how',
@@ -1276,11 +1268,11 @@ export const RITUELS: Ritual[] = [
         isPremium: false,
         data: {
           phases: [
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_1_name', instruction: 'ritual_sagesse_tolteque_phase_1_instruction', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_2_name', instruction: 'ritual_sagesse_tolteque_phase_2_instruction', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_3_name', instruction: 'ritual_sagesse_tolteque_phase_3_instruction', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_4_name', instruction: 'ritual_sagesse_tolteque_phase_4_instruction', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_5_name', instruction: 'ritual_sagesse_tolteque_phase_5_instruction', duration: 30 },
+            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_1_name', instruction: 'ritual_sagesse_tolteque_phase_1_instruction_new', duration: 30 },
+            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_2_name', instruction: 'ritual_sagesse_tolteque_phase_2_instruction_new', duration: 30 },
+            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_3_name', instruction: 'ritual_sagesse_tolteque_phase_3_instruction_new', duration: 30 },
+            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_4_name', instruction: 'ritual_sagesse_tolteque_phase_4_instruction_new', duration: 30 },
+            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_5_name', instruction: 'ritual_sagesse_tolteque_phase_5_instruction_new', duration: 30 },
           ]
         },
         modal: {
@@ -1523,9 +1515,11 @@ export const RITUAL_INSTRUCTIONS: Record<string, {time: number, text: string}[]>
 };
 
 export const MORNING_INTENTIONS: string[] = [
-    "Aujourd'hui, je choisis le calme et la patience.",
-    "J'accueille cette journée avec curiosité et ouverture.",
-    "Je suis reconnaissant(e) pour ce nouveau jour.",
-    "Je me concentre sur le progrès, pas la perfection.",
-    "Je suis à l'écoute de mes besoins et je les respecte."
+    'morning_intention_1', 'morning_intention_2', 'morning_intention_3', 'morning_intention_4', 'morning_intention_5',
+    'morning_intention_6', 'morning_intention_7', 'morning_intention_8', 'morning_intention_9', 'morning_intention_10',
+    'morning_intention_11', 'morning_intention_12', 'morning_intention_13', 'morning_intention_14', 'morning_intention_15',
+    'morning_intention_16', 'morning_intention_17', 'morning_intention_18', 'morning_intention_19', 'morning_intention_20',
+    'morning_intention_21', 'morning_intention_22', 'morning_intention_23', 'morning_intention_24', 'morning_intention_25',
+    'morning_intention_26', 'morning_intention_27', 'morning_intention_28', 'morning_intention_29', 'morning_intention_30',
+    'morning_intention_31', 'morning_intention_32', 'morning_intention_33'
 ];

@@ -1,6 +1,6 @@
-import type { Session, Streaks } from './types';
+import type { Session, Streaks } from "./types.ts";
 
-export const calculateStreaks = (sessions: Session[]): Streaks => {
+export const calculateSessionStreaks = (sessions: Session[]): Streaks => {
     if (sessions.length < 1) return { current: 0, longest: 0 };
     const toISODate = (date: Date) => date.toISOString().split('T')[0];
     const practiceDates = [...new Set(sessions.map(s => toISODate(new Date(s.timestamp))))].sort((a, b) => b.localeCompare(a));

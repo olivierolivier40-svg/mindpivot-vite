@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
 import type { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, ActiveProgram, CompletedProgram } from './types.ts';
-import { calculateStreaks } from './utils.ts';
+import { calculateSessionStreaks } from './utils.ts';
 import { useI18n } from './hooks/useI18n.tsx';
 import { isBadgeUnlocked } from './badgeLogic.ts';
 import { generateGeminiText } from './services/geminiService.ts';
@@ -217,7 +217,7 @@ function App() {
   };
   
   const checkForNewBadges = useCallback((potentialSessions: Session[]): BadgeId | null => {
-      const streaks = calculateStreaks(potentialSessions);
+      const streaks = calculateSessionStreaks(potentialSessions);
       const badgeIds = Object.keys(BADGES) as BadgeId[];
       for (const badgeId of badgeIds) {
           if (!unlockedBadges[badgeId]) {
@@ -261,7 +261,7 @@ function App() {
                   setCompletedPrograms(prev => {
                     const updated = [...prev, { programId: program.id, completedAt: new Date().toISOString() }];
                     // Check for parcours badge immediately after completion
-                    const streaks = calculateStreaks(sessions);
+                    const streaks = calculateSessionStreaks(sessions);
                     const parcoursBadgeId: BadgeId = 'PARCOURS_TERMINE';
                     if (!unlockedBadges[parcoursBadgeId] && isBadgeUnlocked(parcoursBadgeId, sessions, streaks, updated)) {
                          setUnlockedBadges(prevBadges => {
@@ -445,7 +445,7 @@ function App() {
 
   const infoRitualData = RITUELS.find(r => r.id === infoModalRitualId);
   const programInfoData = PROGRAMS.find(p => p.id === programInfoModalId);
-  const streaks: Streaks = calculateStreaks(sessions);
+  const streaks: Streaks = calculateSessionStreaks(sessions);
   const handleShare = async () => { if(navigator.share){ try { await navigator.share({ title: 'MindPivot', text: 'Une webapp de micro-rituels pour apaiser, clarifier et dynamiser.', url: window.location.href }); } catch(e) { console.error('Share failed', e); } } else { setShowShareModal(true); } };
   const handleShareBadge = async (badge: Badge) => { if(navigator.share){ try { await navigator.share({ title: t('journey_badge_share_title'), text: t('journey_badge_share_text', { badgeName: t(badge.name), badgeIcon: badge.icon }), url: window.location.href }); } catch(e) { console.error('Share failed', e); } } else { alert(t('share_not_supported')); } };
   
