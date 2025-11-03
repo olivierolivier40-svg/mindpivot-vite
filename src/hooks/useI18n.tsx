@@ -1158,7 +1158,11 @@ const frTranslations: { [key: string]: string } = {
     "program_sagesse_interieure_7j_description": "Un parcours de 7 jours pour cultiver la paix intérieure, la clarté et la compassion.",
     "program_sagesse_interieure_7j_details_objective": "Te connecter à ta sagesse intérieure, développer une relation plus bienveillante avec toi-même, et trouver plus de sens et de sérénité au quotidien.",
     "program_sagesse_interieure_7j_details_mechanism": "Ce programme est une immersion dans des pratiques introspectives et philosophiques (Sagesse Toltèque, Prière du Soir, Sagesse Minute), des exercices d'auto-compassion (Étreinte de l'Ombre, Gratitude) et des techniques de lâcher-prise (Intention Glissante, Balancier Neutre).",
-    "program_sagesse_interieure_7j_details_benefits": "Plus de paix intérieure, de meilleures relations, une plus grande acceptation de soi, et des décisions plus alignées avec tes valeurs profondes."
+    "program_sagesse_interieure_7j_details_benefits": "Plus de paix intérieure, de meilleures relations, une plus grande acceptation de soi, et des décisions plus alignées avec tes valeurs profondes.",
+    "ritual_activation_grace_phase_1_instruction": "Levez les mains au niveau du cœur, paumes vers le ciel, en signe de réception.",
+"ritual_activation_grace_phase_2_instruction": "Ouvrez les mains sur les côtés, comme pour accueillir une énergie bienveillante.",
+"ritual_activation_grace_phase_3_instruction": "Ramenez les mains au cœur, intégrant cette énergie de grâce et de gratitude.",
+"ritual_intention_matinale_instructions2": "Choisissez l'énergie ou la qualité que vous souhaitez incarner pour donner une direction à votre journée."
 };
 
 // This custom hook provides a translation function 't'.
