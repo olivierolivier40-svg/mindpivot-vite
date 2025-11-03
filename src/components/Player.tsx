@@ -29,6 +29,7 @@ const MusicOffIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 19c0 1.1.895 2 2 2s2-.9 2-2M9 19c0-1.1.895-2 2-2s2 .9 2 2m9-11l-6-1.5" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" />
 </svg>;
+const CloseIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>;
 
 
 const protocolMap: Record<string, {n: string, s: number}[]> = {
@@ -707,15 +708,15 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         <div className="flex items-center justify-center gap-4 w-full">
             <div className="flex flex-col items-center gap-2">
                 <Button onClick={() => setShowIntentionsModal(true)} variant="secondary" className="!p-0 w-14 h-14 flex items-center justify-center rounded-full"><ListIcon /></Button>
-                <span className="text-xs text-muted">Exemples</span>
+                <span className="text-xs text-muted">{t('intention_button_examples')}</span>
             </div>
             <div className="flex flex-col items-center gap-2">
                 <Button onClick={handleRandomIntention} variant="secondary" className="!p-0 w-14 h-14 flex items-center justify-center rounded-full"><DiceIcon /></Button>
-                <span className="text-xs text-muted">1 au hasard</span>
+                <span className="text-xs text-muted">{t('intention_button_random')}</span>
             </div>
             <div className="flex flex-col items-center gap-2">
                 <Button onClick={handleAIGeneratedIntention} disabled={isGeneratingIntention} variant="secondary" className="!p-0 w-14 h-14 flex items-center justify-center rounded-full"><SparkleIcon /></Button>
-                <span className="text-xs text-muted">La plus adaptée !</span>
+                <span className="text-xs text-muted">{t('intention_button_ai')}</span>
             </div>
         </div>
     </div>
@@ -735,7 +736,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       return (
           <Modal 
               show={true}
-              title={`${ritual.modal.icon} ${t(ritual.label)} - Préparation`}
+              title={`${ritual.modal.icon} ${t(ritual.label)} - ${t('preparation')}`}
               onClose={onBack}
               hideHeaderCloseButton={false}
               preStartNext={handlePreStartNext}
@@ -763,7 +764,15 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   }
 
   return (
-    <div className="w-full h-[calc(100vh-2rem)] flex flex-col items-center text-center animate-fade-in">
+    <div className="w-full h-[calc(100vh-2rem)] flex flex-col items-center text-center animate-fade-in relative">
+        <button 
+            onClick={() => stop(false)} 
+            className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-card/50 hover:bg-white/10 transition-colors"
+            aria-label={t('close')}
+        >
+            <CloseIcon />
+        </button>
+        
         <header className="w-full p-4 pt-6">
             <h2 className="text-2xl font-bold">{t(ritual.label)}</h2>
             <p className="text-muted">
@@ -811,9 +820,9 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                 </div>
                 
                 <div className="flex-shrink-0">
-                    {!isRunning && <Button variant="primary" size="large" onClick={start} className="w-48">{t('start')}</Button>}
-                    {isRunning && !isPaused && <Button variant="secondary" size="large" onClick={pause} className="w-48">{t('player_pause')}</Button>}
-                    {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-48">{t('player_resume')}</Button>}
+                    {!isRunning && <Button variant="primary" size="large" onClick={start} className="w-40">{t('start')}</Button>}
+                    {isRunning && !isPaused && <Button variant="secondary" size="large" onClick={pause} className="w-40">{t('player_pause')}</Button>}
+                    {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>}
                 </div>
                 
                 <div className="flex-1 flex justify-end items-center gap-2">
@@ -827,7 +836,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                             {isVideoSoundOn ? <MusicOnIcon /> : <MusicOffIcon />}
                         </button>
                     )}
-                    <Button variant="ghost" size="small" onClick={() => onShowInfo(ritual.id)}>{t('player_know_more')}</Button>
+                    <Button variant="ghost" size="small" onClick={() => onShowInfo(ritual.id)} className="!text-accent-info">{t('player_know_more')}</Button>
                 </div>
             </footer>
 
@@ -843,7 +852,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
             <p className="text-muted">{t('player_nadi_finger_position_desc')}</p>
         </Modal>
 
-        <Modal show={showIntentionsModal} title="Exemples d'intentions" onClose={() => setShowIntentionsModal(false)}>
+        <Modal show={showIntentionsModal} title={t('intention_examples_title')} onClose={() => setShowIntentionsModal(false)}>
             <ul className="space-y-2">
                 {MORNING_INTENTIONS.map((intentionKey, index) => (
                     <li key={index}>
