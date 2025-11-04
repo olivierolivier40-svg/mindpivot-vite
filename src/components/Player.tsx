@@ -780,8 +780,18 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
             </p>
         </header>
 
-        <main className="w-full flex-1 flex flex-col items-center justify-center p-4 min-h-0">
+        <main className="w-full flex-1 flex flex-col items-center justify-center p-4 min-h-0 relative">
           {isPreStart ? renderPreStartContent() : renderActiveContent()}
+          {hasVideo && isRunning && !isPreStart && (
+            <button 
+                onClick={() => setIsVideoSoundOn(p => !p)} 
+                className="absolute top-6 right-6 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60 transition-colors" 
+                title={t('player_video_music')}
+                aria-label={t('player_toggle_music')}
+            >
+                {isVideoSoundOn ? <MusicOnIcon /> : <MusicOffIcon />}
+            </button>
+          )}
         </main>
         
         <div className="w-full max-w-lg px-4 pb-4 space-y-3">
@@ -825,17 +835,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                     {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>}
                 </div>
                 
-                <div className="flex-1 flex justify-end items-center gap-2">
-                    {hasVideo && isRunning && (
-                        <button 
-                            onClick={() => setIsVideoSoundOn(p => !p)} 
-                            className="w-10 h-10 flex items-center justify-center rounded-full bg-card hover:bg-white/10 transition-colors" 
-                            title={t('player_video_music')}
-                            aria-label={t('player_toggle_music')}
-                        >
-                            {isVideoSoundOn ? <MusicOnIcon /> : <MusicOffIcon />}
-                        </button>
-                    )}
+                <div className="flex-1 flex justify-end items-center">
                     <Button variant="ghost" size="small" onClick={() => onShowInfo(ritual.id)} className="!text-accent-info">{t('player_know_more')}</Button>
                 </div>
             </footer>

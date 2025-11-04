@@ -58,9 +58,9 @@ export const CheckinPage = ({
           helpId="chargeMentale"
           onHelp={onHelp}
         />
-        <div className="flex gap-4 justify-center mt-4">
-          <Button onClick={() => onNavigate('checkin_general')}>{t('continue')}</Button>
-          <Button variant="info" onClick={() => onNavigate('suggestions')}>{t('checkin_direct_suggestions')}</Button>
+        <div className="flex flex-col gap-3 mt-6">
+          <Button variant="primary" className="w-full" onClick={() => onNavigate('checkin_general')}>{t('checkin_refine')}</Button>
+          <Button variant="info" className="w-full" onClick={() => onNavigate('suggestions')}>{t('checkin_direct_suggestions')}</Button>
         </div>
       </div>
     </Card>
