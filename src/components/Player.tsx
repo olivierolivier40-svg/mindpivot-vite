@@ -232,7 +232,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         const currentPhaseData = ritual.playerType === 'phased-ritual' ? ritual.data.phases[ritualPhaseIndex] : null;
         const isBreathingPhase = (ritual.playerType === 'respiration' || ritual.playerType === 'bento' || (currentPhaseData && currentPhaseData.type === 'respiration'));
 
-        if (showDonut && isBreathingPhase && isRunning) {
+        if (isRunning && isBreathingPhase && (showDonut || (currentPhaseData && currentPhaseData.type === 'respiration'))) {
             let timeForBreathingCalc = elapsedSec;
             if (currentPhaseData && currentPhaseData.type === 'respiration') {
                 const breathingPhaseStartTime = ritual.data.phases.slice(0, ritualPhaseIndex).reduce((acc: number, p: any) => acc + p.duration, 0);

@@ -611,17 +611,29 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_synchro_gamma_label',
         category: 'neuro',
         playerType: 'phased-ritual',
-        dureeSec: 180,
+        dureeSec: 228,
         donut: 'off',
         haptique: {},
-        tags: ['focus', 'performance', 'clarifier', 'neuro'],
+        tags: ['focus', 'performance', 'clarifier', 'neuro', 'respiration'],
         isPremium: true,
         data: {
           phases: [
-            { type: 'texte', name: 'ritual_synchro_gamma_phase_1_name', instruction: 'ritual_synchro_gamma_phase_1_instruction', duration: 15 },
-            { type: 'texte', name: 'ritual_synchro_gamma_phase_2_name', instruction: 'ritual_synchro_gamma_phase_2_instruction', duration: 60 },
-            { type: 'texte', name: 'ritual_synchro_gamma_phase_3_name', instruction: 'ritual_synchro_gamma_phase_3_instruction', duration: 75 },
-            { type: 'texte', name: 'ritual_synchro_gamma_phase_4_name', instruction: 'ritual_synchro_gamma_phase_4_instruction', duration: 30 },
+            { type: 'image', name: 'ritual_synchro_gamma_phase_1_name', instruction: 'ritual_synchro_gamma_phase_1_instruction', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/chaise.png' },
+            { type: 'video', name: 'ritual_synchro_gamma_phase_2_name', instruction: 'ritual_synchro_gamma_phase_2_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/oeilgaucheferme.mp4' },
+            { type: 'video', name: 'ritual_synchro_gamma_phase_3_name', instruction: 'ritual_synchro_gamma_phase_3_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/oeildroitferme.mp4' },
+            { type: 'video', name: 'ritual_synchro_gamma_phase_4_name', instruction: 'ritual_synchro_gamma_phase_4_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/oeillouche.mp4' },
+            { 
+              type: 'respiration', 
+              name: 'ritual_synchro_gamma_phase_5_name', 
+              instruction: 'ritual_synchro_gamma_phase_5_instruction', 
+              duration: 128,
+              protocol: [
+                { n: 'breathe_in', s: 4 },
+                { n: 'hold_full', s: 4 },
+                { n: 'breathe_out', s: 4 },
+                { n: 'hold_empty', s: 4 },
+              ]
+            },
           ]
         },
         modal: {
