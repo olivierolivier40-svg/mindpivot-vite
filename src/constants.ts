@@ -121,11 +121,12 @@ export const RITUELS: Ritual[] = [
         isPremium: false,
         data: {
           phases: [
-            { type: 'image', name: 'ritual_automassage_cervical_phase_1a_name', instruction: 'ritual_automassage_cervical_phase_1_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/cervical-rotations.png' },
-            { type: 'image', name: 'ritual_automassage_cervical_phase_2a_name', instruction: 'ritual_automassage_cervical_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/cervical-trapeze.png' },
-            { type: 'image', name: 'ritual_automassage_cervical_phase_2b_name', instruction: 'ritual_automassage_cervical_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/cervical-trapeze.png' },
-            { type: 'image', name: 'ritual_automassage_cervical_phase_3_name', instruction: 'ritual_automassage_cervical_phase_3_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/cervical-occiput.png' },
-            { type: 'image', name: 'ritual_automassage_cervical_phase_4_name', instruction: 'ritual_automassage_cervical_phase_4_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/cervical-lissage.png' },
+            { type: 'image', name: 'ritual_automassage_cervical_phase_1a_name', instruction: 'ritual_automassage_cervical_phase_1_instruction', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/gd1.png' },
+            { type: 'image', name: 'ritual_automassage_cervical_phase_1a_name', instruction: 'ritual_automassage_cervical_phase_1_instruction', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/gd.png' },
+            { type: 'image', name: 'ritual_automassage_cervical_phase_2a_name', instruction: 'ritual_automassage_cervical_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/epauled.png' },
+            { type: 'image', name: 'ritual_automassage_cervical_phase_2b_name', instruction: 'ritual_automassage_cervical_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/epaule.png' },
+            { type: 'image', name: 'ritual_automassage_cervical_phase_3_name', instruction: 'ritual_automassage_cervical_phase_3_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/dos2.png' },
+            { type: 'image', name: 'ritual_automassage_cervical_phase_4_name', instruction: 'ritual_automassage_cervical_phase_4_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/dos.png' },
           ]
         },
         modal: {
