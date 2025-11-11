@@ -208,7 +208,9 @@ export const RITUELS: Ritual[] = [
         haptique: {},
         tags: ['détente', 'somatique', 'pleine-conscience', 'apaiser', 'sommeil'],
         isPremium: false,
-        data: { audioUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/sounds/body-scan-180s.mp3' },
+        data: {
+            audioUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/body-scan.mp3'
+        },
         modal: {
             titre: 'ritual_body_scan_180_modal_title',
             icon: '🧘',

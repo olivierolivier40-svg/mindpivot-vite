@@ -638,7 +638,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                     loop 
                     muted={!isVideoSoundOn}
                     playsInline 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                 />
               </div>
               <div className="mt-4 p-3 text-center text-xl font-semibold animate-fade-in">
