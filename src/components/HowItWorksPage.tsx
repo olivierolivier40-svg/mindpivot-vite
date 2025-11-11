@@ -25,7 +25,7 @@ export const HowItWorksPage = ({ onNavigate }: HowItWorksPageProps) => {
           </p>
         </div>
 
-        <div className="flex gap-2 sm:gap-4 mb-8 overflow-x-auto pb-2 justify-center">
+        <div className="flex flex-col items-center gap-3 mb-8">
           {[
             { id: 'process', label: 'howitworks_tab_process', icon: '🔄' },
             { id: 'science', label: 'howitworks_tab_science', icon: '🧬' },
@@ -34,7 +34,7 @@ export const HowItWorksPage = ({ onNavigate }: HowItWorksPageProps) => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 sm:px-6 py-3 rounded-lg font-medium transition whitespace-nowrap text-sm sm:text-base ${
+              className={`w-full max-w-xs px-4 sm:px-6 py-3 rounded-lg font-medium transition text-sm sm:text-base ${
                 activeTab === tab.id
                   ? 'bg-accent text-white'
                   : 'bg-card text-muted hover:bg-white/10'
