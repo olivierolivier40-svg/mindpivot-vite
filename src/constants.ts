@@ -328,8 +328,8 @@ export const RITUELS: Ritual[] = [
           phases: [
             { type: 'image', name: 'ritual_eft_mini_phase_1_name', instruction: 'ritual_eft_mini_phase_1_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/eft-karate.png' },
             { type: 'image', name: 'ritual_eft_mini_phase_2_name', instruction: 'ritual_eft_mini_phase_2_instruction', duration: 70, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/eft-ronde.png' },
-            { type: 'image', name: 'ritual_eft_mini_phase_3_name', instruction: 'ritual_eft_mini_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/eft-karate.png' },
-            { type: 'texte', name: 'ritual_eft_mini_phase_4_name', instruction: 'ritual_eft_mini_phase_4_instruction', duration: 20 },
+            { type: 'image', name: 'ritual_eft_mini_phase_3_name', instruction: 'ritual_eft_mini_phase_1_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/eft-karate.png' },
+            { type: 'texte', name: 'ritual_eft_mini_phase_4_name', instruction: 'ritual_eft_mini_phase_3_instruction', duration: 20 },
           ]
         },
         modal: {
