@@ -1144,5 +1144,11 @@
     "morning_intention_30": "Je lâche prise sur le besoin d'avoir raison.",
     "morning_intention_31": "J'honore mes limites.",
     "morning_intention_32": "Je me réjouis du succès des autres.",
-    "morning_intention_33": "Je suis une force de paix dans mon environnement."
+    "morning_intention_33": "Je suis une force de paix dans mon environnement.",
+     "stats_last_30_days_activity": "Activité des 30 derniers jours",
+    "stats_this_year_activity": "Activité de cette année",
+    "stats_7_days": "7 jours",
+    "stats_30_days": "30 jours",
+    "stats_this_year": "Cette année",
+    "stats_month_of": "{count} rituels en {month}"
 }

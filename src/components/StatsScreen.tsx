@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react';
 import type { Session } from '../types.ts';
 import { RITUELS } from '../constants.ts';
 import { Card } from './Card.tsx';
@@ -11,6 +12,8 @@ interface StatsScreenProps {
 
 export const StatsScreen = ({ sessions, onBack }: StatsScreenProps) => {
     const { t } = useI18n();
+    const [activityRange, setActivityRange] = useState<'7d' | '30d' | 'year'>('7d');
+
     const totalSeconds = sessions.reduce((acc, s) => acc + s.dureeSec, 0);
     const totalMinutes = Math.floor(totalSeconds / 60);
     const averageSeconds = sessions.length > 0 ? totalSeconds / sessions.length : 0;
@@ -39,6 +42,62 @@ export const StatsScreen = ({ sessions, onBack }: StatsScreenProps) => {
         currentPercentage += percentage;
     }
     const conicGradient = `conic-gradient(${gradientParts.join(', ')})`;
+    
+    const chartData = useMemo(() => {
+        const today = new Date();
+        today.setHours(23, 59, 59, 999); // Ensure today includes the whole day
+        const data: { label: string; count: number; tooltip: string; key: string }[] = [];
+
+        if (activityRange === '7d') {
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() - (6-i));
+                const dateString = date.toDateString();
+                const count = sessions.filter(s => new Date(s.timestamp).toDateString() === dateString).length;
+                data.push({
+                    key: dateString,
+                    label: date.toLocaleDateString('fr', { weekday: 'short' }).slice(0, 1).toUpperCase(),
+                    count,
+                    tooltip: t('stats_rituals_on_date', { count, date: date.toLocaleDateString('fr') })
+                });
+            }
+        } else if (activityRange === '30d') {
+            for (let i = 0; i < 30; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() - (29-i));
+                const dateString = date.toDateString();
+                const count = sessions.filter(s => new Date(s.timestamp).toDateString() === dateString).length;
+                data.push({
+                    key: dateString,
+                    label: date.toLocaleDateString('fr', { day: 'numeric' }),
+                    count,
+                    tooltip: t('stats_rituals_on_date', { count, date: date.toLocaleDateString('fr') })
+                });
+            }
+        } else if (activityRange === 'year') {
+            const currentYear = today.getFullYear();
+            const yearSessions = sessions.filter(s => new Date(s.timestamp).getFullYear() === currentYear);
+            for (let i = 0; i < 12; i++) {
+                const monthName = new Date(currentYear, i, 1).toLocaleDateString('fr', { month: 'long' });
+                const count = yearSessions.filter(s => new Date(s.timestamp).getMonth() === i).length;
+                data.push({
+                    key: `${currentYear}-${i}`,
+                    label: monthName.slice(0, 3),
+                    count,
+                    tooltip: t('stats_month_of', { count, month: monthName })
+                });
+            }
+        }
+        return data;
+    }, [activityRange, sessions, t]);
+
+    const maxCount = Math.max(1, ...chartData.map(d => d.count));
+
+    const rangeTitles: Record<typeof activityRange, string> = {
+        '7d': t('stats_last_7_days_activity'),
+        '30d': t('stats_last_30_days_activity'),
+        'year': t('stats_this_year_activity'),
+    };
     
     return (
       <Card className="animate-fade-in">
@@ -69,11 +128,11 @@ export const StatsScreen = ({ sessions, onBack }: StatsScreenProps) => {
                    {totalRituals > 0 ? (
                        <>
                         <div className="w-32 h-32 rounded-full" style={{ background: conicGradient }}></div>
-                        <div className="text-xs space-y-1">
+                        <div className="text-xs space-y-1 self-start w-full">
                             {Object.entries(categoryCounts).map(([category, count]) => (
                                 <div key={category} className="flex items-center gap-2">
                                     <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: categoryColors[category] || '#7f8c8d' }}></div>
-                                    <span>{category.charAt(0).toUpperCase() + category.slice(1)}: {count} ({((count/totalRituals)*100).toFixed(0)}%)</span>
+                                    <span>{t(`stats_category_${category}`)}: {count} ({((count/totalRituals)*100).toFixed(0)}%)</span>
                                 </div>
                             ))}
                         </div>
@@ -86,24 +145,34 @@ export const StatsScreen = ({ sessions, onBack }: StatsScreenProps) => {
 
         </div>
 
-        <div className="mt-6">
-            <h3 className="font-bold text-lg mb-2 text-accent">{t('stats_last_7_days_activity')}</h3>
-            <div className="flex justify-around items-end h-32 bg-white/5 p-2 rounded-lg">
-                {Array.from({length: 7}).map((_, i) => {
-                    const date = new Date();
-                    date.setDate(date.getDate() - (6 - i));
-                    const dayLabel = date.toLocaleDateString('fr', { weekday: 'short' }).charAt(0).toUpperCase();
-                    const count = sessions.filter(s => new Date(s.timestamp).toDateString() === date.toDateString()).length;
-                    const barHeight = count === 0 ? 2 : Math.max(5, count * 15);
-                    const formattedDate = date.toLocaleDateString('fr');
-                    return (
-                        <div key={i} className="flex flex-col items-center h-full justify-end w-10">
-                            <div className="text-xs text-muted font-bold h-4">{count > 0 ? count : ''}</div>
-                            <div className="w-6 bg-accent rounded-t-md transition-colors hover:bg-accent-strong animate-grow-bar" style={{ height: `${barHeight}%`, animationDelay: `${i * 100}ms` }} title={t('stats_rituals_on_date', { count: count, date: formattedDate })}></div>
-                            <div className="text-xs text-muted mt-1">{dayLabel}</div>
-                        </div>
-                    );
-                })}
+        <div className="mt-8">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-3 gap-2">
+                <h3 className="font-bold text-lg text-accent">{rangeTitles[activityRange]}</h3>
+                <div className="flex gap-1 bg-card border border-white/10 p-1 rounded-lg self-start sm:self-center">
+                    <Button size="small" className="!h-7 !px-2" variant={activityRange === '7d' ? 'primary' : 'ghost'} onClick={() => setActivityRange('7d')}>{t('stats_7_days')}</Button>
+                    <Button size="small" className="!h-7 !px-2" variant={activityRange === '30d' ? 'primary' : 'ghost'} onClick={() => setActivityRange('30d')}>{t('stats_30_days')}</Button>
+                    <Button size="small" className="!h-7 !px-2" variant={activityRange === 'year' ? 'primary' : 'ghost'} onClick={() => setActivityRange('year')}>{t('stats_this_year')}</Button>
+                </div>
+            </div>
+            <div className="bg-white/5 p-2 rounded-lg overflow-x-auto">
+                <div className="flex items-end h-32 gap-1.5 min-w-full" style={{width: activityRange === '30d' ? '50rem' : 'auto'}}>
+                    {chartData.map((data, i) => {
+                        const barHeight = data.count === 0 ? '1%' : `${(data.count / maxCount) * 90 + 10}%`;
+                        const barWidthClass = activityRange === '7d' ? 'flex-1' : activityRange === '30d' ? 'w-4' : 'flex-1 max-w-10';
+
+                        return (
+                            <div key={data.key} className={`flex flex-col items-center h-full justify-end ${barWidthClass}`}>
+                                <div className="text-xs text-muted font-bold h-4">{data.count > 0 ? data.count : ''}</div>
+                                <div 
+                                    className="w-full bg-accent rounded-t-md transition-colors hover:bg-accent-secondary animate-grow-bar" 
+                                    style={{ height: barHeight, animationDelay: `${i * 30}ms` }} 
+                                    title={data.tooltip}
+                                ></div>
+                                <div className="text-xs text-muted mt-1">{data.label}</div>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         </div>
 
