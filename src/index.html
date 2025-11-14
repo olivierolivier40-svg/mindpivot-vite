@@ -9,16 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opendyslexic@latest/build/css/opendyslexic.min.css">
     <script type="importmap">
-    {
-      "imports": {
-        "react/": "https://aistudiocdn.com/react@^19.1.1/",
-        "react": "https://aistudiocdn.com/react@^19.1.1",
-        "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
-        "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0",
-        "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-      }
-    }
-    </script>
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0-rc-f994737d14-20240522",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0-rc-f994737d14-20240522/client",
+    "@google/genai": "https://esm.sh/@google/genai@0.1.0",
+    "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -171,6 +172,12 @@
       .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+      .animate-fade-in-bg { animation: fadeInBg 1.5s ease-in-out; }
+      @keyframes fadeInBg { from { opacity: 0; } to { opacity: 1; } }
+
+      @keyframes fadeInSlow { from { opacity: 0; } to { opacity: 1; } }
+      .animate-fade-in-slow { animation: fadeInSlow 2.5s ease-in-out forwards; }
+
       .button-secondary-themed:hover {
         border-color: var(--color-accent);
         color: var(--color-accent);
@@ -195,12 +202,12 @@
       .heart-icon { animation: heartbeat 1.5s ease-in-out infinite; }
       
       @keyframes eye-move {
-        0%, 100% { transform: translateX(-100px); }
-        50% { transform: translateX(100px); }
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(calc(250px - 32px)); }
       }
       @keyframes eye-move-slow {
-        0%, 100% { transform: translateX(-100px); }
-        50% { transform: translateX(100px); }
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(calc(250px - 32px)); }
       }
 
       @keyframes grow-bar {
@@ -244,10 +251,9 @@
         background-size: 24px 24px;
       }
     </style>
-  <link rel="stylesheet" href="/index.css">
-</head>
+  </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

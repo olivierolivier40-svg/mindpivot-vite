@@ -97,6 +97,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const lastPhaseIndexRef = useRef(-1);
   const audioContextRef = useRef<AudioContext | null>(null);
 
+  const isImmersive = initialRitual.id === 'rit.micro_awe';
+
   const generateNewQuote = useCallback(() => setCurrentQuote(CITATIONS[Math.floor(Math.random() * CITATIONS.length)]), []);
 
   useEffect(() => {
@@ -611,14 +613,20 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     if (ritual.playerType === 'slideshow' && ritual.data?.images) {
         const currentImage = ritual.data.images[slideshowIndex];
         return (
-            <div key={slideshowIndex} className="w-full h-full flex flex-col items-center justify-end animate-fade-in">
+            <div className={`w-full h-full relative overflow-hidden ${isImmersive ? '' : 'rounded-lg'}`}>
                 <div 
-                    className="absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-1000"
+                    key={slideshowIndex}
+                    className="absolute inset-0 w-full h-full bg-cover bg-center animate-fade-in-slow"
                     style={{ backgroundImage: `url(${currentImage.url})` }}
                 />
-                <div className="absolute inset-0 w-full h-full bg-black/40"></div>
-                <div className="relative z-10 p-8 text-center text-white">
-                    <p className="text-xl font-bold [text-shadow:_0_2px_4px_rgb(0_0_0_/_80%)]">{t(currentImage.caption)}</p>
+                <div className={`absolute inset-0 w-full h-full ${isImmersive ? 'bg-black/70' : 'bg-black/60'}`}></div>
+                <div className="w-full h-full flex flex-col items-center justify-center relative z-10 p-8 text-center text-white">
+                    <p 
+                        key={slideshowIndex + '-caption'} 
+                        className={`${isImmersive ? 'text-4xl' : 'text-3xl'} font-semibold [text-shadow:_0_2px_8px_rgb(0_0_0_/_90%)] animate-fade-in`}
+                    >
+                        {t(currentImage.caption)}
+                    </p>
                 </div>
             </div>
         );
@@ -764,23 +772,34 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   }
 
   return (
-    <div className="w-full h-[calc(100vh-2rem)] flex flex-col items-center text-center animate-fade-in relative">
+    <div className={isImmersive 
+      ? `fixed inset-0 z-50 flex flex-col items-center text-center animate-fade-in ${isPreStart ? 'bg-gray-100 text-gray-800' : 'bg-black'}`
+      : "w-full h-[calc(100vh-2rem)] flex flex-col items-center text-center animate-fade-in relative"
+    }>
         <button 
             onClick={() => stop(false)} 
-            className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-card/50 hover:bg-white/10 transition-colors"
+            className={isImmersive
+              ? "absolute top-4 right-4 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-black/30 text-white hover:bg-black/50 transition-colors"
+              : "absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-card/50 hover:bg-white/10 transition-colors"
+            }
             aria-label={t('close')}
         >
             <CloseIcon />
         </button>
         
-        <header className="w-full p-4 pt-6">
-            <h2 className="text-2xl font-bold">{t(ritual.label)}</h2>
-            <p className="text-muted">
-            {Math.floor(ritual.dureeSec / 60)} {t('unit_min')} {ritual.dureeSec % 60 > 0 ? `${ritual.dureeSec % 60}s` : ''}
-            </p>
-        </header>
+        {!isImmersive && (
+          <header className="w-full p-4 pt-6">
+              <h2 className="text-2xl font-bold">{t(ritual.label)}</h2>
+              <p className="text-muted">
+              {Math.floor(ritual.dureeSec / 60)} {t('unit_min')} {ritual.dureeSec % 60 > 0 ? `${ritual.dureeSec % 60}s` : ''}
+              </p>
+          </header>
+        )}
 
-        <main className="w-full flex-1 flex flex-col items-center justify-center p-4 min-h-0 relative">
+        <main className={isImmersive 
+          ? "w-full h-full"
+          : "w-full flex-1 flex flex-col items-center justify-center min-h-0 relative p-4"
+        }>
           {isPreStart ? renderPreStartContent() : renderActiveContent()}
           {hasVideo && isRunning && !isPreStart && (
             <button 
@@ -794,58 +813,78 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
           )}
         </main>
         
-        <div className="w-full max-w-lg px-4 pb-4 space-y-3">
-            <div className="min-h-[4rem] flex items-center justify-center">
-                {secondaryInstruction && (
-                    <div className="p-3 bg-card/80 backdrop-blur-sm rounded-lg text-center w-full animate-fade-in">
-                    <p className="font-semibold text-fg" dangerouslySetInnerHTML={{ __html: secondaryInstruction.replace(/\n/g, '<br />') }}></p>
-                    </div>
-                )}
-            </div>
+        {isImmersive ? (
+          <div className={`absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col items-center ${isPreStart ? '' : 'bg-gradient-to-t from-black/80 to-transparent'}`}>
+              <div className={`text-sm mb-4 ${isPreStart ? 'text-gray-600' : 'text-white/80 [text-shadow:_0_1px_4px_#000]'}`}>
+                  {t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
+              </div>
+              <div className="w-full max-w-sm px-4 mx-auto h-2 mb-4">
+                  {isRunning && !isPaused && (
+                      <div className="w-full bg-white/20 rounded-full h-1.5">
+                          <div className="bg-white h-1.5 rounded-full" style={{ width: `${(1 - timeLeft/ritual.dureeSec) * 100}%` }}></div>
+                      </div>
+                  )}
+              </div>
+              <div className="flex justify-center">
+                  {!isRunning && <Button variant="primary" size="large" onClick={start} className="w-40">{t('start')}</Button>}
+                  {isRunning && !isPaused && <Button variant="secondary" size="large" onClick={pause} className="w-40">{t('player_pause')}</Button>}
+                  {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>}
+              </div>
+          </div>
+        ) : (
+          <div className="w-full max-w-lg px-4 pb-4 space-y-3">
+              <div className="min-h-[4rem] flex items-center justify-center">
+                  {secondaryInstruction && (
+                      <div className="p-3 bg-card/80 backdrop-blur-sm rounded-lg text-center w-full animate-fade-in">
+                      <p className="font-semibold text-fg" dangerouslySetInnerHTML={{ __html: secondaryInstruction.replace(/\n/g, '<br />') }}></p>
+                      </div>
+                  )}
+              </div>
 
-            <div className="w-full max-w-sm px-4 mx-auto h-2">
-                {isRunning && !isPaused && (
-                    <>
-                    {(ritual.options?.perPhaseProgress || ritual.playerType === 'phased-ritual' || ritual.playerType === 'slideshow' || ritual.playerType === 'organe-smile' || ritual.playerType === 'sagesse-minute' || (RITUAL_INSTRUCTIONS[ritual.id])) && !showDonut && (
-                        <div className="w-full bg-white/20 rounded-full h-1.5">
-                        <div className="bg-accent h-1.5 rounded-full" style={{ width: `${phaseProgress * 100}%` }}></div>
-                        </div>
-                    )}
-                    {ritual.playerType === 'audio-guide' && (
-                        <div className="w-full bg-white/20 rounded-full h-1.5">
-                        <div className="bg-accent h-1.5 rounded-full" style={{ width: `${audioProgress * 100}%` }}></div>
-                        </div>
-                    )}
-                    </>
-                )}
-            </div>
-            
-            <div className="text-sm text-muted">
-                {t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
-            </div>
+              <div className="w-full max-w-sm px-4 mx-auto h-2">
+                  {isRunning && !isPaused && (
+                      <>
+                      {(ritual.options?.perPhaseProgress || ritual.playerType === 'phased-ritual' || ritual.playerType === 'slideshow' || ritual.playerType === 'organe-smile' || ritual.playerType === 'sagesse-minute' || (RITUAL_INSTRUCTIONS[ritual.id])) && !showDonut && (
+                          <div className="w-full bg-white/20 rounded-full h-1.5">
+                          <div className="bg-accent h-1.5 rounded-full" style={{ width: `${phaseProgress * 100}%` }}></div>
+                          </div>
+                      )}
+                      {ritual.playerType === 'audio-guide' && (
+                          <div className="w-full bg-white/20 rounded-full h-1.5">
+                          <div className="bg-accent h-1.5 rounded-full" style={{ width: `${audioProgress * 100}%` }}></div>
+                          </div>
+                      )}
+                      </>
+                  )}
+              </div>
+              
+              <div className="text-sm text-muted">
+                  {t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
+              </div>
 
-            <footer className="w-full flex justify-between items-center gap-4 pt-2">
-                <div className="flex-1 flex justify-start">
-                    <Button variant="ghost" size="small" onClick={() => stop(false)}>{t('player_stop')}</Button>
-                </div>
-                
-                <div className="flex-shrink-0">
-                    {!isRunning && <Button variant="primary" size="large" onClick={start} className="w-40">{t('start')}</Button>}
-                    {isRunning && !isPaused && <Button variant="secondary" size="large" onClick={pause} className="w-40">{t('player_pause')}</Button>}
-                    {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>}
-                </div>
-                
-                <div className="flex-1 flex justify-end items-center">
-                    <Button variant="ghost" size="small" onClick={() => onShowInfo(ritual.id)} className="!text-accent-info">{t('player_know_more')}</Button>
-                </div>
-            </footer>
+              <footer className="w-full flex justify-between items-center gap-4 pt-2">
+                  <div className="flex-1 flex justify-start">
+                      <Button variant="ghost" size="small" onClick={() => stop(false)}>{t('player_stop')}</Button>
+                  </div>
+                  
+                  <div className="flex-shrink-0">
+                      {!isRunning && <Button variant="primary" size="large" onClick={start} className="w-40">{t('start')}</Button>}
+                      {isRunning && !isPaused && <Button variant="secondary" size="large" onClick={pause} className="w-40">{t('player_pause')}</Button>}
+                      {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>}
+                  </div>
+                  
+                  <div className="flex-1 flex justify-end items-center">
+                      <Button variant="ghost" size="small" onClick={() => onShowInfo(ritual.id)} className="!text-accent-info">{t('player_know_more')}</Button>
+                  </div>
+              </footer>
 
-            {bentoReadyForPhase2 && (
-                <div className="absolute bottom-24 z-20 animate-fade-in">
-                    <Button variant="info" onClick={handleBentoPhaseChange}>{t('player_bento_extend_breath')}</Button>
-                </div>
-            )}
-        </div>
+              {bentoReadyForPhase2 && (
+                  <div className="absolute bottom-24 z-20 animate-fade-in">
+                      <Button variant="info" onClick={handleBentoPhaseChange}>{t('player_bento_extend_breath')}</Button>
+                  </div>
+              )}
+          </div>
+        )}
 
         <Modal show={showMudraModal} title={t('player_nadi_finger_position_title')} onClose={() => setShowMudraModal(false)}>
             <img src="https://www.magnetiseur-dax.fr/webapp/Aura/nasagra-mudra.jpg" referrerPolicy="no-referrer" alt={t('player_nadi_finger_position_title')} className="w-full rounded-lg mb-4"/>
