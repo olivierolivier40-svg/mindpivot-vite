@@ -250,6 +250,12 @@
           radial-gradient(circle at 75% 25%, rgba(255, 107, 107, 0.08) 1px, transparent 2px);
         background-size: 24px 24px;
       }
+      
+      /* Correction pour la visibilité du bouton d'effacement du champ de recherche */
+      .theme-light input[type="search"]::-webkit-search-cancel-button,
+      .theme-dyslexia-tdah input[type="search"]::-webkit-search-cancel-button {
+        filter: invert(1) opacity(0.6);
+      }
     </style>
   </head>
   <body>
