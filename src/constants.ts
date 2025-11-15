@@ -1122,7 +1122,7 @@ export const RITUELS: Ritual[] = [
                 { url: 'https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg', caption: 'ritual_micro_awe_caption_1', duration: 12 },
                 { url: 'https://images.pexels.com/photos/33044/sunflower-sun-summer-yellow.jpg', caption: 'ritual_micro_awe_caption_2', duration: 12 },
                 { url: 'https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg', caption: 'ritual_micro_awe_caption_3', duration: 12 },
-                { url: 'https://images.pexels.com/photos/34092/pexels-photo.jpg', caption: 'ritual_micro_awe_caption_4', duration: 12 },
+                { url: 'https://magnetiseur-dax.fr/webapp/Aura/flocon.png', caption: 'ritual_micro_awe_caption_4', duration: 12 },
                 { url: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg', caption: 'ritual_micro_awe_caption_5', duration: 12 },
             ]
         },
@@ -1283,11 +1283,11 @@ export const RITUELS: Ritual[] = [
         isPremium: false,
         data: {
           phases: [
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_1_name', instruction: 'ritual_sagesse_tolteque_phase_1_instruction_new', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_2_name', instruction: 'ritual_sagesse_tolteque_phase_2_instruction_new', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_3_name', instruction: 'ritual_sagesse_tolteque_phase_3_instruction_new', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_4_name', instruction: 'ritual_sagesse_tolteque_phase_4_instruction_new', duration: 30 },
-            { type: 'texte', name: 'ritual_sagesse_tolteque_phase_5_name', instruction: 'ritual_sagesse_tolteque_phase_5_instruction_new', duration: 30 },
+            { type: 'texte', instruction: 'ritual_sagesse_tolteque_accord_1', duration: 30 },
+            { type: 'texte', instruction: 'ritual_sagesse_tolteque_accord_2', duration: 30 },
+            { type: 'texte', instruction: 'ritual_sagesse_tolteque_accord_3', duration: 30 },
+            { type: 'texte', instruction: 'ritual_sagesse_tolteque_accord_4', duration: 30 },
+            { type: 'texte', instruction: 'ritual_sagesse_tolteque_accord_5', duration: 30 },
           ]
         },
         modal: {

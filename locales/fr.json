@@ -861,6 +861,11 @@
     "ritual_sagesse_tolteque_phase_4_instruction": "Fais toujours de ton mieux. Ton \"mieux\" change d'instant en instant ; il ne sera pas le même selon que tu es en bonne santé ou malade.",
     "ritual_sagesse_tolteque_phase_5_name": "5. Sois sceptique mais apprends à écouter",
     "ritual_sagesse_tolteque_phase_5_instruction": "Le cinquième accord : Sois sceptique mais apprends à écouter. Ne te crois pas toi-même, ni personne d'autre. Utilise la force du doute pour remettre en question tout ce que tu entends.",
+      "ritual_sagesse_tolteque_accord_1": "<strong>1. Que ma parole soit impeccable</strong><br/>Je parle avec intégrité, sans utiliser mes mots contre moi-même ou pour médire sur autrui.",
+  "ritual_sagesse_tolteque_accord_2": "<strong>2. Je ne prends rien personnellement</strong><br/>Ce que les autres disent et font est une projection de leur propre réalité, pas la mienne. Je ne suis pas la cible.",
+  "ritual_sagesse_tolteque_accord_3": "<strong>3. Je ne fais aucune supposition</strong><br/>Je trouve le courage de poser des questions et de communiquer clairement pour éviter les malentendus.",
+  "ritual_sagesse_tolteque_accord_4": "<strong>4. Je fais toujours de mon mieux</strong><br/>Mon 'mieux' change à chaque instant. En le faisant, j'évite l'auto-jugement, l'auto-critique et les regrets.",
+  "ritual_sagesse_tolteque_accord_5": "<strong>5. Je suis sceptique, mais j'écoute</strong><br/>Je n'adhère pas aveuglément à ce que j'entends, y compris mes propres croyances. J'écoute et respire.",
     "ritual_salut_quantique_label": "Salut Quantique",
     "ritual_salut_quantique_modal_title": "Salut Quantique",
     "ritual_salut_quantique_modal_why": "Un rituel de visualisation puissant pour te connecter à ton \"Moi futur\" qui a déjà atteint tes objectifs.\n\nIl t'aide à incarner l'énergie et la confiance nécessaires pour avancer vers tes aspirations.",
@@ -1145,10 +1150,11 @@
     "morning_intention_31": "J'honore mes limites.",
     "morning_intention_32": "Je me réjouis du succès des autres.",
     "morning_intention_33": "Je suis une force de paix dans mon environnement.",
-     "stats_last_30_days_activity": "Activité des 30 derniers jours",
+    "stats_last_30_days_activity": "Activité des 30 derniers jours",
     "stats_this_year_activity": "Activité de cette année",
     "stats_7_days": "7 jours",
     "stats_30_days": "30 jours",
     "stats_this_year": "Cette année",
-    "stats_month_of": "{count} rituels en {month}"
+    "stats_month_of": "{count} rituels en {month}",
+    
 }
