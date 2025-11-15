@@ -1202,18 +1202,24 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_priere_du_soir_label',
         category: 'micro-rituel',
         playerType: 'phased-ritual',
-        dureeSec: 90,
+        dureeSec: 108,
         donut: 'off',
         haptique: {},
         tags: ['sommeil', 'lacher-prise', 'gratitude', 'compassion'],
         isPremium: true,
-        data: {
-          phases: [
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_1_name', instruction: 'ritual_priere_du_soir_phase_1_instruction_new', duration: 30 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_2_name', instruction: 'ritual_priere_du_soir_phase_2_instruction_new', duration: 30 },
-            { type: 'texte', name: 'ritual_priere_du_soir_phase_3_name', instruction: 'ritual_priere_du_soir_phase_3_instruction_new', duration: 30 },
-          ]
-        },
+       data: {
+        phases: [
+         { type: 'texte', instruction: 'ritual_priere_soir_laic_step_1', duration: 12 },
+    { type: 'texte', instruction: 'ritual_priere_soir_laic_step_2', duration: 12 },
+    { type: 'texte', instruction: 'ritual_priere_soir_laic_step_3', duration: 12 },
+    { type: 'texte', instruction: 'ritual_priere_soir_laic_step_4', duration: 12 },
+    { type: 'texte', instruction: 'ritual_priere_soir_laic_step_5', duration: 12 },
+    { type: 'texte', instruction: 'ritual_priere_soir_laic_step_6', duration: 12 },
+    { type: 'texte', instruction: 'ritual_priere_soir_laic_step_7', duration: 12 },
+    { type: 'texte', instruction: 'ritual_priere_soir_laic_step_8', duration: 12 },
+        { type: 'texte', instruction: 'ritual_priere_soir_laic_step_9', duration: 12 },
+      ]
+    },
         modal: {
           titre: 'ritual_priere_du_soir_modal_title',
           icon: '🌃',
