@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef, useCallback, RefObject } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import type { RefObject } from 'react';
 import type { Ritual, Session, BadgeId, SoundSettings, SoundId } from '../types.ts';
-import { SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
+import { MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
 import { Button } from './Button.tsx';
 import { Modal } from './Modal.tsx';
 import { RingDonut } from './RingDonut.tsx';
