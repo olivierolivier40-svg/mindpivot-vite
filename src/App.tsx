@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
-import type { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, ActiveProgram, CompletedProgram } from './types.ts';
+import type { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, ActiveProgram, CompletedProgram, SoundId } from './types.ts';
 import { calculateSessionStreaks } from './utils.ts';
 import { useI18n } from './hooks/useI18n.tsx';
 import { isBadgeUnlocked } from './badgeLogic.ts';
@@ -47,12 +47,13 @@ function App() {
   const [hasUnseenBadge, setHasUnseenBadge] = useState(false);
   const [currentScreen, setCurrentScreen] = useState('welcome');
   const [lastScreen, setLastScreen] = useState('welcome');
-  const [soundSettings, setSoundSettings] = useState<SoundSettings>({ enabled: true, volume: 0.5, selectedSound: 'bol' });
+  const [soundSettings, setSoundSettings] = useState<SoundSettings>({ guidance: true, completion: true, volume: 0.5, selectedSound: 'bol' });
   const [ritualEntryPoint, setRitualEntryPoint] = useState('checkin');
   
   const [energie, setEnergie] = useState(0); const [humeur, setHumeur] = useState(0); const [chargeMentale, setChargeMentale] = useState(0); const [tensionCorporelle, setTensionCorporelle] = useState(0); const [fatiguePhysique, setFatiguePhysique] = useState(0); const [agitation, setAgitation] = useState(0);
   
   const [joie, setJoie] = useState(0); const [tristesse, setTristesse] = useState(0); const [colere, setColere] = useState(0); const [peur, setPeur] = useState(0); const [sensibilite, setSensibilite] = useState(0);
+  
   const [clarteMentale, setClarteMentale] = useState(0); const [rumination, setRumination] = useState(0);
   
   const [orientationTemporelle, setOrientationTemporelle] = useState(0); const [qualitePensees, setQualitePensees] = useState(0); const [vitesseMentale, setVitesseMentale] = useState(0); const [sentimentControle, setSentimentControle] = useState(0);
@@ -82,7 +83,7 @@ function App() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   
   const infoTriggerRef = useRef<HTMLElement | null>(null);
-  const testAudioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   
   const themeLabels: Record<Theme, { labelKey: string, class: string }> = {
     dark: { labelKey: 'settings_theme_dark', class: '' },
@@ -99,7 +100,19 @@ function App() {
       try { 
           const storedSessions = JSON.parse(localStorage.getItem('mindPivotSessions') || '[]') as Session[]; setSessions(storedSessions); 
           const storedBadges = JSON.parse(localStorage.getItem('mindPivotBadges') || '{}') as Partial<Record<BadgeId, string>>; setUnlockedBadges(storedBadges);
-          const storedSound = JSON.parse(localStorage.getItem('mindPivotSound') || 'null') as SoundSettings | null; if (storedSound) setSoundSettings(storedSound);
+          const storedSound = JSON.parse(localStorage.getItem('mindPivotSound') || 'null');
+          if (storedSound) {
+            if (typeof storedSound.enabled !== 'undefined') { // Old format
+              setSoundSettings({
+                guidance: storedSound.enabled,
+                completion: storedSound.enabled,
+                volume: storedSound.volume,
+                selectedSound: storedSound.selectedSound || 'bol'
+              });
+            } else { // New format
+              setSoundSettings(storedSound);
+            }
+          }
           const storedFavorites = JSON.parse(localStorage.getItem('mindPivotFavorites') || '[]') as string[]; setFavoriteRituals(new Set(storedFavorites));
           const storedTheme = localStorage.getItem('mindPivotTheme') as Theme | null; if (storedTheme && themes.includes(storedTheme)) setTheme(storedTheme); else setTheme('light');
           const storedPremium = localStorage.getItem('mindPivotPremium') === 'true'; setIsPremiumUser(storedPremium);
@@ -125,6 +138,33 @@ function App() {
           console.error("Failed to save favorites:", e);
       }
   }, [favoriteRituals]);
+
+  const playSound = useCallback((soundId: Exclude<SoundId, 'none'>, onEnded?: () => void) => {
+    if (!audioRef.current) {
+        onEnded?.();
+        return;
+    }
+    const audio = audioRef.current;
+    
+    // Simple way to handle onEnded without adding/removing listeners constantly
+    audio.onended = () => {
+        onEnded?.();
+        audio.onended = null;
+    };
+
+    audio.src = SOUND_OPTIONS[soundId].url;
+    audio.volume = soundSettings.volume;
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.error("Audio playback failed:", error);
+            // Ensure onEnded is called even if play fails
+            audio.onended = null;
+            onEnded?.();
+        });
+    }
+  }, [soundSettings.volume]);
 
   const toggleFavorite = (ritualId: string) => {
     setFavoriteRituals(prev => {
@@ -453,14 +493,6 @@ function App() {
   const userAgent = isBrowser ? navigator.userAgent : '';
   const isIOS = isBrowser && /iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream;
   const isAndroid = isBrowser && /Android/.test(userAgent);
-  
-  const playTestSound = (soundId: 'bol' | 'diapason' | 'gong') => {
-      if (testAudioRef.current) {
-          testAudioRef.current.src = SOUND_OPTIONS[soundId].url;
-          testAudioRef.current.volume = soundSettings.volume;
-          testAudioRef.current.play().catch(e => console.error("Test sound error", e));
-      }
-  };
   
   const renderScreen = () => {
       const screenProps = { className: "animate-fade-in" };
@@ -838,7 +870,7 @@ function App() {
                 themeLabels={themeLabels}
                 textSize={textSize} setTextSize={setTextSize}
                 soundSettings={soundSettings} setSoundSettings={setSoundSettings}
-                playTestSound={playTestSound}
+                playSound={playSound}
                 isIOS={isIOS} isAndroid={isAndroid}
                 setShowInstallModal={setShowInstallModal}
                 isPremiumUser={isPremiumUser} setIsPremiumUser={setIsPremiumUser}
@@ -848,7 +880,7 @@ function App() {
         case 'player':
           if (activeRitual) {
             const checkinData = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
-            return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} checkinData={checkinData} onShowInfo={handleInfoRitual} />;
+            return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} playSound={playSound} checkinData={checkinData} onShowInfo={handleInfoRitual} audioRef={audioRef} />;
           }
           return null;
 
@@ -968,7 +1000,7 @@ function App() {
       )}
 
       <PremiumModal show={showPremiumModal} onClose={() => setShowPremiumModal(false)} onUpgrade={() => { setIsPremiumUser(true); setShowPremiumModal(false); }} />
-      <audio ref={testAudioRef} preload="auto" />
+      <audio ref={audioRef} />
     </div>
   );
 }

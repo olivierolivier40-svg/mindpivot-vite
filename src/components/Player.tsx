@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import type { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
+import { useState, useEffect, useRef, useCallback, RefObject } from 'react';
+import type { Ritual, Session, BadgeId, SoundSettings, SoundId } from '../types.ts';
 import { SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
 import { Button } from './Button.tsx';
 import { Modal } from './Modal.tsx';
@@ -17,8 +17,10 @@ interface PlayerProps {
   sessions: Session[];
   onCheckForNewBadges: (potentialSessions: Session[]) => BadgeId | null;
   soundSettings: SoundSettings;
+  playSound: (soundId: Exclude<SoundId, 'none'>, onEnded?: () => void) => void;
   checkinData: Record<string, number>;
   onShowInfo: (ritualId: string) => void;
+  audioRef: RefObject<HTMLAudioElement>;
 }
 
 const ListIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>;
@@ -46,7 +48,7 @@ interface OrganState {
   videoUrl?: string;
 }
 
-export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, checkinData, onShowInfo }: PlayerProps) => {
+export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, playSound, checkinData, onShowInfo, audioRef }: PlayerProps) => {
   const { t } = useI18n();
   const [ritual, setRitual] = useState(initialRitual);
   const [timeLeft, setTimeLeft] = useState(ritual.dureeSec);
@@ -71,8 +73,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [audioError, setAudioError] = useState(false);
   const [slideshowIndex, setSlideshowIndex] = useState(0);
   const [audioProgress, setAudioProgress] = useState(0);
-  const [isBreathingGuidanceOn, setIsBreathingGuidanceOn] = useState(soundSettings.enabled);
-  const [isCompletionSoundOn, setIsCompletionSoundOn] = useState(true);
   const [ritualPhaseIndex, setRitualPhaseIndex] = useState(0);
   const [sagesseAgreementIndex, setSagesseAgreementIndex] = useState(0);
   const [isAuroraTheme, setIsAuroraTheme] = useState(false);
@@ -88,7 +88,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [bentoPhase, setBentoPhase] = useState<'short' | 'long'>('short');
   const [bentoReadyForPhase2, setBentoReadyForPhase2] = useState(false);
   
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const localAudioRef = useRef<HTMLAudioElement>(null);
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const startTimeRef = useRef(0);
@@ -114,8 +114,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setAudioProgress(0);
       setRitualPhaseIndex(0);
       setSagesseAgreementIndex(0);
-      setIsBreathingGuidanceOn(soundSettings.enabled && (initialRitual.haptique?.onPhaseChange || initialRitual.category === 'respiration' || initialRitual.playerType === 'phased-ritual'));
-      setIsCompletionSoundOn(soundSettings.enabled && initialRitual.playerType !== 'audio-guide');
       setShowBentoOptions(initialRitual.playerType === 'bento');
       setBentoPhase('short');
       setBentoReadyForPhase2(false);
@@ -125,7 +123,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setCustomIntention(null);
       setIsGeneratingIntention(false);
       setIsVideoSoundOn(false);
-  }, [initialRitual, soundSettings.enabled]);
+  }, [initialRitual, soundSettings.guidance]);
 
   useEffect(() => {
     if (ritual.playerType === 'sagesse-minute') generateNewQuote();
@@ -144,7 +142,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   }, []);
   
   const playBip = (freq: number, type: OscillatorType = 'sine') => {
-      if (!isBreathingGuidanceOn || !audioContextRef.current) return;
+      if (!soundSettings.guidance || !audioContextRef.current) return;
       const ctx = audioContextRef.current;
       if (ctx.state === 'suspended') { ctx.resume(); }
       const oscillator = ctx.createOscillator();
@@ -167,55 +165,38 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setIsComplete(true);
   }, [ritual, sessions, onCheckForNewBadges]);
 
-  const playEndSoundAndComplete = useCallback(async () => {
-      if (isCompletionSoundOn && soundSettings.enabled && audioContextRef.current && SOUND_OPTIONS[soundSettings.selectedSound]) {
-          const audioCtx = audioContextRef.current;
-          if (audioCtx.state === 'suspended') await audioCtx.resume();
-          try {
-              const response = await fetch(SOUND_OPTIONS[soundSettings.selectedSound].url);
-              const arrayBuffer = await response.arrayBuffer();
-              const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-              const source = audioCtx.createBufferSource();
-              source.buffer = audioBuffer;
-              const gainNode = audioCtx.createGain();
-              source.connect(gainNode);
-              gainNode.connect(audioCtx.destination);
-              gainNode.gain.setValueAtTime(soundSettings.volume, audioCtx.currentTime);
-              source.onended = handleCompletion;
-              source.start();
-          } catch (e) {
-              console.error("Error playing end sound with AudioContext:", e);
-              handleCompletion();
-          }
+  const playCompletionSound = useCallback(() => {
+      if (soundSettings.completion && soundSettings.selectedSound !== 'none') {
+          playSound(soundSettings.selectedSound, handleCompletion);
       } else {
           handleCompletion();
       }
-  }, [handleCompletion, isCompletionSoundOn, soundSettings]);
+  }, [handleCompletion, soundSettings, playSound]);
   
   const stop = useCallback((completed = false) => {
       setIsRunning(false);
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
       if (wakeLockRef.current) { wakeLockRef.current.release().catch(() => {}); wakeLockRef.current = null; }
       if (completed) {
-          playEndSoundAndComplete();
+          playCompletionSound();
       } else {
           setTimeLeft(ritual.dureeSec);
           setDonutLabel(t('player_ready'));
           setRitualPhaseIndex(0);
-          if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
+          if (localAudioRef.current) { localAudioRef.current.pause(); localAudioRef.current.currentTime = 0; }
           setAudioProgress(0);
           onBack(); // Go back if stopped manually
       }
-  }, [ritual.dureeSec, playEndSoundAndComplete, onBack, t]);
+  }, [ritual.dureeSec, playCompletionSound, onBack, t]);
 
     const tick = useCallback((timestamp: number) => {
         if (!startTimeRef.current) startTimeRef.current = timestamp;
         const elapsedMs = timestamp - startTimeRef.current - accumulatedPauseRef.current;
         let elapsedSec = elapsedMs / 1000;
 
-        if (ritual.playerType === 'audio-guide' && audioRef.current) {
-            elapsedSec = audioRef.current.currentTime;
-            if (audioRef.current.duration) setAudioProgress(elapsedSec / audioRef.current.duration);
+        if (ritual.playerType === 'audio-guide' && localAudioRef.current) {
+            elapsedSec = localAudioRef.current.currentTime;
+            if (localAudioRef.current.duration) setAudioProgress(elapsedSec / localAudioRef.current.duration);
         }
 
         if (elapsedSec >= ritual.dureeSec) {
@@ -396,7 +377,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
         setPhaseProgress(currentPhaseProgress);
         animationFrameRef.current = requestAnimationFrame(tick);
-    }, [ritual, stop, isRunning, isBreathingGuidanceOn, breathingDirection, ritualPhaseIndex, bentoPhase, bentoTheme, dynamicInstruction, slideshowIndex, currentOrgan.index, showDonut, sagesseAgreementIndex, bentoReadyForPhase2, t]);
+    }, [ritual, stop, isRunning, soundSettings, breathingDirection, ritualPhaseIndex, bentoPhase, bentoTheme, dynamicInstruction, slideshowIndex, currentOrgan.index, showDonut, sagesseAgreementIndex, bentoReadyForPhase2, t, playBip]);
 
   useEffect(() => {
       if (isRunning && !isPaused) {
@@ -412,15 +393,11 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     if (isPreStart) setIsPreStart(false);
     if (showBentoOptions) setShowBentoOptions(false);
 
-    // --- Critical Section for User Gesture ---
-    if ('wakeLock' in navigator) {
-        try {
-            wakeLockRef.current = await navigator.wakeLock.request('screen');
-        } catch (err) {
-            console.error(`Wake Lock failed: ${err}`);
-        }
+    // --- Unlock Audio elements on first user gesture ---
+    if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.volume = 0;
+        audioRef.current.play().catch(() => {});
     }
-    
     if (!audioContextRef.current) {
         try {
             audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -431,13 +408,20 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     if (audioContextRef.current?.state === 'suspended') {
         await audioContextRef.current.resume();
     }
-    // --- End Critical Section ---
+    
+    if ('wakeLock' in navigator) {
+        try {
+            wakeLockRef.current = await navigator.wakeLock.request('screen');
+        } catch (err) {
+            console.error(`Wake Lock failed: ${err}`);
+        }
+    }
 
     startTimeRef.current = performance.now();
     accumulatedPauseRef.current = 0;
     
-    if (ritual.playerType === 'audio-guide' && audioRef.current) {
-        audioRef.current.play().catch(e => {
+    if (ritual.playerType === 'audio-guide' && localAudioRef.current) {
+        localAudioRef.current.play().catch(e => {
             console.error("Audio play failed", e);
             setAudioError(true);
         });
@@ -451,7 +435,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setIsRunning(false);
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
       if (wakeLockRef.current) { wakeLockRef.current.release().catch(() => {}); wakeLockRef.current = null; }
-      if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
+      if (localAudioRef.current) { localAudioRef.current.pause(); localAudioRef.current.currentTime = 0; }
   
       setIsComplete(false);
       setIsPreStart(true);
@@ -472,13 +456,13 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     setIsPaused(true);
     pauseTimeRef.current = performance.now();
     if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
-    if (ritual.playerType === 'audio-guide' && audioRef.current) audioRef.current.pause();
+    if (ritual.playerType === 'audio-guide' && localAudioRef.current) localAudioRef.current.pause();
   };
   const resume = () => {
     if (!isRunning || !isPaused) return;
     accumulatedPauseRef.current += performance.now() - pauseTimeRef.current;
     setIsPaused(false);
-    if (ritual.playerType === 'audio-guide' && audioRef.current) audioRef.current.play();
+    if (ritual.playerType === 'audio-guide' && localAudioRef.current) localAudioRef.current.play();
   };
 
   const handleBentoPhaseChange = () => {
@@ -744,7 +728,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       return (
           <Modal 
               show={true}
-              title={`${ritual.modal.icon} ${t(ritual.label)} - ${t('preparation')}`}
+              title={`${ritual.modal.icon} ${t(ritual.label)} - Préparation`}
               onClose={onBack}
               hideHeaderCloseButton={false}
               preStartNext={handlePreStartNext}
@@ -907,7 +891,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         </Modal>
 
         {isAuroraTheme && <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 -z-10"></div>}
-        {ritual.playerType === 'audio-guide' && <audio ref={audioRef} src={ritual.data.audioUrl} preload="auto" onEnded={() => stop(true)} onError={() => setAudioError(true)} />}
+        {ritual.playerType === 'audio-guide' && <audio ref={localAudioRef} src={ritual.data.audioUrl} preload="auto" onEnded={() => stop(true)} onError={() => setAudioError(true)} />}
         {audioError && <p className="text-bad text-xs">Erreur de chargement audio.</p>}
     </div>
   );

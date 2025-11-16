@@ -96,8 +96,11 @@ export interface Streaks {
   longest: number;
 }
 
+export type SoundId = 'bol' | 'diapason' | 'gong' | 'none';
+
 export interface SoundSettings {
-  enabled: boolean;
+  guidance: boolean;
+  completion: boolean;
   volume: number;
-  selectedSound: 'bol' | 'diapason' | 'gong';
+  selectedSound: SoundId;
 }

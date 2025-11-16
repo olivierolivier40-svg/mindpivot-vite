@@ -1,9 +1,9 @@
 import type { Ritual, Program, Badge, BadgeId } from './types.ts';
 
 export const SOUND_OPTIONS: Record<'bol' | 'diapason' | 'gong', { url: string }> = {
-    bol: { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/sounds/bol-tibétain-fin.mp3' },
-    diapason: { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/sounds/diapason-fin.mp3' },
-    gong: { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/sounds/gong-fin.mp3' },
+    bol: { url: 'https://www.magnetiseur-dax.fr/webapp/Bol.mp3' },
+    diapason: { url: 'https://www.magnetiseur-dax.fr/webapp/Diapason.mp3' },
+    gong: { url: 'https://www.magnetiseur-dax.fr/webapp/Gong.mp3' },
 };
 
 export const RITUELS: Ritual[] = [
