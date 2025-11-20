@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
-import { SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
+import { MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
 import { Button } from './Button.tsx';
 import { Modal } from './Modal.tsx';
 import { RingDonut } from './RingDonut.tsx';
@@ -77,7 +77,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [slideshowIndex, setSlideshowIndex] = useState(0);
   const [audioProgress, setAudioProgress] = useState(0);
   const [isBreathingGuidanceOn, setIsBreathingGuidanceOn] = useState(soundSettings.enabled);
-  const [isCompletionSoundOn, setIsCompletionSoundOn] = useState(true);
   const [ritualPhaseIndex, setRitualPhaseIndex] = useState(0);
   const [sagesseAgreementIndex, setSagesseAgreementIndex] = useState(0);
   const [isAuroraTheme, setIsAuroraTheme] = useState(false);
@@ -120,7 +119,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setRitualPhaseIndex(0);
       setSagesseAgreementIndex(0);
       setIsBreathingGuidanceOn(soundSettings.enabled && initialRitual.category === 'respiration');
-      setIsCompletionSoundOn(soundSettings.enabled && initialRitual.playerType !== 'audio-guide');
       setShowBentoOptions(initialRitual.playerType === 'bento');
       setBentoPhase('short');
       setBentoReadyForPhase2(false);
