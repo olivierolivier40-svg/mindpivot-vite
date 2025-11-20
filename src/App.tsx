@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
 import type { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, ActiveProgram, CompletedProgram } from './types.ts';
@@ -82,7 +83,6 @@ function App() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   
   const infoTriggerRef = useRef<HTMLElement | null>(null);
-  const testAudioRef = useRef<HTMLAudioElement>(null);
   
   const themeLabels: Record<Theme, { labelKey: string, class: string }> = {
     dark: { labelKey: 'settings_theme_dark', class: '' },
@@ -454,12 +454,13 @@ function App() {
   const isIOS = isBrowser && /iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream;
   const isAndroid = isBrowser && /Android/.test(userAgent);
   
-  const playTestSound = (soundId: 'bol' | 'diapason' | 'gong') => {
-      if (testAudioRef.current) {
-          testAudioRef.current.src = SOUND_OPTIONS[soundId].url;
-          testAudioRef.current.volume = soundSettings.volume;
-          testAudioRef.current.play().catch(e => console.error("Test sound error", e));
-      }
+  const playTestSound = (soundId: 'bol' | 'diapason' | 'gong' | 'none') => {
+      if (soundId === 'none') return;
+      if (!soundSettings.enabled) return;
+      const soundUrl = SOUND_OPTIONS[soundId].url;
+      const audio = new Audio(soundUrl);
+      audio.volume = soundSettings.volume;
+      audio.play().catch(e => console.error("Erreur lecture son test", e));
   };
   
   const renderScreen = () => {
@@ -848,7 +849,7 @@ function App() {
         case 'player':
           if (activeRitual) {
             const checkinData = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
-            return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} checkinData={checkinData} onShowInfo={handleInfoRitual} />;
+            return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} setSoundSettings={setSoundSettings} checkinData={checkinData} onShowInfo={handleInfoRitual} />;
           }
           return null;
 
@@ -968,7 +969,6 @@ function App() {
       )}
 
       <PremiumModal show={showPremiumModal} onClose={() => setShowPremiumModal(false)} onUpgrade={() => { setIsPremiumUser(true); setShowPremiumModal(false); }} />
-      <audio ref={testAudioRef} preload="auto" />
     </div>
   );
 }

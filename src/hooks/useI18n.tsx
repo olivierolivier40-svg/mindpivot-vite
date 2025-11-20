@@ -10,6 +10,7 @@ const frTranslations: { [key: string]: string } = {
     "back": "Retour",
     "back_to_home": "Retour à l'accueil",
     "previous": "Précédent",
+    "settings_sound_none": "Pas de son",
     "continue": "Continuer",
     "unit_min": "min",
     "why": "Pourquoi ?",

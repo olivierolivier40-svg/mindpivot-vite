@@ -1,3 +1,4 @@
+
 import type { Dispatch, SetStateAction } from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { Button } from './Button.tsx';
@@ -5,6 +6,8 @@ import { Card } from './Card.tsx';
 import type { SoundSettings } from '../types.ts';
 
 type Theme = 'dark' | 'light' | 'aurora' | 'dyslexia-tdah';
+
+const PlayIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" /></svg>;
 
 interface SettingsPageProps {
     onNavigate: (screen: string) => void;
@@ -14,7 +17,7 @@ interface SettingsPageProps {
     setTextSize: Dispatch<SetStateAction<number>>;
     soundSettings: SoundSettings;
     setSoundSettings: Dispatch<SetStateAction<SoundSettings>>;
-    playTestSound: (soundId: 'bol' | 'diapason' | 'gong') => void;
+    playTestSound: (soundId: 'bol' | 'diapason' | 'gong' | 'none') => void;
     isIOS: boolean;
     isAndroid: boolean;
     setShowInstallModal: Dispatch<SetStateAction<boolean>>;
@@ -67,24 +70,35 @@ export const SettingsPage = ({
 
             <Card>
                 <h3 className="font-bold text-lg mb-4 text-accent">{t('settings_section_audio')}</h3>
-                <div className="space-y-3">
-                    <label className="flex items-center gap-2 cursor-pointer w-fit">
-                        <input type="checkbox" checked={soundSettings.enabled} onChange={e => setSoundSettings(prev => ({...prev, enabled: e.target.checked}))} /> 
-                        {t('settings_sound_enabled')}
-                    </label>
-                    <div className={`${!soundSettings.enabled ? 'opacity-50 pointer-events-none' : ''}`}>
-                        <div>
-                            <label htmlFor="soundSelect" className="block text-sm font-medium text-muted mb-2">{t('settings_sound_select')}</label>
-                            <select id="soundSelect" value={soundSettings.selectedSound} onChange={e => { const newSound = e.target.value as 'bol'|'diapason'|'gong'; setSoundSettings(prev => ({...prev, selectedSound: newSound})); playTestSound(newSound); }} className="w-full bg-card rounded px-2 py-1 border border-white/20">
-                                <option value="bol">{t('settings_sound_bol')}</option>
-                                <option value="diapason">{t('settings_sound_diapason')}</option>
-                                <option value="gong">{t('settings_sound_gong')}</option>
-                            </select>
+                <div className="space-y-4">
+                     <div>
+                        <label className="block text-sm font-medium text-muted mb-2">{t('settings_sound_select')}</label>
+                        <div className="space-y-2">
+                            {(['bol', 'diapason', 'gong', 'none'] as const).map(soundId => (
+                                <div key={soundId} className="flex items-center justify-between p-2 rounded-lg bg-white/5">
+                                    <label className="flex items-center gap-3 cursor-pointer">
+                                        <input 
+                                            type="radio" 
+                                            name="sound-select" 
+                                            value={soundId} 
+                                            checked={soundSettings.selectedSound === soundId}
+                                            onChange={e => setSoundSettings(prev => ({...prev, selectedSound: e.target.value as any}))}
+                                            className="form-radio h-4 w-4 text-accent bg-card border-muted focus:ring-accent"
+                                        />
+                                        <span>{t(soundId === 'none' ? 'settings_sound_none' : `settings_sound_${soundId}`)}</span>
+                                    </label>
+                                    {soundId !== 'none' && (
+                                        <Button variant="secondary" size="small" className="!p-2" onClick={() => playTestSound(soundId)} aria-label={`Test ${t(`settings_sound_${soundId}`)}`}>
+                                            <PlayIcon />
+                                        </Button>
+                                    )}
+                                </div>
+                            ))}
                         </div>
-                        <div>
-                            <label htmlFor="volumeRange" className="block text-sm font-medium text-muted mb-2">{t('settings_sound_volume')}</label>
-                            <input id="volumeRange" type="range" min="0" max="1" step="0.1" value={soundSettings.volume} onChange={e => setSoundSettings(prev => ({...prev, volume: parseFloat(e.target.value)}))} onMouseUp={() => playTestSound(soundSettings.selectedSound)} className="w-full" />
-                        </div>
+                    </div>
+                    <div>
+                        <label htmlFor="volumeRange" className="block text-sm font-medium text-muted mb-2">{t('settings_sound_volume')}</label>
+                        <input id="volumeRange" type="range" min="0" max="1" step="0.1" value={soundSettings.volume} onChange={e => setSoundSettings(prev => ({...prev, volume: parseFloat(e.target.value)}))} onMouseUp={() => playTestSound(soundSettings.selectedSound)} className="w-full" />
                     </div>
                 </div>
             </Card>

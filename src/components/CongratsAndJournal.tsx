@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from 'react';
-import type { Ritual, BadgeId } from '../types.ts';
+import type { Ritual, BadgeId, SoundSettings } from '../types.ts';
 import { Button } from './Button.tsx';
-import { BADGES } from '../constants.ts';
+import { BADGES, SOUND_OPTIONS } from '../constants.ts';
 import { Card } from './Card.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 
@@ -10,9 +11,10 @@ interface CongratsAndJournalProps {
   onDone: (journalText: string) => void;
   onRestart: () => void;
   newlyUnlockedBadgeId: BadgeId | null;
+  soundSettings?: SoundSettings;
 }
 
-export const CongratsAndJournal = ({ ritual, onDone, onRestart, newlyUnlockedBadgeId }: CongratsAndJournalProps) => {
+export const CongratsAndJournal = ({ ritual, onDone, onRestart, newlyUnlockedBadgeId, soundSettings }: CongratsAndJournalProps) => {
   const { t } = useI18n();
   const [journalText, setJournalText] = useState('');
   const [showBadgeAnimation, setShowBadgeAnimation] = useState(false);
@@ -23,6 +25,15 @@ export const CongratsAndJournal = ({ ritual, onDone, onRestart, newlyUnlockedBad
       return () => clearTimeout(timer);
     }
   }, [newlyUnlockedBadgeId]);
+
+  useEffect(() => {
+    if (soundSettings && soundSettings.enabled && soundSettings.selectedSound !== 'none') {
+      const soundUrl = SOUND_OPTIONS[soundSettings.selectedSound].url;
+      const audio = new Audio(soundUrl);
+      audio.volume = soundSettings.volume;
+      audio.play().catch(e => console.error("Erreur lecture son fin:", e));
+    }
+  }, [soundSettings]);
 
   const unlockedBadge = newlyUnlockedBadgeId ? BADGES[newlyUnlockedBadgeId] : null;
 

@@ -1,4 +1,6 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import type { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
 import { SOUND_OPTIONS, MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
 import { Button } from './Button.tsx';
@@ -17,6 +19,7 @@ interface PlayerProps {
   sessions: Session[];
   onCheckForNewBadges: (potentialSessions: Session[]) => BadgeId | null;
   soundSettings: SoundSettings;
+  setSoundSettings: Dispatch<SetStateAction<SoundSettings>>;
   checkinData: Record<string, number>;
   onShowInfo: (ritualId: string) => void;
 }
@@ -30,6 +33,8 @@ const MusicOffIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" />
 </svg>;
 const CloseIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>;
+const SpeakerWaveIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>;
+const SpeakerXMarkIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>;
 
 
 const protocolMap: Record<string, {n: string, s: number}[]> = {
@@ -46,7 +51,7 @@ interface OrganState {
   videoUrl?: string;
 }
 
-export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, checkinData, onShowInfo }: PlayerProps) => {
+export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, onCheckForNewBadges, soundSettings, setSoundSettings, checkinData, onShowInfo }: PlayerProps) => {
   const { t } = useI18n();
   const [ritual, setRitual] = useState(initialRitual);
   const [timeLeft, setTimeLeft] = useState(ritual.dureeSec);
@@ -114,7 +119,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setAudioProgress(0);
       setRitualPhaseIndex(0);
       setSagesseAgreementIndex(0);
-      setIsBreathingGuidanceOn(soundSettings.enabled && (initialRitual.haptique?.onPhaseChange || initialRitual.category === 'respiration' || initialRitual.playerType === 'phased-ritual'));
+      setIsBreathingGuidanceOn(soundSettings.enabled && initialRitual.category === 'respiration');
       setIsCompletionSoundOn(soundSettings.enabled && initialRitual.playerType !== 'audio-guide');
       setShowBentoOptions(initialRitual.playerType === 'bento');
       setBentoPhase('short');
@@ -143,10 +148,10 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     return () => observer.disconnect();
   }, []);
   
-  const playBip = (freq: number, type: OscillatorType = 'sine') => {
+  const playBip = useCallback((freq: number, type: OscillatorType = 'sine') => {
       if (!isBreathingGuidanceOn || !audioContextRef.current) return;
       const ctx = audioContextRef.current;
-      if (ctx.state === 'suspended') { ctx.resume(); }
+      if (ctx.state === 'suspended') { ctx.resume().catch(e => console.error("Resume failed", e)); }
       const oscillator = ctx.createOscillator();
       const gainNode = ctx.createGain();
       oscillator.connect(gainNode);
@@ -157,7 +162,25 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + 0.3);
-  };
+  }, [isBreathingGuidanceOn, soundSettings.volume]);
+
+  const playPhaseTone = useCallback(() => {
+      if (!soundSettings.enabled || !audioContextRef.current || ritual.category === 'respiration') return;
+      const ctx = audioContextRef.current;
+      if (ctx.state === 'suspended') {
+        ctx.resume().catch(e => console.error("AudioContext resume failed", e));
+      }
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      oscillator.type = 'triangle';
+      oscillator.frequency.setValueAtTime(432, ctx.currentTime);
+      gainNode.gain.setValueAtTime(soundSettings.volume * 0.3, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.3);
+  }, [soundSettings.enabled, soundSettings.volume, ritual.category]);
   
   const handleCompletion = useCallback(() => {
       const newSession: Session = { id: `sess_${Date.now()}`, ritualId: ritual.id, dureeSec: ritual.dureeSec, timestamp: new Date().toISOString() };
@@ -165,32 +188,11 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       const newBadgeId = onCheckForNewBadges(potentialSessions);
       if(newBadgeId) setNewlyUnlockedBadgeId(newBadgeId);
       setIsComplete(true);
-  }, [ritual, sessions, onCheckForNewBadges]);
+  }, [ritual.id, ritual.dureeSec, sessions, onCheckForNewBadges]);
 
-  const playEndSoundAndComplete = useCallback(async () => {
-      if (isCompletionSoundOn && soundSettings.enabled && audioContextRef.current && SOUND_OPTIONS[soundSettings.selectedSound]) {
-          const audioCtx = audioContextRef.current;
-          if (audioCtx.state === 'suspended') await audioCtx.resume();
-          try {
-              const response = await fetch(SOUND_OPTIONS[soundSettings.selectedSound].url);
-              const arrayBuffer = await response.arrayBuffer();
-              const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-              const source = audioCtx.createBufferSource();
-              source.buffer = audioBuffer;
-              const gainNode = audioCtx.createGain();
-              source.connect(gainNode);
-              gainNode.connect(audioCtx.destination);
-              gainNode.gain.setValueAtTime(soundSettings.volume, audioCtx.currentTime);
-              source.onended = handleCompletion;
-              source.start();
-          } catch (e) {
-              console.error("Error playing end sound with AudioContext:", e);
-              handleCompletion();
-          }
-      } else {
-          handleCompletion();
-      }
-  }, [handleCompletion, isCompletionSoundOn, soundSettings]);
+  const playEndSoundAndComplete = useCallback(() => {
+      handleCompletion();
+  }, [handleCompletion]);
   
   const stop = useCallback((completed = false) => {
       setIsRunning(false);
@@ -199,14 +201,9 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       if (completed) {
           playEndSoundAndComplete();
       } else {
-          setTimeLeft(ritual.dureeSec);
-          setDonutLabel(t('player_ready'));
-          setRitualPhaseIndex(0);
-          if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
-          setAudioProgress(0);
-          onBack(); // Go back if stopped manually
+          onBack();
       }
-  }, [ritual.dureeSec, playEndSoundAndComplete, onBack, t]);
+  }, [playEndSoundAndComplete, onBack]);
 
     const tick = useCallback((timestamp: number) => {
         if (!startTimeRef.current) startTimeRef.current = timestamp;
@@ -321,6 +318,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
             const currentInstruction = instructions.slice().reverse().find(i => elapsedSec >= i.time);
             if (currentInstruction && dynamicInstruction !== currentInstruction.text) {
                 setDynamicInstruction(currentInstruction.text);
+                playPhaseTone();
             }
             const reversedInstructions = [...instructions].reverse();
             const currentInstructionIndexInReversed = reversedInstructions.findIndex(i => elapsedSec >= i.time);
@@ -346,7 +344,10 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                     break;
                 }
             }
-            if (slideshowIndex !== newIndex) setSlideshowIndex(newIndex);
+            if (slideshowIndex !== newIndex) {
+              setSlideshowIndex(newIndex);
+              playPhaseTone();
+            }
             
             let phaseStartTime = 0;
             for (let i = 0; i < newIndex; i++) { phaseStartTime += ritual.data.images[i].duration; }
@@ -360,6 +361,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
             const newIndex = Math.floor(elapsedSec / organDuration);
             if(newIndex < ORGANES.length && currentOrgan.index !== newIndex) {
                 setCurrentOrgan({ index: newIndex, ...ORGANES[newIndex] });
+                playPhaseTone();
             }
             if(organDuration > 0) currentPhaseProgress = (elapsedSec % organDuration) / organDuration;
         }
@@ -367,7 +369,10 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         if (ritual.playerType === 'sagesse-minute') {
             const phaseDuration = ritual.dureeSec / 4;
             const newIndex = Math.floor(elapsedSec / phaseDuration);
-            if (newIndex !== sagesseAgreementIndex) setSagesseAgreementIndex(newIndex);
+            if (newIndex !== sagesseAgreementIndex) {
+              setSagesseAgreementIndex(newIndex);
+              playPhaseTone();
+            }
             if(phaseDuration > 0) currentPhaseProgress = (elapsedSec % phaseDuration) / phaseDuration;
         }
         // Phased ritual logic
@@ -384,7 +389,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
              if (newPhaseIndex === -1) newPhaseIndex = ritual.data.phases.length -1;
 
             if (ritualPhaseIndex !== newPhaseIndex) {
-                playBip(440, 'triangle');
+                playPhaseTone();
                 setRitualPhaseIndex(newPhaseIndex);
             }
             const phaseStart = cumulativeDuration;
@@ -396,7 +401,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
         setPhaseProgress(currentPhaseProgress);
         animationFrameRef.current = requestAnimationFrame(tick);
-    }, [ritual, stop, isRunning, isBreathingGuidanceOn, breathingDirection, ritualPhaseIndex, bentoPhase, bentoTheme, dynamicInstruction, slideshowIndex, currentOrgan.index, showDonut, sagesseAgreementIndex, bentoReadyForPhase2, t]);
+    }, [ritual, stop, isRunning, playBip, playPhaseTone, breathingDirection, ritualPhaseIndex, bentoPhase, bentoTheme, dynamicInstruction, slideshowIndex, currentOrgan.index, showDonut, sagesseAgreementIndex, bentoReadyForPhase2, t]);
 
   useEffect(() => {
       if (isRunning && !isPaused) {
@@ -512,6 +517,10 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       }
   };
   
+  const toggleMute = () => {
+      setSoundSettings(prev => ({...prev, enabled: !prev.enabled}));
+  };
+
   const renderPreStartContent = () => {
     if (ritual.preStartSteps && preStartStepIndex < ritual.preStartSteps.length) {
         const step = ritual.preStartSteps[preStartStepIndex];
@@ -532,7 +541,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
     if (instructionHTML) {
         return (
-           <div className="w-full h-full flex items-center justify-center p-4">
+           <div className="w-full h-full flex flex-col items-center justify-center p-4">
                <div className="relative text-center z-10 animate-fade-in-short font-display">
                    <div className="font-semibold whitespace-pre-line text-lg" dangerouslySetInnerHTML={{ __html: instructionHTML.replace(/\n\n/g, '<br /><br />').replace(/\n/g, '<br />') }} />
                </div>
@@ -730,7 +739,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     </div>
 );
   
-  if (isComplete) { return <CongratsAndJournal ritual={ritual} onDone={(journalText) => onComplete(ritual.id, ritual.dureeSec, journalText, newlyUnlockedBadgeId)} onRestart={restartRitual} newlyUnlockedBadgeId={newlyUnlockedBadgeId} /> }
+  if (isComplete) { return <CongratsAndJournal ritual={ritual} onDone={(journalText) => onComplete(ritual.id, ritual.dureeSec, journalText, newlyUnlockedBadgeId)} onRestart={restartRitual} newlyUnlockedBadgeId={newlyUnlockedBadgeId} soundSettings={soundSettings} /> }
 
   const handlePreStartNext = () => {
       if (ritual.preStartSteps && preStartStepIndex < ritual.preStartSteps.length - 1) {
@@ -744,7 +753,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       return (
           <Modal 
               show={true}
-              title={`${ritual.modal.icon} ${t(ritual.label)} - ${t('preparation')}`}
+              title={`${ritual.modal.icon} ${t(ritual.label)} - ${'Préparation'}`}
               onClose={onBack}
               hideHeaderCloseButton={false}
               preStartNext={handlePreStartNext}
@@ -776,6 +785,13 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       ? `fixed inset-0 z-50 flex flex-col items-center text-center animate-fade-in ${isPreStart ? 'bg-gray-100 text-gray-800' : 'bg-black'}`
       : "w-full h-[calc(100vh-2rem)] flex flex-col items-center text-center animate-fade-in relative"
     }>
+        <header className={`w-full p-4 pt-6 text-center ${isImmersive ? (isPreStart ? '' : 'absolute top-0 left-0 right-0 z-30 text-white bg-gradient-to-b from-black/70 to-transparent') : ''}`}>
+            <h2 className="text-2xl font-bold">{t(ritual.label)}</h2>
+            <p className={isImmersive && !isPreStart ? 'text-white/80' : 'text-muted'}>
+            {Math.floor(ritual.dureeSec / 60)} {t('unit_min')} {ritual.dureeSec % 60 > 0 ? `${ritual.dureeSec % 60}s` : ''}
+            </p>
+        </header>
+        
         <button 
             onClick={() => stop(false)} 
             className={isImmersive
@@ -786,19 +802,10 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         >
             <CloseIcon />
         </button>
-        
-        {!isImmersive && (
-          <header className="w-full p-4 pt-6">
-              <h2 className="text-2xl font-bold">{t(ritual.label)}</h2>
-              <p className="text-muted">
-              {Math.floor(ritual.dureeSec / 60)} {t('unit_min')} {ritual.dureeSec % 60 > 0 ? `${ritual.dureeSec % 60}s` : ''}
-              </p>
-          </header>
-        )}
 
         <main className={isImmersive 
-          ? "w-full h-full"
-          : "w-full flex-1 flex flex-col items-center justify-center min-h-0 relative p-4"
+          ? "w-full flex-1 flex flex-col items-center justify-center min-h-0"
+          : "w-full flex-1 flex flex-col items-center justify-center min-h-0 relative p-4 pt-0"
         }>
           {isPreStart ? renderPreStartContent() : renderActiveContent()}
           {hasVideo && isRunning && !isPreStart && (
@@ -825,10 +832,21 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                       </div>
                   )}
               </div>
-              <div className="flex justify-center">
-                  {!isRunning && <Button variant="primary" size="large" onClick={start} className="w-40">{t('start')}</Button>}
-                  {isRunning && !isPaused && <Button variant="secondary" size="large" onClick={pause} className="w-40">{t('player_pause')}</Button>}
-                  {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>}
+              <div className="flex flex-col items-center gap-2 w-full max-w-xs">
+                {!isRunning ? (
+                  <>
+                    <Button variant="primary" size="large" onClick={start} className="w-full">{t('start')}</Button>
+                    {isPreStart && (
+                      <Button variant="ghost" onClick={() => onShowInfo(ritual.id)} className="text-muted hover:text-fg">
+                          {t('player_know_more')}
+                      </Button>
+                    )}
+                  </>
+                ) : isRunning && !isPaused ? (
+                  <Button variant="secondary" size="large" onClick={pause} className="w-40">{t('player_pause')}</Button>
+                ) : (
+                  <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>
+                )}
               </div>
           </div>
         ) : (
@@ -873,7 +891,12 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                       {isRunning && isPaused && <Button variant="primary" size="large" onClick={resume} className="w-40">{t('player_resume')}</Button>}
                   </div>
                   
-                  <div className="flex-1 flex justify-end items-center">
+                  <div className="flex-1 flex justify-end items-center gap-2">
+                      {!isRunning && (
+                          <Button variant="ghost" size="small" onClick={toggleMute} className="!p-2" title={soundSettings.enabled ? "Désactiver le son" : "Activer le son"}>
+                              {soundSettings.enabled ? <SpeakerWaveIcon /> : <SpeakerXMarkIcon />}
+                          </Button>
+                      )}
                       <Button variant="ghost" size="small" onClick={() => onShowInfo(ritual.id)} className="!text-accent-info">{t('player_know_more')}</Button>
                   </div>
               </footer>

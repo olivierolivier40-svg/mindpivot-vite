@@ -1,9 +1,203 @@
+
 import type { Ritual, Program, Badge, BadgeId } from './types.ts';
 
-export const SOUND_OPTIONS: Record<'bol' | 'diapason' | 'gong', { url: string }> = {
+export const SOUND_OPTIONS: Record<'bol' | 'diapason' | 'gong' | 'none', { url: string }> = {
     bol: { url: 'https://www.magnetiseur-dax.fr/webapp/Bol.mp3' },
     diapason: { url: 'https://www.magnetiseur-dax.fr/webapp/Diapason.mp3' },
     gong: { url: 'https://www.magnetiseur-dax.fr/webapp/Gong.mp3' },
+    none: { url: '' },
+};
+
+export const LABELS = {
+    energie: ['label_energie_0', 'label_energie_1', 'label_energie_2', 'label_energie_3', 'label_energie_4'],
+    humeur: ['label_humeur_0', 'label_humeur_1', 'label_humeur_2', 'label_humeur_3', 'label_humeur_4'],
+    chargeMentale: ['label_chargeMentale_0', 'label_chargeMentale_1', 'label_chargeMentale_2', 'label_chargeMentale_3', 'label_chargeMentale_4'],
+    tensionCorporelle: ['label_tensionCorporelle_0', 'label_tensionCorporelle_1', 'label_tensionCorporelle_2', 'label_tensionCorporelle_3', 'label_tensionCorporelle_4'],
+    fatiguePhysique: ['label_fatiguePhysique_0', 'label_fatiguePhysique_1', 'label_fatiguePhysique_2', 'label_fatiguePhysique_3', 'label_fatiguePhysique_4'],
+    agitation: ['label_agitation_0', 'label_agitation_1', 'label_agitation_2', 'label_agitation_3', 'label_agitation_4'],
+    joie: ['label_joie_0', 'label_joie_1', 'label_joie_2', 'label_joie_3', 'label_joie_4'],
+    tristesse: ['label_tristesse_0', 'label_tristesse_1', 'label_tristesse_2', 'label_tristesse_3', 'label_tristesse_4'],
+    colere: ['label_colere_0', 'label_colere_1', 'label_colere_2', 'label_colere_3', 'label_colere_4'],
+    peur: ['label_peur_0', 'label_peur_1', 'label_peur_2', 'label_peur_3', 'label_peur_4'],
+    sensibilite: ['label_sensibilite_0', 'label_sensibilite_1', 'label_sensibilite_2', 'label_sensibilite_3', 'label_sensibilite_4'],
+    clarteMentale: ['label_clarteMentale_0', 'label_clarteMentale_1', 'label_clarteMentale_2', 'label_clarteMentale_3', 'label_clarteMentale_4'],
+    rumination: ['label_rumination_0', 'label_rumination_1', 'label_rumination_2', 'label_rumination_3', 'label_rumination_4'],
+    orientationTemporelle: ['label_orientationTemporelle_0', 'label_orientationTemporelle_1', 'label_orientationTemporelle_2', 'label_orientationTemporelle_3', 'label_orientationTemporelle_4'],
+    qualitePensees: ['label_qualitePensees_0', 'label_qualitePensees_1', 'label_qualitePensees_2', 'label_qualitePensees_3', 'label_qualitePensees_4'],
+    vitesseMentale: ['label_vitesseMentale_0', 'label_vitesseMentale_1', 'label_vitesseMentale_2', 'label_vitesseMentale_3', 'label_vitesseMentale_4'],
+    sentimentControle: ['label_sentimentControle_0', 'label_sentimentControle_1', 'label_sentimentControle_2', 'label_sentimentControle_3', 'label_sentimentControle_4'],
+};
+
+export const HELP_CONTENT = {
+    energie: { title: 'help_energie_title', text: 'help_energie_text' },
+    humeur: { title: 'help_humeur_title', text: 'help_humeur_text' },
+    chargeMentale: { title: 'help_chargeMentale_title', text: 'help_chargeMentale_text' },
+    tensionCorporelle: { title: 'help_tensionCorporelle_title', text: 'help_tensionCorporelle_text' },
+    fatiguePhysique: { title: 'help_fatiguePhysique_title', text: 'help_fatiguePhysique_text' },
+    agitation: { title: 'help_agitation_title', text: 'help_agitation_text' },
+    joie: { title: 'help_joie_title', text: 'help_joie_text' },
+    tristesse: { title: 'help_tristesse_title', text: 'help_tristesse_text' },
+    colere: { title: 'help_colere_title', text: 'help_colere_text' },
+    peur: { title: 'help_peur_title', text: 'help_peur_text' },
+    sensibilite: { title: 'help_sensibilite_title', text: 'help_sensibilite_text' },
+    clarteMentale: { title: 'help_clarteMentale_title', text: 'help_clarteMentale_text' },
+    rumination: { title: 'help_rumination_title', text: 'help_rumination_text' },
+    orientationTemporelle: { title: 'help_orientationTemporelle_title', text: 'help_orientationTemporelle_text' },
+    qualitePensees: { title: 'help_qualitePensees_title', text: 'help_qualitePensees_text' },
+    vitesseMentale: { title: 'help_vitesseMentale_title', text: 'help_vitesseMentale_text' },
+    sentimentControle: { title: 'help_sentimentControle_title', text: 'help_sentimentControle_text' },
+};
+
+export const BADGE_CATEGORIES = {
+    premiers_pas: 'badge_category_premiers_pas',
+    constance: 'badge_category_constance',
+    exploration: 'badge_category_exploration',
+    maitrise: 'badge_category_maitrise',
+    secrets: 'badge_category_secrets',
+};
+
+export const BADGES: Record<BadgeId, Badge> = {
+    PREMIER_RITUEL: { name: 'badge_PREMIER_RITUEL_name', icon: '🌱', category: 'premiers_pas', description: 'badge_PREMIER_RITUEL_description', hint: 'badge_PREMIER_RITUEL_hint' },
+    TROIS_JOURS_SUITE: { name: 'badge_TROIS_JOURS_SUITE_name', icon: '🔥', category: 'constance', description: 'badge_TROIS_JOURS_SUITE_description', hint: 'badge_TROIS_JOURS_SUITE_hint' },
+    SEPT_JOURS_SUITE: { name: 'badge_SEPT_JOURS_SUITE_name', icon: '📅', category: 'constance', description: 'badge_SEPT_JOURS_SUITE_description', hint: 'badge_SEPT_JOURS_SUITE_hint' },
+    TRENTE_JOURS_SUITE: { name: 'badge_TRENTE_JOURS_SUITE_name', icon: '🚀', category: 'constance', description: 'badge_TRENTE_JOURS_SUITE_description', hint: 'badge_TRENTE_JOURS_SUITE_hint' },
+    DIX_ENTREES_JOURNAL: { name: 'badge_DIX_ENTREES_JOURNAL_name', icon: '✍️', category: 'exploration', description: 'badge_DIX_ENTREES_JOURNAL_description', hint: 'badge_DIX_ENTREES_JOURNAL_hint' },
+    TROIS_CATEGORIES: { name: 'badge_TROIS_CATEGORIES_name', icon: '🎨', category: 'exploration', description: 'badge_TROIS_CATEGORIES_description', hint: 'badge_TROIS_CATEGORIES_hint' },
+    DIX_RITUELS_DIFFERENTS: { name: 'badge_DIX_RITUELS_DIFFERENTS_name', icon: '🔍', category: 'exploration', description: 'badge_DIX_RITUELS_DIFFERENTS_description', hint: 'badge_DIX_RITUELS_DIFFERENTS_hint' },
+    CENT_SESSIONS: { name: 'badge_CENT_SESSIONS_name', icon: '💯', category: 'maitrise', description: 'badge_CENT_SESSIONS_description', hint: 'badge_CENT_SESSIONS_hint' },
+    RITUEL_AVANT_8H: { name: 'badge_RITUEL_AVANT_8H_name', icon: '🌅', category: 'secrets', description: 'badge_RITUEL_AVANT_8H_description', hint: 'badge_RITUEL_AVANT_8H_hint' },
+    RITUEL_APRES_22H: { name: 'badge_RITUEL_APRES_22H_name', icon: '🦉', category: 'secrets', description: 'badge_RITUEL_APRES_22H_description', hint: 'badge_RITUEL_APRES_22H_hint' },
+    PARCOURS_TERMINE: { name: 'badge_PARCOURS_TERMINE_name', icon: '🏔️', category: 'maitrise', description: 'badge_PARCOURS_TERMINE_description', hint: 'badge_PARCOURS_TERMINE_hint' },
+};
+
+export const PROGRAMS: Program[] = [
+    {
+        id: 'prog_anti_stress_7j',
+        title: 'program_anti_stress_7j_title',
+        icon: '🧘',
+        durationDays: 7,
+        description: 'program_anti_stress_7j_description',
+        isPremium: false,
+        ritualIds: ['rit.soupir_physio_120', 'rit.equilibre_5_5', 'rit.body_scan_180', 'rit.scan_54321', 'rit.eft_mini', 'rit.automassage_cervical', 'rit.pluie_interieure'],
+        details: { objective: 'program_anti_stress_7j_details_objective', mechanism: 'program_anti_stress_7j_details_mechanism', benefits: 'program_anti_stress_7j_details_benefits' }
+    },
+    {
+        id: 'prog_focus_performance_5j',
+        title: 'program_focus_performance_5j_title',
+        icon: '🎯',
+        durationDays: 5,
+        description: 'program_focus_performance_5j_description',
+        isPremium: true,
+        ritualIds: ['rit.trataka', 'rit.regard_infini', 'rit.box_4_4_4_4', 'rit.synchro_gamma', 'rit.nadi_shodhana_120'],
+        details: { objective: 'program_focus_performance_5j_details_objective', mechanism: 'program_focus_performance_5j_details_mechanism', benefits: 'program_focus_performance_5j_details_benefits' }
+    },
+    {
+        id: 'prog_liberation_emotionnelle_5j',
+        title: 'program_liberation_emotionnelle_5j_title',
+        icon: '🌊',
+        durationDays: 5,
+        description: 'program_liberation_emotionnelle_5j_description',
+        isPremium: true,
+        ritualIds: ['rit.fureur_tigre', 'rit.recyclage_emotionnel', 'rit.butterfly_hug', 'rit.etreinte_ombre', 'rit.vibration_tellurique'],
+        details: { objective: 'program_liberation_emotionnelle_5j_details_objective', mechanism: 'program_liberation_emotionnelle_5j_details_mechanism', benefits: 'program_liberation_emotionnelle_5j_details_benefits' }
+    },
+    {
+        id: 'prog_sommeil_serein_5j',
+        title: 'program_sommeil_serein_5j_title',
+        icon: '🌙',
+        durationDays: 5,
+        description: 'program_sommeil_serein_5j_description',
+        isPremium: true,
+        ritualIds: ['rit.calme_4_7_8', 'rit.vagale_dorsal', 'rit.priere_du_soir', 'rit.masque_tombe', 'rit.body_scan_180'],
+        details: { objective: 'program_sommeil_serein_5j_details_objective', mechanism: 'program_sommeil_serein_5j_details_mechanism', benefits: 'program_sommeil_serein_5j_details_benefits' }
+    },
+    {
+        id: 'prog_ancrage_stabilite_3j',
+        title: 'program_ancrage_stabilite_3j_title',
+        icon: '🌳',
+        durationDays: 3,
+        description: 'program_ancrage_stabilite_3j_description',
+        isPremium: false,
+        ritualIds: ['rit.scan_54321', 'rit.arbre_tempete', 'rit.porte_interieure'],
+        details: { objective: 'program_ancrage_stabilite_3j_details_objective', mechanism: 'program_ancrage_stabilite_3j_details_mechanism', benefits: 'program_ancrage_stabilite_3j_details_benefits' }
+    },
+    {
+        id: 'prog_confiance_energie_5j',
+        title: 'program_confiance_energie_5j_title',
+        icon: '⚡',
+        durationDays: 5,
+        description: 'program_confiance_energie_5j_description',
+        isPremium: true,
+        ritualIds: ['rit.power_posing', 'rit.bascule_vibratoire', 'rit.souffle_dragon', 'rit.salut_quantique', 'rit.activation_grace'],
+        details: { objective: 'program_confiance_energie_5j_details_objective', mechanism: 'program_confiance_energie_5j_details_mechanism', benefits: 'program_confiance_energie_5j_details_benefits' }
+    },
+    {
+        id: 'prog_sagesse_interieure_7j',
+        title: 'program_sagesse_interieure_7j_title',
+        icon: '📜',
+        durationDays: 7,
+        description: 'program_sagesse_interieure_7j_description',
+        isPremium: true,
+        ritualIds: ['rit.sagesse_tolteque', 'rit.sagesse_minute', 'rit.gratitude_90', 'rit.sourire_organes', 'rit.intention_glissante', 'rit.balancier_neutre', 'rit.connexion_holofractographique'],
+        details: { objective: 'program_sagesse_interieure_7j_details_objective', mechanism: 'program_sagesse_interieure_7j_details_mechanism', benefits: 'program_sagesse_interieure_7j_details_benefits' }
+    }
+];
+
+export const MORNING_INTENTIONS = [
+    'morning_intention_1', 'morning_intention_2', 'morning_intention_3', 'morning_intention_4', 'morning_intention_5',
+    'morning_intention_6', 'morning_intention_7', 'morning_intention_8', 'morning_intention_9', 'morning_intention_10',
+    'morning_intention_11', 'morning_intention_12', 'morning_intention_13', 'morning_intention_14', 'morning_intention_15',
+    'morning_intention_16', 'morning_intention_17', 'morning_intention_18', 'morning_intention_19', 'morning_intention_20',
+    'morning_intention_21', 'morning_intention_22', 'morning_intention_23', 'morning_intention_24', 'morning_intention_25',
+    'morning_intention_26', 'morning_intention_27', 'morning_intention_28', 'morning_intention_29', 'morning_intention_30',
+    'morning_intention_31', 'morning_intention_32', 'morning_intention_33'
+];
+
+export const CITATIONS = [
+    { q: "Le seul moment où l'on peut agir, c'est maintenant.", a: "Eckhart Tolle" },
+    { q: "La paix vient de l'intérieur. Ne la cherchez pas à l'extérieur.", a: "Bouddha" },
+    { q: "Ce que tu penses, tu le deviens. Ce que tu ressens, tu l'attires. Ce que tu imagines, tu le crées.", a: "Bouddha" },
+    { q: "Au milieu de l'hiver, j'ai découvert en moi un invincible été.", a: "Albert Camus" },
+    { q: "La meilleure façon de prédire l'avenir est de le créer.", a: "Peter Drucker" },
+    { q: "La vie n'est pas d'attendre que les orages passent, c'est d'apprendre à danser sous la pluie.", a: "Sénèque" },
+    { q: "Le bonheur n'est pas quelque chose de prêt à l'emploi. Il vient de vos propres actions.", a: "Dalaï Lama" },
+    { q: "Ne laisse pas le bruit des opinions des autres étouffer ta voix intérieure.", a: "Steve Jobs" },
+    { q: "On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.", a: "Antoine de Saint-Exupéry" },
+    { q: "Tout voyage de mille lieues commence par un premier pas.", a: "Lao Tseu" }
+];
+
+export const BENTO_MANTRAS = {
+    classique: { 
+        name: 'bento_mantra_classic', 
+        short: { inhale: 'bento_mantra_classic_short_inhale', exhale: 'bento_mantra_classic_short_exhale' }, 
+        long: { inhale: 'bento_mantra_classic_long_inhale', exhale: 'bento_mantra_classic_long_exhale' } 
+    },
+    confiance: { 
+        name: 'bento_mantra_confidence', 
+        short: { inhale: 'bento_mantra_confidence_short_inhale', exhale: 'bento_mantra_confidence_short_exhale' }, 
+        long: { inhale: 'bento_mantra_confidence_long_inhale', exhale: 'bento_mantra_confidence_long_exhale' } 
+    },
+    lacher_prise: { 
+        name: 'bento_mantra_letting_go', 
+        short: { inhale: 'bento_mantra_letting_go_short_inhale', exhale: 'bento_mantra_letting_go_short_exhale' }, 
+        long: { inhale: 'bento_mantra_letting_go_long_inhale', exhale: 'bento_mantra_letting_go_long_exhale' } 
+    }
+};
+
+export const ORGANES = [
+    { name: 'organ_heart', icon: '❤️' },
+    { name: 'organ_lungs', icon: '🫁' },
+    { name: 'organ_liver', icon: '🍃' },
+    { name: 'organ_kidneys', icon: '💧' },
+    { name: 'organ_spleen', icon: '☀️' }
+];
+
+export const RITUAL_INSTRUCTIONS: Record<string, {time: number, text: string}[]> = {
+    'rit.gratitude_90': [
+        { time: 0, text: 'ritual_instruct_gratitude_90_1' },
+        { time: 30, text: 'ritual_instruct_gratitude_90_2' },
+        { time: 60, text: 'ritual_instruct_gratitude_90_3' }
+    ]
 };
 
 export const RITUELS: Ritual[] = [
@@ -381,7 +575,7 @@ export const RITUELS: Ritual[] = [
         dureeSec: 75,
         donut: 'off',
         haptique: {},
-        tags: ['colere', 'lacher-prise', 'énergie', 'somatique'],
+        tags: ['colere', 'lacher-prise', 'énergie', 'dynamiser'],
         isPremium: false,
         data: {
           phases: [
@@ -834,7 +1028,7 @@ export const RITUELS: Ritual[] = [
               imagesByPhase: {
                 'ritual_nadi_shodhana_120_apaisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-gauche.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_1' },
                 'ritual_nadi_shodhana_120_apaisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-droite.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_2' },
-                'ritual_nadi_shodhana_120_apaisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-droite.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_3' },
+                'ritual_nadi_shodhana_120_apaisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-droite.png', caption: 'ritual_nادي_shodhana_120_apaisant_caption_3' },
                 'ritual_nadi_shodhana_120_apaisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-gauche.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_4' },
               }
             },
@@ -1340,207 +1534,4 @@ export const RITUELS: Ritual[] = [
             },
         },
     },
-];
-
-export const PROGRAMS: Program[] = [
-    {
-        id: 'prog.anti_stress_7j',
-        title: 'program_anti_stress_7j_title',
-        icon: '🧘‍♀️',
-        durationDays: 7,
-        description: 'program_anti_stress_7j_description',
-        isPremium: false,
-        ritualIds: ['rit.soupir_physio_120', 'rit.box_4_4_4_4', 'rit.body_scan_180', 'rit.butterfly_hug', 'rit.scan_54321', 'rit.pluie_interieure', 'rit.equilibre_5_5'],
-        details: {
-            objective: 'program_anti_stress_7j_details_objective',
-            mechanism: 'program_anti_stress_7j_details_mechanism',
-            benefits: 'program_anti_stress_7j_details_benefits'
-        }
-    },
-    {
-        id: 'prog.focus_performance_5j',
-        title: 'program_focus_performance_5j_title',
-        icon: '🎯',
-        durationDays: 5,
-        description: 'program_focus_performance_5j_description',
-        isPremium: true,
-        ritualIds: ['rit.trataka', 'rit.box_4_4_4_4', 'rit.nadi_shodhana_120', 'rit.synchro_gamma', 'rit.regard_infini'],
-        details: {
-            objective: 'program_focus_performance_5j_details_objective',
-            mechanism: 'program_focus_performance_5j_details_mechanism',
-            benefits: 'program_focus_performance_5j_details_benefits'
-        }
-    },
-    {
-        id: 'prog.liberation_emotionnelle_5j',
-        title: 'program_liberation_emotionnelle_5j_title',
-        icon: '🦋',
-        durationDays: 5,
-        description: 'program_liberation_emotionnelle_5j_description',
-        isPremium: true,
-        ritualIds: ['rit.butterfly_hug', 'rit.fureur_tigre', 'rit.recyclage_emotionnel', 'rit.bascule_vibratoire', 'rit.vibration_tellurique'],
-        details: {
-            objective: 'program_liberation_emotionnelle_5j_details_objective',
-            mechanism: 'program_liberation_emotionnelle_5j_details_mechanism',
-            benefits: 'program_liberation_emotionnelle_5j_details_benefits'
-        }
-    },
-    {
-        id: 'prog.sommeil_serein_5j',
-        title: 'program_sommeil_serein_5j_title',
-        icon: '🌙',
-        durationDays: 5,
-        description: 'program_sommeil_serein_5j_description',
-        isPremium: false,
-        ritualIds: ['rit.calme_4_7_8', 'rit.body_scan_180', 'rit.vagale_dorsal', 'rit.masque_tombe', 'rit.priere_du_soir'],
-        details: {
-            objective: 'program_sommeil_serein_5j_details_objective',
-            mechanism: 'program_sommeil_serein_5j_details_mechanism',
-            benefits: 'program_sommeil_serein_5j_details_benefits'
-        }
-    },
-    {
-        id: 'prog.ancrage_stabilite_3j',
-        title: 'program_ancrage_stabilite_3j_title',
-        icon: '🌳',
-        durationDays: 3,
-        description: 'program_ancrage_stabilite_3j_description',
-        isPremium: false,
-        ritualIds: ['rit.scan_54321', 'rit.arbre_tempete', 'rit.porte_interieure'],
-        details: {
-            objective: 'program_ancrage_stabilite_3j_details_objective',
-            mechanism: 'program_ancrage_stabilite_3j_details_mechanism',
-            benefits: 'program_ancrage_stabilite_3j_details_benefits'
-        }
-    },
-    {
-        id: 'prog.confiance_energie_5j',
-        title: 'program_confiance_energie_5j_title',
-        icon: '☀️',
-        durationDays: 5,
-        description: 'program_confiance_energie_5j_description',
-        isPremium: true,
-        ritualIds: ['rit.power_posing', 'rit.bascule_vibratoire', 'rit.salut_quantique', 'rit.souffle_dragon', 'rit.activation_grace'],
-        details: {
-            objective: 'program_confiance_energie_5j_details_objective',
-            mechanism: 'program_confiance_energie_5j_details_mechanism',
-            benefits: 'program_confiance_energie_5j_details_benefits'
-        }
-    },
-    {
-        id: 'prog.sagesse_interieure_7j',
-        title: 'program_sagesse_interieure_7j_title',
-        icon: '📜',
-        durationDays: 7,
-        description: 'program_sagesse_interieure_7j_description',
-        isPremium: true,
-        ritualIds: ['rit.sagesse_tolteque', 'rit.gratitude_90', 'rit.etreinte_ombre', 'rit.sagesse_minute', 'rit.intention_glissante', 'rit.balancier_neutre', 'rit.priere_du_soir'],
-        details: {
-            objective: 'program_sagesse_interieure_7j_details_objective',
-            mechanism: 'program_sagesse_interieure_7j_details_mechanism',
-            benefits: 'program_sagesse_interieure_7j_details_benefits'
-        }
-    }
-];
-
-export const BADGES: Record<BadgeId, Badge> = {
-    'PREMIER_RITUEL': { name: 'badge_PREMIER_RITUEL_name', icon: '🎉', category: 'premiers_pas', description: 'badge_PREMIER_RITUEL_description', hint: 'badge_PREMIER_RITUEL_hint' },
-    'TROIS_JOURS_SUITE': { name: 'badge_TROIS_JOURS_SUITE_name', icon: '🥉', category: 'constance', description: 'badge_TROIS_JOURS_SUITE_description', hint: 'badge_TROIS_JOURS_SUITE_hint' },
-    'SEPT_JOURS_SUITE': { name: 'badge_SEPT_JOURS_SUITE_name', icon: '🥈', category: 'constance', description: 'badge_SEPT_JOURS_SUITE_description', hint: 'badge_SEPT_JOURS_SUITE_hint' },
-    'TRENTE_JOURS_SUITE': { name: 'badge_TRENTE_JOURS_SUITE_name', icon: '🥇', category: 'constance', description: 'badge_TRENTE_JOURS_SUITE_description', hint: 'badge_TRENTE_JOURS_SUITE_hint' },
-    'DIX_ENTREES_JOURNAL': { name: 'badge_DIX_ENTREES_JOURNAL_name', icon: '✍️', category: 'exploration', description: 'badge_DIX_ENTREES_JOURNAL_description', hint: 'badge_DIX_ENTREES_JOURNAL_hint' },
-    'TROIS_CATEGORIES': { name: 'badge_TROIS_CATEGORIES_name', icon: '🌍', category: 'exploration', description: 'badge_TROIS_CATEGORIES_description', hint: 'badge_TROIS_CATEGORIES_hint' },
-    'DIX_RITUELS_DIFFERENTS': { name: 'badge_DIX_RITUELS_DIFFERENTS_name', icon: '📚', category: 'exploration', description: 'badge_DIX_RITUELS_DIFFERENTS_description', hint: 'badge_DIX_RITUELS_DIFFERENTS_hint' },
-    'CENT_SESSIONS': { name: 'badge_CENT_SESSIONS_name', icon: '💯', category: 'maitrise', description: 'badge_CENT_SESSIONS_description', hint: 'badge_CENT_SESSIONS_hint' },
-    'RITUEL_AVANT_8H': { name: 'badge_RITUEL_AVANT_8H_name', icon: '☀️', category: 'secrets', description: 'badge_RITUEL_AVANT_8H_description', hint: 'badge_RITUEL_AVANT_8H_hint' },
-    'RITUEL_APRES_22H': { name: 'badge_RITUEL_APRES_22H_name', icon: '🌙', category: 'secrets', description: 'badge_RITUEL_APRES_22H_description', hint: 'badge_RITUEL_APRES_22H_hint' },
-    'PARCOURS_TERMINE': { name: 'badge_PARCOURS_TERMINE_name', icon: '🏁', category: 'exploration', description: 'badge_PARCOURS_TERMINE_description', hint: 'badge_PARCOURS_TERMINE_hint' }
-};
-
-export const BADGE_CATEGORIES: Record<string, string> = {
-    premiers_pas: 'badge_category_premiers_pas',
-    constance: 'badge_category_constance',
-    exploration: 'badge_category_exploration',
-    maitrise: 'badge_category_maitrise',
-    secrets: 'badge_category_secrets'
-};
-
-export const LABELS: Record<string, string[]> = {
-    energie: ['label_energie_0', 'label_energie_1', 'label_energie_2', 'label_energie_3', 'label_energie_4'],
-    humeur: ['label_humeur_0', 'label_humeur_1', 'label_humeur_2', 'label_humeur_3', 'label_humeur_4'],
-    chargeMentale: ['label_chargeMentale_4', 'label_chargeMentale_3', 'label_chargeMentale_2', 'label_chargeMentale_1', 'label_chargeMentale_0'],
-    tensionCorporelle: ['label_tensionCorporelle_4', 'label_tensionCorporelle_3', 'label_tensionCorporelle_2', 'label_tensionCorporelle_1', 'label_tensionCorporelle_0'],
-    fatiguePhysique: ['label_fatiguePhysique_0', 'label_fatiguePhysique_1', 'label_fatiguePhysique_2', 'label_fatiguePhysique_3', 'label_fatiguePhysique_4'],
-    agitation: ['label_agitation_4', 'label_agitation_3', 'label_agitation_2', 'label_agitation_1', 'label_agitation_0'],
-    joie: ['label_joie_0', 'label_joie_1', 'label_joie_2', 'label_joie_3', 'label_joie_4'],
-    tristesse: ['label_tristesse_4', 'label_tristesse_3', 'label_tristesse_2', 'label_tristesse_1', 'label_tristesse_0'],
-    colere: ['label_colere_4', 'label_colere_3', 'label_colere_2', 'label_colere_1', 'label_colere_0'],
-    peur: ['label_peur_4', 'label_peur_3', 'label_peur_2', 'label_peur_1', 'label_peur_0'],
-    sensibilite: ['label_sensibilite_4', 'label_sensibilite_3', 'label_sensibilite_2', 'label_sensibilite_1', 'label_sensibilite_0'],
-    clarteMentale: ['label_clarteMentale_0', 'label_clarteMentale_1', 'label_clarteMentale_2', 'label_clarteMentale_3', 'label_clarteMentale_4'],
-    rumination: ['label_rumination_4', 'label_rumination_3', 'label_rumination_2', 'label_rumination_1', 'label_rumination_0'],
-    orientationTemporelle: ['label_orientationTemporelle_0', 'label_orientationTemporelle_1', 'label_orientationTemporelle_2', 'label_orientationTemporelle_3', 'label_orientationTemporelle_4'],
-    qualitePensees: ['label_qualitePensees_0', 'label_qualitePensees_1', 'label_qualitePensees_2', 'label_qualitePensees_3', 'label_qualitePensees_4'],
-    vitesseMentale: ['label_vitesseMentale_4', 'label_vitesseMentale_3', 'label_vitesseMentale_2', 'label_vitesseMentale_1', 'label_vitesseMentale_0'],
-    sentimentControle: ['label_sentimentControle_0', 'label_sentimentControle_1', 'label_sentimentControle_2', 'label_sentimentControle_3', 'label_sentimentControle_4'],
-};
-
-export const HELP_CONTENT: Record<string, { title: string, text: string }> = {
-    energie: { title: 'help_energie_title', text: 'help_energie_text' },
-    humeur: { title: 'help_humeur_title', text: 'help_humeur_text' },
-    chargeMentale: { title: 'help_chargeMentale_title', text: 'help_chargeMentale_text' },
-    tensionCorporelle: { title: 'help_tensionCorporelle_title', text: 'help_tensionCorporelle_text' },
-    fatiguePhysique: { title: 'help_fatiguePhysique_title', text: 'help_fatiguePhysique_text' },
-    agitation: { title: 'help_agitation_title', text: 'help_agitation_text' },
-    joie: { title: 'help_joie_title', text: 'help_joie_text' },
-    tristesse: { title: 'help_tristesse_title', text: 'help_tristesse_text' },
-    colere: { title: 'help_colere_title', text: 'help_colere_text' },
-    peur: { title: 'help_peur_title', text: 'help_peur_text' },
-    sensibilite: { title: 'help_sensibilite_title', text: 'help_sensibilite_text' },
-    clarteMentale: { title: 'help_clarteMentale_title', text: 'help_clarteMentale_text' },
-    rumination: { title: 'help_rumination_title', text: 'help_rumination_text' },
-    orientationTemporelle: { title: 'help_orientationTemporelle_title', text: 'help_orientationTemporelle_text' },
-    qualitePensees: { title: 'help_qualitePensees_title', text: 'help_qualitePensees_text' },
-    vitesseMentale: { title: 'help_vitesseMentale_title', text: 'help_vitesseMentale_text' },
-    sentimentControle: { title: 'help_sentimentControle_title', text: 'help_sentimentControle_text' },
-};
-
-export const CITATIONS: { q: string, a: string }[] = [
-    { q: "La seule façon de donner un sens au changement est de s'y plonger, de bouger avec lui et de se joindre à la danse.", a: "Alan Watts" },
-    { q: "Le moment présent a un avantage sur tous les autres : il nous appartient.", a: "Charles Caleb Colton" },
-    { q: "Ne laissez pas le comportement des autres détruire votre paix intérieure.", a: "Dalaï Lama" },
-    { q: "La plus grande découverte de ma génération est que les êtres humains peuvent altérer leur vie en altérant leurs attitudes mentales.", a: "William James" },
-    { q: "Entre le stimulus et la réponse, il y a un espace. Dans cet espace est notre pouvoir de choisir notre réponse. Dans notre réponse résident notre croissance et notre liberté.", a: "Viktor Frankl" }
-];
-
-export const BENTO_MANTRAS: Record<string, { name: string, short: { inhale: string, exhale: string }, long: { inhale: string, exhale: string } }> = {
-    classique: { name: 'bento_mantra_classic', short: { inhale: 'bento_mantra_classic_short_inhale', exhale: 'bento_mantra_classic_short_exhale' }, long: { inhale: 'bento_mantra_classic_long_inhale', exhale: 'bento_mantra_classic_long_exhale' } },
-    confidence: { name: 'bento_mantra_confidence', short: { inhale: 'bento_mantra_confidence_short_inhale', exhale: 'bento_mantra_confidence_short_exhale' }, long: { inhale: 'bento_mantra_confidence_long_inhale', exhale: 'bento_mantra_confidence_long_exhale' } },
-    'letting_go': { name: 'bento_mantra_letting_go', short: { inhale: 'bento_mantra_letting_go_short_inhale', exhale: 'bento_mantra_letting_go_short_exhale' }, long: { inhale: 'bento_mantra_letting_go_long_inhale', exhale: 'bento_mantra_letting_go_long_exhale' } },
-};
-
-export const ORGANES = [
-    { name: 'organ_heart', icon: '❤️', videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/coeur.mp4' },
-    { name: 'organ_lungs', icon: '🫁', videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/poumons.mp4' },
-    { name: 'organ_liver', icon: '🌿', videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/foie.mp4' },
-    { name: 'organ_kidneys', icon: '💧', videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/reins.mp4' },
-    { name: 'organ_spleen', icon: '🌼', videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/rate-pancreas.mp4' }
-];
-
-export const RITUAL_INSTRUCTIONS: Record<string, {time: number, text: string}[]> = {
-    'rit.gratitude_90': [
-        { time: 0, text: 'ritual_instruct_gratitude_90_1' },
-        { time: 30, text: 'ritual_instruct_gratitude_90_2' },
-        { time: 60, text: 'ritual_instruct_gratitude_90_3' }
-    ],
-};
-
-export const MORNING_INTENTIONS: string[] = [
-    'morning_intention_1', 'morning_intention_2', 'morning_intention_3', 'morning_intention_4', 'morning_intention_5',
-    'morning_intention_6', 'morning_intention_7', 'morning_intention_8', 'morning_intention_9', 'morning_intention_10',
-    'morning_intention_11', 'morning_intention_12', 'morning_intention_13', 'morning_intention_14', 'morning_intention_15',
-    'morning_intention_16', 'morning_intention_17', 'morning_intention_18', 'morning_intention_19', 'morning_intention_20',
-    'morning_intention_21', 'morning_intention_22', 'morning_intention_23', 'morning_intention_24', 'morning_intention_25',
-    'morning_intention_26', 'morning_intention_27', 'morning_intention_28', 'morning_intention_29', 'morning_intention_30',
-    'morning_intention_31', 'morning_intention_32', 'morning_intention_33'
 ];

@@ -1,3 +1,4 @@
+
 export interface Ritual {
   id: string;
   label: string;
@@ -99,5 +100,5 @@ export interface Streaks {
 export interface SoundSettings {
   enabled: boolean;
   volume: number;
-  selectedSound: 'bol' | 'diapason' | 'gong';
+  selectedSound: 'bol' | 'diapason' | 'gong' | 'none';
 }
