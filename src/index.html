@@ -220,35 +220,22 @@
       }
 
       .onboarding-container {
-        background: linear-gradient(180deg, #FAFBFC 0%, #F0F2F5 100%);
         color: #1A1A1A;
         position: relative;
         overflow: hidden;
+        transition: background 0.5s ease-in-out;
       }
-      .onboarding-slide::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        opacity: 0.5;
-        z-index: 0;
+      .onboarding-bg-1 {
+        background: linear-gradient(180deg, #CFE6FF 0%, #B4D3FF 100%);
       }
-      .onboarding-bg-1::before {
-        background-image:
-          radial-gradient(circle at 10% 15%, rgba(102, 126, 234, 0.08) 0%, transparent 30%),
-          radial-gradient(circle at 85% 90%, rgba(118, 75, 162, 0.08) 0%, transparent 40%);
+      .onboarding-bg-2 {
+        background: linear-gradient(135deg, #D7CCFF 0%, #FFB86B 100%);
       }
-      .onboarding-bg-2::before {
-         background-image:
-            radial-gradient(ellipse at 0% 50%, rgba(255, 107, 53, 0.08) 15%, transparent 25%),
-            radial-gradient(ellipse at 100% 50%, rgba(255, 233, 120, 0.08) 15%, transparent 25%);
-          background-size: 80px 160px;
-          background-position: 0 0, 40px 80px;
+      .onboarding-bg-3 {
+        background: linear-gradient(180deg, #C6B5FF 0%, #FFE29F 100%);
       }
-      .onboarding-bg-3::before {
-        background-image:
-          radial-gradient(circle at 25% 75%, rgba(255, 105, 180, 0.08) 1px, transparent 2px),
-          radial-gradient(circle at 75% 25%, rgba(255, 107, 107, 0.08) 1px, transparent 2px);
-        background-size: 24px 24px;
+      .onboarding-secondary-text {
+        color: #5A6472; /* Mettez la couleur que vous voulez ici */
       }
       
       /* Correction pour la visibilité du bouton d'effacement du champ de recherche */

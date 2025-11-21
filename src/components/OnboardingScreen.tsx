@@ -44,8 +44,7 @@ export const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
   };
 
   return (
-    <div className="min-h-screen text-fg flex flex-col items-center justify-between p-6 animate-fade-in onboarding-container onboarding-slide">
-      <div className={`absolute inset-0 z-0 ${currentSlide.bgClass}`}></div>
+    <div className={`min-h-screen text-fg flex flex-col items-center justify-between p-6 animate-fade-in onboarding-container ${currentSlide.bgClass}`}>
       <header className="w-full flex justify-end relative z-10">
         <Button variant="ghost" onClick={onComplete} className="!text-muted hover:!text-fg">
           {t('onboarding_skip')}
@@ -59,7 +58,7 @@ export const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
         <h2 className="font-poppins font-bold text-3xl mb-4 text-[#1A1A1A]">
           {t(currentSlide.titleKey)}
         </h2>
-        <p className="text-[#6C757D] max-w-sm text-base leading-relaxed" style={{ lineHeight: 1.6 }}>
+        <p className="onboarding-secondary-text max-w-sm text-base leading-relaxed" style={{ lineHeight: 1.6 }}>
           {t(currentSlide.textKey)}
         </p>
       </main>
