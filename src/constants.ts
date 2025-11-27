@@ -698,7 +698,7 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'texte', name: 'ritual_power_posing_phase_1_name', instruction: 'ritual_power_posing_phase_1_instruction', duration: 15 },
-            { type: 'image', name: 'ritual_power_posing_phase_2_name', instruction: 'ritual_power_posing_phase_2_instruction', duration: 90, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/wonder_woman.png' },
+            { type: 'image', name: 'ritual_power_posing_phase_2_name', instruction: 'ritual_power_posing_phase_2_instruction', duration: 90, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/basculevibratoire.mp4' },
             { type: 'texte', name: 'ritual_power_posing_phase_3_name', instruction: 'ritual_power_posing_phase_3_instruction', duration: 15 },
           ]
         },
