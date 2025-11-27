@@ -762,15 +762,15 @@
     "ritual_porte_interieure_modal_title": "Porte Intérieure",
     "ritual_porte_interieure_modal_why": "Ce rituel de pleine conscience t'aide à faire la transition entre le monde extérieur et ton monde intérieur.\n\nIl est idéal pour se recentrer en rentrant chez soi ou avant de commencer une tâche importante, en laissant symboliquement les soucis à l'extérieur.",
     "ritual_porte_interieure_modal_how": "Debout, ferme les yeux et suis les trois étapes : prends conscience de ce qui est à l'extérieur, puis de la frontière (ta peau), puis de ce qui est à l'intérieur.",
-    "ritual_porte_interieure_modal_tips": "Prends vraiment le temps de ressentir chaque étape.\n\nNe te contente pas de penser aux sons extérieurs, écoute-les. Ne pense pas à ta respiration, sens-la. La clé est dans la sensation directe.",
+    "ritual_porte_interieure_modal_tips": "Prends vraiment le temps de ressentir chaque étape.\n\nNe te contente pas de penser aux sons extérieurs, écoute-les. \nNe pense pas à ta respiration, sens-la. \n\nLa clé est dans la sensation directe.",
     "ritual_porte_interieure_modal_learn_more": "Cette pratique est une forme de méditation sur la pleine conscience des sensations (corporelles, auditives).\n\nElle renforce notre capacité à diriger notre attention et à créer une distinction saine entre notre environnement et notre état interne, ce qui est fondamental pour la régulation émotionnelle.",
     "ritual_porte_interieure_modal_go_further": "• <a href=\"https://www.mindful.org/meditation/mindfulness-getting-started/\" target=\"_blank\" rel=\"noopener noreferrer\">How to Practice Mindfulness (Mindful.org)</a><br/>• <a href=\"https://www.psychologies.com/Bien-etre/Prevention/Systeme-immunitaire/Articles-et-Dossiers/Comment-se-proteger-des-emotions-negatives-des-autres\" target=\"_blank\" rel=\"noopener noreferrer\">Se protéger des émotions négatives (Psychologies)</a>",
     "ritual_porte_interieure_phase_1_name": "L'Extérieur",
-    "ritual_porte_interieure_phase_1_instruction": "Prends conscience des sons autour de toi, de la température de l'air, des odeurs. Tout ce qui est hors de toi.",
+    "ritual_porte_interieure_phase_1_instruction": "Prends conscience des sons autour de toi, de la température de l'air, des odeurs. \nTout ce qui est hors de toi.",
     "ritual_porte_interieure_phase_2_name": "La Frontière",
-    "ritual_porte_interieure_phase_2_instruction": "Porte ton attention sur la surface de ta peau. Sens le contact de l'air, de tes vêtements. C'est la limite.",
+    "ritual_porte_interieure_phase_2_instruction": "Porte ton attention sur la surface de ta peau. \nSens le contact de l'air, de tes vêtements. \nC'est la limite.",
     "ritual_porte_interieure_phase_3_name": "L'Intérieur",
-    "ritual_porte_interieure_phase_3_instruction": "Plonge à l'intérieur. Sens ta respiration, les battements de ton cœur, tes sensations. Bienvenue chez toi.",
+    "ritual_porte_interieure_phase_3_instruction": "Plonge à l'intérieur. Sens ta respiration, les battements de ton cœur, tes sensations. \nBienvenue chez toi.",
     "ritual_power_posing_label": "Posture de Puissance",
     "ritual_power_posing_modal_title": "Posture de Puissance",
     "ritual_power_posing_modal_why": "Ce rituel utilise ta physiologie pour changer rapidement ton état d'esprit.\n\nAdopter une posture d'ouverture et de confiance envoie un signal à ton cerveau pour qu'il se sente plus puissant, confiant et moins stressé.",
@@ -1164,6 +1164,7 @@
   "ritual_priere_soir_laic_step_6": "Je berce...\nLa terre notre mère, pour sa multitude d'expression,\nPour l'équilibre qu'elle m'apporte quand je la contemple.",
   "ritual_priere_soir_laic_step_7": "Je remercie...\nLes êtres d'amour, anges ou bénédictions qui nous soutiennent sur le chemin du retour.",
   "ritual_priere_soir_laic_step_8": "Et c'est quand je suis dans l'intimité, dans mon jardin secret,\nQue je reconnais le Dieu vivant en moi.",
-  "ritual_priere_soir_laic_step_9": "Que mes pensées les plus élevées, mon amour le plus pur\nRejoignent vos vibrations d'amour en signe de reconnaissance et ce, pour l'éternité.\nQu'il en soit ainsi !"
+  "ritual_priere_soir_laic_step_9": "Que mes pensées les plus élevées, mon amour le plus pur\nRejoignent vos vibrations d'amour en signe de reconnaissance et ce, pour l'éternité.\nQu'il en soit ainsi !",
+   "settings_sound_none": "Pas de son"
     
 }

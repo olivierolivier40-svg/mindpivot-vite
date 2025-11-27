@@ -576,7 +576,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         if (phase.type === 'texte') {
           const isTextOnlyRitual = ritual.data.phases.every((p: any) => p.type === 'texte');
           const textClasses = isTextOnlyRitual 
-              ? "text-3xl lg:text-4xl font-semibold leading-relaxed" 
+              ? "text-2xl lg:text-4xl font-semibold leading-relaxed" 
               : "text-lg";
       
           return <div className={`${textClasses} whitespace-pre-line animate-fade-in p-4`} dangerouslySetInnerHTML={{__html: t(phase.instruction).replace(/\n/g, '<br /><br />')}}></div>;
