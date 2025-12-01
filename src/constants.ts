@@ -598,6 +598,60 @@ export const RITUELS: Ritual[] = [
         },
     },
     {
+        id: 'rit.hakini_mudra',
+        label: 'ritual_hakini_mudra_label',
+        category: 'neuro',
+        playerType: 'phased-ritual',
+        dureeSec: 90,
+        donut: 'off',
+        haptique: {},
+        tags: ['focus', 'clarifier', 'mémoire', 'neuro'],
+        isPremium: true,
+        data: {
+            phases: [
+                { type: 'image', name: 'ritual_hakini_mudra_phase_1_name', instruction: 'ritual_hakini_mudra_phase_1_instruction', duration: 90, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/hakini-mudra.jpg' },
+            ]
+        },
+        modal: {
+            titre: 'ritual_hakini_mudra_modal_title',
+            icon: '👌',
+            sections: {
+                pourquoi: 'ritual_hakini_mudra_modal_why',
+                comment: 'ritual_hakini_mudra_modal_how',
+                conseils: 'ritual_hakini_mudra_modal_tips',
+                enSavoirPlus: 'ritual_hakini_mudra_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_hakini_mudra_modal_go_further',
+            },
+        },
+    },
+    {
+        id: 'rit.hooponopono',
+        label: 'ritual_hooponopono_label',
+        category: 'micro-rituel',
+        playerType: 'phased-ritual',
+        dureeSec: 120,
+        donut: 'off',
+        haptique: {},
+        tags: ['pardon', 'lacher-prise', 'compassion', 'spiritualité'],
+        isPremium: true,
+        data: {
+            phases: [
+                { type: 'image', name: 'ritual_hooponopono_phase_1_name', instruction: 'ritual_hooponopono_phase_1_instruction', duration: 120, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/Ho.png' },
+            ]
+        },
+        modal: {
+            titre: 'ritual_hooponopono_modal_title',
+            icon: '💖',
+            sections: {
+                pourquoi: 'ritual_hooponopono_modal_why',
+                comment: 'ritual_hooponopono_modal_how',
+                conseils: 'ritual_hooponopono_modal_tips',
+                enSavoirPlus: 'ritual_hooponopono_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_hooponopono_modal_go_further',
+            },
+        },
+    },
+    {
         id: 'rit.interrupteur_cosmique',
         label: 'ritual_interrupteur_cosmique_label',
         category: 'neuro',

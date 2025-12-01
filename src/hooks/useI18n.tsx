@@ -1176,7 +1176,25 @@ const frTranslations: { [key: string]: string } = {
   "ritual_priere_soir_laic_step_7": "Je remercie...\nLes êtres d'amour, anges ou bénédictions qui nous soutiennent sur le chemin du retour.",
   "ritual_priere_soir_laic_step_8": "Et c'est quand je suis dans l'intimité, dans mon jardin secret,\nQue je reconnais le Dieu vivant en moi.",
   "ritual_priere_soir_laic_step_9": "Que mes pensées les plus élevées, mon amour le plus pur\nRejoignent vos vibrations d'amour en signe de reconnaissance et ce, pour l'éternité.\nQu'il en soit ainsi !",
-   "settings_sound_none": "Pas de son"
+  "settings_sound_none": "Pas de son",
+  "ritual_hooponopono_label": "Ho'oponopono",
+"ritual_hooponopono_modal_title": "Ho'oponopono",
+"ritual_hooponopono_modal_why": "Ce rituel hawaïen ancestral est une pratique de pardon et de réconciliation pour nettoyer les mémoires erronées et les énergies négatives. Il favorise la paix intérieure en libérant des fardeaux du passé.",
+"ritual_hooponopono_modal_how": "Pense à une situation, une personne ou un souvenir qui te pèse. Place tes mains sous ton nombril comme indiqué et répète mentalement ou à voix basse le mantra : 'Désolé. Pardonne-moi. Merci. Je t'aime.' en laissant les émotions venir.",
+"ritual_hooponopono_modal_tips": "Pense à la situation qui te pèse et répète : 'Désolé. Pardonne-moi. Merci. Je t'aime.'\n\nClique sur 'Démarrer' et place tes mains comme sur le dessin, sous ton nombril.",
+"ritual_hooponopono_modal_learn_more": "Ho'oponopono signifie 'remettre les choses en ordre'. Chaque phrase a un sens profond : 'Désolé' (reconnaître sa part de responsabilité), 'Pardonne-moi' (demander pardon), 'Merci' (exprimer sa gratitude pour la leçon), 'Je t'aime' (se reconnecter à l'amour universel).",
+"ritual_hooponopono_modal_go_further": "• <a href='https://www.psychologies.com/Therapies/Developpement-personnel/Methodes/Articles-et-Dossiers/Ho-oponopono-le-secret-des-guerisseurs-hawaiens' target='_blank' rel='noopener noreferrer'>Le secret des guérisseurs hawaiiens (Psychologies)</a><br/>• <a href='https://www.verywellmind.com/the-hawaiian-practice-of-forgiveness-ho-oponopono-4174245' target='_blank' rel='noopener noreferrer'>La pratique hawaïenne du pardon (Verywell Mind)</a>",
+"ritual_hooponopono_phase_1_name": "Pratique",
+"ritual_hooponopono_phase_1_instruction": "Continue de répéter : 'Désolé. Pardonne-moi. Merci. Je t'aime.'",
+"ritual_hakini_mudra_label": "Hakini Mudra",
+"ritual_hakini_mudra_modal_title": "Hakini Mudra",
+"ritual_hakini_mudra_modal_why": "Ce mudra est connu pour améliorer la concentration, la mémoire et la clarté mentale. Il harmonise les hémisphères gauche et droit du cerveau, favorisant la créativité et la prise de décision.",
+"ritual_hakini_mudra_modal_how": "Assieds-toi confortablement. Joins délicatement le bout de tous tes doigts de la main droite avec ceux de la main gauche, en gardant les paumes séparées. Respire calmement en suivant le cycle de la langue.",
+"ritual_hakini_mudra_modal_tips": "Joins le bout de tes doigts, paumes séparées.\n\nRespire calmement en plaçant ta langue contre le palais quand tu inspires, et en la relâchant quand tu expires.\n\nClique sur 'Démarrer' pour lancer.",
+"ritual_hakini_mudra_modal_learn_more": "Hakini est la déesse du troisième œil (Ajna Chakra) dans la tradition du yoga. Ce mudra stimule ce centre énergétique, qui est le siège de l'intuition et de l'intellect. La technique de la langue aide à calmer le système nerveux.",
+"ritual_hakini_mudra_modal_go_further": "• <a href='https://www.yoga-journal.fr/le-mudra-de-la-concentration-hakini-mudra/' target='_blank' rel='noopener noreferrer'>Le mudra de la concentration (Yoga Journal France)</a><br/>• <a href='https://www.yogapedia.com/definition/6510/hakini-mudra' target='_blank' rel='noopener noreferrer'>Hakini Mudra (Yogapedia)</a>",
+"ritual_hakini_mudra_phase_1_name": "Concentration",
+"ritual_hakini_mudra_phase_1_instruction": "Maintiens le mudra. Suis ta respiration."
    };
 
 export const useI18n = () => {
