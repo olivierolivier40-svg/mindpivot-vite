@@ -622,7 +622,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   };
 
   const renderFrequencyOptions = () => (
-      <div className="flex flex-col items-center justify-center gap-4 animate-fade-in w-full max-w-md pb-32">
+      <div className="w-full max-w-md min-h-full flex flex-col items-center justify-center gap-4 px-4 pt-10 pb-48 animate-fade-in">
           <h3 className="text-xl font-bold">{t('player_freq_select_title')}</h3>
           <div className="flex flex-wrap justify-center gap-3">
               {ritual.data?.frequencies.map((f: any) => (
@@ -682,7 +682,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
     if (instructionHTML) {
         return (
-           <div className="w-full h-full flex flex-col items-center justify-center p-4">
+           <div className="w-full min-h-full flex flex-col items-center justify-center p-4 pb-32">
                <div className="relative text-center z-10 animate-fade-in-short font-display">
                    <div className="font-semibold whitespace-pre-line text-lg" dangerouslySetInnerHTML={{ __html: instructionHTML.replace(/\n\n/g, '<br /><br />').replace(/\n/g, '<br />') }} />
                </div>
@@ -963,7 +963,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         </button>
 
         <main className={isImmersive 
-          ? "w-full flex-1 flex flex-col items-center justify-center min-h-0"
+          ? "w-full flex-1 flex flex-col items-center min-h-0 overflow-y-auto scrollbar-hide"
           : "w-full flex-1 flex flex-col items-center justify-center min-h-0 relative p-4 pt-0"
         }>
           {isPreStart ? renderPreStartContent() : renderActiveContent()}
