@@ -203,6 +203,39 @@ export const RITUAL_INSTRUCTIONS: Record<string, {time: number, text: string}[]>
 export const RITUELS: Ritual[] = [
     // --- NEURO ---
     {
+        id: 'rit.frequences_sacrees',
+        label: 'ritual_frequences_sacrees_label',
+        category: 'neuro',
+        playerType: 'frequency-healing',
+        dureeSec: 60, // Par défaut, modifiable dans le player
+        donut: 'off',
+        haptique: {},
+        tags: ['son', 'vibration', 'apaiser', 'spiritualité', 'récupération'],
+        isPremium: true,
+        data: {
+            frequencies: [
+                { hz: 396, label: 'ritual_freq_396_label', desc: 'ritual_freq_396_desc' },
+                { hz: 417, label: 'ritual_freq_417_label', desc: 'ritual_freq_417_desc' },
+                { hz: 528, label: 'ritual_freq_528_label', desc: 'ritual_freq_528_desc' },
+                { hz: 639, label: 'ritual_freq_639_label', desc: 'ritual_freq_639_desc' },
+                { hz: 741, label: 'ritual_freq_741_label', desc: 'ritual_freq_741_desc' },
+                { hz: 852, label: 'ritual_freq_852_label', desc: 'ritual_freq_852_desc' },
+                { hz: 963, label: 'ritual_freq_963_label', desc: 'ritual_freq_963_desc' }
+            ]
+        },
+        modal: {
+            titre: 'ritual_frequences_sacrees_modal_title',
+            icon: '🔊',
+            sections: {
+                pourquoi: 'ritual_frequences_sacrees_modal_why',
+                comment: 'ritual_frequences_sacrees_modal_how',
+                conseils: 'ritual_frequences_sacrees_modal_tips',
+                enSavoirPlus: 'ritual_frequences_sacrees_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_frequences_sacrees_modal_go_further'
+            }
+        }
+    },
+    {
         id: 'rit.acupression_calme',
         label: 'ritual_acupression_calme_label',
         category: 'neuro',
@@ -1082,7 +1115,7 @@ export const RITUELS: Ritual[] = [
               imagesByPhase: {
                 'ritual_nadi_shodhana_120_apaisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-gauche.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_1' },
                 'ritual_nadi_shodhana_120_apaisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-droite.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_2' },
-                'ritual_nadi_shodhana_120_apaisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-droite.png', caption: 'ritual_nادي_shodhana_120_apaisant_caption_3' },
+                'ritual_nadi_shodhana_120_apaisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-droite.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_3' },
                 'ritual_nadi_shodhana_120_apaisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-gauche.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_4' },
               }
             },

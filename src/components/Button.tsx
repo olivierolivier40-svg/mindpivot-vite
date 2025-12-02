@@ -18,7 +18,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const variantClasses = {
       primary: 'bg-accent text-white shadow-md hover:bg-link hover:translate-y-[-2px] hover:shadow-2xl hover:shadow-accent/30',
       info: 'bg-accent-tertiary text-white shadow-md hover:bg-opacity-90 hover:shadow-lg hover:scale-[1.02]',
-      secondary: `bg-transparent text-fg border border-white/20 hover:bg-white/10 font-semibold button-secondary-themed hover:scale-[1.02]`,
+      secondary: `bg-transparent text-fg border border-fg/20 hover:bg-fg/5 font-semibold button-secondary-themed hover:scale-[1.02]`,
       ghost: 'bg-transparent border-none text-fg hover:bg-white/10 shadow-none hover:scale-[1.02]'
     };
     return <button ref={ref} className={`${baseClasses} ${sizeClasses[size]} ${variant ? variantClasses[variant] : ''} ${className}`} {...props}>{children}</button>;

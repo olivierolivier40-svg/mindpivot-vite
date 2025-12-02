@@ -2,13 +2,14 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { Ritual, Session, BadgeId, SoundSettings } from '../types.ts';
-import { MORNING_INTENTIONS, LABELS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS } from '../constants.ts';
+import { MORNING_INTENTIONS, CITATIONS, BENTO_MANTRAS, ORGANES, RITUAL_INSTRUCTIONS, LABELS } from '../constants.ts';
 import { Button } from './Button.tsx';
 import { Modal } from './Modal.tsx';
 import { RingDonut } from './RingDonut.tsx';
 import { CongratsAndJournal } from './CongratsAndJournal.tsx';
 import { EyeMovementAnimation } from './EyeMovementAnimation.tsx';
 import { SagesseMinutePlayer } from './SagesseMinutePlayer.tsx';
+import { FrequencyVisualizer } from './FrequencyVisualizer.tsx'; // Import du nouveau composant
 import { useI18n } from '../hooks/useI18n.tsx';
 import { generateGeminiText } from '../services/geminiService.ts';
 
@@ -35,6 +36,7 @@ const MusicOffIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-
 const CloseIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>;
 const SpeakerWaveIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>;
 const SpeakerXMarkIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>;
+const InfoIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
 
 
 const protocolMap: Record<string, {n: string, s: number}[]> = {
@@ -86,6 +88,13 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [customIntention, setCustomIntention] = useState<string | null>(null);
   const [isGeneratingIntention, setIsGeneratingIntention] = useState(false);
 
+  // Frequency Healing State
+  const [freqHz, setFreqHz] = useState<number>(396);
+  const [freqLabel, setFreqLabel] = useState<string>('ritual_freq_396_label');
+  const [freqDesc, setFreqDesc] = useState<string>('ritual_freq_396_desc');
+  const [freqDuration, setFreqDuration] = useState<number>(1); // minutes
+  const [showFreqInfo, setShowFreqInfo] = useState(false);
+
   // Bento specific state
   const [showBentoOptions, setShowBentoOptions] = useState(ritual.playerType === 'bento');
   const [bentoTheme, setBentoTheme] = useState('classique');
@@ -100,8 +109,10 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const accumulatedPauseRef = useRef(0);
   const lastPhaseIndexRef = useRef(-1);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const oscRef = useRef<OscillatorNode | null>(null);
+  const gainRef = useRef<GainNode | null>(null);
 
-  const isImmersive = initialRitual.id === 'rit.micro_awe';
+  const isImmersive = initialRitual.id === 'rit.micro_awe' || initialRitual.playerType === 'frequency-healing';
 
   const generateNewQuote = useCallback(() => setCurrentQuote(CITATIONS[Math.floor(Math.random() * CITATIONS.length)]), []);
 
@@ -128,6 +139,17 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setCustomIntention(null);
       setIsGeneratingIntention(false);
       setIsVideoSoundOn(false);
+      
+      if (initialRitual.playerType === 'frequency-healing') {
+          // Initialize with first frequency
+          const firstFreq = initialRitual.data?.frequencies?.[0];
+          if (firstFreq) {
+              setFreqHz(firstFreq.hz);
+              setFreqLabel(firstFreq.label);
+              setFreqDesc(firstFreq.desc);
+          }
+          setFreqDuration(1); // Default 1 min
+      }
   }, [initialRitual, soundSettings.enabled]);
 
   useEffect(() => {
@@ -137,6 +159,86 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     }
   }, [ritual.playerType, ritual.data, currentColor, generateNewQuote]);
   
+  // Frequency Audio Generation - Robust Implementation
+  useEffect(() => {
+      // Cleanup function to stop audio when component unmounts or state changes
+      return () => {
+          if (oscRef.current) {
+              try {
+                  oscRef.current.stop();
+                  oscRef.current.disconnect();
+              } catch (e) { /* ignore */ }
+              oscRef.current = null;
+          }
+          if (gainRef.current) {
+              gainRef.current.disconnect();
+              gainRef.current = null;
+          }
+      };
+  }, []);
+
+  // Effect to manage oscillator based on running state and freq
+  useEffect(() => {
+      if (ritual.playerType !== 'frequency-healing') return;
+
+      if (isRunning && !isPaused) {
+          if (!audioContextRef.current) {
+              audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+          }
+          const ctx = audioContextRef.current;
+          
+          if (ctx.state === 'suspended') {
+              ctx.resume();
+          }
+
+          // Create nodes if they don't exist
+          if (!oscRef.current) {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              
+              osc.type = 'sine';
+              osc.frequency.value = freqHz;
+              gain.gain.value = 0; // Start silent
+
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start();
+              
+              // Fade in
+              gain.gain.setTargetAtTime(soundSettings.volume, ctx.currentTime, 0.5);
+
+              oscRef.current = osc;
+              gainRef.current = gain;
+          } else {
+              // Update frequency if it changed while running
+              oscRef.current.frequency.setTargetAtTime(freqHz, ctx.currentTime, 0.1);
+              // Ensure volume matches settings
+              if (gainRef.current) {
+                  gainRef.current.gain.setTargetAtTime(soundSettings.volume, ctx.currentTime, 0.1);
+              }
+          }
+      } else {
+          // Stop/Pause logic
+          if (gainRef.current && oscRef.current) {
+              // Fade out
+              const ctx = audioContextRef.current;
+              if (ctx) {
+                  gainRef.current.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
+                  // Stop oscillator after fade out
+                  setTimeout(() => {
+                      if (oscRef.current) {
+                          try {
+                            oscRef.current.stop();
+                            oscRef.current.disconnect();
+                          } catch(e) {}
+                          oscRef.current = null;
+                      }
+                  }, 200);
+              }
+          }
+      }
+  }, [isRunning, isPaused, freqHz, ritual.playerType, soundSettings.volume]);
+
   useEffect(() => {
     setIsAuroraTheme(document.documentElement.classList.contains('theme-aurora'));
     const observer = new MutationObserver(() => {
@@ -163,7 +265,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   }, [isBreathingGuidanceOn, soundSettings.volume]);
 
   const playPhaseTone = useCallback(() => {
-      if (!soundSettings.enabled || !audioContextRef.current || ritual.category === 'respiration') return;
+      if (!soundSettings.enabled || !audioContextRef.current || ritual.category === 'respiration' || ritual.playerType === 'frequency-healing') return;
       const ctx = audioContextRef.current;
       if (ctx.state === 'suspended') {
         ctx.resume().catch(e => console.error("AudioContext resume failed", e));
@@ -178,7 +280,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + 0.3);
-  }, [soundSettings.enabled, soundSettings.volume, ritual.category]);
+  }, [soundSettings.enabled, soundSettings.volume, ritual.category, ritual.playerType]);
   
   const handleCompletion = useCallback(() => {
       const newSession: Session = { id: `sess_${Date.now()}`, ritualId: ritual.id, dureeSec: ritual.dureeSec, timestamp: new Date().toISOString() };
@@ -519,6 +621,46 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setSoundSettings(prev => ({...prev, enabled: !prev.enabled}));
   };
 
+  const renderFrequencyOptions = () => (
+      <div className="flex flex-col items-center justify-center gap-4 animate-fade-in w-full max-w-md pb-32">
+          <h3 className="text-xl font-bold">{t('player_freq_select_title')}</h3>
+          <div className="flex flex-wrap justify-center gap-3">
+              {ritual.data?.frequencies.map((f: any) => (
+                  <button 
+                      key={f.hz} 
+                      onClick={() => { setFreqHz(f.hz); setFreqLabel(f.label); setFreqDesc(f.desc); }}
+                      className={`w-14 h-14 rounded-full flex items-center justify-center font-bold text-sm transition-transform hover:scale-110 border-2 ${freqHz === f.hz ? 'border-accent bg-accent/20 text-accent' : 'border-fg/20 bg-fg/5 text-muted'}`}
+                  >
+                      {f.hz}
+                  </button>
+              ))}
+          </div>
+          <div className="text-center p-3 bg-white/5 rounded-lg border border-white/10 min-h-[5em] w-full flex flex-col justify-center">
+              <p className="font-bold text-lg mb-1">{t(freqLabel)}</p>
+              <p className="text-sm text-muted whitespace-pre-line leading-tight">{t(freqDesc)}</p>
+          </div>
+          <div className="flex flex-col items-center gap-2 w-full">
+              <span className="text-sm text-muted font-semibold">{t('player_freq_select_duration')}</span>
+              <div className="flex gap-2">
+                  {[1, 3, 5].map(d => (
+                      <Button 
+                          key={d} 
+                          variant={freqDuration === d ? 'primary' : 'secondary'} 
+                          size="small"
+                          onClick={() => { 
+                              setFreqDuration(d); 
+                              setRitual(prev => ({...prev, dureeSec: d * 60}));
+                              setTimeLeft(d * 60);
+                          }}
+                      >
+                          {d} {t('unit_min')}
+                      </Button>
+                  ))}
+              </div>
+          </div>
+      </div>
+  );
+
   const renderPreStartContent = () => {
     if (ritual.preStartSteps && preStartStepIndex < ritual.preStartSteps.length) {
         const step = ritual.preStartSteps[preStartStepIndex];
@@ -534,6 +676,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     if (ritual.id === 'rit.nadi_shodhana_120' && !isRunning) return renderNadiShodhanaOptions();
     if (ritual.playerType === 'couleur') return renderCouleurOptions();
     if (ritual.playerType === 'intention') return renderIntentionOptions();
+    if (ritual.playerType === 'frequency-healing') return renderFrequencyOptions();
 
     const instructionHTML = ritual.immersiveInstructions ? t(ritual.immersiveInstructions) : t(ritual.modal.sections.conseils);
 
@@ -664,6 +807,24 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     }
     if (ritual.playerType === 'couleur') return <div className="w-full h-full rounded-lg animate-fade-in" style={{ backgroundColor: currentColor, boxShadow: `0 0 30px 10px ${currentColor}55` }}></div>
     
+    if (ritual.playerType === 'frequency-healing') {
+        return (
+            <div className="w-full h-full flex flex-col items-center justify-center relative gap-8">
+                <FrequencyVisualizer frequency={freqHz} isRunning={isRunning && !isPaused} color="#22d3ee" />
+                <div className="relative z-10 flex flex-col items-center animate-fade-in">
+                    <div className="text-6xl font-bold mb-2 tracking-tighter" style={{ textShadow: '0 0 20px rgba(34,211,238,0.3)' }}>{freqHz} <span className="text-2xl font-normal">Hz</span></div>
+                    
+                    <button 
+                        onClick={() => setShowFreqInfo(true)}
+                        className="mt-6 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-sm flex items-center gap-2 border border-white/10"
+                    >
+                        <InfoIcon /> {t('player_know_more')}
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     const fallbackInstruction = t(instruction) || (RITUAL_INSTRUCTIONS[ritual.id]?.[0]?.text ? t(RITUAL_INSTRUCTIONS[ritual.id]?.[0]?.text) : '');
     if(fallbackInstruction) {
         return <p className="text-lg text-muted" dangerouslySetInnerHTML={{ __html: fallbackInstruction.replace(/\n/g, '<br />') }}></p>;
@@ -780,7 +941,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
   return (
     <div className={isImmersive 
-      ? `fixed inset-0 z-50 flex flex-col items-center text-center animate-fade-in ${isPreStart ? 'bg-gray-100 text-gray-800' : 'bg-black'}`
+      ? `fixed inset-0 z-50 flex flex-col items-center text-center animate-fade-in ${isPreStart ? 'bg-bg text-fg' : 'bg-black text-white'}`
       : "w-full h-[calc(100vh-2rem)] flex flex-col items-center text-center animate-fade-in relative"
     }>
         <header className={`w-full p-4 pt-6 text-center ${isImmersive ? (isPreStart ? '' : 'absolute top-0 left-0 right-0 z-30 text-white bg-gradient-to-b from-black/70 to-transparent') : ''}`}>
@@ -820,9 +981,11 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         
         {isImmersive ? (
           <div className={`absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col items-center ${isPreStart ? '' : 'bg-gradient-to-t from-black/80 to-transparent'}`}>
-              <div className={`text-sm mb-4 ${isPreStart ? 'text-gray-600' : 'text-white/80 [text-shadow:_0_1px_4px_#000]'}`}>
-                  {t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
-              </div>
+              {!isPreStart && (
+                <div className="text-sm mb-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white border border-white/10">
+                    {t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
+                </div>
+              )}
               <div className="w-full max-w-sm px-4 mx-auto h-2 mb-4">
                   {isRunning && !isPaused && (
                       <div className="w-full bg-white/20 rounded-full h-1.5">
@@ -925,6 +1088,18 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                     </li>
                 ))}
             </ul>
+        </Modal>
+
+        {/* Frequency Info Modal */}
+        <Modal show={showFreqInfo} title={t('player_freq_info_title')} onClose={() => setShowFreqInfo(false)}>
+            <div className="text-center p-4">
+                <div className="text-4xl font-bold mb-2 text-accent">{freqHz} Hz</div>
+                <h4 className="text-xl font-semibold mb-4">{t(freqLabel)}</h4>
+                <p className="text-muted whitespace-pre-line leading-relaxed">{t(freqDesc)}</p>
+                <div className="mt-6 flex justify-center">
+                    <Button onClick={() => setShowFreqInfo(false)} variant="primary">{t('close')}</Button>
+                </div>
+            </div>
         </Modal>
 
         {isAuroraTheme && <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 -z-10"></div>}
