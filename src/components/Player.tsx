@@ -682,7 +682,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
     if (instructionHTML) {
         return (
-           <div className="w-full min-h-full flex flex-col items-center justify-center p-4 pb-32">
+           <div className={`w-full flex flex-col items-center justify-center p-4 ${isImmersive ? 'min-h-full pb-32' : 'h-full'}`}>
                <div className="relative text-center z-10 animate-fade-in-short font-display">
                    <div className="font-semibold whitespace-pre-line text-lg" dangerouslySetInnerHTML={{ __html: instructionHTML.replace(/\n\n/g, '<br /><br />').replace(/\n/g, '<br />') }} />
                </div>
@@ -944,7 +944,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       ? `fixed inset-0 z-50 flex flex-col items-center text-center animate-fade-in ${isPreStart ? 'bg-bg text-fg' : 'bg-black text-white'}`
       : "w-full h-[calc(100vh-2rem)] flex flex-col items-center text-center animate-fade-in relative"
     }>
-        <header className={`w-full p-4 pt-6 text-center ${isImmersive ? (isPreStart ? '' : 'absolute top-0 left-0 right-0 z-30 text-white bg-gradient-to-b from-black/70 to-transparent') : ''}`}>
+        <header className={`w-full p-4 pt-6 px-14 text-center ${isImmersive ? (isPreStart ? '' : 'absolute top-0 left-0 right-0 z-30 text-white bg-gradient-to-b from-black/70 to-transparent') : ''}`}>
             <h2 className="text-2xl font-bold">{t(ritual.label)}</h2>
             <p className={isImmersive && !isPreStart ? 'text-white/80' : 'text-muted'}>
             {Math.floor(ritual.dureeSec / 60)} {t('unit_min')} {ritual.dureeSec % 60 > 0 ? `${ritual.dureeSec % 60}s` : ''}
