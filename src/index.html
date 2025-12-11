@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -238,10 +239,18 @@
         color: #5A6472; /* Mettez la couleur que vous voulez ici */
       }
       
-      /* Correction pour la visibilité du bouton d'effacement du champ de recherche */
-      .theme-light input[type="search"]::-webkit-search-cancel-button,
-      .theme-dyslexia-tdah input[type="search"]::-webkit-search-cancel-button {
-        filter: invert(1) opacity(0.6);
+      /* Webkit Search Cancel Button Customization */
+      /* Default (Dark Themes): Invert the default dark icon to make it white/light */
+      input[type="search"]::-webkit-search-cancel-button {
+        -webkit-appearance: searchfield-cancel-button;
+        filter: invert(1) opacity(0.7);
+        cursor: pointer;
+      }
+
+      /* Light Themes: Do NOT invert (keep it dark/black) to be visible on white background */
+      html.theme-light input[type="search"]::-webkit-search-cancel-button,
+      html.theme-dyslexia-tdah input[type="search"]::-webkit-search-cancel-button {
+        filter: invert(0) opacity(0.6);
       }
     </style>
   </head>
@@ -250,3 +259,4 @@
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
+    
