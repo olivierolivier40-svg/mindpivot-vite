@@ -411,7 +411,7 @@ export const RITUELS: Ritual[] = [
           phases: [
             { type: 'texte', name: 'ritual_bascule_vibratoire_phase_1_name', instruction: 'ritual_bascule_vibratoire_phase_1_instruction', duration: 15 },
             { type: 'video', name: 'ritual_bascule_vibratoire_phase_2_name', instruction: 'ritual_bascule_vibratoire_phase_2_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/basculevibratoire.mp4' },
-            { type: 'image', name: 'ritual_bascule_vibratoire_phase_3_name', instruction: 'ritual_bascule_vibratoire_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/power-pose.png' },
+            { type: 'image', name: 'ritual_bascule_vibratoire_phase_3_name', instruction: 'ritual_bascule_vibratoire_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/wonder-woman.png' },
           ]
         },
         modal: {
