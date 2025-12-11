@@ -1,13 +1,11 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
-import type { Ritual, Session, Badge, BadgeId, Streaks, SoundSettings, ActiveProgram, CompletedProgram } from './types.ts';
+import type { Ritual, Session, Badge, BadgeId, SoundSettings, ActiveProgram, CompletedProgram } from './types.ts';
 import { calculateSessionStreaks } from './utils.ts';
 import { useI18n } from './hooks/useI18n.tsx';
 import { isBadgeUnlocked } from './badgeLogic.ts';
 import { generateGeminiText } from './services/geminiService.ts';
-import { dataService, type UserProfile } from './services/dataService.ts';
-import { supabase } from './supabaseClient.ts';
 
 // --- Importing Components from their files ---
 import { Button } from './components/Button.tsx';
@@ -26,9 +24,8 @@ import { ProgramCard } from './components/ProgramCard.tsx';
 import { HowItWorksPage } from './components/HowItWorksPage.tsx';
 import { FAQPage } from './components/FAQPage.tsx';
 import { SettingsPage } from './components/SettingsPage.tsx';
-import { AuthScreen } from './components/AuthScreen.tsx';
 
-// --- SVG Icons ---
+// --- SVG Icons (can stay here as they are small) ---
 const HomeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>;
 const JourneyIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 22V20C6 16.69 8.69 14 12 14C15.31 14 18 11.31 18 8V2"/></svg>;
 const JournalIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm0 2v16h12V4H6zm2 2h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>;
@@ -38,12 +35,12 @@ const SettingsIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 
 const ShareIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>;
 
 const themes = ['dark', 'light', 'aurora', 'dyslexia-tdah'];
+
 type Theme = 'dark' | 'light' | 'aurora' | 'dyslexia-tdah';
 
 function App() {
   const { t } = useI18n();
   const [theme, setTheme] = useState<Theme>('light');
-  const [user, setUser] = useState<UserProfile | null>(null);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [textSize, setTextSize] = useState(1);
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -54,10 +51,11 @@ function App() {
   const [soundSettings, setSoundSettings] = useState<SoundSettings>({ enabled: true, volume: 0.5, selectedSound: 'bol' });
   const [ritualEntryPoint, setRitualEntryPoint] = useState('checkin');
   
-  // Check-in State
   const [energie, setEnergie] = useState(0); const [humeur, setHumeur] = useState(0); const [chargeMentale, setChargeMentale] = useState(0); const [tensionCorporelle, setTensionCorporelle] = useState(0); const [fatiguePhysique, setFatiguePhysique] = useState(0); const [agitation, setAgitation] = useState(0);
+  
   const [joie, setJoie] = useState(0); const [tristesse, setTristesse] = useState(0); const [colere, setColere] = useState(0); const [peur, setPeur] = useState(0); const [sensibilite, setSensibilite] = useState(0);
   const [clarteMentale, setClarteMentale] = useState(0); const [rumination, setRumination] = useState(0);
+  
   const [orientationTemporelle, setOrientationTemporelle] = useState(0); const [qualitePensees, setQualitePensees] = useState(0); const [vitesseMentale, setVitesseMentale] = useState(0); const [sentimentControle, setSentimentControle] = useState(0);
   
   const [activeRitual, setActiveRitual] = useState<Ritual | null>(null);
@@ -70,16 +68,18 @@ function App() {
   const [showInstallModal, setShowInstallModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [geminiCheckinFeedback, setGeminiCheckinFeedback] = useState('');
   const [isLoadingCheckinFeedback, setIsLoadingCheckinFeedback] = useState(false);
   const [isLoadingJournalFeedbackForSession, setIsLoadingJournalFeedbackForSession] = useState<string | null>(null);
+  
   const [editingSession, setEditingSession] = useState<Session | null>(null);
   const [editingText, setEditingText] = useState("");
+
   const [favoriteRituals, setFavoriteRituals] = useState<Set<string>>(new Set());
   const [favoritesFilterActive, setFavoritesFilterActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [tagFilter, setTagFilter] = useState<string | null>(null);
+  
   const [showOnboarding, setShowOnboarding] = useState(false);
   
   const infoTriggerRef = useRef<HTMLElement | null>(null);
@@ -91,111 +91,165 @@ function App() {
     'dyslexia-tdah': { labelKey: 'settings_theme_dyslexia', class: 'theme-dyslexia-tdah' },
   };
 
+
   useEffect(() => { document.documentElement.lang = 'fr'; }, []);
   useEffect(() => { document.documentElement.className = themeLabels[theme].class; }, [theme]);
   useEffect(() => { document.documentElement.style.fontSize = `${textSize * 16}px`; }, [textSize]);
-  
-  // CHARGEMENT INITIAL (Local + Cloud)
   useEffect(() => { 
-      const initApp = async () => {
-          // Préférences locales
+      try { 
+          const storedSessions = JSON.parse(localStorage.getItem('mindPivotSessions') || '[]') as Session[]; setSessions(storedSessions); 
+          const storedBadges = JSON.parse(localStorage.getItem('mindPivotBadges') || '{}') as Partial<Record<BadgeId, string>>; setUnlockedBadges(storedBadges);
           const storedSound = JSON.parse(localStorage.getItem('mindPivotSound') || 'null') as SoundSettings | null; if (storedSound) setSoundSettings(storedSound);
           const storedFavorites = JSON.parse(localStorage.getItem('mindPivotFavorites') || '[]') as string[]; setFavoriteRituals(new Set(storedFavorites));
           const storedTheme = localStorage.getItem('mindPivotTheme') as Theme | null; if (storedTheme && themes.includes(storedTheme)) setTheme(storedTheme); else setTheme('light');
-          const hasOnboarded = localStorage.getItem('mindPivotOnboarded'); if (!hasOnboarded) setShowOnboarding(true);
-
-          // Chargement des données utilisateur via le service
-          const userData = await dataService.loadUserData();
-          const currentUser = await dataService.getUser();
-          
-          setUser(currentUser);
-          setSessions(userData.sessions);
-          setUnlockedBadges(userData.unlockedBadges);
-          setActiveProgram(userData.activeProgram);
-          setCompletedPrograms(userData.completedPrograms);
-          
-          // Premium : priorité à la DB, sinon fallback sur simulation locale
-          const storedPremiumSimulated = localStorage.getItem('mindPivotPremium') === 'true';
-          setIsPremiumUser(userData.isPremium || storedPremiumSimulated);
-      };
-      
-      initApp();
-
-      // Écouteur d'authentification Supabase
-      if (supabase) {
-          const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
-              if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
-                  const currentUser = await dataService.getUser();
-                  setUser(currentUser);
-                  // Recharger les données pour refléter le changement d'état
-                  const userData = await dataService.loadUserData();
-                  setSessions(userData.sessions);
-                  setUnlockedBadges(userData.unlockedBadges);
-                  setIsPremiumUser(userData.isPremium || (localStorage.getItem('mindPivotPremium') === 'true'));
-              }
-          });
-          return () => subscription.unsubscribe();
-      }
+          const storedPremium = localStorage.getItem('mindPivotPremium') === 'true'; setIsPremiumUser(storedPremium);
+          const storedProgram = JSON.parse(localStorage.getItem('mindPivotActiveProgram') || 'null') as ActiveProgram | null; setActiveProgram(storedProgram);
+          const storedCompletedPrograms = JSON.parse(localStorage.getItem('mindPivotCompletedPrograms') || '[]') as CompletedProgram[]; setCompletedPrograms(storedCompletedPrograms);
+          const hasOnboarded = localStorage.getItem('mindPivotOnboarded');
+          if (!hasOnboarded) {
+              setShowOnboarding(true);
+          }
+      } catch(e) { console.error('Failed to load data'); } 
   }, []);
 
   useEffect(() => { localStorage.setItem('mindPivotSound', JSON.stringify(soundSettings)); }, [soundSettings]);
   useEffect(() => { localStorage.setItem('mindPivotTheme', theme); }, [theme]);
+  useEffect(() => { localStorage.setItem('mindPivotPremium', String(isPremiumUser)); }, [isPremiumUser]);
   useEffect(() => { localStorage.setItem('mindPivotActiveProgram', JSON.stringify(activeProgram)); }, [activeProgram]);
   useEffect(() => { localStorage.setItem('mindPivotCompletedPrograms', JSON.stringify(completedPrograms)); }, [completedPrograms]);
-  useEffect(() => { try { localStorage.setItem('mindPivotFavorites', JSON.stringify(Array.from(favoriteRituals))); } catch (e) { console.error("Failed to save favorites:", e); } }, [favoriteRituals]);
 
-  const toggleFavorite = (ritualId: string) => { setFavoriteRituals(prev => { const newFavorites = new Set(prev); if (newFavorites.has(ritualId)) { newFavorites.delete(ritualId); } else { newFavorites.add(ritualId); } return newFavorites; }); };
+  useEffect(() => {
+      try {
+          localStorage.setItem('mindPivotFavorites', JSON.stringify(Array.from(favoriteRituals)));
+      } catch (e) {
+          console.error("Failed to save favorites:", e);
+      }
+  }, [favoriteRituals]);
+
+  const toggleFavorite = (ritualId: string) => {
+    setFavoriteRituals(prev => {
+        const newFavorites = new Set(prev);
+        if (newFavorites.has(ritualId)) {
+            newFavorites.delete(ritualId);
+        } else {
+            newFavorites.add(ritualId);
+        }
+        return newFavorites;
+    });
+  };
+
   const navigateTo = (screen: string) => { window.scrollTo(0, 0); setLastScreen(currentScreen); setCurrentScreen(screen); if (screen === 'parcours') setHasUnseenBadge(false); };
-  const resetCheckin = () => { setEnergie(0); setHumeur(0); setChargeMentale(0); setTensionCorporelle(0); setFatiguePhysique(0); setAgitation(0); setJoie(0); setTristesse(0); setColere(0); setPeur(0); setSensibilite(0); setClarteMentale(0); setRumination(0); setOrientationTemporelle(0); setQualitePensees(0); setVitesseMentale(0); setSentimentControle(0); };
+  const resetCheckin = () => { 
+      setEnergie(0); setHumeur(0); setChargeMentale(0); 
+      setTensionCorporelle(0); setFatiguePhysique(0); setAgitation(0);
+      setJoie(0); setTristesse(0); setColere(0); setPeur(0); setSensibilite(0);
+      setClarteMentale(0); setRumination(0); setOrientationTemporelle(0); 
+      setQualitePensees(0); setVitesseMentale(0); setSentimentControle(0); 
+  };
   const resetAndGoHome = () => { resetCheckin(); navigateTo('welcome'); };
   
   const handleStartRitual = (id: string, from = 'checkin') => { 
     const ritual = RITUELS.find(r => r.id === id); 
     if (ritual) {
-      if (ritual.isPremium && !isPremiumUser) { setShowPremiumModal(true); return; }
-      setRitualEntryPoint(from); setActiveRitual(ritual); navigateTo('player'); 
+      if (ritual.isPremium && !isPremiumUser) {
+        setShowPremiumModal(true);
+        return;
+      }
+      setRitualEntryPoint(from);
+      setActiveRitual(ritual); 
+      navigateTo('player'); 
     } 
   };
 
-  const handleStartProgram = (programId: string) => { const program = PROGRAMS.find(p => p.id === programId); if (program) { if (program.isPremium && !isPremiumUser) { setShowPremiumModal(true); return; } const newActiveProgram = { programId, currentDay: 1 }; setActiveProgram(newActiveProgram); handleContinueProgram(newActiveProgram); } };
-  const handleContinueProgram = (programState: ActiveProgram) => { const program = PROGRAMS.find(p => p.id === programState.programId); if (program && programState.currentDay <= program.durationDays) { const ritualId = program.ritualIds[programState.currentDay - 1]; handleStartRitual(ritualId, 'program'); } };
-  const handleAbandonProgram = () => { if (window.confirm("Es-tu sûr de vouloir abandonner ce parcours ?")) { setActiveProgram(null); } };
+  const handleStartProgram = (programId: string) => {
+      const program = PROGRAMS.find(p => p.id === programId);
+      if (program) {
+          if (program.isPremium && !isPremiumUser) {
+              setShowPremiumModal(true);
+              return;
+          }
+          const newActiveProgram = { programId, currentDay: 1 };
+          setActiveProgram(newActiveProgram);
+          handleContinueProgram(newActiveProgram);
+      }
+  };
+
+  const handleContinueProgram = (programState: ActiveProgram) => {
+      const program = PROGRAMS.find(p => p.id === programState.programId);
+      if (program && programState.currentDay <= program.durationDays) {
+          const ritualId = program.ritualIds[programState.currentDay - 1];
+          handleStartRitual(ritualId, 'program');
+      }
+  };
+
+  const handleAbandonProgram = () => {
+      if (window.confirm("Es-tu sûr de vouloir abandonner ce parcours ? Ta progression sera perdue.")) {
+          setActiveProgram(null);
+      }
+  };
+
   const handleInfoRitual = (id: string) => { infoTriggerRef.current = document.activeElement as HTMLElement; setInfoModalRitualId(id); };
   const closeInfoModal = () => { setInfoModalRitualId(null); infoTriggerRef.current?.focus(); };
   
   const handleRandomRitual = () => {
       const recentRitualIds = sessions.slice(-3).map(s => s.ritualId);
-      let availableRituals = RITUELS.filter(r => (!r.isPremium || isPremiumUser) && !r.id.endsWith('5m') && !recentRitualIds.includes(r.id));
-      if (availableRituals.length === 0) availableRituals = RITUELS.filter(r => (!r.isPremium || isPremiumUser) && !r.id.endsWith('5m'));
-      if (availableRituals.length === 0) { setShowPremiumModal(true); return; }
+      let availableRituals = RITUELS.filter(r => 
+          (!r.isPremium || isPremiumUser) && 
+          !r.id.endsWith('5m') && 
+          !recentRitualIds.includes(r.id)
+      );
+
+      if (availableRituals.length === 0) {
+          // Fallback if filtering leaves no options
+          availableRituals = RITUELS.filter(r => (!r.isPremium || isPremiumUser) && !r.id.endsWith('5m'));
+      }
+      
+      if (availableRituals.length === 0) {
+          setShowPremiumModal(true);
+          return;
+      }
+
       const randomRitual = availableRituals[Math.floor(Math.random() * availableRituals.length)];
-      if (randomRitual) handleStartRitual(randomRitual.id, 'random');
+      if (randomRitual) {
+          handleStartRitual(randomRitual.id, 'random');
+      }
   };
   
   const checkForNewBadges = useCallback((potentialSessions: Session[]): BadgeId | null => {
       const streaks = calculateSessionStreaks(potentialSessions);
       const badgeIds = Object.keys(BADGES) as BadgeId[];
       for (const badgeId of badgeIds) {
-          if (!unlockedBadges[badgeId] && isBadgeUnlocked(badgeId, potentialSessions, streaks, completedPrograms)) return badgeId;
+          if (!unlockedBadges[badgeId]) {
+              if (isBadgeUnlocked(badgeId, potentialSessions, streaks, completedPrograms)) {
+                  return badgeId;
+              }
+          }
       }
       return null;
   }, [unlockedBadges, completedPrograms]);
   
-  const handleCompleteRitual = async (ritualId: string, dureeSec: number, journalText: string, newlyUnlockedBadgeId: BadgeId | null) => {
+  const handleCompleteRitual = (ritualId: string, dureeSec: number, journalText: string, newlyUnlockedBadgeId: BadgeId | null) => {
       if (dureeSec > 0) {
           const newSession: Session = { id: `sess_${Date.now()}`, ritualId, dureeSec, timestamp: new Date().toISOString(), journal: journalText };
           try {
-              setSessions(prevSessions => [...prevSessions, newSession]);
-              await dataService.saveSession(newSession); // Sauvegarde via Service
+              setSessions(prevSessions => {
+                  const updatedSessions = [...prevSessions, newSession];
+                  localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions));
+                  return updatedSessions;
+              });
+
               if (newlyUnlockedBadgeId && !unlockedBadges[newlyUnlockedBadgeId]) {
-                  const now = new Date().toISOString();
-                  setUnlockedBadges(prevBadges => ({ ...prevBadges, [newlyUnlockedBadgeId]: now }));
+                  setUnlockedBadges(prevBadges => {
+                      const updatedBadges = { ...prevBadges, [newlyUnlockedBadgeId]: new Date().toISOString() };
+                      localStorage.setItem('mindPivotBadges', JSON.stringify(updatedBadges));
+                      return updatedBadges;
+                  });
                   setHasUnseenBadge(true);
-                  await dataService.unlockBadge(newlyUnlockedBadgeId); // Sauvegarde Badge
               }
-          } catch (error) { console.error("Failed to save session:", error); }
+          } catch (error) {
+              console.error("Failed to save session or badge:", error);
+          }
       }
-      // Logique Programme
       if (ritualEntryPoint === 'program' && activeProgram) {
           const program = PROGRAMS.find(p => p.id === activeProgram.programId);
           if (program) {
@@ -205,12 +259,16 @@ function App() {
                   alert(t('program_completion_message', { title: t(program.title) }));
                   setCompletedPrograms(prev => {
                     const updated = [...prev, { programId: program.id, completedAt: new Date().toISOString() }];
+                    // Check for parcours badge immediately after completion
                     const streaks = calculateSessionStreaks(sessions);
                     const parcoursBadgeId: BadgeId = 'PARCOURS_TERMINE';
                     if (!unlockedBadges[parcoursBadgeId] && isBadgeUnlocked(parcoursBadgeId, sessions, streaks, updated)) {
-                         setUnlockedBadges(prevBadges => ({ ...prevBadges, [parcoursBadgeId]: new Date().toISOString() }));
-                         setHasUnseenBadge(true);
-                         dataService.unlockBadge(parcoursBadgeId);
+                         setUnlockedBadges(prevBadges => {
+                            const updatedBadges = { ...prevBadges, [parcoursBadgeId]: new Date().toISOString() };
+                            localStorage.setItem('mindPivotBadges', JSON.stringify(updatedBadges));
+                            return updatedBadges;
+                        });
+                        setHasUnseenBadge(true);
                     }
                     return updated;
                   });
@@ -218,7 +276,11 @@ function App() {
               }
           }
       }
-      if (['all', 'program', 'random'].includes(ritualEntryPoint)) navigateTo('welcome'); else navigateTo('suggestions');
+      if (['all', 'program', 'random'].includes(ritualEntryPoint)) {
+        navigateTo('welcome');
+      } else {
+        navigateTo('suggestions');
+      }
   };
 
   const handleDeleteSession = (sessionId: string) => { if (window.confirm(t('journal_delete_confirm'))) { setSessions(prevSessions => { const updatedSessions = prevSessions.filter(s => s.id !== sessionId); localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions)); return updatedSessions; }); } };
@@ -229,23 +291,63 @@ function App() {
     if (!session.journal) return;
     const ritual = RITUELS.find(r => r.id === session.ritualId);
     if (!ritual) return;
-    if (!isPremiumUser) { setShowPremiumModal(true); return; }
+
+    if (!isPremiumUser) {
+        setShowPremiumModal(true);
+        return;
+    }
+
     setIsLoadingJournalFeedbackForSession(session.id);
     try {
-        const prompt = `Tu es un coach de bien-être. Rituel terminé: "${t(ritual.label)}". Journal: "${session.journal}". Feedback court (2 phrases, 40 mots max) en français, validant le ressenti et encourageant. Tutoiement.`;
+        const prompt = `Tu es un coach de bien-être, bienveillant et perspicace. Un utilisateur vient de terminer le rituel "${t(ritual.label)}" et a écrit la note suivante dans son journal : "${session.journal}". Rédige une courte réflexion (2-3 phrases, 40 mots max) en français qui valide son ressenti, offre un encouragement ou pose une question douce pour approfondir sa pensée. Adresse-toi à l'utilisateur avec "tu". Ne retourne que la réponse, sans introduction ni conclusion.`;
         const feedback = await generateGeminiText(prompt);
-        setSessions(prevSessions => { const updatedSessions = prevSessions.map(s => s.id === session.id ? { ...s, iaFeedback: feedback.trim() } : s); localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions)); return updatedSessions; });
-    } catch (error) { console.error("Gemini error:", error); } finally { setIsLoadingJournalFeedbackForSession(null); }
+
+        setSessions(prevSessions => {
+            const updatedSessions = prevSessions.map(s => s.id === session.id ? { ...s, iaFeedback: feedback.trim() } : s);
+            localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions));
+            return updatedSessions;
+        });
+    } catch (error) {
+        console.error("Gemini journal feedback error:", error);
+    } finally {
+        setIsLoadingJournalFeedbackForSession(null);
+    }
   };
 
-  const handleOnboardingComplete = () => { try { localStorage.setItem('mindPivotOnboarded', 'true'); setShowOnboarding(false); } catch (e) { setShowOnboarding(false); } };
+  const handleOnboardingComplete = () => {
+    try {
+        localStorage.setItem('mindPivotOnboarded', 'true');
+        setShowOnboarding(false);
+    } catch (e) {
+        console.error("Failed to save onboarding status", e);
+        setShowOnboarding(false);
+    }
+  };
 
   const clearAllData = () => {
       if (window.confirm(t('settings_clear_data_confirm'))) {
           try {
-              localStorage.clear(); // Nettoyage radical
-              window.location.reload();
-          } catch (e) { alert(t('settings_clear_data_error')); }
+              localStorage.removeItem('mindPivotSessions');
+              localStorage.removeItem('mindPivotBadges');
+              localStorage.removeItem('mindPivotFavorites');
+              localStorage.removeItem('mindPivotTheme');
+              localStorage.removeItem('mindPivotOnboarded');
+              localStorage.removeItem('mindPivotPremium');
+              localStorage.removeItem('mindPivotActiveProgram');
+              localStorage.removeItem('mindPivotCompletedPrograms');
+              setSessions([]);
+              setUnlockedBadges({});
+              setFavoriteRituals(new Set());
+              setTheme('dark');
+              setIsPremiumUser(false);
+              setActiveProgram(null);
+              setCompletedPrograms([]);
+              navigateTo('welcome');
+              alert(t('settings_clear_data_success'));
+          } catch (e) {
+              console.error("Failed to clear data:", e);
+              alert(t('settings_clear_data_error'));
+          }
       }
   };
 
@@ -260,33 +362,105 @@ function App() {
   }
   
   const getSuggestedRituals = useCallback((): Ritual[] => {
-      // Logique simplifiée pour l'exemple, à adapter selon vos algos complexes
-      // Filtrer par tags correspondant au checkin
+      const answers = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
+      let needs: Record<string, number> = {};
+
+      if (answers.energie <= -1) { needs['dynamiser'] = (needs['dynamiser'] || 0) + 2; }
+      if (answers.humeur <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['mindset'] = (needs['mindset'] || 0) + 1.5; }
+      if (answers.chargeMentale <= -1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; }
+      if (answers.tensionCorporelle <= -1) { needs['somatique'] = (needs['somatique'] || 0) + 2; needs['détente'] = (needs['détente'] || 0) + 1; }
+      if (answers.fatiguePhysique <= -1) { needs['dynamiser'] = (needs['dynamiser'] || 0) + 1; needs['récupération'] = (needs['récupération'] || 0) + 2; }
+      if (answers.agitation <= -1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['ancrage'] = (needs['ancrage'] || 0) + 1.5; }
+      if (answers.tristesse <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1; }
+      if (answers.colere <= -1) { needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 2; needs['calmer'] = (needs['calmer'] || 0) + 1.5; }
+      if (answers.peur <= -1) { needs['ancrage'] = (needs['ancrage'] || 0) + 2; needs['apaiser'] = (needs['apaiser'] || 0) + 1.5; }
+      if (answers.clarteMentale <= -1) { needs['clarifier'] = (needs['clarifier'] || 0) + 2; needs['focus'] = (needs['focus'] || 0) + 1.5; }
+      if (answers.rumination <= -1) { needs['presence'] = (needs['presence'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; }
+      if (answers.qualitePensees <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['mindset'] = (needs['mindset'] || 0) + 1; }
+      if (answers.vitesseMentale >= 1) { needs['calmer'] = (needs['calmer'] || 0) + 1.5; }
+      if (answers.sentimentControle <= -1) { needs['ancrage'] = (needs['ancrage'] || 0) + 1.5; }
+      if (answers.energie <= -1 && answers.chargeMentale <= -1) { needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 2; needs['somatique'] = (needs['somatique'] || 0) + 1; }
+      if (answers.peur <= -1 && answers.agitation <= -1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['somatique_doux'] = (needs['somatique_doux'] || 0) + 1.5; }
+
       const candidateRituals = RITUELS.filter(r => !r.isPremium || isPremiumUser);
-      return candidateRituals.slice(0, 4); 
-  }, [isPremiumUser]);
+      
+      if (Object.keys(needs).length === 0) {
+        return candidateRituals.filter(r => ['rit.equilibre_5_5', 'rit.gratitude_90', 'rit.body_scan_180', 'rit.micro_awe'].includes(r.id)).slice(0, 4);
+      }
+
+      const recentRitualIds = sessions.slice(-3).map(s => s.ritualId);
+      let scores = candidateRituals.map(r => {
+          let score = r.tags.reduce((acc, tag) => acc + (needs[tag] || 0), 0);
+          if (recentRitualIds.includes(r.id)) { score *= 0.6; }
+          if (r.id === 'rit.coherence_bento') { score *= 1.1; } // Small boost
+          return { ...r, score: score };
+      });
+      const sortedRituals = scores.sort((a, b) => b.score - a.score);
+      const topSuggestions = sortedRituals.filter(r => r.score > 0).slice(0, 10);
+      let finalSuggestions: Ritual[] = [];
+      let categoriesUsed: Set<string> = new Set();
+
+      for (const ritual of topSuggestions) {
+          if (finalSuggestions.length >= 4) break;
+          if (!categoriesUsed.has(ritual.category) || finalSuggestions.length >= 2) {
+              if (!finalSuggestions.some(s => s.id === ritual.id)) {
+                  finalSuggestions.push(ritual);
+                  categoriesUsed.add(ritual.category);
+              }
+          }
+      }
+      if (finalSuggestions.length < 4) {
+        const remaining = topSuggestions.filter(r => !finalSuggestions.find(f => f.id === r.id));
+        finalSuggestions.push(...remaining.slice(0, 4 - finalSuggestions.length));
+      }
+      return finalSuggestions.slice(0, 4);
+  }, [sessions, isPremiumUser, energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle]);
   
   useEffect(() => {
     if (currentScreen === 'suggestions') {
       const fetchFeedback = async () => {
         setIsLoadingCheckinFeedback(true);
         try {
-          // Appel Gemini fictif ou réel ici pour le feedback du checkin
-          setGeminiCheckinFeedback("Voici une sélection pour toi."); 
-        } finally { setIsLoadingCheckinFeedback(false); }
+          const answers = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
+          const summary = Object.entries(answers)
+            .filter(([, value]) => value !== 0)
+            .map(([key, value]) => `${t(`label_${key}_title`)}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
+            .join(', ');
+          
+          const prompt = `En te basant sur le check-in suivant d'un utilisateur (${summary}), rédige une phrase de synthèse courte (1-2 phrases, 30 mots max), empathique et sans jugement en français qui valide son état actuel. La phrase doit être encourageante et introduire les suggestions de rituels qui vont suivre. Adresse-toi à l'utilisateur avec "tu". Ne retourne que la phrase, sans aucune introduction ou conclusion. Exemple: "Il semble que ton énergie soit un peu basse et ton esprit agité. Voici quelques rituels pour t'aider à t'ancrer et retrouver de la sérénité."`;
+          
+          const feedback = await generateGeminiText(prompt);
+          setGeminiCheckinFeedback(feedback.trim());
+        } catch (error) {
+          console.error("Gemini feedback error:", error);
+          setGeminiCheckinFeedback("");
+        } finally {
+          setIsLoadingCheckinFeedback(false);
+        }
       };
       fetchFeedback();
     }
-  }, [currentScreen]);
+  }, [currentScreen, energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle, t]);
 
-  // Safely detect user agent
+  const infoRitualData = RITUELS.find(r => r.id === infoModalRitualId);
+  const programInfoData = PROGRAMS.find(p => p.id === programInfoModalId);
+  const streaks = calculateSessionStreaks(sessions);
+  const handleShare = async () => { if(navigator.share){ try { await navigator.share({ title: 'MindPivot', text: 'Une webapp de micro-rituels pour apaiser, clarifier et dynamiser.', url: window.location.href }); } catch(e) { console.error('Share failed', e); } } else { setShowShareModal(true); } };
+  const handleShareBadge = async (badge: Badge) => { if(navigator.share){ try { await navigator.share({ title: t('journey_badge_share_title'), text: t('journey_badge_share_text', { badgeName: t(badge.name), badgeIcon: badge.icon }), url: window.location.href }); } catch(e) { console.error('Share failed', e); } } else { alert(t('share_not_supported')); } };
+  
+  // Safely detect user agent to prevent crashes
   const isBrowser = typeof window !== 'undefined' && typeof navigator !== 'undefined';
-  const isIOS = isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
-  const isAndroid = isBrowser && /Android/.test(navigator.userAgent);
+  const userAgent = isBrowser ? navigator.userAgent : '';
+  const isIOS = isBrowser && /iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream;
+  const isAndroid = isBrowser && /Android/.test(userAgent);
   
   const playTestSound = (soundId: 'bol' | 'diapason' | 'gong' | 'none') => {
-      if (soundId === 'none' || !soundSettings.enabled) return;
-      new Audio(SOUND_OPTIONS[soundId].url).play().catch(() => {});
+      if (soundId === 'none') return;
+      if (!soundSettings.enabled) return;
+      const soundUrl = SOUND_OPTIONS[soundId].url;
+      const audio = new Audio(soundUrl);
+      audio.volume = soundSettings.volume;
+      audio.play().catch(e => console.error("Erreur lecture son test", e));
   };
   
   const renderScreen = () => {
@@ -294,359 +468,401 @@ function App() {
       switch (currentScreen) {
         case 'welcome':
           const currentProgram = activeProgram ? PROGRAMS.find(p => p.id === activeProgram.programId) : null;
+          const randomButtonText = t('random_ritual_button');
+          const emojiIndex = randomButtonText.lastIndexOf(' ');
+          const textPart = emojiIndex > -1 ? randomButtonText.substring(0, emojiIndex) : randomButtonText;
+          const emojiPart = emojiIndex > -1 ? randomButtonText.substring(emojiIndex + 1) : '';
+
           return (
             <div {...screenProps} className="flex flex-col items-center text-center">
               {currentProgram && activeProgram && (
                 <Card className="mb-6 w-full">
                   <div className="text-center">
-                    <p className="text-lg text-muted mb-4">{t('current_journey_title')}<br/><strong className="text-xl text-fg">{t(currentProgram.title)}</strong></p>
-                    <div className="w-full bg-white/10 rounded-full h-2.5 mb-2"><div className="bg-accent h-2.5 rounded-full" style={{width: `${(activeProgram.currentDay -1) / currentProgram.durationDays * 100}%`}}></div></div>
+                    <p className="text-lg text-muted mb-4">
+                        {t('current_journey_title')}<br/>
+                        <strong className="text-xl text-fg">{t(currentProgram.title)}</strong>
+                    </p>
+                    <div className="w-full bg-white/10 rounded-full h-2.5 mb-2">
+                        <div className="bg-accent h-2.5 rounded-full" style={{width: `${(activeProgram.currentDay -1) / currentProgram.durationDays * 100}%`}}></div>
+                    </div>
                     <p className="text-sm text-muted">{t('program_info_day', { day: activeProgram.currentDay })} / {currentProgram.durationDays}</p>
                     <Button onClick={() => handleContinueProgram(activeProgram)} variant="primary" className="mt-4 w-full">{t('continue_journey_button')}</Button>
+                    <Button onClick={handleAbandonProgram} variant="ghost" size="small" className="mt-2 text-bad">{t('abandon_journey_button')}</Button>
                   </div>
                 </Card>
               )}
               <div className="w-full mt-4">
                 <h2 className="text-3xl font-bold" dangerouslySetInnerHTML={{ __html: t('welcome_title') }} />
                 <p className="text-muted mt-2 mb-8 text-lg">{t('welcome_subtitle')}</p>
+                <div className="w-full h-px bg-white/10 my-8"></div>
                 <div className="space-y-4 w-full max-w-xs mx-auto">
-                  <Button onClick={() => navigateTo('checkin_rapide')} size="large" variant="primary" className="w-full">{t('discover_ritual_button')}</Button>
-                  <Button onClick={() => navigateTo('programs')} variant="secondary" className="w-full">{t('discover_programs_button')}</Button>
-                  <Button onClick={handleRandomRitual} variant="secondary" className="w-full">{t('random_ritual_button')}</Button>
+                  <Button onClick={() => navigateTo('checkin_rapide')} size="large" variant="primary" className="w-full">
+                    {t('discover_ritual_button')}
+                  </Button>
+                  <Button onClick={() => navigateTo('programs')} variant="secondary" className="w-full !text-white !bg-[var(--color-accent-secondary)] !border-[var(--color-accent-secondary)] hover:!bg-opacity-80">
+                    {t('discover_programs_button')}
+                  </Button>
+                  <Button onClick={handleRandomRitual} variant="secondary" className="w-full !text-white !bg-[var(--color-accent-tertiary)] !border-[var(--color-accent-tertiary)] hover:!bg-opacity-80 group">
+                    {textPart} <span className="inline-block animate-roll-dice">{emojiPart}</span>
+                  </Button>
                 </div>
               </div>
             </div>
           );
+
         case 'checkin_rapide':
-          return <CheckinPage energie={energie} setEnergie={setEnergie} humeur={humeur} setHumeur={setHumeur} chargeMentale={chargeMentale} setChargeMentale={setChargeMentale} onNavigate={navigateTo} onBack={resetAndGoHome} onHelp={setHelpInfo} />;
+          return <CheckinPage {...{ energie, setEnergie, humeur, setHumeur, chargeMentale, setChargeMentale, onNavigate: navigateTo, onBack: resetAndGoHome, onHelp: setHelpInfo }} />;
         
         case 'checkin_general':
           return (
-            <div {...screenProps}>
-              <Breadcrumbs current="general" onNavigate={navigateTo} />
-              <Card>
-                <h3 className="text-xl font-bold mb-4 text-center">{t('checkin_general_title')}</h3>
-                <CheckinSlider label={t('label_tensionCorporelle_title')} value={tensionCorporelle} onChange={(e) => setTensionCorporelle(parseInt(e.target.value))} labels={LABELS.tensionCorporelle.map(k => t(k))} helpId="tensionCorporelle" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_fatiguePhysique_title')} value={fatiguePhysique} onChange={(e) => setFatiguePhysique(parseInt(e.target.value))} labels={LABELS.fatiguePhysique.map(k => t(k))} helpId="fatiguePhysique" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_agitation_title')} value={agitation} onChange={(e) => setAgitation(parseInt(e.target.value))} labels={LABELS.agitation.map(k => t(k))} helpId="agitation" onHelp={setHelpInfo} />
-                <div className="mt-6 flex justify-end">
-                  <Button onClick={() => navigateTo('checkin_emotions')}>{t('continue')}</Button>
+            <Card {...screenProps}>
+               <Button variant='secondary' size='small' onClick={goBack}>← {t('previous')}</Button>
+               <div className="text-center mt-2">
+                <h2 className="text-2xl font-bold mb-2">{t('checkin_general_title')}</h2>
+                <Breadcrumbs current="general" onNavigate={navigateTo} />
+                <CheckinSlider label={t('label_tensionCorporelle_title')} value={tensionCorporelle} onChange={e => setTensionCorporelle(parseInt(e.target.value, 10))} labels={LABELS.tensionCorporelle.map(k => t(k))} helpId="tensionCorporelle" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_fatiguePhysique_title')} value={fatiguePhysique} onChange={e => setFatiguePhysique(parseInt(e.target.value, 10))} labels={LABELS.fatiguePhysique.map(k => t(k))} helpId="fatiguePhysique" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_agitation_title')} value={agitation} onChange={e => setAgitation(parseInt(e.target.value, 10))} labels={LABELS.agitation.map(k => t(k))} helpId="agitation" onHelp={setHelpInfo} />
+                <div className="flex gap-4 justify-center mt-4">
+                  <Button variant="primary" onClick={() => navigateTo('checkin_emotions')}>{t('continue')}</Button>
+                  <Button variant="info" onClick={() => navigateTo('suggestions')}>{t('checkin_direct_suggestions')}</Button>
                 </div>
-              </Card>
-            </div>
+              </div>
+            </Card>
           );
+
         case 'checkin_emotions':
-          return (
-            <div {...screenProps}>
-              <Breadcrumbs current="emotions" onNavigate={navigateTo} />
-              <Card>
-                <h3 className="text-xl font-bold mb-4 text-center">{t('checkin_emotions_title')}</h3>
-                <CheckinSlider label={t('label_joie_title')} value={joie} onChange={(e) => setJoie(parseInt(e.target.value))} labels={LABELS.joie.map(k => t(k))} helpId="joie" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_tristesse_title')} value={tristesse} onChange={(e) => setTristesse(parseInt(e.target.value))} labels={LABELS.tristesse.map(k => t(k))} helpId="tristesse" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_colere_title')} value={colere} onChange={(e) => setColere(parseInt(e.target.value))} labels={LABELS.colere.map(k => t(k))} helpId="colere" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_peur_title')} value={peur} onChange={(e) => setPeur(parseInt(e.target.value))} labels={LABELS.peur.map(k => t(k))} helpId="peur" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_sensibilite_title')} value={sensibilite} onChange={(e) => setSensibilite(parseInt(e.target.value))} labels={LABELS.sensibilite.map(k => t(k))} helpId="sensibilite" onHelp={setHelpInfo} />
-                <div className="mt-6 flex justify-between">
-                  <Button variant="secondary" onClick={() => navigateTo('checkin_general')}>{t('previous')}</Button>
-                  <Button onClick={() => navigateTo('checkin_pensees')}>{t('continue')}</Button>
+           return (
+             <Card {...screenProps}>
+               <Button variant='secondary' size='small' onClick={goBack}>← {t('previous')}</Button>
+               <div className="text-center mt-2">
+                <h2 className="text-2xl font-bold mb-2">{t('checkin_emotions_title')}</h2>
+                <Breadcrumbs current="emotions" onNavigate={navigateTo} />
+                <CheckinSlider label={t('label_joie_title')} value={joie} onChange={e => setJoie(parseInt(e.target.value, 10))} labels={LABELS.joie.map(k => t(k))} helpId="joie" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_tristesse_title')} value={tristesse} onChange={e => setTristesse(parseInt(e.target.value, 10))} labels={LABELS.tristesse.map(k => t(k))} helpId="tristesse" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_colere_title')} value={colere} onChange={e => setColere(parseInt(e.target.value, 10))} labels={LABELS.colere.map(k => t(k))} helpId="colere" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_peur_title')} value={peur} onChange={e => setPeur(parseInt(e.target.value, 10))} labels={LABELS.peur.map(k => t(k))} helpId="peur" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_sensibilite_title')} value={sensibilite} onChange={e => setSensibilite(parseInt(e.target.value, 10))} labels={LABELS.sensibilite.map(k => t(k))} helpId="sensibilite" onHelp={setHelpInfo} />
+                <div className="flex gap-4 justify-center mt-4">
+                  <Button variant="primary" onClick={() => navigateTo('checkin_pensees')}>{t('continue')}</Button>
+                  <Button variant="info" onClick={() => navigateTo('suggestions')}>{t('checkin_direct_suggestions')}</Button>
                 </div>
-              </Card>
-            </div>
-          );
+               </div>
+             </Card>
+           );
+
         case 'checkin_pensees':
+           return (
+             <Card {...screenProps}>
+                <Button variant='secondary' size='small' onClick={goBack}>← {t('previous')}</Button>
+                <div className="text-center mt-2">
+                <h2 className="text-2xl font-bold mb-2">{t('checkin_thoughts_title')}</h2>
+                <Breadcrumbs current="pensees" onNavigate={navigateTo} />
+                <CheckinSlider label={t('label_clarteMentale_title')} value={clarteMentale} onChange={e => setClarteMentale(parseInt(e.target.value, 10))} labels={LABELS.clarteMentale.map(k => t(k))} helpId="clarteMentale" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_rumination_title')} value={rumination} onChange={e => setRumination(parseInt(e.target.value, 10))} labels={LABELS.rumination.map(k => t(k))} helpId="rumination" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_orientationTemporelle_title')} value={orientationTemporelle} onChange={e => setOrientationTemporelle(parseInt(e.target.value, 10))} labels={LABELS.orientationTemporelle.map(k => t(k))} helpId="orientationTemporelle" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_qualitePensees_title')} value={qualitePensees} onChange={e => setQualitePensees(parseInt(e.target.value, 10))} labels={LABELS.qualitePensees.map(k => t(k))} helpId="qualitePensees" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_vitesseMentale_title')} value={vitesseMentale} onChange={e => setVitesseMentale(parseInt(e.target.value, 10))} labels={LABELS.vitesseMentale.map(k => t(k))} helpId="vitesseMentale" onHelp={setHelpInfo} />
+                <CheckinSlider label={t('label_sentimentControle_title')} value={sentimentControle} onChange={e => setSentimentControle(parseInt(e.target.value, 10))} labels={LABELS.sentimentControle.map(k => t(k))} helpId="sentimentControle" onHelp={setHelpInfo} />
+                <Button variant="primary" onClick={() => navigateTo('suggestions')} size="large" className="w-full mt-6">{t('checkin_see_suggestions')}</Button>
+                </div>
+             </Card>
+           );
+        
+        case 'suggestions':
+          const suggestedRituals = getSuggestedRituals();
           return (
             <div {...screenProps}>
-              <Breadcrumbs current="pensees" onNavigate={navigateTo} />
-              <Card>
-                <h3 className="text-xl font-bold mb-4 text-center">{t('checkin_thoughts_title')}</h3>
-                <CheckinSlider label={t('label_clarteMentale_title')} value={clarteMentale} onChange={(e) => setClarteMentale(parseInt(e.target.value))} labels={LABELS.clarteMentale.map(k => t(k))} helpId="clarteMentale" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_rumination_title')} value={rumination} onChange={(e) => setRumination(parseInt(e.target.value))} labels={LABELS.rumination.map(k => t(k))} helpId="rumination" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_orientationTemporelle_title')} value={orientationTemporelle} onChange={(e) => setOrientationTemporelle(parseInt(e.target.value))} labels={LABELS.orientationTemporelle.map(k => t(k))} helpId="orientationTemporelle" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_qualitePensees_title')} value={qualitePensees} onChange={(e) => setQualitePensees(parseInt(e.target.value))} labels={LABELS.qualitePensees.map(k => t(k))} helpId="qualitePensees" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_vitesseMentale_title')} value={vitesseMentale} onChange={(e) => setVitesseMentale(parseInt(e.target.value))} labels={LABELS.vitesseMentale.map(k => t(k))} helpId="vitesseMentale" onHelp={setHelpInfo} />
-                <CheckinSlider label={t('label_sentimentControle_title')} value={sentimentControle} onChange={(e) => setSentimentControle(parseInt(e.target.value))} labels={LABELS.sentimentControle.map(k => t(k))} helpId="sentimentControle" onHelp={setHelpInfo} />
-                <div className="mt-6 flex justify-between">
-                  <Button variant="secondary" onClick={() => navigateTo('checkin_emotions')}>{t('previous')}</Button>
-                  <Button variant="primary" onClick={() => navigateTo('suggestions')}>{t('checkin_see_suggestions')}</Button>
+              <Button variant='secondary' size='small' onClick={goBack}>← {t('checkin_refine')}</Button>
+              <div className="text-center mt-2">
+                <h2 className="text-2xl font-bold mb-4">{t('suggestions_title')}</h2>
+                <p className="text-muted text-lg mb-6 min-h-[4rem] flex items-center justify-center">
+                  {isLoadingCheckinFeedback ? <span className="animate-pulse">{t('loading_analysis')}</span> : geminiCheckinFeedback}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {suggestedRituals.map(ritual => (
+                    <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} />
+                  ))}
                 </div>
-              </Card>
-            </div>
-          );
-        case 'suggestions':
-          const suggestions = getSuggestedRituals();
-          return (
-            <div {...screenProps} className="space-y-4 pb-20">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold">{t('suggestions_title')}</h2>
-                {isLoadingCheckinFeedback ? (
-                  <p className="text-sm text-muted animate-pulse">{t('loading_analysis')}</p>
-                ) : (
-                  <p className="text-sm text-muted italic p-2">{geminiCheckinFeedback}</p>
-                )}
-              </div>
-              <div className="grid grid-cols-1 gap-4">
-                {suggestions.map(ritual => (
-                  <RitualCard 
-                    key={ritual.id} 
-                    ritual={ritual} 
-                    onStart={handleStartRitual} 
-                    onInfo={handleInfoRitual} 
-                    isFavorite={favoriteRituals.has(ritual.id)}
-                    onToggleFavorite={toggleFavorite}
-                    isPremiumUser={isPremiumUser}
-                  />
-                ))}
-              </div>
-              <div className="text-center mt-8">
-                <Button variant="secondary" onClick={() => navigateTo('all')}>{t('all_rituals_button')}</Button>
+                <Button variant="ghost" onClick={resetAndGoHome} className="mt-8">{t('back_to_home')}</Button>
               </div>
             </div>
           );
+
         case 'all':
-          let filteredRituals = RITUELS.filter(r => 
-            (t(r.label).toLowerCase().includes(searchQuery.toLowerCase()) || r.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
-            && (!favoritesFilterActive || favoriteRituals.has(r.id))
-            && (!tagFilter || r.tags.includes(tagFilter))
-          );
-          
-          const allTags = Array.from(new Set(RITUELS.flatMap(r => r.tags)));
+            const allRituals = RITUELS.filter(r => !r.id.endsWith('5m')).sort((a, b) => {
+              if (a.category !== b.category) {
+                return a.category.localeCompare(b.category);
+              }
+              return t(a.label).localeCompare(t(b.label));
+            });
+            const curatedTags = ['apaiser', 'dynamiser', 'focus', 'sommeil', 'stress', 'anxiete', 'colere', 'rumination', 'respiration', 'somatique', 'mindset', 'lacher-prise', 'confiance', 'joie', 'détente'].sort();
 
-          return (
-            <div {...screenProps} className="space-y-4 pb-24">
-              <Button variant='secondary' size='small' onClick={() => navigateTo('welcome')}>← {t('back_to_home')}</Button>
-              <h2 className="text-2xl font-bold text-center mb-4">{t('all_rituals_title')}</h2>
-              
-              <div className="flex flex-col gap-3">
-                  <input 
-                    type="search" 
-                    placeholder={t('search_placeholder')} 
-                    value={searchQuery} 
-                    onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:ring-2 focus:ring-accent focus:outline-none transition-all"
-                  />
-                  <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                      <button 
-                          onClick={() => setFavoritesFilterActive(!favoritesFilterActive)}
-                          className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-colors border ${favoritesFilterActive ? 'bg-amber-400/20 text-amber-400 border-amber-400' : 'bg-transparent text-muted border-white/10 hover:border-white/30'}`}
-                      >
-                          ★ {t('filter_favorites_label')}
-                      </button>
-                      <select 
-                          value={tagFilter || ''} 
-                          onChange={(e) => setTagFilter(e.target.value || null)}
-                          className="px-3 py-1 rounded-full text-xs font-bold bg-white/5 border border-white/10 text-muted focus:outline-none"
-                      >
-                          <option value="">{t('all_tags')}</option>
-                          {allTags.map(tag => <option key={tag} value={tag}>{tag}</option>)}
-                      </select>
-                  </div>
-              </div>
+            const filteredRituals = allRituals.filter(ritual => {
+                const searchMatch = t(ritual.label).toLowerCase().includes(searchQuery.toLowerCase()) || t(ritual.modal.sections.pourquoi).toLowerCase().includes(searchQuery.toLowerCase());
+                const favoriteMatch = !favoritesFilterActive || favoriteRituals.has(ritual.id);
+                const tagMatch = !tagFilter || ritual.tags.includes(tagFilter);
+                return searchMatch && favoriteMatch && tagMatch;
+            });
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {filteredRituals.map(ritual => (
-                  <RitualCard 
-                    key={ritual.id} 
-                    ritual={ritual} 
-                    onStart={handleStartRitual} 
-                    onInfo={handleInfoRitual}
-                    isFavorite={favoriteRituals.has(ritual.id)}
-                    onToggleFavorite={toggleFavorite}
-                    isPremiumUser={isPremiumUser}
-                  />
-                ))}
-              </div>
-            </div>
-          );
-        case 'programs':
             return (
-                <div {...screenProps} className="space-y-4 pb-24">
-                    <Button variant='secondary' size='small' onClick={() => navigateTo('welcome')}>← {t('back_to_home')}</Button>
-                    <h2 className="text-2xl font-bold text-center mb-6">{t('all_programs_title')}</h2>
-                    <div className="grid grid-cols-1 gap-4">
-                        {PROGRAMS.map(program => (
-                            <ProgramCard 
-                                key={program.id} 
-                                program={program} 
-                                onStart={handleStartProgram} 
-                                onInfo={(id) => setProgramInfoModalId(id)}
-                                isLocked={program.isPremium && !isPremiumUser}
-                            />
-                        ))}
-                    </div>
-                </div>
-            );
-        case 'parcours':
-            return (
-                <div {...screenProps} className="space-y-6 pb-24">
-                    <h2 className="text-2xl font-bold text-center">{t('journey_title')}</h2>
-                    
-                    {activeProgram && (
-                        <Card className="border-accent/30 bg-accent/5">
-                            <div className="flex justify-between items-start mb-2">
-                                <h3 className="font-bold text-lg text-accent">{t('current_journey_title')}</h3>
-                                <button onClick={handleAbandonProgram} className="text-xs text-muted hover:text-bad underline">{t('abandon_journey_button')}</button>
-                            </div>
-                            <p className="font-bold text-xl mb-2">{t(PROGRAMS.find(p => p.id === activeProgram.programId)?.title || '')}</p>
-                            <div className="w-full bg-white/10 rounded-full h-3 mb-2">
-                                <div className="bg-accent h-3 rounded-full transition-all duration-500" style={{width: `${(activeProgram.currentDay - 1) / (PROGRAMS.find(p => p.id === activeProgram.programId)?.durationDays || 1) * 100}%`}}></div>
-                            </div>
-                            <div className="flex justify-between items-center mt-4">
-                                <p className="text-sm text-muted">{t('program_info_day', { day: activeProgram.currentDay })} / {PROGRAMS.find(p => p.id === activeProgram.programId)?.durationDays}</p>
-                                <Button size="small" onClick={() => handleContinueProgram(activeProgram)}>{t('continue_journey_button')}</Button>
-                            </div>
-                        </Card>
-                    )}
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <Card className="text-center p-4">
-                            <p className="text-3xl font-bold text-accent">{calculateSessionStreaks(sessions).current}</p>
-                            <p className="text-xs text-muted uppercase tracking-wider">{t('journey_streak_current')}</p>
-                        </Card>
-                        <Card className="text-center p-4">
-                            <p className="text-3xl font-bold text-white">{calculateSessionStreaks(sessions).longest}</p>
-                            <p className="text-xs text-muted uppercase tracking-wider">{t('journey_streak_record')}</p>
-                        </Card>
-                    </div>
-
-                    <div>
-                        <h3 className="font-bold text-lg mb-4">{t('journey_unlocked_badges', { unlockedCount: Object.keys(unlockedBadges).length, totalCount: Object.keys(BADGES).length })}</h3>
-                        <div className="grid grid-cols-4 gap-4">
-                            {(Object.entries(BADGES) as [BadgeId, Badge][]).map(([id, badge]) => {
-                                const isUnlocked = !!unlockedBadges[id];
-                                return (
-                                    <div 
-                                        key={id} 
-                                        onClick={() => setBadgeModal(id)}
-                                        className={`aspect-square rounded-full flex items-center justify-center text-2xl border-2 cursor-pointer transition-all ${isUnlocked ? 'bg-accent/20 border-accent text-white shadow-lg shadow-accent/20 hover:scale-110' : 'bg-white/5 border-white/10 text-white/20 grayscale'}`}
-                                    >
-                                        {badge.icon}
-                                    </div>
-                                );
-                            })}
+                <div {...screenProps}>
+                    <div className="text-center">
+                        <h2 className="text-2xl font-bold mb-4">{t('all_rituals_title')}</h2>
+                        <div className="flex gap-2 mb-4">
+                            <input type="search" placeholder={t('search_placeholder')} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-full px-4 py-3 text-base rounded-lg bg-card border-2 border-white/30 focus:ring-2 focus:ring-accent focus:border-accent transition-colors placeholder:text-muted shadow-sm" />
+                            <Button variant={favoritesFilterActive ? 'primary' : 'secondary'} onClick={() => setFavoritesFilterActive(!favoritesFilterActive)} className="!p-0 w-12 h-12 flex-shrink-0" aria-label={t('filter_favorites_label')}>
+                               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            </Button>
+                        </div>
+                        <div className="mb-4">
+                          <h3 className="font-bold text-accent mb-2">{t('filter_by_tag')}</h3>
+                          <div className="flex flex-wrap gap-2 justify-center">
+                            <Button size="small" variant={!tagFilter ? 'primary' : 'secondary'} onClick={() => setTagFilter(null)}>{t('all_tags')}</Button>
+                            {curatedTags.map(tag => (
+                              <Button key={tag} size="small" variant={tagFilter === tag ? 'primary' : 'secondary'} onClick={() => setTagFilter(tag)}>
+                                {t(tag) || tag}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {filteredRituals.map(ritual => (
+                                <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} />
+                            ))}
                         </div>
                     </div>
-                    
-                    <div className="text-center pt-4">
-                        <Button variant="secondary" onClick={() => navigateTo('programs')}>{t('journey_see_all_programs')}</Button>
+                </div>
+            );
+        
+        case 'programs':
+            return (
+                <div {...screenProps}>
+                    <Button variant='secondary' size='small' onClick={() => navigateTo('welcome')}>← {t('back_to_home')}</Button>
+                    <div className="text-center mt-2">
+                        <h2 className="text-2xl font-bold mb-4">{t('all_programs_title')}</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {PROGRAMS.map(program => (
+                                <ProgramCard key={program.id} program={program} onStart={handleStartProgram} onInfo={setProgramInfoModalId} isLocked={program.isPremium && !isPremiumUser} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             );
-        case 'journal':
-            const reversedSessions = [...sessions].reverse();
-            return (
-                <div {...screenProps} className="space-y-4 pb-24">
-                    <Button variant='secondary' size='small' onClick={() => navigateTo('welcome')}>← {t('back_to_home')}</Button>
-                    <h2 className="text-2xl font-bold text-center mb-6">{t('journal_title')}</h2>
-                    {reversedSessions.length === 0 ? (
-                        <p className="text-center text-muted">{t('journal_empty')}</p>
-                    ) : (
-                        reversedSessions.map(session => {
-                            const ritual = RITUELS.find(r => r.id === session.ritualId);
-                            const date = new Date(session.timestamp).toLocaleDateString('fr', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+            
+        case 'parcours':
+          const unlockedBadgeIds = Object.keys(unlockedBadges) as BadgeId[];
+          return (
+            <div {...screenProps}>
+              <Button variant='secondary' size='small' onClick={resetAndGoHome}>← {t('home')}</Button>
+              <div className="text-center mt-2">
+                <h2 className="text-2xl font-bold mb-4">{t('journey_title')}</h2>
+                <div className="flex gap-4 mb-6">
+                    <div className="flex-1 p-3 bg-white/5 rounded-lg">
+                        <p className="text-3xl font-bold">{streaks.current}</p>
+                        <p className="text-sm text-muted">{t('journey_streak_current')}</p>
+                    </div>
+                    <div className="flex-1 p-3 bg-white/5 rounded-lg">
+                        <p className="text-3xl font-bold">{streaks.longest}</p>
+                        <p className="text-sm text-muted">{t('journey_streak_record')}</p>
+                    </div>
+                </div>
+                
+                <Button variant="primary" onClick={() => navigateTo('programs')} size="large" className="w-full mb-6">{t('journey_see_all_programs')}</Button>
+
+                <h3 className="font-bold text-lg mb-4 text-left">{t('journey_unlocked_badges', { unlockedCount: unlockedBadgeIds.length, totalCount: Object.keys(BADGES).length })}</h3>
+                {Object.entries(BADGE_CATEGORIES).map(([catKey, catValue]) => (
+                    <div key={catKey} className="mb-4 text-left">
+                        <h4 className="font-semibold text-accent mb-2">{t(catValue)}</h4>
+                        <div className="flex flex-wrap gap-4">
+                        {Object.entries(BADGES)
+                          .filter(([, badge]) => badge.category === catKey)
+                          .map(([badgeId, badge]) => {
+                            const isUnlocked = unlockedBadges[badgeId as BadgeId];
                             return (
-                                <Card key={session.id} className="relative group">
-                                    <div className="flex justify-between items-start mb-2">
-                                        <div>
-                                            <h4 className="font-bold text-lg">{ritual ? t(ritual.label) : 'Rituel inconnu'}</h4>
-                                            <p className="text-xs text-muted capitalize">{date} • {Math.floor(session.dureeSec / 60)} min</p>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <button onClick={() => handleEditSession(session)} className="text-muted hover:text-white p-1" title={t('journal_edit')}>✎</button>
-                                            <button onClick={() => handleDeleteSession(session.id)} className="text-muted hover:text-bad p-1" title={t('journal_delete')}>🗑️</button>
-                                        </div>
-                                    </div>
-                                    {editingSession?.id === session.id ? (
-                                        <div className="space-y-2">
-                                            <textarea 
-                                                value={editingText} 
-                                                onChange={(e) => setEditingText(e.target.value)} 
-                                                className="w-full p-2 rounded bg-white/10 border border-white/20 text-sm min-h-[100px]"
-                                            />
-                                            <div className="flex gap-2 justify-end">
-                                                <Button size="small" variant="secondary" onClick={() => setEditingSession(null)}>{t('journal_cancel')}</Button>
-                                                <Button size="small" variant="primary" onClick={handleSaveEdit}>{t('journal_save')}</Button>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <div className="bg-white/5 p-3 rounded-lg text-sm italic text-white/80 mb-3 whitespace-pre-wrap border-l-2 border-accent/50">
-                                                {session.journal || t('journal_no_notes')}
-                                            </div>
-                                            {session.journal && (
-                                                <div className="mt-3 pt-3 border-t border-white/10">
-                                                    {session.iaFeedback ? (
-                                                        <div className="bg-accent/10 p-3 rounded-lg text-sm text-accent-info">
-                                                            <span className="font-bold block mb-1">🤖 {t('journal_ia_coach_feedback_label')}</span>
-                                                            {session.iaFeedback}
-                                                        </div>
-                                                    ) : (
-                                                        <button 
-                                                            onClick={() => handleRequestJournalFeedback(session)}
-                                                            disabled={isLoadingJournalFeedbackForSession === session.id}
-                                                            className="text-xs text-accent-info hover:underline flex items-center gap-1"
-                                                        >
-                                                            {isLoadingJournalFeedbackForSession === session.id ? t('journal_ia_coach_loading') : `✨ ${t('journal_ia_coach_button')}`}
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </>
-                                    )}
-                                </Card>
+                                <div key={badgeId} onClick={() => isUnlocked && setBadgeModal(badgeId as BadgeId)} className={`flex flex-col items-center text-center w-20 ${isUnlocked ? 'cursor-pointer' : 'opacity-40'}`}>
+                                    <div className="text-4xl p-2 rounded-full bg-white/5">{isUnlocked ? badge.icon : '❓'}</div>
+                                    <p className="text-xs mt-1">{t(badge.name)}</p>
+                                </div>
                             );
-                        })
-                    )}
+                        })}
+                        </div>
+                    </div>
+                ))}
+              </div>
+            </div>
+          );
+
+        case 'journal':
+            const sortedSessions = [...sessions].sort((a,b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+            return (
+                <div {...screenProps} className="pb-24">
+                  <Button variant='secondary' size='small' onClick={resetAndGoHome}>← {t('home')}</Button>
+                  <h2 className="text-2xl font-bold text-center mt-2 mb-6">{t('journal_title')}</h2>
+                  {sortedSessions.length === 0 ? (
+                    <p className="text-muted text-center">{t('journal_empty')}</p>
+                  ) : (
+                    <div className="space-y-4">
+                      {sortedSessions.map(session => {
+                        const ritual = RITUELS.find(r => r.id === session.ritualId);
+                        if (!ritual) return null;
+                        return (
+                          <Card key={session.id}>
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <h3 className="font-bold">{t(ritual.label)}</h3>
+                                <p className="text-xs text-muted">{new Date(session.timestamp).toLocaleString('fr', { dateStyle: 'long', timeStyle: 'short' })}</p>
+                              </div>
+                              <div className="flex gap-1">
+                                <Button size="small" variant="ghost" onClick={() => handleEditSession(session)}>{t('journal_edit')}</Button>
+                                <Button size="small" variant="ghost" className="text-bad" onClick={() => handleDeleteSession(session.id)}>{t('journal_delete')}</Button>
+                              </div>
+                            </div>
+                            {session.journal ? (
+                              <p className="text-sm mt-2 whitespace-pre-wrap">{session.journal}</p>
+                            ) : (
+                              <p className="text-sm mt-2 text-muted italic">{t('journal_no_notes')}</p>
+                            )}
+                            {session.iaFeedback && (
+                                <div className="mt-3 pt-3 border-t border-white/20 text-sm text-accent-info flex gap-2">
+                                    <span className="font-bold">{t('journal_ia_coach_feedback_label')}</span>
+                                    <p className="italic">{session.iaFeedback}</p>
+                                </div>
+                            )}
+                            {session.journal && !session.iaFeedback && isPremiumUser && (
+                                <div className="mt-3">
+                                    <Button size="small" variant="info" onClick={() => handleRequestJournalFeedback(session)} disabled={isLoadingJournalFeedbackForSession === session.id}>
+                                        {isLoadingJournalFeedbackForSession === session.id ? t('journal_ia_coach_loading') : t('journal_ia_coach_button')}
+                                    </Button>
+                                </div>
+                            )}
+                          </Card>
+                        )
+                      })}
+                    </div>
+                  )}
                 </div>
             );
-        case 'stats': return <StatsScreen sessions={sessions} onBack={goBack} />;
+
+        case 'stats':
+          return <StatsScreen sessions={sessions} onBack={goBack} />;
+        
         case 'profile':
+            const lastUnlockedBadgeEntry = Object.entries(unlockedBadges).sort(([, a], [, b]) => new Date(b as string).getTime() - new Date(a as string).getTime())[0];
+            const lastBadge = lastUnlockedBadgeEntry ? BADGES[lastUnlockedBadgeEntry[0] as BadgeId] : null;
+            const recentSessions = sessions.slice(-3).reverse();
+
             return (
                 <div {...screenProps} className="space-y-6 pb-24">
                     <h2 className="text-2xl font-bold text-center">{t('profile_title')}</h2>
                     <Card>
-                        <div className="text-center space-y-2">
-                            {user ? (
-                                <>
-                                    <p className="font-bold text-lg">Bonjour, {user.first_name || user.email.split('@')[0]} !</p>
-                                    <p className="text-sm text-muted">{user.is_premium ? 'Membre Premium ✨' : 'Compte Gratuit'}</p>
-                                    <Button size="small" variant="secondary" onClick={() => dataService.signOut()}>Se déconnecter</Button>
-                                </>
-                            ) : (
-                                <>
-                                    <p className="text-sm text-muted mb-2">Connecte-toi pour sauvegarder tes données.</p>
-                                    <Button variant="primary" onClick={() => setShowAuthModal(true)}>Se connecter / Créer un compte</Button>
-                                </>
-                            )}
-                        </div>
-                    </Card>
-                    <Card>
                         <div className="grid grid-cols-3 gap-4 text-center">
-                             <div><p className="text-3xl font-bold">{calculateSessionStreaks(sessions).current}</p><p className="text-xs text-muted">{t('journey_streak_current')}</p></div>
-                             <div><p className="text-3xl font-bold">{calculateSessionStreaks(sessions).longest}</p><p className="text-xs text-muted">{t('journey_streak_record')}</p></div>
-                             <div><p className="text-3xl font-bold">{sessions.length}</p><p className="text-xs text-muted">{t('profile_rituals_completed')}</p></div>
+                             <div>
+                                <p className="text-3xl font-bold">{streaks.current}</p>
+                                <p className="text-xs text-muted">{t('journey_streak_current')}</p>
+                            </div>
+                            <div>
+                                <p className="text-3xl font-bold">{streaks.longest}</p>
+                                <p className="text-xs text-muted">{t('journey_streak_record')}</p>
+                            </div>
+                             <div>
+                                <p className="text-3xl font-bold">{sessions.length}</p>
+                                <p className="text-xs text-muted">{t('profile_rituals_completed')}</p>
+                            </div>
                         </div>
                     </Card>
+
+                    {lastBadge && (
+                         <Card>
+                            <h3 className="font-bold text-lg mb-2 text-left">{t('profile_last_badge')}</h3>
+                            <div className="flex items-center gap-4 p-2 bg-white/5 rounded-lg">
+                                <span className="text-4xl">{lastBadge.icon}</span>
+                                <div className="flex-1 text-left">
+                                    <p className="font-semibold">{t(lastBadge.name)}</p>
+                                    <p className="text-xs text-muted">{t(lastBadge.description)}</p>
+                                </div>
+                            </div>
+                            <Button variant="secondary" size="small" className="w-full mt-3" onClick={() => navigateTo('parcours')}>{t('profile_see_all_badges')}</Button>
+                         </Card>
+                    )}
+
+                    {recentSessions.length > 0 && (
+                        <Card>
+                           <h3 className="font-bold text-lg mb-2 text-left">{t('profile_last_rituals')}</h3>
+                           <div className="space-y-2">
+                               {recentSessions.map(session => {
+                                   const ritual = RITUELS.find(r => r.id === session.ritualId);
+                                   return (
+                                       <div key={session.id} className="flex items-center gap-3 p-2 bg-white/5 rounded-lg">
+                                           <span className="text-2xl">{ritual?.modal.icon}</span>
+                                           <div className="flex-1 text-left">
+                                                <p className="font-semibold">{ritual ? t(ritual.label) : ''}</p>
+                                                <p className="text-xs text-muted">{new Date(session.timestamp).toLocaleDateString('fr', { weekday: 'long', day: 'numeric', month: 'short' })}</p>
+                                           </div>
+                                       </div>
+                                   );
+                               })}
+                           </div>
+                        </Card>
+                    )}
+                    
                     <Card>
                         <h3 className="font-bold text-lg mb-3 text-left">{t('profile_navigation')}</h3>
                         <div className="space-y-2">
-                            {[{labelKey: 'profile_nav_badges', screen: 'parcours', icon: '🏆'}, {labelKey: 'profile_nav_stats', screen: 'stats', icon: '📊'}, {labelKey: 'profile_nav_journal', screen: 'journal', icon: '📖'}].map(item => (
+                            {[
+                                {labelKey: 'profile_nav_badges', screen: 'parcours', icon: '🏆'},
+                                {labelKey: 'profile_nav_stats', screen: 'stats', icon: '📊'},
+                                {labelKey: 'profile_nav_journal', screen: 'journal', icon: '📖'},
+                            ].map(item => (
                                 <button key={item.screen} onClick={() => navigateTo(item.screen)} className="w-full flex items-center gap-3 p-3 bg-white/5 rounded-lg text-left hover:bg-white/10 transition-colors">
-                                    <span className="text-2xl">{item.icon}</span><span className="flex-1 font-semibold">{t(item.labelKey)}</span><span className="text-muted">&gt;</span>
+                                    <span className="text-2xl">{item.icon}</span>
+                                    <span className="flex-1 font-semibold">{t(item.labelKey)}</span>
+                                    <span className="text-muted">&gt;</span>
                                 </button>
                             ))}
                         </div>
                     </Card>
+
                 </div>
             );
-        case 'howitworks': return <HowItWorksPage onNavigate={navigateTo} />;
-        case 'faq': return <FAQPage onNavigate={navigateTo} />;
-        case 'settings': return <SettingsPage onNavigate={navigateTo} theme={theme} setTheme={setTheme} textSize={textSize} setTextSize={setTextSize} soundSettings={soundSettings} setSoundSettings={setSoundSettings} playTestSound={playTestSound} isIOS={isIOS} isAndroid={isAndroid} setShowInstallModal={setShowInstallModal} isPremiumUser={isPremiumUser} setIsPremiumUser={setIsPremiumUser} clearAllData={clearAllData} themeLabels={themeLabels} />;
-        case 'player': if (activeRitual) return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} setSoundSettings={setSoundSettings} checkinData={{}} onShowInfo={handleInfoRitual} />; return null;
-        default: return <Card><p>Écran non trouvé.</p><Button variant="primary" onClick={resetAndGoHome}>{t('home')}</Button></Card>;
+
+        case 'howitworks':
+            return <HowItWorksPage onNavigate={navigateTo} />;
+        
+        case 'faq':
+            return <FAQPage onNavigate={navigateTo} />;
+
+        case 'settings':
+            return <SettingsPage 
+                onNavigate={navigateTo}
+                theme={theme} setTheme={setTheme}
+                themeLabels={themeLabels}
+                textSize={textSize} setTextSize={setTextSize}
+                soundSettings={soundSettings} setSoundSettings={setSoundSettings}
+                playTestSound={playTestSound}
+                isIOS={isIOS} isAndroid={isAndroid}
+                setShowInstallModal={setShowInstallModal}
+                isPremiumUser={isPremiumUser} setIsPremiumUser={setIsPremiumUser}
+                clearAllData={clearAllData}
+            />;
+            
+        case 'player':
+          if (activeRitual) {
+            const checkinData = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
+            return <Player ritual={activeRitual} onComplete={handleCompleteRitual} onBack={goBack} sessions={sessions} onCheckForNewBadges={checkForNewBadges} soundSettings={soundSettings} setSoundSettings={setSoundSettings} checkinData={checkinData} onShowInfo={handleInfoRitual} />;
+          }
+          return null;
+
+        default:
+          return <Card><p>Écran non trouvé.</p><Button variant="primary" onClick={resetAndGoHome}>{t('home')}</Button></Card>;
       }
   };
   
-  if (showOnboarding) return <OnboardingScreen onComplete={handleOnboardingComplete} />;
+  const dailySessionCount = sessions.filter(s => new Date(s.timestamp).toDateString() === new Date().toDateString()).length;
+
+  if (showOnboarding) {
+    return <OnboardingScreen onComplete={handleOnboardingComplete} />;
+  }
 
   return (
     <div className="min-h-screen text-fg font-sans">
@@ -654,13 +870,19 @@ function App() {
         {currentScreen !== 'player' && !showOnboarding && (
             <header className="flex justify-between items-start mb-6">
                 <div>
-                  <button onClick={resetAndGoHome} className="text-left focus:outline-none"><h1 className="text-2xl font-bold">MindPivot 🔥</h1></button>
-                  <p className="text-sm text-muted">{t('header_subtitle')}</p>
+                  <button onClick={resetAndGoHome} className="text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent rounded">
+                    <h1 className="text-2xl font-bold">MindPivot 🔥 <span title={t('tooltip_daily_rituals')}>{dailySessionCount}</span></h1>
+                  </button>
+                    <p className="text-sm text-muted">{t('header_subtitle')}</p>
                 </div>
                 <div className="flex flex-col items-end gap-2">
                     <Button onClick={() => navigateTo('all')} size="small" className="btn-gradient-cta">{t('all_rituals_button')}</Button>
                     <div className="flex items-center">
-                      <Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('settings')}><SettingsIcon /></Button>
+                      <Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('howitworks')} aria-label={t('settings_how_it_works')}>
+                        <span className="font-bold text-xl leading-none">?</span>
+                      </Button>
+                      <Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('settings')} aria-label={t('settings_title')}><SettingsIcon /></Button>
+                      <Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={handleShare} aria-label={t('settings_share_title')}><ShareIcon /></Button>
                     </div>
                 </div>
             </header>
@@ -669,7 +891,7 @@ function App() {
       </div>
       
       {currentScreen !== 'player' && !showOnboarding && (
-        <footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-white/10 flex justify-around p-1">
+        <footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-white/10 flex justify-around">
             <FooterButton icon={<HomeIcon/>} label={t('nav_home')} onClick={() => navigateTo('welcome')} isActive={currentScreen === 'welcome'} />
             <FooterButton icon={<JourneyIcon/>} label={t('nav_journey')} onClick={() => navigateTo('parcours')} isActive={['parcours', 'programs'].includes(currentScreen)} hasNotification={hasUnseenBadge} />
             <FooterButton icon={<JournalIcon/>} label={t('nav_journal')} onClick={() => navigateTo('journal')} isActive={currentScreen === 'journal'} />
@@ -678,163 +900,75 @@ function App() {
         </footer>
       )}
 
-      {/* Modales diverses */}
-      <Modal show={showAuthModal} title={""} onClose={() => setShowAuthModal(false)} hideHeaderCloseButton={true}>
-          <div className="relative">
-              <button className="absolute -top-6 -right-2 text-muted hover:text-fg" onClick={() => setShowAuthModal(false)}>✕</button>
-              <AuthScreen onAuthSuccess={() => { setShowAuthModal(false); dataService.syncLocalToCloud(); }} />
+      {infoRitualData && <Modal show={!!infoRitualData} title={`${infoRitualData.modal.icon} ${t(infoRitualData.modal.titre)} (${Math.floor(infoRitualData.dureeSec / 60)}:${('0' + (infoRitualData.dureeSec % 60)).slice(-2)} ${t('unit_min')})`} onClose={closeInfoModal}>
+          <div className="space-y-4 max-h-[60vh] overflow-y-auto">
+            <div><h4 className="font-bold text-accent">{t('why')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.pourquoi).replace(/\n/g, '<br />') }}></p></div>
+            <div><h4 className="font-bold text-accent">{t('how')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.comment).replace(/\n/g, '<br />') }}></p></div>
+            <div><h4 className="font-bold text-accent">{t('tips')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.conseils).replace(/\n/g, '<br />') }}></p></div>
+            {infoRitualData.modal.sections.enSavoirPlus && (
+              <div><h4 className="font-bold text-accent">{t('learn_more')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.enSavoirPlus).replace(/\n/g, '<br />') }}></p></div>
+            )}
+            {infoRitualData.modal.sections.pourAllerPlusLoin && (
+              <div><h4 className="font-bold text-accent">{t('go_further')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.pourAllerPlusLoin).replace(/\n/g, '<br />') }}></p></div>
+            )}
+            <div className="pt-4 flex justify-end gap-2"><Button variant="primary" onClick={() => { closeInfoModal(); handleStartRitual(infoRitualData.id, 'all'); }}>{t('start')}</Button><Button variant="info" onClick={closeInfoModal}>{t('close')}</Button></div>
           </div>
-      </Modal>
-      <PremiumModal show={showPremiumModal} onClose={() => setShowPremiumModal(false)} onUpgrade={() => { setIsPremiumUser(true); setShowPremiumModal(false); }} />
+      </Modal>}
+
+      {programInfoData && <Modal show={!!programInfoData} title={`${programInfoData.icon} ${t(programInfoData.title)}`} onClose={() => setProgramInfoModalId(null)}>
+          <div className="space-y-4 max-h-[70vh] overflow-y-auto text-left">
+              {programInfoData.details && (
+                  <>
+                      <div><h4 className="font-bold text-accent">{t('program_info_objective')}</h4><p className="text-muted whitespace-pre-line">{t(programInfoData.details.objective)}</p></div>
+                      <div><h4 className="font-bold text-accent">{t('program_info_mechanism')}</h4><p className="text-muted whitespace-pre-line">{t(programInfoData.details.mechanism)}</p></div>
+                      <div><h4 className="font-bold text-accent">{t('program_info_benefits')}</h4><p className="text-muted whitespace-pre-line">{t(programInfoData.details.benefits)}</p></div>
+                  </>
+              )}
+              <div>
+                  <h4 className="font-bold text-accent mb-2">{t('program_info_rituals_list', { durationDays: programInfoData.durationDays })}</h4>
+                  <ol className="list-decimal list-inside text-muted space-y-1">
+                      {programInfoData.ritualIds.map((ritualId, index) => {
+                          const ritual = RITUELS.find(r => r.id === ritualId);
+                          return <li key={ritualId}><strong>{t('program_info_day', { day: index + 1 })}:</strong> {ritual ? t(ritual.label) : 'Rituel inconnu'} ({ritual ? `${Math.round(ritual.dureeSec / 60)} ${t('unit_min')}` : 'N/A'})</li>;
+                      })}
+                  </ol>
+              </div>
+              <div className="pt-4 flex flex-col sm:flex-row justify-end gap-2">
+                  <Button variant="primary" onClick={() => { setProgramInfoModalId(null); handleStartProgram(programInfoData.id); }}>{t('program_info_start_button')}</Button>
+                  <Button variant="info" onClick={() => setProgramInfoModalId(null)}>{t('close')}</Button>
+              </div>
+          </div>
+      </Modal>}
       
-      {/* Autres Modales */}
-      {infoModalRitualId && (
-          <Modal 
-              show={!!infoModalRitualId} 
-              title={t(RITUELS.find(r => r.id === infoModalRitualId)?.modal.titre || '')} 
-              onClose={closeInfoModal}
-          >
-              <div className="space-y-4">
-                  {(() => {
-                      const ritual = RITUELS.find(r => r.id === infoModalRitualId);
-                      if(!ritual) return null;
-                      return (
-                          <>
-                              <div className="flex justify-center text-6xl mb-4">{ritual.modal.icon}</div>
-                              <div>
-                                  <h4 className="font-bold text-accent">{t('why')}</h4>
-                                  <p className="text-muted text-sm whitespace-pre-line">{t(ritual.modal.sections.pourquoi)}</p>
-                              </div>
-                              <div>
-                                  <h4 className="font-bold text-accent-secondary">{t('how')}</h4>
-                                  <p className="text-muted text-sm whitespace-pre-line">{t(ritual.modal.sections.comment)}</p>
-                              </div>
-                              <div>
-                                  <h4 className="font-bold text-accent-tertiary">{t('tips')}</h4>
-                                  <p className="text-muted text-sm whitespace-pre-line">{t(ritual.modal.sections.conseils)}</p>
-                              </div>
-                              {ritual.modal.sections.enSavoirPlus && (
-                                  <div>
-                                      <h4 className="font-bold text-accent-info">{t('learn_more')}</h4>
-                                      <p className="text-muted text-sm whitespace-pre-line">{t(ritual.modal.sections.enSavoirPlus)}</p>
-                                  </div>
-                              )}
-                              {ritual.modal.sections.pourAllerPlusLoin && (
-                                  <div className="pt-2 border-t border-white/10">
-                                      <h4 className="font-bold text-muted mb-1 text-xs uppercase tracking-wider">{t('go_further')}</h4>
-                                      <div className="text-link text-sm" dangerouslySetInnerHTML={{ __html: t(ritual.modal.sections.pourAllerPlusLoin) }} />
-                                  </div>
-                              )}
-                          </>
-                      );
-                  })()}
-              </div>
-          </Modal>
+      {badgeModal && BADGES[badgeModal] && <Modal show={!!badgeModal} title={`${BADGES[badgeModal].icon} ${t(BADGES[badgeModal].name)}`} onClose={() => setBadgeModal(null)}>
+        <p className="text-muted">{t(BADGES[badgeModal].description)}</p>
+        <p className="text-xs text-muted mt-2">{t('journey_badge_unlocked_on', { date: new Date(unlockedBadges[badgeModal]!).toLocaleDateString('fr') })}</p>
+        <div className="pt-4 flex justify-end gap-2">
+            <Button variant="info" onClick={() => handleShareBadge(BADGES[badgeModal])}>{t('journey_share_badge')}</Button>
+            <Button variant="primary" onClick={() => setBadgeModal(null)}>{t('close')}</Button>
+        </div>
+      </Modal>}
+
+      {helpInfo && HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT] && <Modal show={!!helpInfo} title={t(HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT].title)} onClose={() => setHelpInfo(null)}><p>{t(HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT].text)}</p></Modal>}
+
+      <Modal show={showInstallModal} title={t('settings_install_title')} onClose={() => setShowInstallModal(false)}>
+        {isIOS && <p dangerouslySetInnerHTML={{ __html: t('settings_install_ios')}} />}
+        {isAndroid && <p dangerouslySetInnerHTML={{ __html: t('settings_install_android')}} />}
+      </Modal>
+
+      <Modal show={showShareModal} title={t('settings_share_title')} onClose={() => setShowShareModal(false)}>
+        <p>{t('settings_share_text')}</p>
+        <input type="text" readOnly value={window.location.href} className="w-full p-2 mt-2 rounded-lg bg-white/10 border border-white/20"/>
+      </Modal>
+      
+      {editingSession && (
+        <Modal show={!!editingSession} title={t('journal_edit_session_title', { date: new Date(editingSession.timestamp).toLocaleDateString() })} onClose={() => setEditingSession(null)}>
+          <textarea value={editingText} onChange={e => setEditingText(e.target.value)} rows={5} className="w-full p-2 rounded-lg bg-white/10 border border-white/20 focus:ring-accent focus:border-accent" />
+          <div className="flex justify-end gap-2 mt-4"><Button variant="primary" onClick={handleSaveEdit}>{t('journal_save')}</Button><Button variant="secondary" onClick={() => setEditingSession(null)}>{t('journal_cancel')}</Button></div>
+        </Modal>
       )}
 
-      {programInfoModalId && (
-          <Modal 
-              show={!!programInfoModalId} 
-              title={t(PROGRAMS.find(p => p.id === programInfoModalId)?.title || '')} 
-              onClose={() => setProgramInfoModalId(null)}
-          >
-              <div className="space-y-4">
-                  {(() => {
-                      const program = PROGRAMS.find(p => p.id === programInfoModalId);
-                      if(!program) return null;
-                      return (
-                          <>
-                              <div className="flex justify-center text-6xl mb-4">{program.icon}</div>
-                              {program.details && (
-                                  <>
-                                      <div><h4 className="font-bold text-accent">{t('program_info_objective')}</h4><p className="text-muted text-sm">{t(program.details.objective)}</p></div>
-                                      <div><h4 className="font-bold text-accent-secondary">{t('program_info_mechanism')}</h4><p className="text-muted text-sm">{t(program.details.mechanism)}</p></div>
-                                      <div><h4 className="font-bold text-accent-tertiary">{t('program_info_benefits')}</h4><p className="text-muted text-sm">{t(program.details.benefits)}</p></div>
-                                  </>
-                              )}
-                              <div className="bg-white/5 p-4 rounded-lg mt-4">
-                                  <h4 className="font-bold mb-2">{t('program_info_rituals_list', { durationDays: program.durationDays })}</h4>
-                                  <ul className="text-sm space-y-1">
-                                      {program.ritualIds.map((rid, idx) => {
-                                          const r = RITUELS.find(rit => rit.id === rid);
-                                          return <li key={idx} className="flex justify-between text-muted"><span>{t('program_info_day', { day: idx + 1 })}</span> <span className="text-fg font-medium">{r ? t(r.label) : rid}</span></li>;
-                                      })}
-                                  </ul>
-                              </div>
-                              <div className="pt-4 flex justify-center">
-                                  <Button onClick={() => { setProgramInfoModalId(null); handleStartProgram(program.id); }}>{t('program_info_start_button')}</Button>
-                              </div>
-                          </>
-                      );
-                  })()}
-              </div>
-          </Modal>
-      )}
-
-      {badgeModal && (
-          <Modal show={!!badgeModal} title={t(BADGES[badgeModal]?.name || '')} onClose={() => setBadgeModal(null)}>
-              <div className="text-center p-4">
-                  <div className="text-8xl mb-6 animate-emoji-pulse">{BADGES[badgeModal]?.icon}</div>
-                  <p className="text-lg text-muted mb-4">{t(BADGES[badgeModal]?.description || '')}</p>
-                  {unlockedBadges[badgeModal] && (
-                      <p className="text-xs text-accent uppercase tracking-widest font-bold">
-                          {t('journey_badge_unlocked_on', { date: new Date(unlockedBadges[badgeModal]!).toLocaleDateString() })}
-                      </p>
-                  )}
-                  {navigator.share && (
-                      <Button variant="secondary" className="mt-6" onClick={() => {
-                          navigator.share({
-                              title: t('journey_badge_share_title'),
-                              text: t('journey_badge_share_text', { badgeName: t(BADGES[badgeModal]!.name), badgeIcon: BADGES[badgeModal]!.icon }),
-                              url: window.location.href
-                          }).catch(console.error);
-                      }}>
-                          <ShareIcon /> {t('journey_share_badge')}
-                      </Button>
-                  )}
-              </div>
-          </Modal>
-      )}
-
-      {helpInfo && (
-          <Modal show={!!helpInfo} title={t(HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT]?.title || '')} onClose={() => setHelpInfo(null)}>
-              <p className="text-muted leading-relaxed">{t(HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT]?.text || '')}</p>
-          </Modal>
-      )}
-
-      {showShareModal && (
-          <Modal show={showShareModal} title={t('settings_share_title')} onClose={() => setShowShareModal(false)}>
-              <div className="text-center">
-                  <p className="mb-4">{t('settings_share_text')}</p>
-                  {navigator.share ? (
-                      <Button onClick={() => navigator.share({ title: 'MindPivot', text: t('settings_share_text'), url: window.location.href })}>Partager</Button>
-                  ) : (
-                      <p className="text-sm text-muted">{t('share_not_supported')}</p>
-                  )}
-              </div>
-          </Modal>
-      )}
-
-      {showInstallModal && (
-          <Modal show={showInstallModal} title={t('settings_install_title')} onClose={() => setShowInstallModal(false)}>
-              <div className="space-y-4 text-center">
-                  <div className="text-6xl mb-2">📲</div>
-                  <p className="text-lg font-semibold">{t('settings_install_app')}</p>
-                  {isIOS && (
-                      <div className="bg-white/5 p-4 rounded-lg text-left text-sm space-y-2">
-                          <p>1. {t('settings_install_ios').split(',')[0]}</p>
-                          <p>2. {t('settings_install_ios').split(',')[1]}</p>
-                      </div>
-                  )}
-                  {isAndroid && (
-                      <div className="bg-white/5 p-4 rounded-lg text-left text-sm space-y-2">
-                          <p>1. {t('settings_install_android').split(',')[0]}</p>
-                          <p>2. {t('settings_install_android').split(',')[1]}</p>
-                      </div>
-                  )}
-              </div>
-          </Modal>
-      )}
+      <PremiumModal show={showPremiumModal} onClose={() => setShowPremiumModal(false)} onUpgrade={() => { setIsPremiumUser(true); setShowPremiumModal(false); }} />
     </div>
   );
 }
