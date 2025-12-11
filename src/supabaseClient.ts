@@ -1,18 +1,23 @@
+
 import { createClient } from '@supabase/supabase-js';
 
-// Comme pour la clé API Gemini, nous supposons que ces variables d'environnement 
-// sont pré-configurées et disponibles dans le contexte d'exécution.
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+// Configuration Supabase
+// Note : Pour un déploiement sécurisé en production, utilisez des variables d'environnement (process.env.VITE_SUPABASE_URL).
+const supabaseUrl = "https://irxzkwkezqccgactbiqd.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlyeHprd2tlenFjY2dhY3RiaXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyODU4MDksImV4cCI6MjA4MDg2MTgwOX0.Xfqf4SHciIf6sCnwsQ4oaw1PvHJ7vf9U4jWybbEW5Nc";
 
-let supabaseInstance;
+let supabaseInstance = null;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  // Affiche une erreur claire si les clés ne sont pas configurées, mais ne bloque pas l'application.
-  console.error("Erreur de configuration : Les variables SUPABASE_URL et SUPABASE_ANON_KEY sont requises. Les fonctionnalités d'authentification seront désactivées.");
-  supabaseInstance = null;
+  console.error("Erreur de configuration : Les clés Supabase sont manquantes.");
 } else {
-  supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  try {
+    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  } catch (error) {
+    console.error("Erreur critique lors de l'initialisation de Supabase:", error);
+    // On laisse instance à null pour que l'app continue de fonctionner en mode "local/invité"
+    supabaseInstance = null;
+  }
 }
 
 export const supabase = supabaseInstance;

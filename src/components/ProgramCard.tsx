@@ -1,21 +1,38 @@
+
 import type { Program } from '../types.ts';
 import { Button } from './Button.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 
 export const ProgramCard = ({ program, onStart, onInfo, isLocked }: { program: Program; onStart: (id: string) => void; onInfo: (id: string) => void; isLocked: boolean }) => {
     const { t } = useI18n();
+    
     return (
-        <div className={`p-4 border border-white/10 rounded-xl bg-white/5 flex flex-col text-center gap-3 transition-all duration-200 hover:bg-white/[.08] ${isLocked ? 'opacity-60 grayscale-[50%]' : ''}`}>
-            <div className="text-3xl">{program.icon}</div>
-            <h4 className="font-bold text-lg leading-tight">{t(program.title)}</h4>
-            <p className="text-sm text-muted flex-1">{t(program.description)}</p>
-            <span className="text-xs font-bold uppercase tracking-wider text-accent-info">{t('program_card_days', { durationDays: program.durationDays })}</span>
-            <div className="flex flex-col gap-2 mt-2">
-                <Button size="small" onClick={() => onStart(program.id)}>
+        <div className={`w-full h-full max-w-sm mx-auto p-5 bg-card rounded-xl shadow-lg border border-white/10 flex flex-col text-center gap-4 transition-all duration-300 ease-in-out hover:shadow-accent/20 hover:shadow-xl hover:-translate-y-1 ${isLocked ? 'opacity-60 grayscale-[50%]' : ''}`}>
+            
+            {/* Header: Lock status & Duration Badge */}
+            <div className="flex gap-2 items-center justify-center text-sm">
+                {isLocked && <span className="text-amber-400 text-lg" aria-label="Programme Premium">🔒</span>}
+                <span className="py-1 px-3 rounded-full bg-accent-tertiary/10 text-accent-tertiary border border-accent-tertiary/20 font-bold uppercase tracking-wider text-xs">
+                    {t('program_card_days', { durationDays: program.durationDays })}
+                </span>
+            </div>
+
+            {/* Content: Icon, Title, Description */}
+            <div className="flex-1 flex flex-col items-center gap-2">
+                <div className="text-5xl mb-2 drop-shadow-md filter">{program.icon}</div>
+                <h4 className="font-bold text-xl leading-tight text-fg">{t(program.title)}</h4>
+                <p className="text-sm text-muted-darker line-clamp-4 leading-relaxed px-2">
+                    {t(program.description)}
+                </p>
+            </div>
+
+            {/* Actions Footer */}
+            <div className="flex gap-3 justify-center items-center mt-2 pt-4 border-t border-white/5 w-full">
+                <Button size="small" variant="primary" onClick={() => onStart(program.id)} className="flex-1">
                     {isLocked ? t('program_card_unlock') : t('program_card_start')}
                 </Button>
-                <Button size="small" variant="ghost" onClick={() => onInfo(program.id)}>
-                    {t('program_card_more_info')}
+                <Button size="small" variant="info" onClick={() => onInfo(program.id)} className="w-12 !px-0 flex items-center justify-center" aria-label={t('program_card_more_info')}>
+                    Info
                 </Button>
             </div>
         </div>

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+
+import React, { useState } from 'react';
 import { supabase } from '../supabaseClient.ts';
 import { Button } from './Button.tsx';
 import { Card } from './Card.tsx';
@@ -7,7 +8,7 @@ interface AuthScreenProps {
     onAuthSuccess: () => void;
 }
 
-export const AuthScreen = ({ onAuthSuccess }: AuthScreenProps) => {
+export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthSuccess }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLogin, setIsLogin] = useState(true);
@@ -38,19 +39,21 @@ export const AuthScreen = ({ onAuthSuccess }: AuthScreenProps) => {
                     password: password,
                 });
                 if (error) throw error;
-                // onAuthSuccess sera géré par onAuthStateChange dans App.tsx
+                // onAuthSuccess sera géré par le listener onAuthStateChange dans App.tsx
+                onAuthSuccess();
             } else {
                 const { data, error } = await supabase.auth.signUp({
                     email: email,
                     password: password,
                 });
                 if (error) throw error;
-                // Vérifie si l'utilisateur doit confirmer son email
-                if (data.user && data.user.identities && data.user.identities.length > 0) {
+                
+                // Vérifie si l'utilisateur doit confirmer son email (dépend des réglages Supabase)
+                if (data.user && data.user.identities && data.user.identities.length > 0 && !data.session) {
                     setRegisteredEmail(data.user.email || email);
                     setShowConfirmMessage(true);
                 } else {
-                     // Si la confirmation d'email est désactivée sur Supabase, on peut connecter directement
+                    // Si l'auto-confirm est activé ou si la session est créée directement
                     onAuthSuccess();
                 }
             }
@@ -72,7 +75,7 @@ export const AuthScreen = ({ onAuthSuccess }: AuthScreenProps) => {
     
     if (showConfirmMessage) {
         return (
-            <div className="min-h-screen bg-bg text-fg flex flex-col items-center justify-center p-4 animate-fade-in">
+            <div className="flex flex-col items-center justify-center p-4 animate-fade-in text-fg">
                 <div className="max-w-md w-full">
                     <Card>
                         <div className="text-center space-y-4">
@@ -104,15 +107,15 @@ export const AuthScreen = ({ onAuthSuccess }: AuthScreenProps) => {
     }
 
     return (
-        <div className="min-h-screen bg-bg text-fg flex flex-col items-center justify-center p-4">
+        <div className="flex flex-col items-center justify-center p-4 text-fg w-full">
             <div className="max-w-md w-full">
-                <header className="text-center mb-8">
-                    <h1 className="text-3xl font-bold">StopAndZen</h1>
-                    <p className="text-muted">Connecte-toi pour commencer ton voyage.</p>
+                <header className="text-center mb-6">
+                    <h1 className="text-2xl font-bold">MindPivot Cloud</h1>
+                    <p className="text-muted text-sm">Sauvegarde ta progression et accède à tes rituels partout.</p>
                 </header>
                 <Card>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <h2 className="text-2xl font-bold text-center">{isLogin ? 'Connexion' : 'Inscription'}</h2>
+                        <h2 className="text-xl font-bold text-center">{isLogin ? 'Connexion' : 'Créer un compte'}</h2>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-muted mb-2">Email</label>
                             <input
@@ -123,8 +126,9 @@ export const AuthScreen = ({ onAuthSuccess }: AuthScreenProps) => {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 focus:ring-accent focus:border-accent"
+                                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 focus:ring-accent focus:border-accent text-fg"
                                 disabled={isLoading}
+                                placeholder="exemple@email.com"
                             />
                         </div>
                         <div>
@@ -137,23 +141,24 @@ export const AuthScreen = ({ onAuthSuccess }: AuthScreenProps) => {
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 focus:ring-accent focus:border-accent"
+                                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/20 focus:ring-accent focus:border-accent text-fg"
                                 disabled={isLoading}
+                                placeholder="••••••••"
                             />
                         </div>
 
-                        {error && <p className="text-bad text-sm text-center">{error}</p>}
+                        {error && <p className="text-bad text-sm text-center bg-bad/10 p-2 rounded">{error}</p>}
 
                         <div>
                             <Button type="submit" variant="primary" className="w-full text-lg" disabled={isLoading}>
-                                {isLoading ? (isLogin ? 'Connexion...' : 'Création...') : (isLogin ? 'Se connecter' : 'Créer un compte')}
+                                {isLoading ? (isLogin ? 'Connexion...' : 'Création...') : (isLogin ? 'Se connecter' : 'S\'inscrire')}
                             </Button>
                         </div>
                         <div className="text-center">
                             <button
                                 type="button"
                                 onClick={() => { setIsLogin(!isLogin); setError(''); }}
-                                className="text-sm text-link hover:underline"
+                                className="text-sm text-link hover:underline hover:text-accent transition-colors"
                                 disabled={isLoading}
                             >
                                 {isLogin ? "Pas encore de compte ? S'inscrire" : 'Déjà un compte ? Se connecter'}
