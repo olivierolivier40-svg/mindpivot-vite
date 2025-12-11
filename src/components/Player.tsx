@@ -9,7 +9,8 @@ import { RingDonut } from './RingDonut.tsx';
 import { CongratsAndJournal } from './CongratsAndJournal.tsx';
 import { EyeMovementAnimation } from './EyeMovementAnimation.tsx';
 import { SagesseMinutePlayer } from './SagesseMinutePlayer.tsx';
-import { FrequencyVisualizer } from './FrequencyVisualizer.tsx'; // Import du nouveau composant
+import { FrequencyVisualizer } from './FrequencyVisualizer.tsx';
+import { SquareBreathAnimation } from './SquareBreathAnimation.tsx'; // Nouvelle importation
 import { useI18n } from '../hooks/useI18n.tsx';
 import { generateGeminiText } from '../services/geminiService.ts';
 
@@ -67,6 +68,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [showDonut, setShowDonut] = useState(!!(ritual.donut && ritual.donut !== 'off'));
   const [phaseTime, setPhaseTime] = useState({current: 0, total: 0});
   const [phaseProgress, setPhaseProgress] = useState(0);
+  const [linearPhaseProgress, setLinearPhaseProgress] = useState(0); // Progress 0->1 for ALL phases (used for square animation)
+  const [breathPhaseIndex, setBreathPhaseIndex] = useState(0); 
   const [showMudraModal, setShowMudraModal] = useState(false);
   const [breathingDirection, setBreathingDirection] = useState<'apaisant' | 'dynamisant'>('apaisant');
   const [currentQuote, setCurrentQuote] = useState<{q: string; a: string} | null>(null);
@@ -136,6 +139,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setIsPreStart(true);
       setPreStartStepIndex(0);
       setPhaseProgress(0);
+      setLinearPhaseProgress(0);
+      setBreathPhaseIndex(0);
       setCustomIntention(null);
       setIsGeneratingIntention(false);
       setIsVideoSoundOn(false);
@@ -374,6 +379,9 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                         const timeInPhase = timeInCycle - phaseStartTime;
                         const progressInPhaseRaw = Math.min(1, Math.max(0, timeInPhase / currentPhase.s));
                         
+                        // For visuals that need forward progress always (like Square Breathing)
+                        setLinearPhaseProgress(progressInPhaseRaw);
+
                         const phaseName = t(currentPhase.n).toLowerCase();
 
                         if (phaseName.startsWith('expire') || phaseName.startsWith('exhale')) {
@@ -395,6 +403,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
                             newLabel = `<div class="text-sm font-light text-muted mb-1">${t('player_bento_repeat_mentally')}</div><div class="font-bold text-xl leading-tight">${t(mantraKey)}</div>`;
                         }
                         setDonutLabel(newLabel);
+                        setBreathPhaseIndex(currentPhaseIndex); // Sync phase index for Square Animation
                         
                         if (currentPhaseIndex !== lastPhaseIndexRef.current) { 
                             const bipPhaseName = t(currentPhase.n).toLowerCase();
@@ -568,6 +577,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       setDonutLabel(t('player_ready'));
       setAudioProgress(0);
       setPhaseProgress(0);
+      setLinearPhaseProgress(0);
+      setBreathPhaseIndex(0);
       setCustomIntention(null);
       if (ritual.playerType === 'sagesse-minute') generateNewQuote();
   };
@@ -710,6 +721,10 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
           <p key={currentInfo.caption} className="text-xl font-bold text-fg mt-4 animate-fade-in-short">{t(currentInfo.caption)}</p>
         </div>
       );
+    }
+
+    if (ritual.id === 'rit.box_4_4_4_4') {
+        return <SquareBreathAnimation label={donutLabel} progress={linearPhaseProgress} phase={breathPhaseIndex} />;
     }
 
     if (showDonut) return <RingDonut label={donutLabel} ratio={phaseProgress} sessionProgressRatio={1 - (timeLeft / ritual.dureeSec)} />;
