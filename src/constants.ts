@@ -167,21 +167,83 @@ export const CITATIONS = [
 ];
 
 export const BENTO_MANTRAS = {
-    classique: { 
-        name: 'bento_mantra_classic', 
-        short: { inhale: 'bento_mantra_classic_short_inhale', exhale: 'bento_mantra_classic_short_exhale' }, 
-        long: { inhale: 'bento_mantra_classic_long_inhale', exhale: 'bento_mantra_classic_long_exhale' } 
+  "classique": {
+    "name": "bento_mantra_classic",
+    "short": {
+      "inhale": "bento_mantra_classic_short_inhale",
+      "exhale": "bento_mantra_classic_short_exhale"
     },
-    confiance: { 
-        name: 'bento_mantra_confidence', 
-        short: { inhale: 'bento_mantra_confidence_short_inhale', exhale: 'bento_mantra_confidence_short_exhale' }, 
-        long: { inhale: 'bento_mantra_confidence_long_inhale', exhale: 'bento_mantra_confidence_long_exhale' } 
-    },
-    lacher_prise: { 
-        name: 'bento_mantra_letting_go', 
-        short: { inhale: 'bento_mantra_letting_go_short_inhale', exhale: 'bento_mantra_letting_go_short_exhale' }, 
-        long: { inhale: 'bento_mantra_letting_go_long_inhale', exhale: 'bento_mantra_letting_go_long_exhale' } 
+    "long": {
+      "inhale": "bento_mantra_classic_long_inhale",
+      "exhale": "bento_mantra_classic_long_exhale"
     }
+  },
+  "confiance": {
+    "name": "bento_mantra_confidence",
+    "short": {
+      "inhale": "bento_mantra_confidence_short_inhale",
+      "exhale": "bento_mantra_confidence_short_exhale"
+    },
+    "long": {
+      "inhale": "bento_mantra_confidence_long_inhale",
+      "exhale": "bento_mantra_confidence_long_exhale"
+    }
+  },
+  "réussite": {
+    "name": "bento_mantra_success",
+    "short": {
+      "inhale": "bento_mantra_success_short_inhale",
+      "exhale": "bento_mantra_success_short_exhale"
+    },
+    "long": {
+      "inhale": "bento_mantra_success_long_inhale",
+      "exhale": "bento_mantra_success_long_exhale"
+    }
+  },
+  "apaisement": {
+    "name": "bento_mantra_calm",
+    "short": {
+      "inhale": "bento_mantra_calm_short_inhale",
+      "exhale": "bento_mantra_calm_short_exhale"
+    },
+    "long": {
+      "inhale": "bento_mantra_calm_long_inhale",
+      "exhale": "bento_mantra_calm_long_exhale"
+    }
+  },
+  "ancrage": {
+    "name": "bento_mantra_grounding",
+    "short": {
+      "inhale": "bento_mantra_grounding_short_inhale",
+      "exhale": "bento_mantra_grounding_short_exhale"
+    },
+    "long": {
+      "inhale": "bento_mantra_grounding_long_inhale",
+      "exhale": "bento_mantra_grounding_long_exhale"
+    }
+  },
+  "gratitude": {
+    "name": "bento_mantra_gratitude",
+    "short": {
+      "inhale": "bento_mantra_gratitude_short_inhale",
+      "exhale": "bento_mantra_gratitude_short_exhale"
+    },
+    "long": {
+      "inhale": "bento_mantra_gratitude_long_inhale",
+      "exhale": "bento_mantra_gratitude_long_exhale"
+    }
+  },
+  "sommeil": {
+    "name": "bento_mantra_sleep",
+    "short": {
+      "inhale": "bento_mantra_sleep_short_inhale",
+      "exhale": "bento_mantra_sleep_short_exhale"
+    },
+    "long": {
+      "inhale": "bento_mantra_sleep_long_inhale",
+      "exhale": "bento_mantra_sleep_long_exhale"
+    }
+  }
 };
 
 export const ORGANES = [
