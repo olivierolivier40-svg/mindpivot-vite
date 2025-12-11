@@ -1043,7 +1043,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
 
               <footer className="w-full flex justify-between items-center gap-4 pt-2">
                   <div className="flex-1 flex justify-start">
-                      <Button variant="ghost" size="small" onClick={() => stop(false)}>{t('player_stop')}</Button>
+                      {!isPreStart && <Button variant="ghost" size="small" onClick={() => stop(false)}>{t('player_stop')}</Button>}
                   </div>
                   
                   <div className="flex-shrink-0">
