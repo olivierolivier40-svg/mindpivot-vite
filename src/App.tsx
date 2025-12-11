@@ -427,7 +427,7 @@ function App() {
             .map(([key, value]) => `${t(`label_${key}_title`)}: ${t(LABELS[key as keyof typeof LABELS][(value as number)+2])}`)
             .join(', ');
           
-          const prompt = `En te basant sur le check-in suivant d'un utilisateur (${summary}), rédige une phrase de synthèse courte (1-2 phrases, 30 mots max), empathique et sans jugement en français qui valide son état actuel. La phrase doit être encourageante et introduire les suggestions de rituels qui vont suivre. Adresse-toi à l'utilisateur avec "tu". Ne retourne que la phrase, sans aucune introduction ou conclusion. Exemple: "Il semble que ton énergie soit un peu basse et ton esprit agité. Voici quelques rituels pour t'aider à t'ancrer et retrouver de la sérénité."`;
+          const prompt = `En te basant sur le check-in suivant d'un utilisateur (${summary}), rédige une phrase de synthèse courte (1-2 phrases, 30 mots max), empathique et sans jugement en français qui valide son ressenti, offre un encouragement ou pose une question douce pour approfondir sa pensée. Adresse-toi à l'utilisateur avec "tu". Ne retourne que la réponse, sans aucune introduction ou conclusion. Exemple: "Il semble que ton énergie soit un peu basse et ton esprit agité. Voici quelques rituels pour t'aider à t'ancrer et retrouver de la sérénité."`;
           
           const feedback = await generateGeminiText(prompt);
           setGeminiCheckinFeedback(feedback.trim());
@@ -610,7 +610,26 @@ function App() {
                     <div className="text-center">
                         <h2 className="text-2xl font-bold mb-4">{t('all_rituals_title')}</h2>
                         <div className="flex gap-2 mb-4">
-                            <input type="search" placeholder={t('search_placeholder')} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-full px-4 py-3 text-base rounded-lg bg-card border-2 border-white/30 focus:ring-2 focus:ring-accent focus:border-accent transition-colors placeholder:text-muted shadow-sm" />
+                            <div className="relative w-full">
+                                <input 
+                                    type="search" 
+                                    placeholder={t('search_placeholder')} 
+                                    value={searchQuery} 
+                                    onChange={e => setSearchQuery(e.target.value)} 
+                                    className="w-full px-4 py-3 pr-10 text-base rounded-lg bg-card border-2 border-white/30 focus:ring-2 focus:ring-accent focus:border-accent transition-colors placeholder:text-muted shadow-sm" 
+                                />
+                                {searchQuery && (
+                                    <button 
+                                        onClick={() => setSearchQuery('')}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-fg p-1 rounded-full hover:bg-white/10 transition-colors"
+                                        aria-label="Effacer"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
                             <Button variant={favoritesFilterActive ? 'primary' : 'secondary'} onClick={() => setFavoritesFilterActive(!favoritesFilterActive)} className="!p-0 w-12 h-12 flex-shrink-0" aria-label={t('filter_favorites_label')}>
                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                             </Button>
