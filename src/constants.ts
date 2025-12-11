@@ -1286,16 +1286,15 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_vagale_dorsal_label',
         category: 'respiration',
         playerType: 'respiration',
-        dureeSec: 180,
+        dureeSec: 192,
         donut: 'on_custom',
         haptique: { onPhaseChange: true },
         tags: ['sommeil', 'apaiser', 'détente', 'récupération', 'respiration'],
         isPremium: true,
-        immersiveInstructions: 'ritual_vagale_dorsal_immersive_instructions',
         data: {
           protocolSteps: [
-            { n: 'ritual_vagale_dorsal_protocol_step_1', s: 4 },
-            { n: 'ritual_vagale_dorsal_protocol_step_2', s: 8 },
+            { n: 'ritual_vagale_dorsal_step_1', s: 4 },
+            { n: 'ritual_vagale_dorsal_step_2', s: 8 },
           ]
         },
         modal: {
@@ -1313,23 +1312,30 @@ export const RITUELS: Ritual[] = [
     {
         id: 'rit.vagale_ventral',
         label: 'ritual_vagale_ventral_label',
-        category: 'respiration',
+        category: 'neuro',
         playerType: 'phased-ritual',
-        dureeSec: 180,
+        dureeSec: 135,
         donut: 'off',
         haptique: {},
-        tags: ['performance', 'focus', 'calmer', 'confiance', 'respiration'],
+        tags: ['performance', 'focus', 'calmer', 'confiance', 'respiration', 'neuro'],
         isPremium: true,
         data: {
           phases: [
-            { type: 'texte', name: 'ritual_vagale_ventral_phase_1_name', instruction: 'ritual_vagale_ventral_phase_1_instruction', duration: 15 },
+            { 
+              type: 'image', 
+              name: 'ritual_vagale_ventral_phase_1_name', 
+              instruction: 'ritual_vagale_ventral_phase_1_instruction', 
+              duration: 15,
+              imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/debout.png'
+            },
             {
               type: 'respiration',
               name: 'ritual_vagale_ventral_phase_2_name',
-              duration: 165,
+              instruction: 'ritual_vagale_ventral_phase_2_instruction',
+              duration: 120,
               protocol: [
-                { n: 'ritual_vagale_ventral_phase_2_protocol_step_1', s: 4 },
-                { n: 'ritual_vagale_ventral_phase_2_protocol_step_2', s: 6 },
+                { n: 'ritual_vagale_ventral_phase_2_step_1', s: 6 },
+                { n: 'ritual_vagale_ventral_phase_2_step_2', s: 4 },
               ],
             },
           ],
