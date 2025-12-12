@@ -382,7 +382,7 @@ export const RITUELS: Ritual[] = [
         data: {
             phases: [
                 { type: 'image', name: 'ritual_arbre_tempete_phase_1_name', instruction: 'ritual_arbre_tempete_phase_1_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/racines.png' },
-                { type: 'image', name: 'ritual_arbre_tempete_phase_2_name', instruction: 'ritual_arbre_tempete_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/vent.png' },
+                { type: 'video', name: 'ritual_arbre_tempete_phase_2_name', instruction: 'ritual_arbre_tempete_phase_2_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/arbre_tempete.mp4' },
                 { type: 'image', name: 'ritual_arbre_tempete_phase_3_name', instruction: 'ritual_arbre_tempete_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/stable.png' },
             ]
         },
