@@ -1472,7 +1472,7 @@ export const RITUELS: Ritual[] = [
                 { url: 'https://images.pexels.com/photos/33044/sunflower-sun-summer-yellow.jpg', caption: 'ritual_micro_awe_caption_2', duration: 12 },
                 { url: 'https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg', caption: 'ritual_micro_awe_caption_3', duration: 12 },
                 { url: 'https://magnetiseur-dax.fr/webapp/Aura/flocon.png', caption: 'ritual_micro_awe_caption_4', duration: 12 },
-                { url: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg', caption: 'ritual_micro_awe_caption_5', duration: 12 },
+                { url: 'https://magnetiseur-dax.fr/webapp/Aura/foret2.png', caption: 'ritual_micro_awe_caption_5', duration: 12 },
             ]
         },
         modal: {
