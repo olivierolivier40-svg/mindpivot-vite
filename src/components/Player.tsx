@@ -737,7 +737,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
               ? "text-xl lg:text-2xl font-semibold leading-relaxed" 
               : "text-lg";
       
-          return <div className={`${textClasses} whitespace-pre-line animate-fade-in p-4`} dangerouslySetInnerHTML={{__html: t(phase.instruction).replace(/\n/g, '<br /><br />')}}></div>;
+          // Ajout de w-full, max-h-full et overflow-y-auto
+return <div className={`${textClasses} whitespace-pre-line animate-fade-in p-4 w-full max-h-full overflow-y-auto`} dangerouslySetInnerHTML={{__html: t(phase.instruction).replace(/\n/g, '<br /><br />')}}></div>;
         }
         if (phase.type === 'image') {
           return (

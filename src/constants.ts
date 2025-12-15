@@ -1604,16 +1604,61 @@ export const RITUELS: Ritual[] = [
           },
         },
     },
-    {
+{
         id: 'rit.sourire_organes',
         label: 'ritual_sourire_organes_label',
         category: 'micro-rituel',
-        playerType: 'organe-smile',
-        dureeSec: 150,
+        playerType: 'phased-ritual', // On change le type pour gérer les phases
+        dureeSec: 150, // 25s x 6 phases = 2m30
         donut: 'off',
         haptique: {},
         tags: ['compassion', 'détente', 'somatique', 'joie', 'gratitude'],
         isPremium: false,
+        data: {
+          phases: [
+            // Phase 1 : Introduction Texte
+            { 
+                type: 'texte', 
+                instruction: 'ritual_sourire_organes_phase_intro', 
+                duration: 25 
+            },
+            // Phase 2 : Cœur
+            { 
+                type: 'video', 
+                instruction: 'ritual_sourire_organes_phase_coeur', 
+                duration: 25, 
+                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/coeur.mp4' 
+            },
+            // Phase 3 : Poumons
+            { 
+                type: 'video', 
+                instruction: 'ritual_sourire_organes_phase_poumons', 
+                duration: 25, 
+                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/poumons.mp4' 
+            },
+            // Phase 4 : Foie
+            { 
+                type: 'video', 
+                instruction: 'ritual_sourire_organes_phase_foie', 
+                duration: 25, 
+                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/foie.mp4' 
+            },
+            // Phase 5 : Reins
+            { 
+                type: 'video', 
+                instruction: 'ritual_sourire_organes_phase_reins', 
+                duration: 25, 
+                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/reins.mp4' 
+            },
+            // Phase 6 : Rate/Pancréas
+            { 
+                type: 'video', 
+                instruction: 'ritual_sourire_organes_phase_rate', 
+                duration: 25, 
+                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/rate-pancreas.mp4' 
+            },
+          ]
+        },
         modal: {
             titre: 'ritual_sourire_organes_modal_title',
             icon: '😊',
