@@ -1257,7 +1257,8 @@ const frTranslations: { [key: string]: string } = {
 "ritual_freq_852_label": "852 Hz",
 "ritual_freq_852_desc": "Retour à l'ordre spirituel.\nAmour inconditionnel.",
 "ritual_freq_963_label": "963 Hz",
-"ritual_freq_963_desc": "Connexion au divin.\nLumière et Esprit universel."
+"ritual_freq_963_desc": "Connexion au divin.\nLumière et Esprit universel.",
+"player_current_phase": "Étape en cours"
    };
 
 export const useI18n = () => {

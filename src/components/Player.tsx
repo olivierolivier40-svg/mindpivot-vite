@@ -10,7 +10,7 @@ import { CongratsAndJournal } from './CongratsAndJournal.tsx';
 import { EyeMovementAnimation } from './EyeMovementAnimation.tsx';
 import { SagesseMinutePlayer } from './SagesseMinutePlayer.tsx';
 import { FrequencyVisualizer } from './FrequencyVisualizer.tsx';
-import { SquareBreathAnimation } from './SquareBreathAnimation.tsx'; // Nouvelle importation
+import { SquareBreathAnimation } from './SquareBreathAnimation.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { generateGeminiText } from '../services/geminiService.ts';
 
@@ -955,6 +955,10 @@ return <div className={`${textClasses} whitespace-pre-line animate-fade-in p-4 w
     }
   }
 
+  // Calculate phase remaining time
+  const phaseRemainingSeconds = Math.max(0, Math.round(phaseTime.total - phaseTime.current));
+  const showPhaseTimer = ritual.playerType === 'phased-ritual' && phaseTime.total > 0;
+
   return (
     <div className={isImmersive 
       ? `fixed inset-0 z-50 flex flex-col items-center text-center animate-fade-in ${isPreStart ? 'bg-bg text-fg' : 'bg-black text-white'}`
@@ -998,8 +1002,16 @@ return <div className={`${textClasses} whitespace-pre-line animate-fade-in p-4 w
         {isImmersive ? (
           <div className={`absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col items-center ${isPreStart ? '' : 'bg-gradient-to-t from-black/80 to-transparent'}`}>
               {!isPreStart && (
-                <div className="text-sm mb-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white border border-white/10">
-                    {t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
+                <div className="text-sm mb-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white border border-white/10 flex items-center gap-2">
+                    {showPhaseTimer && (
+                        <>
+                            <span className="font-bold text-accent-secondary">
+                                {t('player_current_phase')}: {Math.floor(phaseRemainingSeconds / 60)}:{('0' + (phaseRemainingSeconds % 60)).slice(-2)}
+                            </span>
+                            <span className="opacity-50">|</span>
+                        </>
+                    )}
+                    <span>{t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}</span>
                 </div>
               )}
               <div className="w-full max-w-sm px-4 mx-auto h-2 mb-4">
@@ -1053,8 +1065,16 @@ return <div className={`${textClasses} whitespace-pre-line animate-fade-in p-4 w
                   )}
               </div>
               
-              <div className="text-sm text-muted">
-                  {t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}
+              <div className="text-sm text-muted flex items-center justify-center gap-2">
+                  {showPhaseTimer && (
+                      <>
+                          <span className="font-bold text-accent" title="Temps restant pour la phase en cours">
+                              {t('player_current_phase')}: {Math.floor(phaseRemainingSeconds / 60)}:{('0' + (phaseRemainingSeconds % 60)).slice(-2)}
+                          </span>
+                          <span className="text-muted/40">|</span>
+                      </>
+                  )}
+                  <span>{t('player_remaining_time')}: {Math.floor(timeLeft / 60)}:{('0' + (timeLeft % 60)).slice(-2)}</span>
               </div>
 
               <footer className="w-full flex justify-between items-center gap-4 pt-2">
