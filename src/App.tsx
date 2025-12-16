@@ -930,7 +930,12 @@ function App() {
             {infoRitualData.modal.sections.pourAllerPlusLoin && (
               <div><h4 className="font-bold text-accent">{t('go_further')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.pourAllerPlusLoin).replace(/\n/g, '<br />') }}></p></div>
             )}
-            <div className="pt-4 flex justify-end gap-2"><Button variant="primary" onClick={() => { closeInfoModal(); handleStartRitual(infoRitualData.id, 'all'); }}>{t('start')}</Button><Button variant="info" onClick={closeInfoModal}>{t('close')}</Button></div>
+            <div className="pt-4 flex justify-end gap-2">
+                {currentScreen !== 'player' && (
+                    <Button variant="primary" onClick={() => { closeInfoModal(); handleStartRitual(infoRitualData.id, 'all'); }}>{t('start')}</Button>
+                )}
+                <Button variant="info" onClick={closeInfoModal}>{t('close')}</Button>
+            </div>
           </div>
       </Modal>}
 
