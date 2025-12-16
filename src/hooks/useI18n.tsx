@@ -968,7 +968,7 @@ const frTranslations: { [key: string]: string } = {
     "ritual_trataka_modal_title": "Trataka (Fixation du Regard)",
     "ritual_trataka_modal_why": "Ce rituel de yoga est un exercice de concentration puissant qui calme l'agitation mentale, améliore la mémoire et renforce le \"muscle\" de l'attention.",
     "ritual_trataka_modal_how": "Fixe le centre du cercle sans cligner des yeux, aussi longtemps que possible confortablement.\n\nQuand tu dois cligner, ferme les yeux et observe l'image rémanente.",
-    "ritual_trataka_modal_tips": "Les larmes peuvent couler, c'est un effet purifiant normal.\n\nNe force pas. L'objectif est une concentration détendue, pas une tension.",
+    "ritual_trataka_modal_tips": "Les larmes peuvent couler, c'est un effet purifiant normal.\n\nNe force pas. \n\nL'objectif est une concentration détendue, pas une tension.",
     "ritual_trataka_modal_learn_more": "Trataka est l'un des six Shatkarmas (pratiques de purification) du Hatha Yoga.\n\nIl calme le système nerveux en réduisant les mouvements oculaires saccadés (microsaccades), qui sont directement liés à l'agitation mentale.",
     "ritual_trataka_modal_go_further": "• <a href=\"https://www.yoga-journal.fr/le-nettoyage-des-yeux-par-trataka/\" target=\"_blank\" rel=\"noopener noreferrer\">Le nettoyage des yeux par Trataka (Yoga Journal France)</a><br/>• <a href=\"https://www.yogapedia.com/definition/5491/trataka\" target=\"_blank\" rel=\"noopener noreferrer\">Trataka (Yogapedia)</a>",
     "ritual_vibration_tellurique_label": "Vibration Tellurique (TRE)",

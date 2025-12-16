@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
 import type { Ritual, Session, Badge, BadgeId, SoundSettings, ActiveProgram, CompletedProgram } from './types.ts';
 import { calculateSessionStreaks } from './utils.ts';
@@ -371,7 +371,7 @@ function App() {
       if (answers.tensionCorporelle <= -1) { needs['somatique'] = (needs['somatique'] || 0) + 2; needs['détente'] = (needs['détente'] || 0) + 1; }
       if (answers.fatiguePhysique <= -1) { needs['dynamiser'] = (needs['dynamiser'] || 0) + 1; needs['récupération'] = (needs['récupération'] || 0) + 2; }
       if (answers.agitation <= -1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['ancrage'] = (needs['ancrage'] || 0) + 1.5; }
-      if (answers.tristesse <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1; }
+      if (answers.tristesse <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; }
       if (answers.colere <= -1) { needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 2; needs['calmer'] = (needs['calmer'] || 0) + 1.5; }
       if (answers.peur <= -1) { needs['ancrage'] = (needs['ancrage'] || 0) + 2; needs['apaiser'] = (needs['apaiser'] || 0) + 1.5; }
       if (answers.clarteMentale <= -1) { needs['clarifier'] = (needs['clarifier'] || 0) + 2; needs['focus'] = (needs['focus'] || 0) + 1.5; }
@@ -441,6 +441,23 @@ function App() {
       fetchFeedback();
     }
   }, [currentScreen, energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle, t]);
+
+  // Generate ritual codes map (memoized to keep it stable)
+  const ritualCodes = useMemo(() => {
+    const codes: Record<string, string> = {};
+    const counters: Record<string, number> = { neuro: 0, respiration: 0, 'micro-rituel': 0 };
+    const prefixes: Record<string, string> = { neuro: 'N', respiration: 'R', 'micro-rituel': 'MR' };
+
+    // Important: We iterate over the original RITUELS constant to ensure consistent numbering
+    // regardless of the current sorting or filtering in the UI.
+    RITUELS.forEach(r => {
+        if (r.category in counters) {
+            counters[r.category]++;
+            codes[r.id] = `${prefixes[r.category]} ${counters[r.category]}`;
+        }
+    });
+    return codes;
+  }, []);
 
   const infoRitualData = RITUELS.find(r => r.id === infoModalRitualId);
   const programInfoData = PROGRAMS.find(p => p.id === programInfoModalId);
@@ -591,11 +608,18 @@ function App() {
 
         case 'all':
             const allRituals = RITUELS.filter(r => !r.id.endsWith('5m')).sort((a, b) => {
-              if (a.category !== b.category) {
-                return a.category.localeCompare(b.category);
-              }
-              return t(a.label).localeCompare(t(b.label));
+                const codeA = ritualCodes[a.id] || '';
+                const codeB = ritualCodes[b.id] || '';
+                const [prefixA, numStrA] = codeA.split(' ');
+                const [prefixB, numStrB] = codeB.split(' ');
+                
+                // On trie d'abord par préfixe (catégorie)
+                if (prefixA !== prefixB) return prefixA.localeCompare(prefixB);
+                
+                // Ensuite par numéro
+                return parseInt(numStrA) - parseInt(numStrB);
             });
+            
             const curatedTags = ['apaiser', 'dynamiser', 'focus', 'sommeil', 'stress', 'anxiete', 'colere', 'rumination', 'respiration', 'somatique', 'mindset', 'lacher-prise', 'confiance', 'joie', 'détente'].sort();
 
             const filteredRituals = allRituals.filter(ritual => {
@@ -647,7 +671,7 @@ function App() {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {filteredRituals.map(ritual => (
-                                <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} />
+                                <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} code={ritualCodes[ritual.id]} />
                             ))}
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+
 import type { CSSProperties } from 'react';
 import type { Ritual } from '../types.ts';
 import { Button } from './Button.tsx';
@@ -12,9 +13,10 @@ interface RitualCardProps {
     isPremiumUser: boolean;
     className?: string;
     style?: CSSProperties;
+    code?: string;
 }
 
-export const RitualCard = ({ ritual, onStart, onInfo, isFavorite, onToggleFavorite, isPremiumUser, className, style }: RitualCardProps) => {
+export const RitualCard = ({ ritual, onStart, onInfo, isFavorite, onToggleFavorite, isPremiumUser, className, style, code }: RitualCardProps) => {
     const { t } = useI18n();
     const cleanPourquoi = t(ritual.modal.sections.pourquoi).replace(/<[^>]+>/g, '');
     const isLocked = ritual.isPremium && !isPremiumUser;
@@ -30,7 +32,10 @@ export const RitualCard = ({ ritual, onStart, onInfo, isFavorite, onToggleFavori
                 <span className="py-0.5 px-2 rounded-full bg-accent-soft text-accent font-bold uppercase tracking-wider">{t(`stats_category_${ritual.category}`)}</span>
                 <span className="text-muted font-semibold">{`${durationMinutes}:${('0' + durationSeconds).slice(-2)} ${t('unit_min')}`}</span>
             </div>
-            <h4 className="font-bold text-lg leading-tight">{t(ritual.label)}</h4>
+            <h4 className="font-bold text-lg leading-tight">
+                {code && <span className="text-accent mr-2 font-mono text-base">{code}</span>}
+                {t(ritual.label)}
+            </h4>
             <p className="text-sm text-muted-darker text-left line-clamp-5">{cleanPourquoi}</p>
         </div>
         <div className="flex gap-2 justify-center items-center mt-2">

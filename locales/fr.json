@@ -1,4 +1,8 @@
-{
+import { useCallback } from 'react';
+
+// The full content of locales/fr.json is now embedded here.
+// This is the single source of truth for all French translations.
+const frTranslations: { [key: string]: string } = {
     "close": "Fermer",
     "start": "Démarrer",
     "next": "Suivant",
@@ -168,10 +172,10 @@
     "player_nadi_finger_position_title": "Position des doigts (Nasagra Mudra)",
     "player_nadi_finger_position_desc": "Utilise ton pouce pour boucher une narine et ton annulaire pour boucher l'autre. L'index et le majeur peuvent être posés entre les sourcils.",
     "player_couleur_choose_color": "Choisis une couleur et sa vertu associée",
-    "player_sagesse_phase_1": "Médite sur cette citation, laisse ces mots décanter en toi :",
-    "player_sagesse_phase_2": "Comment résonne-t-elle en toi ? \n\nOù cette parole te touche-t-elle ?",
-    "player_sagesse_phase_3": "Quelle action peux-tu poser aujourd'hui inspirée par cette sagesse ? \n\nQuel geste discret pourrait naître de cette lumière aujourd'hui ?",
-    "player_sagesse_phase_4": "Intègre cette pensée. \n\nLaisse cette graine germer.",
+    "player_sagesse_phase_1": "Médite sur cette citation :",
+    "player_sagesse_phase_2": "Comment résonne-t-elle en toi ?",
+    "player_sagesse_phase_3": "Quelle action peux-tu poser aujourd'hui inspirée par cette sagesse ?",
+    "player_sagesse_phase_4": "Intègre cette pensée.",
     "player_organe_smile_instruction": "Souris à : {organName}",
     "congrats_title": "Félicitations !",
     "congrats_completed_ritual": "Tu as complété le rituel \"{ritualLabel}\".",
@@ -450,7 +454,7 @@
     "breathe_out": "Expire",
     "hold_full": "Rétention poumons pleins",
     "hold_empty": "Rétention poumons vides",
-   "bento_mantra_classic": "Classique",
+"bento_mantra_classic": "Classique",
 "bento_mantra_classic_short_inhale": "J'inspire, je prends de l'énergie",
 "bento_mantra_classic_short_exhale": "J'expire, mon corps se détend",
 "bento_mantra_classic_long_inhale": "J'inspire, je prends de l'énergie, mes batteries se rechargent",
@@ -558,7 +562,7 @@
     "ritual_acupression_calme_modal_title": "Acupression Calme",
     "ritual_acupression_calme_modal_why": "Ce rituel utilise des points d'acupression clés pour libérer rapidement les tensions, calmer le système nerveux et réduire le stress mental et physique.",
     "ritual_acupression_calme_modal_how": "Suis les images pour localiser les points.\n\nApplique une pression ferme mais confortable tout en respirant lentement et profondément. Change de main lorsque demandé.",
-    "ritual_acupression_calme_modal_tips": "Concentre-toi sur les sensations sous ton pouce.\n\nTu peux fermer les yeux pour augmenter l'effet apaisant. \n\nNe force pas si un point est douloureux.",
+    "ritual_acupression_calme_modal_tips": "Concentre-toi sur les sensations sous ton pouce.\n\nTu peux fermer les yeux pour augmenter l'effet apaisant.\n\n Ne force pas si un point est douloureux.",
     "ritual_acupression_calme_modal_learn_more": "Le point Laogong (8ème point du méridien du Maître-Cœur) est connu pour calmer l'esprit.\n\nLe point Hegu (4ème point du méridien du Gros Intestin) est un point majeur pour soulager les douleurs et le stress.",
     "ritual_acupression_calme_modal_go_further": "• <a href='https://www.passeportsante.net/fr/therapies/Fiche.aspx?doc=acupression_th' target='_blank' rel='noopener noreferrer'>L'acupression, une alliée contre le stress (Passeport Santé)</a><br/>• <a href='https://www.healthline.com/health/pressure-points-for-stress' target='_blank' rel='noopener noreferrer'>5 Pressure Points for Stress Relief (Healthline)</a>",
     "ritual_antidote_kinesique_label": "Antidote Kinésique",
@@ -604,7 +608,7 @@
     "ritual_automassage_cervical_phase_1_instruction": "Tourne doucement la tête de gauche à droite, puis penche l'oreille vers l'épaule de chaque côté.",
     "ritual_automassage_cervical_phase_2a_name": "Massage Trapèze (D)",
     "ritual_automassage_cervical_phase_2_instruction": "Avec la main gauche, masse fermement le muscle trapèze droit, de l'épaule vers le cou.",
-            "ritual_automassage_cervical_phase_2b_instruction": "Avec la main droite, masse fermement le muscle trapèze gauche, de l'épaule vers le cou.",
+        "ritual_automassage_cervical_phase_2b_instruction": "Avec la main droite, masse fermement le muscle trapèze gauche, de l'épaule vers le cou.",
     "ritual_automassage_cervical_phase_2b_name": "Massage Trapèze (G)",
     "ritual_automassage_cervical_phase_3_name": "Pression Occiput",
     "ritual_automassage_cervical_phase_3_instruction": "Avec tes doigts, masse les points sensibles à la base du crâne, de chaque côté de la colonne.",
@@ -686,7 +690,7 @@
     "ritual_eft_mini_modal_title": "EFT Express",
     "ritual_eft_mini_modal_why": "L'Emotional Freedom Techniques (EFT) ou \"tapping\" est un outil puissant pour réduire rapidement l'intensité d'une émotion négative ou d'une douleur physique en stimulant des points méridiens d'acupuncture.",
     "ritual_eft_mini_modal_how": "Identifie un problème et son intensité sur 10.\n\nSuis les images pour tapoter sur les points indiqués tout en répétant des phrases clés pour te concentrer sur le problème puis l'accepter.",
-    "ritual_eft_mini_modal_tips": "Identifie un problème et son intensité sur 10. \n\nSois précis dans le choix de ta \"cible\" (ex: \"cette boule dans mon ventre\" plutôt que \"mon stress\").\n\nIl est important de répéter la phrase de setup (\"Même si j'ai ce problème...\") pour lever les inversions psychologiques.",
+    "ritual_eft_mini_modal_tips": "Identifie un problème et son intensité sur 10.\n\nSois précis dans le choix de ta \"cible\" (ex: \"cette boule dans mon ventre\" plutôt que \"mon stress\").\n\nIl est important de répéter la phrase de setup (\"Même si j'ai ce problème...\") pour lever les inversions psychologiques.",
     "ritual_eft_mini_modal_learn_more": "L'EFT combine des principes de la médecine chinoise (méridiens) et de la psychologie occidentale.\n\nLa stimulation des points méridiens enverrait des signaux calmants à l'amygdale, la partie du cerveau qui gère la réponse de peur, permettant de \"découpler\" la pensée de la réponse émotionnelle.",
     "ritual_eft_mini_modal_go_further": "• <a href=\"https://www.ifpec.org/eft/\" target=\"_blank\" rel=\"noopener noreferrer\">Découvrir l'EFT (IFPEC)</a><br/>• <a href=\"https://www.thetappingsolution.com/what-is-eft-tapping/\" target=\"_blank\" rel=\"noopener noreferrer\">What is EFT Tapping? (The Tapping Solution)</a>",
     "ritual_eft_mini_phase_1_name": "Setup (Point Karaté)",
@@ -734,7 +738,7 @@
     "ritual_interrupteur_cosmique_modal_go_further": "• <a href=\"https://www.futura-sciences.com/sciences/actualites/exploration-spatiale-overview-effect-sentiment-unique-ressentent-astronautes-voyant-terre-espace-84576/\" target=\"_blank\" rel=\"noopener noreferrer\">L'Overview Effect (Futura Sciences)</a><br/>• <a href=\"https://www.space.com/overview-effect-astronauts-feel-seeing-earth-from-space.html\" target=\"_blank\" rel=\"noopener noreferrer\">The Overview Effect (Space.com)</a>",
     "ritual_interrupteur_cosmique_phase_1_name": "Identification",
     "ritual_interrupteur_cosmique_phase_1_instruction": "Prends conscience de la pensée ou du souci qui occupe ton esprit en ce moment.",
-    "ritual_interrupteur_cosmique_phase_2_name": "Dézoomage",
+    "ritual_interrupter_cosmique_phase_2_name": "Dézoomage",
     "ritual_interrupteur_cosmique_phase_2_instruction": "Imagine que tu t'élèves : tu vois ta ville, ton pays, la Terre, le système solaire, puis l'univers entier.",
     "ritual_interrupteur_cosmique_phase_3_name": "Relativisation",
     "ritual_interrupteur_cosmique_phase_3_instruction": "Depuis cette perspective cosmique, regarde ta pensée initiale. Est-elle toujours aussi importante ? Respire dans cet espace.",
@@ -793,7 +797,7 @@
     "ritual_porte_interieure_modal_learn_more": "Cette pratique est une forme de méditation sur la pleine conscience des sensations (corporelles, auditives).\n\nElle renforce notre capacité à diriger notre attention et à créer une distinction saine entre notre environnement et notre état interne, ce qui est fondamental pour la régulation émotionnelle.",
     "ritual_porte_interieure_modal_go_further": "• <a href=\"https://www.mindful.org/meditation/mindfulness-getting-started/\" target=\"_blank\" rel=\"noopener noreferrer\">How to Practice Mindfulness (Mindful.org)</a><br/>• <a href=\"https://www.psychologies.com/Bien-etre/Prevention/Systeme-immunitaire/Articles-et-Dossiers/Comment-se-proteger-des-emotions-negatives-des-autres\" target=\"_blank\" rel=\"noopener noreferrer\">Se protéger des émotions négatives (Psychologies)</a>",
     "ritual_porte_interieure_phase_1_name": "L'Extérieur",
-"ritual_porte_interieure_phase_1_instruction": "Accueille les sons qui voyagent jusqu'à toi, la caresse de l'air sur ton visage, les traces invisibles des odeurs. \nTout ce qui existe au-delà de toi.",
+   "ritual_porte_interieure_phase_1_instruction": "Accueille les sons qui voyagent jusqu'à toi, la caresse de l'air sur ton visage, les traces invisibles des odeurs. \nTout ce qui existe au-delà de toi.",
     "ritual_porte_interieure_phase_2_name": "La Frontière",
     "ritual_porte_interieure_phase_2_instruction": "Découvre cette fine pellicule qui te sépare du monde. \nSens où l'air te touche, où le tissu te contient. \nC'est le seuil.",
     "ritual_porte_interieure_phase_3_name": "L'Intérieur",
@@ -867,7 +871,7 @@
     "ritual_sagesse_minute_label": "Sagesse Minute",
     "ritual_sagesse_minute_modal_title": "Sagesse Minute",
     "ritual_sagesse_minute_modal_why": "Ce rituel t'offre une dose d'inspiration et de perspective en te connectant à la sagesse des grands penseurs.\n\nIl t'invite à une courte mais profonde réflexion pour éclairer ta journée.",
-    "ritual_sagesse_minute_modal_how": "Lis la citation qui t'est proposée (au hasard, base de données de plus de 100 citations), puis laisse-toi guider par les étapes de réflexion pour l'intégrer et la transformer en action.",
+    "ritual_sagesse_minute_modal_how": "Lis la citation qui t'est proposée, puis laisse-toi guider par les étapes de réflexion pour l'intégrer et la transformer en action.",
     "ritual_sagesse_minute_modal_tips": "Ne cherche pas la \"bonne\" réponse intellectuelle.\n\nL'important est de voir ce que la citation éveille en toi, au niveau émotionnel et intuitif.",
     "ritual_sagesse_minute_modal_learn_more": "La philosophie et les paroles de sagesse sont des outils cognitifs puissants.\n\nElles nous offrent de nouveaux modèles mentaux pour interpréter nos expériences, ce qui peut changer radicalement notre perception de la réalité et nos réponses émotionnelles.",
     "ritual_sagesse_minute_modal_go_further": "• <a href=\"https://www.philosophy-foundation.org/\" target=\"_blank\" rel=\"noopener noreferrer\">The Philosophy Foundation</a><br/>• <a href=\"https://dailystoic.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Daily Stoic</a>",
@@ -893,7 +897,7 @@
   "ritual_sagesse_tolteque_accord_3": "<strong>3. Je ne fais aucune supposition</strong><br/><br/>Je trouve le courage de poser des questions et de communiquer clairement pour éviter les malentendus.",
   "ritual_sagesse_tolteque_accord_4": "<strong>4. Je fais toujours de mon mieux</strong><br/><br/>Mon 'mieux' change à chaque instant. <br/>En le faisant, j'évite l'auto-jugement, l'auto-critique et les regrets.",
   "ritual_sagesse_tolteque_accord_5": "<strong>5. Je suis sceptique, mais j'écoute</strong><br/>Je n'adhère pas aveuglément à ce que j'entends, y compris mes propres croyances. <br/><br/>J'écoute et respire.",
-      "ritual_salut_quantique_label": "Salut Quantique",
+    "ritual_salut_quantique_label": "Salut Quantique",
     "ritual_salut_quantique_modal_title": "Salut Quantique",
     "ritual_salut_quantique_modal_why": "Un rituel de visualisation puissant pour te connecter à ton \"Moi futur\" qui a déjà atteint tes objectifs.\n\nIl t'aide à incarner l'énergie et la confiance nécessaires pour avancer vers tes aspirations.",
     "ritual_salut_quantique_modal_how": "Suis les étapes de visualisation : imagine ton Moi passé, puis ton Moi futur qui te salue et te transmet sa sagesse et son énergie.",
@@ -910,7 +914,7 @@
     "ritual_scan_54321_modal_title": "Scan Sensoriel 5-4-3-2-1",
     "ritual_scan_54321_modal_why": "C'est une technique d'ancrage puissante pour calmer rapidement l'anxiété et les crises de panique.\n\nElle te ramène dans le moment présent en te forçant à te concentrer sur tes sens et ton environnement immédiat.",
     "ritual_scan_54321_modal_how": "Suis simplement les instructions en nommant (mentalement ou à voix basse) les éléments que tu perçois pour chaque sens.",
-    "ritual_scan_54321_modal_tips": "Prends ton temps.\n\nL'objectif n'est pas de finir vite, mais de réellement engager chaque sens. \n\nObserve les détails, les textures, les sons subtils.",
+    "ritual_scan_54321_modal_tips": "Prends ton temps.\n\nL'objectif n'est pas de finir vite, mais de réellement engager chaque sens. Observe les détails, les textures, les sons subtils.",
     "ritual_scan_54321_modal_learn_more": "Cette technique de \"grounding\" est très utilisée en thérapies cognitivo-comportementales (TCC).\n\nElle fonctionne en détournant l'attention des boucles de pensées anxieuses internes vers des stimuli externes et neutres, ce qui interrompt la spirale de l'anxiété.",
     "ritual_scan_54321_modal_go_further": "• <a href=\"https://www.aemc.fr/la-technique-du-5-4-3-2-1-pour-gerer-son-anxiete\" target=\"_blank\" rel=\"noopener noreferrer\">La technique du 5-4-3-2-1 (AEMC)</a><br/>• <a href=\"https://www.urmc.rochester.edu/behavioral-health-partners/bhp-blog/april-2018/5-4-3-2-1-coping-technique-for-anxiety.aspx\" target=\"_blank\" rel=\"noopener noreferrer\">5-4-3-2-1 Coping Technique for Anxiety (University of Rochester)</a>",
 "ritual_scan_54321_phase_1_name": "Introduction",
@@ -943,6 +947,13 @@
 "ritual_sourire_organes_phase_reins": "Voyage jusqu'à tes Reins, ancrés dans le creux de ton dos.\nPlonge-les dans un bleu océanique, profond et rassurant.\nLà où était l'inquiétude, invite le calme.\nSouris-leur comme on sourit à l'eau.",
 
 "ritual_sourire_organes_phase_rate": "Achève par ta Rate et ton Pancréas, nichés à gauche.\nInonde-les d'une lumière jaune-or, chaude comme un après-midi d'été.\nCe qui s'agitait se dépose. La confiance s'installe.\nTon corps entier respire l'harmonie.",
+"ritual_synchro_gamma_label": "Synchro Gamma",
+    "ritual_synchro_gamma_modal_title": "Synchro Gamma",
+    "ritual_synchro_gamma_modal_why": "Ce rituel est conçu pour induire une synchronisation des ondes cérébrales Gamma (40 Hz), associées aux états de haute performance, de concentration intense (\"flow\") et de perception accrue.",
+    "ritual_synchro_gamma_modal_how": "Suis les instructions de visualisation et de focalisation.\n\nLe rituel te guide à travers différentes étapes pour activer, amplifier et stabiliser un état de haute conscience.",
+    "ritual_synchro_gamma_modal_tips": "Ne te frustre pas si tu ne ressens rien d'extraordinaire au début.\n\nC'est un entraînement mental. La clé est la focalisation et l'intention. L'utilisation d'écouteurs peut aider.",
+    "ritual_synchro_gamma_modal_learn_more": "Les ondes Gamma sont les ondes cérébrales les plus rapides. Elles sont observées chez les méditants expérimentés et sont liées à la capacité du cerveau à lier des informations provenant de différentes régions pour former une perception unifiée et cohérente.",
+    "ritual_synchro_gamma_modal_go_further": "• <a href=\"https://www.cerveauetpsycho.fr/sd/neurosciences/les-ondes-gamma-synchronisent-les-neurones-3870.php\" target=\"_blank\" rel=\"noopener noreferrer\">Les ondes gamma synchronisent les neurones (Cerveau & Psycho)</a><br/>• <a href=\"https://www.neurohacker.com/what-are-gamma-brainwaves\" target=\"_blank\" rel=\"noopener noreferrer\">What Are Gamma Brainwaves? (Neurohacker Collective)</a>",
 "ritual_synchro_gamma_phase_1_name": "Position",
 "ritual_synchro_gamma_phase_1_instruction": "Assis(e) droit(e), colonne vertébrale alignée, les pieds bien à plat sur le sol.",
 "ritual_synchro_gamma_phase_2_name": "Œil Droit",
@@ -957,7 +968,7 @@
     "ritual_trataka_modal_title": "Trataka (Fixation du Regard)",
     "ritual_trataka_modal_why": "Ce rituel de yoga est un exercice de concentration puissant qui calme l'agitation mentale, améliore la mémoire et renforce le \"muscle\" de l'attention.",
     "ritual_trataka_modal_how": "Fixe le centre du cercle sans cligner des yeux, aussi longtemps que possible confortablement.\n\nQuand tu dois cligner, ferme les yeux et observe l'image rémanente.",
-    "ritual_trataka_modal_tips": "Les larmes peuvent couler, c'est un effet purifiant normal.\n\nNe force pas. L'objectif est une concentration détendue, pas une tension.",
+    "ritual_trataka_modal_tips": "Les larmes peuvent couler, c'est un effet purifiant normal.\n\nNe force pas. \n\nL'objectif est une concentration détendue, pas une tension.",
     "ritual_trataka_modal_learn_more": "Trataka est l'un des six Shatkarmas (pratiques de purification) du Hatha Yoga.\n\nIl calme le système nerveux en réduisant les mouvements oculaires saccadés (microsaccades), qui sont directement liés à l'agitation mentale.",
     "ritual_trataka_modal_go_further": "• <a href=\"https://www.yoga-journal.fr/le-nettoyage-des-yeux-par-trataka/\" target=\"_blank\" rel=\"noopener noreferrer\">Le nettoyage des yeux par Trataka (Yoga Journal France)</a><br/>• <a href=\"https://www.yogapedia.com/definition/5491/trataka\" target=\"_blank\" rel=\"noopener noreferrer\">Trataka (Yogapedia)</a>",
     "ritual_vibration_tellurique_label": "Vibration Tellurique (TRE)",
@@ -1065,7 +1076,7 @@
 "ritual_vagale_dorsal_modal_tips": "La tête penchée vers l'avant (si assis) favorise naturellement le réflexe de relaxation.\n\nLa pression de la langue boucle un circuit énergétique apaisant.",
  "ritual_vagale_dorsal_modal_go_further": "• <a href=\"https://www.stephenporges.com/\" target=\"_blank\" rel=\"noopener noreferrer\">The Polyvagal Theory (Stephen Porges)</a><br/>• <a href=\"https://www.psychologies.com/Therapies/Toutes-les-therapies/Psychotherapies/Articles-et-Dossiers/La-theorie-polyvagale-une-revolution-dans-la-comprehension-de-nos-emotions\" target=\"_blank\" rel=\"noopener noreferrer\">La théorie polyvagale (Psychologies)</a>",
     "ritual_vagale_dorsal_immersive_instructions": "Allonge-toi. Respire lentement. Inspire sur 4, expire sur 8.",
-  
+ 
     "ritual_vagale_ventral_label": "Activation Vagale Ventrale",
      "ritual_vagale_ventral_modal_title": "Activation Vagale Ventrale",
 "ritual_vagale_ventral_phase_1_name": "Posture",
@@ -1248,5 +1259,17 @@
 "ritual_freq_963_label": "963 Hz",
 "ritual_freq_963_desc": "Connexion au divin.\nLumière et Esprit universel.",
 "player_current_phase": "Étape en cours"
-    
-}
+   };
+
+export const useI18n = () => {
+  const t = useCallback((key: string, params: Record<string, string | number> = {}): string => {
+    let translation = frTranslations[key] || key;
+    for (const [param, value] of Object.entries(params)) {
+      const regex = new RegExp(`{${param}}`, 'g');
+      translation = translation.replace(regex, String(value));
+    }
+    return translation;
+  }, []);
+
+  return { t };
+};
