@@ -657,7 +657,7 @@ const frTranslations: { [key: string]: string } = {
     "ritual_butterfly_hug_modal_title": "Câlin du Papillon (Butterfly Hug)",
     "ritual_butterfly_hug_modal_why": "Cette technique d'auto-apaisement, issue de la thérapie EMDR, utilise la stimulation bilatérale pour calmer le système nerveux, réduire l'anxiété et aider le cerveau à retraiter des souvenirs ou des émotions perturbantes.",
     "ritual_butterfly_hug_modal_how": "Croise les bras sur ta poitrine, les mains sur les épaules opposées.\n\nTapote doucement et alternativement, comme les ailes d'un papillon. Respire naturellement.",
-    "ritual_butterfly_hug_modal_tips": "Va à ton rythme.\n\nSi des émotions intenses surgissent, ralentis ou arrête et concentre-toi sur ta respiration. C'est un geste de compassion envers toi-même.",
+    "ritual_butterfly_hug_modal_tips": "Va à ton rythme.\n\nSi des émotions intenses surgissent, ralentis ou arrête et concentre-toi sur ta respiration. \n\nC'est un geste de compassion envers toi-même.",
     "ritual_butterfly_hug_modal_learn_more": "La stimulation bilatérale (visuelle, auditive ou tactile) est un élément central de la thérapie EMDR (Eye Movement Desensitization and Reprocessing).\n\nElle semble faciliter la communication entre les hémisphères cérébraux, permettant une meilleure intégration des expériences émotionnelles.",
     "ritual_butterfly_hug_modal_go_further": "• <a href=\"https://www.emdr-france.org/lemdr-cest-quoi/\" target=\"_blank\" rel=\"noopener noreferrer\">L'EMDR, c'est quoi ? (EMDR France)</a><br/>• <a href=\"https://www.youtube.com/watch?v=iGGJrqscvtU\" target=\"_blank\" rel=\"noopener noreferrer\">The Butterfly Hug Method (Video)</a>",
     "ritual_connexion_holofractographique_label": "Connexion Holofractographique",
