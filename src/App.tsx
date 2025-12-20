@@ -613,11 +613,11 @@ function App() {
                 const [prefixA, numStrA] = codeA.split(' ');
                 const [prefixB, numStrB] = codeB.split(' ');
                 
-                // On trie d'abord par préfixe (catégorie)
+                // Priorité aux familles : MR, N, R
                 if (prefixA !== prefixB) return prefixA.localeCompare(prefixB);
                 
-                // Ensuite par numéro
-                return parseInt(numStrA) - parseInt(numStrB);
+                // Tri numérique pour les chiffres (1 < 2 < 10)
+                return parseInt(numStrA, 10) - parseInt(numStrB, 10);
             });
             
             const curatedTags = ['apaiser', 'dynamiser', 'focus', 'sommeil', 'stress', 'anxiete', 'colere', 'rumination', 'respiration', 'somatique', 'mindset', 'lacher-prise', 'confiance', 'joie', 'détente'].sort();
