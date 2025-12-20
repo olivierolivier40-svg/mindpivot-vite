@@ -1,4 +1,3 @@
-
 import type { Ritual, Program, Badge, BadgeId } from './types.ts';
 
 export const SOUND_OPTIONS: Record<'bol' | 'diapason' | 'gong' | 'none', { url: string }> = {
@@ -645,7 +644,13 @@ export const RITUELS: Ritual[] = [
         isPremium: true,
         data: {
           phases: [
-            { type: 'image', name: 'ritual_etreinte_ombre_phase_1_name', instruction: 'ritual_etreinte_ombre_phase_1_instruction', duration: 60, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/etreinte1.png' },
+            { 
+              type: 'image', 
+              name: 'ritual_etreinte_ombre_phase_1_name', 
+              instruction: 'ritual_etreinte_ombre_phase_1_instruction', 
+              duration: 60, 
+              imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/etreinte1.png' 
+            },
             { type: 'texte', name: 'ritual_etreinte_ombre_phase_2_name', instruction: 'ritual_etreinte_ombre_phase_2_instruction', duration: 60 },
             { type: 'texte', name: 'ritual_etreinte_ombre_phase_3_name', instruction: 'ritual_etreinte_ombre_phase_3_instruction', duration: 60 },
           ]
