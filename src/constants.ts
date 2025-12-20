@@ -667,7 +667,7 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_fureur_tigre_label',
         category: 'neuro',
         playerType: 'phased-ritual',
-        dureeSec: 75,
+        dureeSec: 90,
         donut: 'off',
         haptique: {},
         tags: ['colere', 'lacher-prise', 'énergie', 'dynamiser'],
@@ -675,9 +675,9 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'texte', name: 'ritual_fureur_tigre_phase_1_name', instruction: 'ritual_fureur_tigre_phase_1_instruction', duration: 15 },
-            { type: 'image', name: 'ritual_fureur_tigre_phase_2_name', instruction: 'ritual_fureur_tigre_phase_2_instruction', duration: 15, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tigre-inspire.png' },
-            { type: 'image', name: 'ritual_fureur_tigre_phase_3_name', instruction: 'ritual_fureur_tigre_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tigre-expire.png' },
-            { type: 'texte', name: 'ritual_fureur_tigre_phase_4_name', instruction: 'ritual_fureur_tigre_phase_4_instruction', duration: 15 },
+            { type: 'image', name: 'ritual_fureur_tigre_phase_2_name', instruction: 'ritual_fureur_tigre_phase_2_instruction', duration: 15, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tigre2.png' },
+            { type: 'video', name: 'ritual_fureur_tigre_phase_3_name', instruction: 'ritual_fureur_tigre_phase_3_instruction', duration: 40, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tigre.mp4' },
+            { type: 'image', name: 'ritual_fureur_tigre_phase_4_name', instruction: 'ritual_fureur_tigre_phase_4_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tigre4.png' },
           ]
         },
         modal: {
@@ -759,7 +759,7 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'texte', name: 'ritual_interrupteur_cosmique_phase_1_name', instruction: 'ritual_interrupteur_cosmique_phase_1_instruction', duration: 25 },
-            { type: 'image', name: 'ritual_interrupteur_cosmique_phase_2_name', instruction: 'ritual_interrupteur_cosmique_phase_2_instruction', duration: 25, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/cosmos.png' },
+            { type: 'texte', name: 'ritual_interrupteur_cosmique_phase_2_name', instruction: 'ritual_interrupteur_cosmique_phase_2_instruction', duration: 25 },
             { type: 'texte', name: 'ritual_interrupteur_cosmique_phase_3_name', instruction: 'ritual_interrupteur_cosmique_phase_3_instruction', duration: 25 },
           ]
         },
