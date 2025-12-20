@@ -195,7 +195,7 @@
     "onboarding_next": "Suivant",
 "onboarding_start": "Commencer l'aventure",
     "onboarding_slide1_title": "Bienvenue dans MindPivot",
-    "onboarding_slide1_text": "Et si tes pauses devenaient des portes ? Quelques minutes pour revenir à toi, trouver ton centre, respirer vraiment.",
+    "onboarding_slide1_text": "Et si tes pauses devenaient des portes ? \n\nQuelques minutes pour revenir à toi, trouver ton centre, respirer vraiment.",
     "onboarding_slide2_title": "Un rituel pour chaque besoin",
     "onboarding_slide2_text": "Calme, concentration, énergie... Laisse-toi guider par ce que tu ressens maintenant. Chaque rituel dure moins de 5 minutes.",
     "onboarding_slide3_title": "Ta pratique, ton rythme",
@@ -742,7 +742,7 @@
     "ritual_masque_tombe_modal_title": "Masque qui Tombe",
     "ritual_masque_tombe_modal_why": "Ce rituel vise à relâcher les tensions faciales inconscientes, souvent liées au stress et à la suppression d'émotions.\n\nEn détendant consciemment les muscles du visage, tu envoies un signal de sécurité et de calme à ton cerveau.",
     "ritual_masque_tombe_modal_how": "Suis la séquence : crispe volontairement tous les muscles de ton visage, puis relâche-les complètement. Termine par un léger massage.",
-    "ritual_masque_tombe_modal_tips": "N'aie pas peur d'avoir l'air ridicule pendant la phase de crispation ! Plus la tension est forte, plus le relâchement sera profond.\n\nConcentre-toi sur la sensation de chaleur et de détente qui suit.",
+    "ritual_masque_tombe_modal_tips": "N'aie pas peur d'avoir l'air ridicule pendant la phase de crispation ! \n\nPlus la tension est forte, plus le relâchement sera profond.\n\nConcentre-toi sur la sensation de chaleur et de détente qui suit.",
     "ritual_masque_tombe_modal_learn_more": "Cette technique est une application de la Relaxation Musculaire Progressive de Jacobson, ciblée sur le visage.\n\nLe visage a une très grande représentation dans le cortex somatosensoriel du cerveau. Le détendre a donc un impact disproportionné sur notre sentiment de bien-être général.",
     "ritual_masque_tombe_modal_go_further": "• <a href=\"https://www.passeportsante.net/fr/Therapies/Guide/Fiche.aspx?doc=relaxation_progressive_jacobson_th\" target=\"_blank\" rel=\"noopener noreferrer\">La relaxation progressive de Jacobson (Passeport Santé)</a><br/>• <a href=\"https://www.healthline.com/health/progressive-muscle-relaxation\" target=\"_blank\" rel=\"noopener noreferrer\">Progressive Muscle Relaxation (Healthline)</a>",
     "ritual_masque_tombe_phase_1_name": "Crispation",
@@ -752,7 +752,7 @@
     "ritual_masque_tombe_phase_3_name": "Massage",
     "ritual_masque_tombe_phase_3_instruction": "Avec le bout de tes doigts, masse doucement ton front, tes tempes, tes joues et ta mâchoire.",
     "ritual_masque_tombe_phase_4_name": "Intégration",
-    "ritual_masque_tombe_phase_4_instruction": "Prends un instant pour apprécier la sensation d'un visage complètement détendu.",
+    "ritual_masque_tombe_phase_4_instruction": "Prends un instant pour apprécier la sensation d'un visage complètement détendu. \n\nTu peux fermer les yeux et focaliser ton attention sur ton visage détendu",
     "ritual_micro_awe_label": "Micro-Awe",
     "ritual_micro_awe_modal_title": "Micro-Awe (Micro-Émerveillement)",
     "ritual_micro_awe_modal_why": "Ce rituel cultive l'émerveillement, une émotion puissante qui nous connecte à quelque chose de plus grand que nous.\n\nIl a été démontré que même de petites doses d'émerveillement réduisent le stress, augmentent la générosité et diminuent la rumination mentale.",
@@ -765,20 +765,27 @@
     "ritual_micro_awe_caption_3": "La puissance tranquille d'une chaîne de montagnes...",
     "ritual_micro_awe_caption_4": "L'infinie complexité d'un flocon de neige...",
     "ritual_micro_awe_caption_5": "La vie qui prospère dans une forêt ancienne...",
-    "ritual_piege_souris_cosmique_label": "Piège à Souris Cosmique",
+"ritual_piege_souris_cosmique_label": "Piège à Souris Cosmique",
     "ritual_piege_souris_cosmique_modal_title": "Piège à Souris Cosmique",
-    "ritual_piege_souris_cosmique_modal_why": "Un rituel de thérapie d'acceptation et d'engagement (ACT) pour se désidentifier des pensées anxieuses.\n\nIl t'apprend à observer tes pensées sans te laisser piéger par elles.",
-    "ritual_piege_souris_cosmique_modal_how": "Visualise ton anxiété comme un fromage appétissant mais piégé.\n\nObserve la souris (ton esprit) qui veut s'en emparer, et choisis consciemment de ne pas tomber dans le piège de la rumination.",
-    "ritual_piege_souris_cosmique_modal_tips": "L'objectif n'est pas de supprimer la pensée (le fromage), mais de changer ta relation avec elle.\n\nReconnais sa présence, mais ne la laisse pas dicter tes actions. \n\nTu es l'observateur, pas la souris.",
-    "ritual_piege_souris_cosmique_modal_learn_more": "En ACT, cette technique s'appelle la \"défusion cognitive\".\n\nIl s'agit de créer un espace entre toi et tes pensées, de réaliser que ce ne sont que des événements mentaux, pas des ordres ou des vérités absolues. Cette métaphore ludique aide à dédramatiser le processus.",
+    
+    "ritual_piege_souris_cosmique_modal_why": "Un rituel inspiré de la thérapie d'acceptation et d'engagement (ACT) pour observer tes pensées anxieuses sans t'y perdre.\n\nIl t'invite à créer de l'espace entre toi et ce qui t'inquiète, pour retrouver ta liberté de choix.",
+    
+    "ritual_piege_souris_cosmique_modal_how": "Imagine ton inquiétude comme un fromage tentant sur un piège.\n\nObserve la souris (ton mental) qui veut s'en approcher, l'analyser, le résoudre. Puis reconnais que tu peux choisir de ne pas entrer dans cette danse.",
+    
+    "ritual_piege_souris_cosmique_modal_tips": "Le but n'est pas de faire disparaître la pensée (le fromage sera toujours là).\n\nMais tu peux transformer ta relation avec elle. La voir sans t'y accrocher.\n\nTu n'es ni le fromage, ni la souris. Tu es celui qui observe la scène.",
+    
+    "ritual_piege_souris_cosmique_modal_learn_more": "En ACT, cette pratique s'appelle la \"défusion cognitive\".\n\nElle crée un espace entre toi et tes pensées. Elle te rappelle que tes pensées ne sont que des événements mentaux, pas des ordres ni des vérités absolues. Cette métaphore légère aide à alléger ce qui paraît lourd.",
+    
     "ritual_piege_souris_cosmique_modal_go_further": "• <a href=\"https://www.psychologue.net/articles/la-defusion-cognitive-de-la-therapie-d-acceptation-et-d-engagement\" target=\"_blank\" rel=\"noopener noreferrer\">La défusion cognitive (Psychologue.net)</a><br/>• <a href=\"https://www.actmindfully.com.au/acceptance-commitment-therapy/\" target=\"_blank\" rel=\"noopener noreferrer\">Acceptance & Commitment Therapy (ACT Mindfully)</a>",
+    
     "ritual_piege_souris_cosmique_phase_1_name": "Le Piège",
-    "ritual_piege_souris_cosmique_phase_1_instruction": "Identifie ta pensée anxieuse. Visualise-la comme un morceau de fromage sur une tapette à souris.",
+    "ritual_piege_souris_cosmique_phase_1_instruction": "Identifie ta pensée inquiète, celle qui tourne en boucle.\n\nVisualise-la comme un fromage doré posé sur un piège à souris. Appétissant, mais piégé.",
+    
     "ritual_piege_souris_cosmique_phase_2_name": "La Souris",
-    "ritual_piege_souris_cosmique_phase_2_instruction": "Observe la petite souris (ton esprit) qui est tentée de s'en approcher, de la renifler, de l'analyser.",
-    "ritual_piege_souris_cosmique_phase_3_name": "Le Choix",
-    "ritual_piege_souris_cosmique_phase_3_instruction": "Tu es celui qui regarde la scène. Fais le choix conscient de ne pas laisser la souris prendre le fromage.",
-    "ritual_pluie_interieure_label": "Pluie Intérieure",
+    "ritual_piege_souris_cosmique_phase_2_instruction": "Observe la petite souris (ton mental) qui s'approche, curieuse, tentée.\n\nElle veut analyser, résoudre, comprendre. Regarde-la sans jugement.",
+    
+    "ritual_piege_souris_cosmique_phase_3_name": "Le Recul",
+    "ritual_piege_souris_cosmique_phase_3_instruction": "Prends conscience que tu es celui qui observe toute la scène.\n\nNi le fromage, ni la souris. Juste le témoin. Et depuis cet espace, tu peux choisir de ne pas mordre.", "ritual_pluie_interieure_label": "Pluie Intérieure",
     "ritual_pluie_interieure_modal_title": "Pluie Intérieure",
     "ritual_pluie_interieure_modal_why": "Ce rituel de visualisation et de nettoyage énergétique t'aide à te purifier des tensions et des émotions négatives accumulées.\n\nIl procure une sensation de fraîcheur, de clarté et de renouveau intérieur.",
     "ritual_pluie_interieure_modal_how": "Ferme les yeux et laisse-toi guider par les instructions.\n\nVisualise une pluie bienfaisante qui coule à travers toi, emportant tout ce qui n'a plus lieu d'être et te laissant propre et apaisé(e).",
@@ -798,19 +805,27 @@
     "ritual_porte_interieure_phase_2_instruction": "Découvre cette fine pellicule qui te sépare du monde. \nSens où l'air te touche, où le tissu te contient. \nC'est le seuil.",
     "ritual_porte_interieure_phase_3_name": "L'Intérieur",
     "ritual_porte_interieure_phase_3_instruction": "Traverse le seuil. Écoute le souffle qui t'anime, le pouls qui bat en secret, les vagues de sensations. \nTu es arrivé·e.",
-    "ritual_power_posing_label": "Posture de Puissance",
+"ritual_power_posing_label": "Posture de Puissance",
     "ritual_power_posing_modal_title": "Posture de Puissance",
-    "ritual_power_posing_modal_why": "Ce rituel utilise ta physiologie pour changer rapidement ton état d'esprit.\n\nAdopter une posture d'ouverture et de confiance envoie un signal à ton cerveau pour qu'il se sente plus puissant, confiant et moins stressé.",
-    "ritual_power_posing_modal_how": "Choisis un endroit où tu peux être tranquille pendant 2 minutes.\n\nAdopte une posture large et ouverte : mains sur les hanches, torse bombé, pieds bien écartés. Maintiens la pose et respire amplement.",
-    "ritual_power_posing_modal_tips": "Fais semblant jusqu'à ce que tu le ressentes (\"Fake it till you become it\").\n\nMême si tu ne te sens pas confiant(e) au début, maintiens la posture. \n\nLe changement se produit au niveau biochimique.",
-    "ritual_power_posing_modal_learn_more": "Popularisée par la psychologue sociale Amy Cuddy, cette technique est un exemple de \"cognition incarnée\".\n\nDes recherches ont montré que ces postures peuvent augmenter les niveaux de testostérone (associée à la confiance) et diminuer les niveaux de cortisol (l'hormone du stress).",
+    
+    "ritual_power_posing_modal_why": "Ce rituel utilise le langage secret entre ton corps et ton esprit.\n\nEn adoptant une posture d'ouverture et d'ancrage, tu invites ton système nerveux à se sentir en sécurité, confiant et présent. Ton corps parle à ton cerveau.",
+    
+    "ritual_power_posing_modal_how": "Trouve un espace où tu peux t'étendre sans retenue pendant 2 minutes.\n\nAdopte une posture large et ouverte : pieds bien ancrés au sol, torse déployé, bras qui occupent l'espace. Laisse ton souffle remplir cette nouvelle amplitude.",
+    
+    "ritual_power_posing_modal_tips": "\"Fais semblant jusqu'à ce que tu le deviennes\" (Amy Cuddy).\n\nMême si tu ne le ressens pas encore, ton corps sait ce qu'il fait. \n\nMaintiens la posture avec bienveillance.\n\nLe changement s'opère en toi, dans ta chimie intérieure.",
+    
+    "ritual_power_posing_modal_learn_more": "Popularisée par la psychologue sociale Amy Cuddy, cette pratique illustre la \"cognition incarnée\" : ton corps influence ton mental.\n\nDes études suggèrent que ces postures peuvent modifier tes hormones : augmentation de la testostérone (confiance) et diminution du cortisol (stress). Ton corps devient ton allié.",
+    
     "ritual_power_posing_modal_go_further": "• <a href=\"https://www.ted.com/talks/amy_cuddy_your_body_language_may_shape_who_you_are?language=fr\" target=\"_blank\" rel=\"noopener noreferrer\">Votre langage corporel façonne qui vous êtes (TED Talk)</a><br/>• <a href=\"https://hbr.org/2012/09/your-bodys-posture-affects-yo\" target=\"_blank\" rel=\"noopener noreferrer\">Your Body's Posture Affects Your Mind (Harvard Business Review)</a>",
-    "ritual_power_posing_phase_1_name": "Préparation",
-    "ritual_power_posing_phase_1_instruction": "Trouve un endroit tranquille. Mets-toi debout, pieds écartés à la largeur des épaules.",
-    "ritual_power_posing_phase_2_name": "Maintien",
-    "ritual_power_posing_phase_2_instruction": "Place tes mains sur tes hanches, bombe le torse, relève le menton. Respire amplement. Sens l'espace que tu occupes.",
-    "ritual_power_posing_phase_3_name": "Intégration",
-    "ritual_power_posing_phase_3_instruction": "Relâche la posture mais garde le sentiment de confiance et d'ouverture avec toi pour le reste de ta journée.",
+    
+    "ritual_power_posing_phase_1_name": "Ancrage",
+    "ritual_power_posing_phase_1_instruction": "Trouve un espace où tu peux te déployer sans retenue.\nMets-toi debout, pieds écartés, bien plantés dans le sol. \nSens la terre sous toi.",
+    
+    "ritual_power_posing_phase_2_name": "Déploiement",
+    "ritual_power_posing_phase_2_instruction": "Pose tes mains sur tes hanches, ouvre ta poitrine, lève ton regard.Respire largement dans cet espace que tu crées. Sens combien de place tu peux prendre. Et tiens la posture !",
+    
+    "ritual_power_posing_phase_3_name": "Empreinte",
+    "ritual_power_posing_phase_3_instruction": "Relâche la posture en douceur, mais garde son empreinte en toi.\n\nCette sensation d'amplitude, d'ancrage, de présence : elle t'appartient. \nEmporte-la avec toi.",  
     "ritual_priere_du_soir_label": "Prière du Soir (Laïque)",
     "ritual_priere_du_soir_modal_title": "Prière du Soir (Laïque)",
     "ritual_priere_du_soir_modal_why": "Ce rituel, inspiré de l'Examen de Conscience ignacien, est une pratique laïque d'introspection pour clore la journée.\n\nIl favorise la gratitude, le lâcher-prise et l'apaisement avant le sommeil.",

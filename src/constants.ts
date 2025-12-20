@@ -787,9 +787,9 @@ export const RITUELS: Ritual[] = [
         isPremium: true,
         data: {
           phases: [
-            { type: 'image', name: 'ritual_masque_tombe_phase_1_name', instruction: 'ritual_masque_tombe_phase_1_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/visage-crispe.png' },
-            { type: 'image', name: 'ritual_masque_tombe_phase_2_name', instruction: 'ritual_masque_tombe_phase_2_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/visage-detendu.png' },
-            { type: 'image', name: 'ritual_masque_tombe_phase_3_name', instruction: 'ritual_masque_tombe_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/visage-massage.png' },
+            { type: 'image', name: 'ritual_masque_tombe_phase_1_name', instruction: 'ritual_masque_tombe_phase_1_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/grimace.png' },
+            { type: 'image', name: 'ritual_masque_tombe_phase_2_name', instruction: 'ritual_masque_tombe_phase_2_instruction', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/detente.png' },
+            { type: 'video', name: 'ritual_masque_tombe_phase_3_name', instruction: 'ritual_masque_tombe_phase_3_instruction', duration: 40, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/masque.mp4' },
             { type: 'texte', name: 'ritual_masque_tombe_phase_4_name', instruction: 'ritual_masque_tombe_phase_4_instruction', duration: 20 },
           ]
         },
@@ -818,8 +818,8 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'texte', name: 'ritual_piege_souris_cosmique_phase_1_name', instruction: 'ritual_piege_souris_cosmique_phase_1_instruction', duration: 30 },
-            { type: 'image', name: 'ritual_piege_souris_cosmique_phase_2_name', instruction: 'ritual_piege_souris_cosmique_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/souris-fromage.png' },
-            { type: 'texte', name: 'ritual_piege_souris_cosmique_phase_3_name', instruction: 'ritual_piege_souris_cosmique_phase_3_instruction', duration: 30 },
+            { type: 'image', name: 'ritual_piege_souris_cosmique_phase_2_name', instruction: 'ritual_piege_souris_cosmique_phase_2_instruction', duration: 35, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/souris-fromage.png' },
+            { type: 'texte', name: 'ritual_piege_souris_cosmique_phase_3_name', instruction: 'ritual_piege_souris_cosmique_phase_3_instruction', duration: 35 },
           ]
         },
         modal: {
@@ -847,7 +847,7 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'texte', name: 'ritual_power_posing_phase_1_name', instruction: 'ritual_power_posing_phase_1_instruction', duration: 15 },
-            { type: 'video', name: 'ritual_power_posing_phase_2_name', instruction: 'ritual_power_posing_phase_2_instruction', duration: 90, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/basculevibratoire.mp4' },
+            { type: 'image', name: 'ritual_power_posing_phase_2_name', instruction: 'ritual_power_posing_phase_2_instruction', duration: 90, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/wonder-woman.png' },
             { type: 'texte', name: 'ritual_power_posing_phase_3_name', instruction: 'ritual_power_posing_phase_3_instruction', duration: 15 },
           ]
         },
