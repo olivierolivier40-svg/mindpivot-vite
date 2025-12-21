@@ -73,7 +73,6 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const [currentOrgan, setCurrentOrgan] = useState<OrganState>({ index: -1, name: '', icon: '' });
   const [instruction, setInstruction] = useState('');
   const [dynamicInstruction, setDynamicInstruction] = useState('');
-  const [audioError, setAudioError] = useState(false);
   const [slideshowIndex, setSlideshowIndex] = useState(0);
   const [audioProgress, setAudioProgress] = useState(0);
   const [isBreathingGuidanceOn, setIsBreathingGuidanceOn] = useState(soundSettings.enabled);
@@ -199,12 +198,12 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   }, [soundSettings.enabled, soundSettings.volume, ritual.category, ritual.playerType]);
   
   const handleCompletion = useCallback(() => {
-      const newSession: Session = { id: `sess_${Date.now()}`, ritualId: ritual.id, dureeSec: ritual.dureeSec, timestamp: new Date().toISOString() };
+      const newSession: Session = { id: `sess_${Date.now()}`, ritualId: initialRitual.id, dureeSec: initialRitual.dureeSec, timestamp: new Date().toISOString() };
       const potentialSessions = [...sessions, newSession];
       const newBadgeId = onCheckForNewBadges(potentialSessions);
       if(newBadgeId) setNewlyUnlockedBadgeId(newBadgeId);
       setIsComplete(true);
-  }, [ritual.id, ritual.dureeSec, sessions, onCheckForNewBadges]);
+  }, [initialRitual, sessions, onCheckForNewBadges]);
 
   const playEndSoundAndComplete = useCallback(() => handleCompletion(), [handleCompletion]);
   
@@ -355,7 +354,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
     if (!audioContextRef.current) audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     if (audioContextRef.current?.state === 'suspended') await audioContextRef.current.resume();
     startTimeRef.current = performance.now(); accumulatedPauseRef.current = 0;
-    if (ritual.playerType === 'audio-guide' && audioRef.current) audioRef.current.play().catch(() => setAudioError(true));
+    if (ritual.playerType === 'audio-guide' && audioRef.current) audioRef.current.play().catch(e => console.error(e));
     setIsRunning(true); setIsPaused(false);
   };
   
@@ -423,8 +422,8 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
   const renderActiveContent = () => {
     if (ritual.id === 'rit.nadi_shodhana_120') {
       const defaultInfo = { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasagra-mudra.jpg', caption: 'player_ready' };
-      const donutPhaseKey = Object.keys(ritual.data.protocols[breathingDirection].imagesByPhase).find(key => t(key) === donutLabel);
-      const phaseInfo = donutPhaseKey ? ritual.data.protocols[breathingDirection].imagesByPhase[donutPhaseKey] : null;
+      const donutPhaseKey = Object.keys(initialRitual.data.protocols[breathingDirection].imagesByPhase).find(key => t(key) === donutLabel);
+      const phaseInfo = donutPhaseKey ? initialRitual.data.protocols[breathingDirection].imagesByPhase[donutPhaseKey] : null;
       const currentInfo = (isRunning && phaseInfo) ? phaseInfo : defaultInfo;
       return <div className="w-full h-full flex flex-col items-center justify-center text-center"><img src={currentInfo.url} referrerPolicy="no-referrer" alt={t(currentInfo.caption)} className="max-w-full object-contain rounded-lg flex-1 min-h-0" /><p key={currentInfo.caption} className="text-xl font-bold text-fg mt-4 animate-fade-in-short">{t(currentInfo.caption)}</p></div>;
     }
@@ -494,7 +493,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
         <Modal show={showIntentionsModal} title={t('intention_examples_title')} onClose={() => setShowIntentionsModal(false)}><ul className="space-y-2">{MORNING_INTENTIONS.map((intentionKey, index) => (<li key={index}><button onClick={() => { setCustomIntention(t(intentionKey)); setShowIntentionsModal(false); }} className="w-full text-left p-2 rounded-lg hover:bg-white/10">{t(intentionKey)}</button></li>))}</ul></Modal>
         <Modal show={showFreqInfo} title={t('player_freq_info_title')} onClose={() => setShowFreqInfo(false)}><div className="text-center p-4"><div className="text-4xl font-bold mb-2 text-accent">{freqHz} Hz</div><h4 className="text-xl font-semibold mb-4">{t(freqLabel)}</h4><p className="text-muted whitespace-pre-line leading-relaxed">{t(freqDesc)}</p><div className="mt-6 flex justify-center"><Button onClick={() => setShowFreqInfo(false)} variant="primary">{t('close')}</Button></div></div></Modal>
         {isAuroraTheme && <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 -z-10"></div>}
-        {ritual.playerType === 'audio-guide' && <audio ref={audioRef} src={ritual.data.audioUrl} preload="auto" onEnded={() => stop(true)} onError={() => setAudioError(true)} />}
+        {ritual.playerType === 'audio-guide' && <audio ref={audioRef} src={ritual.data.audioUrl} preload="auto" onEnded={() => stop(true)} />}
     </div>
   );
 };
