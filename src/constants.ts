@@ -881,8 +881,8 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'texte', name: 'ritual_recyclage_emotionnel_phase_1_name', instruction: 'ritual_recyclage_emotionnel_phase_1_instruction', duration: 30 },
-            { type: 'animation', name: 'ritual_recyclage_emotionnel_phase_2_name', instruction: 'ritual_recyclage_emotionnel_phase_2_instruction', duration: 60 },
-            { type: 'texte', name: 'ritual_recyclage_emotionnel_phase_3_name', instruction: 'ritual_recyclage_emotionnel_phase_3_instruction', duration: 30 },
+            { type: 'video', name: 'ritual_recyclage_emotionnel_phase_2_name', instruction: 'ritual_recyclage_emotionnel_phase_2_instruction', duration: 60, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/recyclage.mp4' },
+            { type: 'video', name: 'ritual_recyclage_emotionnel_phase_3_name', instruction: 'ritual_recyclage_emotionnel_phase_3_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/recyclage2.mp4' },
           ]
         },
         modal: {
