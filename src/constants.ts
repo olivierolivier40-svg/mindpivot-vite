@@ -575,7 +575,7 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_couleur_therapie_label',
         category: 'neuro',
         playerType: 'couleur',
-        dureeSec: 60,
+        dureeSec: 90,
         donut: 'off',
         haptique: {},
         tags: ['joie', 'calmer', 'énergie', 'créativité', 'visualisation'],
@@ -587,7 +587,7 @@ export const RITUELS: Ritual[] = [
             '#FFC312': 'ritual_couleur_therapie_virtue_yellow',
             '#00B894': 'ritual_couleur_therapie_virtue_green',
             '#0066FF': 'ritual_couleur_therapie_virtue_blue',
-            '#8e44ad': 'ritual_couleur_therapie_virtue_purple',
+            '#8E44AD': 'ritual_couleur_therapie_virtue_purple',
           }
         },
         modal: {
