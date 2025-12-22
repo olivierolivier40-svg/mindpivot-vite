@@ -1247,8 +1247,8 @@ export const RITUELS: Ritual[] = [
         isPremium: true,
         data: {
           phases: [
-            { type: 'image', name: 'ritual_souffle_dragon_phase_1_name', instruction: 'ritual_souffle_dragon_phase_1_instruction', duration: 45, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/brasciel.png' },
-            { type: 'image', name: 'ritual_souffle_dragon_phase_2_name', instruction: 'ritual_souffle_dragon_phase_2_instruction', duration: 15, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/dragon2.png' },
+            { type: 'image', name: 'ritual_souffle_dragon_phase_1_name', instruction: 'ritual_souffle_dragon_phase_1_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/brasciel.png' },
+            { type: 'image', name: 'ritual_souffle_dragon_phase_2_name', instruction: 'ritual_souffle_dragon_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/dragon2.png' },
             { type: 'texte', name: 'ritual_souffle_dragon_phase_3_name', instruction: 'ritual_souffle_dragon_phase_3_instruction', duration: 15 },
           ]
         },
