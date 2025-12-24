@@ -1237,10 +1237,10 @@ export const RITUELS: Ritual[] = [
                 { n: 'ritual_nadi_shodhana_120_apaisant_step_3', s: 4 }, { n: 'ritual_nadi_shodhana_120_apaisant_step_4', s: 6 },
               ],
               imagesByPhase: {
-                'ritual_nadi_shodhana_120_apaisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-gauche.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_1' },
-                'ritual_nadi_shodhana_120_apaisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-droite.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_2' },
-                'ritual_nadi_shodhana_120_apaisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-droite.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_3' },
-                'ritual_nadi_shodhana_120_apaisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-gauche.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_4' },
+                'ritual_nadi_shodhana_120_apaisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_1' },
+                'ritual_nadi_shodhana_120_apaisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_2' },
+                'ritual_nadi_shodhana_120_apaisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_3' },
+                'ritual_nadi_shodhana_120_apaisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_apaisant_caption_4' },
               }
             },
             dynamisant: {
@@ -1249,10 +1249,10 @@ export const RITUELS: Ritual[] = [
                 { n: 'ritual_nadi_shodhana_120_dynamisant_step_3', s: 4 }, { n: 'ritual_nadi_shodhana_120_dynamisant_step_4', s: 6 },
               ],
               imagesByPhase: {
-                'ritual_nadi_shodhana_120_dynamisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-droite.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_1' },
-                'ritual_nadi_shodhana_120_dynamisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-gauche.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_2' },
-                'ritual_nadi_shodhana_120_dynamisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-inspire-gauche.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_3' },
-                'ritual_nadi_shodhana_120_dynamisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nadi-expire-droite.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_4' },
+                'ritual_nadi_shodhana_120_dynamisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_1' },
+                'ritual_nadi_shodhana_120_dynamisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_2' },
+                'ritual_nadi_shodhana_120_dynamisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_3' },
+                'ritual_nadi_shodhana_120_dynamisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_4' },
               }
             }
           }
