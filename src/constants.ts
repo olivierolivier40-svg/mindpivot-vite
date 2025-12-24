@@ -264,6 +264,63 @@ export const RITUAL_INSTRUCTIONS: Record<string, {time: number, text: string}[]>
 export const RITUELS: Ritual[] = [
     // --- NEURO ---
     {
+        id: 'rit.sprint_concentration',
+        label: 'ritual_sprint_concentration_label',
+        category: 'neuro',
+        playerType: 'phased-ritual',
+        dureeSec: 120,
+        donut: 'off',
+        haptique: {},
+        tags: ['focus', 'procrastination', 'mindset', 'productivité'],
+        isPremium: false,
+        options: { extend5min: true, id5min: 'rit.sprint_concentration_5m' },
+        data: {
+          phases: [
+            { type: 'texte', instruction: 'ritual_sprint_concentration_phase_1', duration: 20 },
+            { type: 'fixation', instruction: 'ritual_sprint_concentration_phase_2', duration: 100 },
+          ]
+        },
+        modal: {
+            titre: 'ritual_sprint_concentration_modal_title',
+            icon: '🎯',
+            sections: {
+                pourquoi: 'ritual_sprint_concentration_modal_why',
+                comment: 'ritual_sprint_concentration_modal_how',
+                conseils: 'ritual_sprint_concentration_modal_tips',
+                enSavoirPlus: 'ritual_sprint_concentration_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_sprint_concentration_modal_go_further'
+            }
+        }
+    },
+    {
+        id: 'rit.sprint_concentration_5m',
+        label: 'ritual_sprint_concentration_label_5m',
+        category: 'neuro',
+        playerType: 'phased-ritual',
+        dureeSec: 300,
+        donut: 'off',
+        haptique: {},
+        tags: ['focus', 'procrastination', 'mindset', 'productivité'],
+        isPremium: false,
+        data: {
+          phases: [
+            { type: 'texte', instruction: 'ritual_sprint_concentration_phase_1', duration: 20 },
+            { type: 'fixation', instruction: 'ritual_sprint_concentration_phase_2', duration: 280 },
+          ]
+        },
+        modal: {
+            titre: 'ritual_sprint_concentration_modal_title',
+            icon: '🎯',
+            sections: {
+                pourquoi: 'ritual_sprint_concentration_modal_why',
+                comment: 'ritual_sprint_concentration_modal_how',
+                conseils: 'ritual_sprint_concentration_modal_tips',
+                enSavoirPlus: 'ritual_sprint_concentration_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_sprint_concentration_modal_go_further'
+            }
+        }
+    },
+    {
         id: 'rit.frequences_sacrees',
         label: 'ritual_frequences_sacrees_label',
         category: 'neuro',
@@ -1358,6 +1415,37 @@ export const RITUELS: Ritual[] = [
         },
     },
     // --- MICRO-RITUEL ---
+    {
+        id: 'rit.activation_qi',
+        label: 'ritual_activation_qi_label',
+        category: 'micro-rituel',
+        playerType: 'phased-ritual',
+        dureeSec: 130, // 2min10
+        donut: 'off',
+        haptique: {},
+        tags: ['énergie', 'dynamiser', 'somatique', 'corps'],
+        isPremium: false,
+        data: {
+          phases: [
+            { type: 'texte', instruction: 'ritual_activation_qi_phase_1', duration: 20 },
+            { type: 'texte', instruction: 'ritual_activation_qi_phase_2', duration: 25 },
+            { type: 'texte', instruction: 'ritual_activation_qi_phase_3', duration: 30 },
+            { type: 'texte', instruction: 'ritual_activation_qi_phase_4', duration: 35 },
+            { type: 'texte', instruction: 'ritual_activation_qi_phase_5', duration: 20 },
+          ]
+        },
+        modal: {
+            titre: 'ritual_activation_qi_modal_title',
+            icon: '⚡',
+            sections: {
+                pourquoi: 'ritual_activation_qi_why',
+                comment: 'ritual_activation_qi_how',
+                conseils: 'ritual_activation_qi_tips',
+                enSavoirPlus: 'ritual_activation_qi_learn_more',
+                pourAllerPlusLoin: 'ritual_activation_qi_go_further'
+            },
+        },
+    },
     {
         id: 'rit.activation_grace',
         label: 'ritual_activation_grace_label',

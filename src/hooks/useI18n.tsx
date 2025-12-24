@@ -1281,8 +1281,56 @@ const frTranslations: { [key: string]: string } = {
 "ritual_freq_852_desc": "Retour à l'ordre spirituel.\nAmour inconditionnel.",
 "ritual_freq_963_label": "963 Hz",
 "ritual_freq_963_desc": "Connexion au divin.\nLumière et Esprit universel.",
-"player_current_phase": "Étape en cours"
-   };
+"player_current_phase": "Étape en cours",
+// ==========================================
+// ACTIVATION DU QI
+// ==========================================
+
+"ritual_activation_qi_label": "Activation du Qi",
+"ritual_activation_qi_modal_title": "Activation du Qi (Tui Na)",
+
+"ritual_activation_qi_why": "Ce rituel de tapotements énergétiques réveille et fait circuler ton Qi, l'énergie vitale qui anime ton corps.\n\nEn tapotant des zones précises, tu dissipes les stagnations, stimules ton système nerveux et lymphatique, et déverrouilles l'énergie bloquée. \n\nL'échauffement des paumes active le point Laogong (\"Palais du Labeur\"), porte d'entrée et de sortie du Qi dans tes mains. Ce rituel procure un regain d'énergie quasi-instantané, comme si tu redémarrais ton système énergétique. Tu passes de la torpeur à la présence éveillée en quelques minutes.",
+
+"ritual_activation_qi_how": "Ce rituel suit un circuit énergétique précis inspiré du Tui Na, le massage traditionnel chinois.\n\nCommence par échauffer vigoureusement tes paumes l'une contre l'autre jusqu'à sentir une chaleur intense : tu actives le point Laogong. \n\nPuis, avec tes mains en coupe ou le bout de tes doigts, tapote fermement mais confortablement le long de méridiens spécifiques : descends l'extérieur des jambes, remonte par l'intérieur ; descends l'extérieur des bras, remonte par l'intérieur ; tapote le torse, le ventre, et les zones accessibles du dos. Chaque tapotement envoie une onde d'éveil à travers tes tissus. Respire profondément pendant tout le processus pour accompagner le mouvement du Qi.",
+
+"ritual_activation_qi_tips": "Tapote avec fermeté. \n\nRespire amplement : ton souffle transporte ton Qi. \n\nIdéal le matin au réveil ou contre le coup de fatigue.",
+
+"ritual_activation_qi_learn_more": "Le Tui Na (\"pousser-saisir\") est l'une des cinq branches thérapeutiques de la Médecine Traditionnelle Chinoise, aux côtés de l'acupuncture, la pharmacopée, la diététique et le Qi Gong.\n\nSelon cette tradition millénaire, le Qi circule dans le corps le long de méridiens invisibles. Quand le Qi stagne (à cause du stress, de la sédentarité, des émotions refoulées), des blocages se créent et génèrent fatigue, douleur ou maladie. Les tapotements brisent ces stagnations et relancent la circulation.\n\nLe point Laogong (8MC, Maître du Cœur) situé au centre de la paume est considéré comme un centre énergétique majeur, la \"Porte du Travail\" par laquelle le Qi des mains peut être projeté (comme dans le Reiki ou le Qi Gong thérapeutique). En l'activant, tu transformes tes mains en outils de guérison pour toi-même.",
+
+"ritual_activation_qi_go_further": "• <a href='https://www.passeportsante.net/fr/Therapies/Guide/Fiche.aspx?doc=massage_tui_na_th' target='_blank' rel='noopener noreferrer'>Le massage Tui Na : principes et bienfaits (Passeport Santé)</a><br/>• <a href='https://www.doctissimo.fr/html/sante/medecines-douces/sa_1467_medecine_chinoise.htm' target='_blank' rel='noopener noreferrer'>Médecine Traditionnelle Chinoise : les bases (Doctissimo)</a><br/>• <a href='https://www.youtube.com/watch?v=XvZvpzqZCes' target='_blank' rel='noopener noreferrer'>Qi Gong Tapping : démonstration vidéo (YouTube)</a>",
+
+"ritual_activation_qi_phase_1": "Frotte tes paumes l'une contre l'autre vigoureusement.\nJusqu'à sentir une chaleur intense, presque brûlante. \nTu actives le point Laogong.",
+
+"ritual_activation_qi_phase_2": "JAMBES : \nAvec les mains en coupe, tapote fermement en descendant l'extérieur des jambes.\nPuis remonte par l'intérieur, des chevilles aux hanches. \nSens l'énergie circuler.",
+
+"ritual_activation_qi_phase_3": "BRAS : \nTapote de l'épaule jusqu'au bout des doigts sur l'extérieur du bras.\nRemonte par l'intérieur. Change de bras. \nTes membres se réveillent.",
+
+"ritual_activation_qi_phase_4": "TORSE & DOS : Tapote doucement le torse, descends sur le ventre.\nTapote les zones du dos que tu peux atteindre. \nMasse tes reins.",
+
+"ritual_activation_qi_phase_5": "RERSPIRE PROFONDEMENT. Pose tes paumes chaudes sur ton ventre.\nSens ton Qi circuler librement. \nAffirme : \"Je suis ici et maintenant, pleinement vivant.\"",
+
+// ==========================================
+// SPRINT DE CONCENTRATION
+// ==========================================
+
+"ritual_sprint_concentration_label": "Sprint de concentration",
+"ritual_sprint_concentration_label_5m": "Sprint de concentration (5 min)",
+"ritual_sprint_concentration_modal_title": "Sprint de concentration",
+
+"ritual_sprint_concentration_modal_why": "Ce rituel brise la paralysie de la procrastination en créant une urgence contrôlée et bienveillante.\n\nInspiré de la technique Pomodoro, il exploite un principe neurologique simple : ton cerveau résiste à l'idée d'une tâche immense et floue, mais accepte volontiers un sprint court et précis. En te donnant la permission de ne faire que 2 ou 5 minutes d'effort concentré sur UNE micro-tâche, tu contournes la résistance cognitive. L'élan créé suffit souvent à te porter bien au-delà du temps initial. Tu passes de l'inertie à l'action, de l'analyse paralysante au mouvement créatif.",
+
+"ritual_sprint_concentration_modal_how": "Avant de lancer le rituel, identifie UNE micro-tâche ultra-précise (pas \"travailler sur le projet\", mais \"écrire les 3 premiers paragraphes de l'intro\" ou \"répondre à CE mail spécifique\").\n\nLance le chronomètre. Prends 3 respirations profondes d'ancrage : inspire par le nez, expire lentement par la bouche, sens ton corps s'installer dans le moment présent. Puis plonge. Pendant le temps imparti, tu ne fais RIEN d'autre : pas de vérification de messages, pas de pensées parasites. Juste toi et ta tâche, dans une bulle de concentration. Quand le signal retentit, tu peux t'arrêter... ou constater que l'élan t'emporte naturellement plus loin.",
+
+"ritual_sprint_concentration_modal_tips": "Coupe toutes les notifications. \n\nLe but n'est pas de finir, mais de créer l'élan. \n\nDémarrer est le plus difficile, continuer devient naturel.",
+
+"ritual_sprint_concentration_modal_learn_more": "La technique Pomodoro, créée par Francesco Cirillo dans les années 1980, utilise des blocs de temps focalisés (traditionnellement 25 minutes) pour optimiser l'attention et la productivité.\n\nNeurologiquement, notre cerveau fonctionne mieux avec des cycles d'effort intenses suivis de pauses. Un sprint court exploite la \"loi de Parkinson inversée\" : quand le temps est limité, notre concentration devient maximale. Le cerveau sait qu'il n'a pas le temps de tergiverser.\n\nCommencer par un micro-sprint de 2 minutes réduit drastiquement la \"résistance au démarrage\", cette friction psychologique qui nous fait repousser les tâches. Une fois en mouvement, l'inertie change de camp : rester en action devient plus facile que s'arrêter. C'est le principe du \"tiny habit\" appliqué à la concentration.",
+
+"ritual_sprint_concentration_modal_go_further": "• <a href='https://fr.wikipedia.org/wiki/Technique_Pomodoro' target='_blank' rel='noopener noreferrer'>La technique Pomodoro : origine et méthode (Wikipedia)</a><br/>• <a href='https://jamesclear.com/atomic-habits' target='_blank' rel='noopener noreferrer'>Atomic Habits : le pouvoir des micro-actions (James Clear)</a><br/>• <a href='https://www.youtube.com/watch?v=mNBmG24djoY' target='_blank' rel='noopener noreferrer'>Comment vaincre la procrastination : approche neurologique (YouTube)</a>",
+
+"ritual_sprint_concentration_phase_1": "Identifie ta micro-tâche maintenant. Une seule, ultra-précise.\nÉcris-la mentalement ou à voix haute. Puis prends 3 respirations profondes d'ancrage. \nTu te prépares.",
+
+"ritual_sprint_concentration_phase_2": "C'est parti ! Le chronomètre tourne.\n\nPlonge dans ta tâche. Focus total, aucune distraction. Juste toi et cette action, ici, maintenant.\n\nQue rien d'autre n'existe pendant ce temps."
+ };
 
 export const useI18n = () => {
   const t = useCallback((key: string, params: Record<string, string | number> = {}): string => {
