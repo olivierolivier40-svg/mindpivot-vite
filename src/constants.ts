@@ -262,7 +262,7 @@ export const RITUAL_INSTRUCTIONS: Record<string, {time: number, text: string}[]>
 };
 
 export const RITUELS: Ritual[] = [
-    // --- NEURO ---
+    // --- NEURO --- (Strict order N1 to N28)
     {
         id: 'rit.sprint_concentration',
         label: 'ritual_sprint_concentration_label',
@@ -293,39 +293,11 @@ export const RITUELS: Ritual[] = [
         }
     },
     {
-        id: 'rit.sprint_concentration_5m',
-        label: 'ritual_sprint_concentration_label_5m',
-        category: 'neuro',
-        playerType: 'phased-ritual',
-        dureeSec: 300,
-        donut: 'off',
-        haptique: {},
-        tags: ['focus', 'procrastination', 'mindset', 'productivité'],
-        isPremium: false,
-        data: {
-          phases: [
-            { type: 'texte', instruction: 'ritual_sprint_concentration_phase_1', duration: 20 },
-            { type: 'fixation', instruction: 'ritual_sprint_concentration_phase_2', duration: 280 },
-          ]
-        },
-        modal: {
-            titre: 'ritual_sprint_concentration_modal_title',
-            icon: '🎯',
-            sections: {
-                pourquoi: 'ritual_sprint_concentration_modal_why',
-                comment: 'ritual_sprint_concentration_modal_how',
-                conseils: 'ritual_sprint_concentration_modal_tips',
-                enSavoirPlus: 'ritual_sprint_concentration_modal_learn_more',
-                pourAllerPlusLoin: 'ritual_sprint_concentration_modal_go_further'
-            }
-        }
-    },
-    {
         id: 'rit.frequences_sacrees',
         label: 'ritual_frequences_sacrees_label',
         category: 'neuro',
         playerType: 'frequency-healing',
-        dureeSec: 60, // Par défaut, modifiable dans le player
+        dureeSec: 60,
         donut: 'off',
         haptique: {},
         tags: ['son', 'vibration', 'apaiser', 'spiritualité', 'récupération'],
@@ -782,33 +754,6 @@ export const RITUELS: Ritual[] = [
         },
     },
     {
-        id: 'rit.hooponopono',
-        label: 'ritual_hooponopono_label',
-        category: 'micro-rituel',
-        playerType: 'phased-ritual',
-        dureeSec: 120,
-        donut: 'off',
-        haptique: {},
-        tags: ['pardon', 'lacher-prise', 'compassion', 'spiritualité'],
-        isPremium: true,
-        data: {
-            phases: [
-                { type: 'image', name: 'ritual_hooponopono_phase_1_name', instruction: 'ritual_hooponopono_phase_1_instruction', duration: 120, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/Ho.png' },
-            ]
-        },
-        modal: {
-            titre: 'ritual_hooponopono_modal_title',
-            icon: '💖',
-            sections: {
-                pourquoi: 'ritual_hooponopono_modal_why',
-                comment: 'ritual_hooponopono_modal_how',
-                conseils: 'ritual_hooponopono_modal_tips',
-                enSavoirPlus: 'ritual_hooponopono_modal_learn_more',
-                pourAllerPlusLoin: 'ritual_hooponopono_modal_go_further',
-            },
-        },
-    },
-    {
         id: 'rit.interrupteur_cosmique',
         label: 'ritual_interrupteur_cosmique_label',
         category: 'neuro',
@@ -1106,6 +1051,82 @@ export const RITUELS: Ritual[] = [
           },
         },
     },
+    {
+        id: 'rit.vagale_ventral',
+        label: 'ritual_vagale_ventral_label',
+        category: 'neuro',
+        playerType: 'phased-ritual',
+        dureeSec: 135,
+        donut: 'off',
+        haptique: {},
+        tags: ['performance', 'focus', 'calmer', 'confiance', 'respiration', 'neuro'],
+        isPremium: true,
+        data: {
+          phases: [
+            { 
+              type: 'image', 
+              name: 'ritual_vagale_ventral_phase_1_name', 
+              instruction: 'ritual_vagale_ventral_phase_1_instruction', 
+              duration: 15,
+              imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/debout.png'
+            },
+            {
+              type: 'respiration',
+              name: 'ritual_vagale_ventral_phase_2_name',
+              instruction: 'ritual_vagale_ventral_phase_2_instruction',
+              duration: 120,
+              protocol: [
+                { n: 'ritual_vagale_ventral_phase_2_step_1', s: 6 },
+                { n: 'ritual_vagale_ventral_phase_2_step_2', s: 4 },
+              ],
+            },
+          ],
+        },
+        modal: {
+          titre: 'ritual_vagale_ventral_modal_title',
+          icon: '🐬',
+          sections: {
+            pourquoi: 'ritual_vagale_ventral_modal_why',
+            comment: 'ritual_vagale_ventral_modal_how',
+            conseils: 'ritual_vagale_ventral_modal_tips',
+            enSavoirPlus: 'ritual_vagale_ventral_modal_learn_more',
+            pourAllerPlusLoin: 'ritual_vagale_ventral_modal_go_further'
+          },
+        },
+    },
+    {
+        id: 'rit.pont_hemispherique',
+        label: 'ritual_pont_hemispherique_label',
+        category: 'neuro',
+        playerType: 'phased-ritual',
+        dureeSec: 180,
+        donut: 'off',
+        haptique: {},
+        tags: ['focus', 'créativité', 'clarifier', 'mindset', 'neuro'],
+        isPremium: true,
+        data: {
+          phases: [
+            { type: 'texte', instruction: 'ritual_pont_hemispherique_phase_1_inst', duration: 20 },
+            { type: 'image', instruction: 'ritual_pont_hemispherique_phase_2_inst', duration: 25, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/ancrage_bilateral.png' },
+            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_3_inst', duration: 45, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/respi_bilaterale.mp4' },
+            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_4_inst', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/fusion_hemispherique.mp4' },
+            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_5_inst', duration: 20, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/geste_integrateur.mp4' },
+            { type: 'texte', instruction: 'ritual_pont_hemispherique_phase_6_inst', duration: 30 },
+            { type: 'texte', instruction: 'ritual_pont_hemispherique_phase_7_inst', duration: 10 },
+          ]
+        },
+        modal: {
+            titre: 'ritual_pont_hemispherique_modal_titre',
+            icon: '🌉',
+            sections: {
+                pourquoi: 'ritual_pont_hemispherique_modal_why',
+                comment: 'ritual_pont_hemispherique_modal_how',
+                conseils: 'ritual_pont_hemispherique_modal_tips',
+                enSavoirPlus: 'ritual_pont_hemispherique_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_pont_hemispherique_modal_go_further'
+            }
+        }
+    },
     // --- RESPIRATION ---
     {
         id: 'rit.box_4_4_4_4',
@@ -1157,7 +1178,7 @@ export const RITUELS: Ritual[] = [
         category: 'respiration',
         playerType: 'bento',
         dureeSec: 180,
-        donut: 'on_custom', // Managed by player
+        donut: 'on_custom',
         haptique: { onPhaseChange: true },
         tags: ['apaiser', 'focus', 'coherence', 'respiration', 'pleine-conscience'],
         isPremium: true,
@@ -1252,7 +1273,7 @@ export const RITUELS: Ritual[] = [
                 'ritual_nadi_shodhana_120_dynamisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_1' },
                 'ritual_nadi_shodhana_120_dynamisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_2' },
                 'ritual_nadi_shodhana_120_dynamisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_3' },
-                'ritual_nadi_shodhana_120_dynamisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_4' },
+                'ritual_nadi_shodhana_120_dynamisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_4' },
               }
             }
           }
@@ -1371,56 +1392,13 @@ export const RITUELS: Ritual[] = [
           },
         },
     },
-    {
-        id: 'rit.vagale_ventral',
-        label: 'ritual_vagale_ventral_label',
-        category: 'neuro',
-        playerType: 'phased-ritual',
-        dureeSec: 135,
-        donut: 'off',
-        haptique: {},
-        tags: ['performance', 'focus', 'calmer', 'confiance', 'respiration', 'neuro'],
-        isPremium: true,
-        data: {
-          phases: [
-            { 
-              type: 'image', 
-              name: 'ritual_vagale_ventral_phase_1_name', 
-              instruction: 'ritual_vagale_ventral_phase_1_instruction', 
-              duration: 15,
-              imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/debout.png'
-            },
-            {
-              type: 'respiration',
-              name: 'ritual_vagale_ventral_phase_2_name',
-              instruction: 'ritual_vagale_ventral_phase_2_instruction',
-              duration: 120,
-              protocol: [
-                { n: 'ritual_vagale_ventral_phase_2_step_1', s: 6 },
-                { n: 'ritual_vagale_ventral_phase_2_step_2', s: 4 },
-              ],
-            },
-          ],
-        },
-        modal: {
-          titre: 'ritual_vagale_ventral_modal_title',
-          icon: '🐬',
-          sections: {
-            pourquoi: 'ritual_vagale_ventral_modal_why',
-            comment: 'ritual_vagale_ventral_modal_how',
-            conseils: 'ritual_vagale_ventral_modal_tips',
-            enSavoirPlus: 'ritual_vagale_ventral_modal_learn_more',
-            pourAllerPlusLoin: 'ritual_vagale_ventral_modal_go_further'
-          },
-        },
-    },
     // --- MICRO-RITUEL ---
     {
         id: 'rit.activation_qi',
         label: 'ritual_activation_qi_label',
         category: 'micro-rituel',
         playerType: 'phased-ritual',
-        dureeSec: 130, // 2min10
+        dureeSec: 130,
         donut: 'off',
         haptique: {},
         tags: ['énergie', 'dynamiser', 'somatique', 'corps'],
@@ -1701,55 +1679,20 @@ export const RITUELS: Ritual[] = [
         id: 'rit.sourire_organes',
         label: 'ritual_sourire_organes_label',
         category: 'micro-rituel',
-        playerType: 'phased-ritual', // On change le type pour gérer les phases
-        dureeSec: 150, // 25s x 6 phases = 2m30
+        playerType: 'phased-ritual',
+        dureeSec: 150,
         donut: 'off',
         haptique: {},
         tags: ['compassion', 'détente', 'somatique', 'joie', 'gratitude'],
         isPremium: false,
         data: {
           phases: [
-            // Phase 1 : Introduction Texte
-            { 
-                type: 'texte', 
-                instruction: 'ritual_sourire_organes_phase_intro', 
-                duration: 25 
-            },
-            // Phase 2 : Cœur
-            { 
-                type: 'video', 
-                instruction: 'ritual_sourire_organes_phase_coeur', 
-                duration: 25, 
-                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/coeur.mp4' 
-            },
-            // Phase 3 : Poumons
-            { 
-                type: 'video', 
-                instruction: 'ritual_sourire_organes_phase_poumons', 
-                duration: 25, 
-                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/poumons.mp4' 
-            },
-            // Phase 4 : Foie
-            { 
-                type: 'video', 
-                instruction: 'ritual_sourire_organes_phase_foie', 
-                duration: 25, 
-                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/foie.mp4' 
-            },
-            // Phase 5 : Reins
-            { 
-                type: 'video', 
-                instruction: 'ritual_sourire_organes_phase_reins', 
-                duration: 25, 
-                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/reins.mp4' 
-            },
-            // Phase 6 : Rate/Pancréas
-            { 
-                type: 'video', 
-                instruction: 'ritual_sourire_organes_phase_rate', 
-                duration: 25, 
-                videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/rate-pancreas.mp4' 
-            },
+            { type: 'texte', instruction: 'ritual_sourire_organes_phase_intro', duration: 25 },
+            { type: 'video', instruction: 'ritual_sourire_organes_phase_coeur', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/coeur.mp4' },
+            { type: 'video', instruction: 'ritual_sourire_organes_phase_poumons', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/poumons.mp4' },
+            { type: 'video', instruction: 'ritual_sourire_organes_phase_foie', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/foie.mp4' },
+            { type: 'video', instruction: 'ritual_sourire_organes_phase_reins', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/reins.mp4' },
+            { type: 'video', instruction: 'ritual_sourire_organes_phase_rate', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/rate-pancreas.mp4' },
           ]
         },
         modal: {
@@ -1809,7 +1752,7 @@ export const RITUELS: Ritual[] = [
           phases: [
             { type: 'texte', name: 'ritual_scan_54321_phase_1_name', instruction: 'ritual_scan_54321_phase_1_instruction', duration: 25 },
             { type: 'texte', name: 'ritual_scan_54321_phase_2_name', instruction: 'ritual_scan_54321_phase_2_instruction', duration: 25 },
-            { type: 'texte', name: 'ritual_scan_54321_phase_3_name', instruction: 'ritual_scan_54321_phase_3_instruction', duration: 25 },
+            { type: 'texte', name: 'ritual_scan_54321_phase_2_name', instruction: 'ritual_scan_54321_phase_2_instruction', duration: 25 },
             { type: 'texte', name: 'ritual_scan_54321_phase_4_name', instruction: 'ritual_scan_54321_phase_4_instruction', duration: 20 },
             { type: 'texte', name: 'ritual_scan_54321_phase_5_name', instruction: 'ritual_scan_54321_phase_5_instruction', duration: 15 },
             { type: 'texte', name: 'ritual_scan_54321_phase_6_name', instruction: 'ritual_scan_54321_phase_6_instruction', duration: 10 },
@@ -1824,6 +1767,33 @@ export const RITUELS: Ritual[] = [
                 conseils: 'ritual_scan_54321_modal_tips',
                 enSavoirPlus: 'ritual_scan_54321_modal_learn_more',
                 pourAllerPlusLoin: 'ritual_scan_54321_modal_go_further'
+            },
+        },
+    },
+    {
+        id: 'rit.hooponopono',
+        label: 'ritual_hooponopono_label',
+        category: 'micro-rituel',
+        playerType: 'phased-ritual',
+        dureeSec: 120,
+        donut: 'off',
+        haptique: {},
+        tags: ['pardon', 'lacher-prise', 'compassion', 'spiritualité'],
+        isPremium: true,
+        data: {
+            phases: [
+                { type: 'image', name: 'ritual_hooponopono_phase_1_name', instruction: 'ritual_hooponopono_phase_1_instruction', duration: 120, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/Ho.png' },
+            ]
+        },
+        modal: {
+            titre: 'ritual_hooponopono_modal_title',
+            icon: '💖',
+            sections: {
+                pourquoi: 'ritual_hooponopono_modal_why',
+                comment: 'ritual_hooponopono_modal_how',
+                conseils: 'ritual_hooponopono_modal_tips',
+                enSavoirPlus: 'ritual_hooponopono_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_hooponopono_modal_go_further',
             },
         },
     },
