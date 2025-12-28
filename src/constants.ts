@@ -1025,18 +1025,17 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_vibration_tellurique_label',
         category: 'neuro',
         playerType: 'phased-ritual',
-        dureeSec: 180,
+        dureeSec: 150,
         donut: 'off',
         haptique: {},
         tags: ['stress', 'lacher-prise', 'somatique', 'récupération', 'anxiete'],
         isPremium: true,
         data: {
           phases: [
-            { type: 'texte', name: 'ritual_vibration_tellurique_phase_1_name', instruction: 'ritual_vibration_tellurique_phase_1_instruction', duration: 15 },
-            { type: 'image', name: 'ritual_vibration_tellurique_phase_2_name', instruction: 'ritual_vibration_tellurique_phase_2_instruction', duration: 15, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tre-pose.png' },
-            { type: 'image', name: 'ritual_vibration_tellurique_phase_3_name', instruction: 'ritual_vibration_tellurique_phase_3_instruction', duration: 60, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tre-tremblement.png' },
-            { type: 'image', name: 'ritual_vibration_tellurique_phase_4_name', instruction: 'ritual_vibration_tellurique_phase_4_instruction', duration: 60, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tre-tremblement.png' },
-            { type: 'texte', name: 'ritual_vibration_tellurique_phase_5_name', instruction: 'ritual_vibration_tellurique_phase_5_instruction', duration: 30 },
+            { type: 'image', name: 'ritual_vibration_tellurique_phase_1_name', instruction: 'ritual_vibration_tellurique_phase_1_instruction', duration: 15, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/vib1.png' },
+            { type: 'image', name: 'ritual_vibration_tellurique_phase_3_name', instruction: 'ritual_vibration_tellurique_phase_3_instruction', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/vib2.png' },
+            { type: 'image', name: 'ritual_vibration_tellurique_phase_4_name', instruction: 'ritual_vibration_tellurique_phase_4_instruction', duration: 60, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/vib3.png' },
+            { type: 'texte', name: 'ritual_vibration_tellurique_phase_5_name', instruction: 'ritual_vibration_tellurique_phase_5_instruction', duration: 65 },
           ]
         },
         modal: {

@@ -6,33 +6,36 @@ Ce document recense tous les rituels disponibles dans l'application, classés pa
 
 Les rituels de la catégorie "Neuro" sont conçus pour agir sur le système nerveux, la perception et les schémas de pensée.
 
-- Acupression Calme
-- Antidote Kinésique
-- Arbre dans la Tempête
-- Automassage Cervical
-- Balancier Neutre
-- Bascule Vibratoire
-- Body Scan Express
-- Câlin du Papillon
-- Connexion Holofractographique
-- Thérapie par la Couleur
-- EFT Express
-- Étreinte de l'Ombre
-- Fureur du Tigre
-- Interrupteur Cosmique
-- Masque qui Tombe
-- Piège à Souris Cosmique
-- Posture de Puissance
-- Recyclage Émotionnel
-- Regard Infini
-- Salut Quantique
-- Synchro Gamma
-- Trataka (Fixation du Regard)
-- Vibration Tellurique (TRE)
+- N 1 - Sprint de concentration (Gratuit - 2m)
+- N 2 - Fréquences Sacrées (Premium - Var.)
+- N 3 - Acupression Calme (Premium - 2m)
+- N 4 - Antidote Kinésique (Premium - 1m45)
+- N 5 - Arbre dans la Tempête (Gratuit - 1m30)
+- N 6 - Automassage Cervical (Gratuit - 2m)
+- N 7 - Balancier Neutre (Premium - 1m30)
+- N 8 - Bascule Vibratoire (Premium - 1m15)
+- N 9 - Body Scan Express (Gratuit - 3m)
+- N 10 - Câlin du Papillon (Gratuit - 1m30)
+- N 11 - Connexion Holofractographique (Premium - 1m30)
+- N 12 - Thérapie par la Couleur (Gratuit - 1m30)
+- N 13 - EFT Express (Premium - 2m30)
+- N 14 - Étreinte de l'Ombre (Premium - 3m)
+- N 15 - Fureur du Tigre (Gratuit - 1m30)
+- N 16 - Hakini Mudra (Premium - 1m30)
+- N 17 - Interrupteur Cosmique (Gratuit - 1m15)
+- N 18 - Masque qui Tombe (Premium - 1m30)
+- N 19 - Piège à Souris Cosmique (Premium - 1m30)
+- N 20 - Posture de Puissance (Gratuit - 2m)
+- N 21 - Recyclage Émotionnel (Premium - 2m)
+- N 22 - Regard Infini (Premium - 1m15)
+- N 23 - Salut Quantique (Premium - 2m)
+- N 24 - Synchro Gamma (Premium - 3m48)
+- N 25 - Trataka (Gratuit - 1m)
+- N 26 - Vibration Tellurique (Premium - 3m)
+- N 27 - Activation Vagale Ventrale (Premium - 2m15)
+- N 28 - Le Pont Hémisphérique (Premium - 3m)
 
 ## Respiration
-
-Les rituels de la catégorie "Respiration" utilisent des techniques de contrôle du souffle (Pranayama) pour réguler le système nerveux autonome.
 
 - Respiration Carrée (4-4-4-4)
 - Respiration Relaxante (4-7-8)
@@ -44,11 +47,8 @@ Les rituels de la catégorie "Respiration" utilisent des techniques de contrôle
 - Souffle du Dragon
 - Soupir Physiologique
 - Réponse Vagale Dorsale
-- Activation Vagale Ventrale
 
 ## Micro-rituel
-
-Les rituels de la catégorie "Micro-rituel" sont des pratiques courtes et symboliques pour cultiver des états d'esprit positifs et s'ancrer dans le moment présent.
 
 - Activation de la Grâce
 - Ancrage Sensoriel 5-4-3-2-1
@@ -62,3 +62,5 @@ Les rituels de la catégorie "Micro-rituel" sont des pratiques courtes et symbol
 - Sagesse Minute
 - Sagesse Toltèque
 - Sourire aux Organes
+- Hakini Mudra
+- Ho Oponopono
