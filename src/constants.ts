@@ -1107,12 +1107,12 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'texte', instruction: 'ritual_pont_hemispherique_phase_1_inst', duration: 20 },
-            { type: 'image', instruction: 'ritual_pont_hemispherique_phase_2_inst', duration: 25, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/ancrage_bilateral.png' },
-            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_3_inst', duration: 45, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/respi_bilaterale.mp4' },
-            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_4_inst', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/fusion_hemispherique.mp4' },
-            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_5_inst', duration: 20, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/geste_integrateur.mp4' },
-            { type: 'texte', instruction: 'ritual_pont_hemispherique_phase_6_inst', duration: 30 },
-            { type: 'texte', instruction: 'ritual_pont_hemispherique_phase_7_inst', duration: 10 },
+            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_2_inst', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pontHemispherique1.mp4' },
+            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_3_inst', duration: 45, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pontHemispherique1.mp4' },
+            { type: 'video', instruction: 'ritual_pont_hemispherique_phase_4_inst', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pontHemispherique2.mp4' },
+            { type: 'image', instruction: 'ritual_pont_hemispherique_phase_5_inst', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pontHemispherique4.png' },
+            { type: 'image', instruction: 'ritual_pont_hemispherique_phase_6_inst', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/chaise.png' },
+            { type: 'image', instruction: 'ritual_pont_hemispherique_phase_7_inst', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pontHemispherique5.png' },
           ]
         },
         modal: {

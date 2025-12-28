@@ -191,7 +191,7 @@ export const Player = ({ ritual: initialRitual, onComplete, onBack, sessions, on
       if (ctx.state === 'suspended') ctx.resume();
       const oscillator = ctx.createOscillator(); const gainNode = ctx.createGain();
       oscillator.connect(gainNode); gainNode.connect(ctx.destination);
-      oscillator.type = 'triangle'; oscillator.frequency.setValueAtTime(432, ctx.currentTime);
+      oscillator.type = 'sine'; oscillator.frequency.setValueAtTime(432, ctx.currentTime);
       gainNode.gain.setValueAtTime(soundSettings.volume * 0.3, ctx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
       oscillator.start(ctx.currentTime); oscillator.stop(ctx.currentTime + 0.3);
