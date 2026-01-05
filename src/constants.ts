@@ -280,6 +280,11 @@ export const RITUELS: Ritual[] = [
             { type: 'fixation', instruction: 'ritual_sprint_concentration_phase_2', duration: 100 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sprint_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sprint_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sprint_es.wav',
+        },
         modal: {
             titre: 'ritual_sprint_concentration_modal_title',
             icon: '🎯',
@@ -835,7 +840,7 @@ export const RITUELS: Ritual[] = [
           sections: {
             pourquoi: 'ritual_piege_souris_cosmique_modal_why',
             comment: 'ritual_piege_souris_cosmique_modal_how',
-            conseils: 'ritual_piege_souris_cosmique_modal_tips',
+            conseils: 'ritual_piege_souris_modal_tips',
             enSavoirPlus: 'ritual_piege_souris_cosmique_modal_learn_more',
             pourAllerPlusLoin: 'ritual_piege_souris_cosmique_modal_go_further'
           },
@@ -1272,7 +1277,7 @@ export const RITUELS: Ritual[] = [
                 'ritual_nadi_shodhana_120_dynamisant_step_1': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_1' },
                 'ritual_nadi_shodhana_120_dynamisant_step_2': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_2' },
                 'ritual_nadi_shodhana_120_dynamisant_step_3': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_3' },
-                'ritual_nadi_shodhana_120_dynamisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-gauche-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_4' },
+                'ritual_nadi_shodhana_120_dynamisant_step_4': { url: 'https://www.magnetiseur-dax.fr/webapp/Aura/nasara-droite-out.png', caption: 'ritual_nadi_shodhana_120_dynamisant_caption_4' },
               }
             }
           }

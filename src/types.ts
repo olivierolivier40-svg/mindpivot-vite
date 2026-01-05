@@ -1,4 +1,3 @@
-
 export interface Ritual {
   id: string;
   label: string;
@@ -33,6 +32,11 @@ export interface Ritual {
   immersiveInstructions?: string;
   preStartInstructions?: string;
   preStartSteps?: { text: string; backgroundUrl?: string }[];
+  audioGuidance?: {
+    fr?: string;
+    en?: string;
+    es?: string;
+  };
 }
 
 export interface Program {
@@ -77,8 +81,6 @@ export interface Badge {
   hint: string;
 }
 
-// Correction de la dépendance circulaire. Au lieu d'importer depuis constants.ts,
-// nous listons les IDs de badges manuellement pour briser la boucle.
 export type BadgeId =
   | 'PREMIER_RITUEL'
   | 'TROIS_JOURS_SUITE'
