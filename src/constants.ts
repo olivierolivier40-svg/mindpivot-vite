@@ -358,6 +358,11 @@ export const RITUELS: Ritual[] = [
             },
           ],
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/acupression_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/acupression_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/acupression_es.wav',
+        },
         modal: {
           titre: 'ritual_acupression_calme_modal_title',
           icon: '🙌',
@@ -390,6 +395,11 @@ export const RITUELS: Ritual[] = [
                 { type: 'texte', name: 'ritual_antidote_kinesique_phase_5_name', instruction: 'ritual_antidote_kinesique_phase_5_instruction', duration: 10 },
             ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/antidote_kinesique_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/antidote_kinesique_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/antidote_kinesique_es.wav',
+        },
         modal: {
             titre: 'ritual_antidote_kinesique_modal_title',
             icon: '🧠',
@@ -418,6 +428,11 @@ export const RITUELS: Ritual[] = [
                 { type: 'video', name: 'ritual_arbre_tempete_phase_2_name', instruction: 'ritual_arbre_tempete_phase_2_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/arbre_tempete.mp4' },
                 { type: 'image', name: 'ritual_arbre_tempete_phase_3_name', instruction: 'ritual_arbre_tempete_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/stable.png' },
             ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/arbre_tempete_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/arbre_tempete_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/arbre_tempete_es.wav',
         },
         modal: {
             titre: 'ritual_arbre_tempete_modal_title',
@@ -451,6 +466,11 @@ export const RITUELS: Ritual[] = [
             { type: 'image', name: 'ritual_automassage_cervical_phase_4_name', instruction: 'ritual_automassage_cervical_phase_4_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/dos.png' },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/automassage_cervicale_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/automassage_cervicale_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/automassage_cervicale_es.wav',
+        },
         modal: {
           titre: 'ritual_automassage_cervical_modal_title',
           icon: '💆',
@@ -480,6 +500,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_balancier_neutre_phase_3_name', instruction: 'ritual_balancier_neutre_phase_3_instruction', duration: 30 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/balancier_neutre_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/balancier_neutre_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/balancier_neutre_es.wav',
+        },
         modal: {
           titre: 'ritual_balancier_neutre_modal_title',
           icon: '⚖️',
@@ -508,6 +533,11 @@ export const RITUELS: Ritual[] = [
             { type: 'video', name: 'ritual_bascule_vibratoire_phase_2_name', instruction: 'ritual_bascule_vibratoire_phase_2_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/basculevibratoire.mp4' },
             { type: 'image', name: 'ritual_bascule_vibratoire_phase_3_name', instruction: 'ritual_bascule_vibratoire_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/wonder-woman.png' },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/bascule_vibratoire_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/bascule_vibratoire_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/bascule_vibratoire_es.wav',
         },
         modal: {
           titre: 'ritual_bascule_vibratoire_modal_title',
@@ -563,6 +593,11 @@ export const RITUELS: Ritual[] = [
             { type: 'video', name: 'ritual_butterfly_hug_phase_3_name', instruction: 'ritual_butterfly_hug_phase_3_instruction', duration: 15, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/papillon2.mp4' },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/calin_papillon_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/calin_papillon_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/calin_papillon_es.wav',
+        },
         modal: {
           titre: 'ritual_butterfly_hug_modal_title',
           icon: '🦋',
@@ -591,6 +626,11 @@ export const RITUELS: Ritual[] = [
             { type: 'image', name: 'ritual_connexion_holofractographique_phase_2_name', instruction: 'ritual_connexion_holofractographique_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/etoiles.png' },
             { type: 'image', name: 'ritual_connexion_holofractographique_phase_3_name', instruction: 'ritual_connexion_holofractographique_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/etoiles2.png' },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/connexion_holo_fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/connexion_holo_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/connexion_holo_es.wav',
         },
         modal: {
           titre: 'ritual_connexion_holofractographique_modal_title',
