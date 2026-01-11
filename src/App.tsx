@@ -304,15 +304,15 @@ function App() {
 
       if (answers.energie <= -1) { needs['dynamiser'] = (needs['dynamiser'] || 0) + 2; needs['énergie'] = (needs['énergie'] || 0) + 2; }
       if (answers.humeur <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['mindset'] = (needs['mindset'] || 0) + 1.5; }
-      if (answers.chargeMentale <= -1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; needs['focus'] = (needs['focus'] || 0) + 1; }
-      if (answers.tensionCorporelle <= -1) { needs['somatique'] = (needs['somatique'] || 0) + 2; needs['détente'] = (needs['détente'] || 0) + 1; }
-      if (answers.fatiguePhysique <= -1) { needs['dynamiser'] = (needs['dynamiser'] || 0) + 1; needs['récupération'] = (needs['récupération'] || 0) + 2; }
-      if (answers.agitation <= -1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['ancrage'] = (needs['ancrage'] || 0) + 1.5; }
+      if (answers.chargeMentale >= 1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; needs['focus'] = (needs['focus'] || 0) + 1; }
+      if (answers.tensionCorporelle >= 1) { needs['somatique'] = (needs['somatique'] || 0) + 2; needs['détente'] = (needs['détente'] || 0) + 1; }
+      if (answers.fatiguePhysique >= 1) { needs['dynamiser'] = (needs['dynamiser'] || 0) + 1; needs['récupération'] = (needs['récupération'] || 0) + 2; }
+      if (answers.agitation >= 1) { needs['apaiser'] = (needs['apaiser'] || 0) + 2; needs['ancrage'] = (needs['ancrage'] || 0) + 1.5; }
       if (answers.tristesse <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; }
       if (answers.colere <= -1) { needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 2; needs['calmer'] = (needs['calmer'] || 0) + 1.5; }
       if (answers.peur <= -1) { needs['ancrage'] = (needs['ancrage'] || 0) + 2; needs['apaiser'] = (needs['apaiser'] || 0) + 1.5; }
       if (answers.clarteMentale <= -1) { needs['clarifier'] = (needs['clarifier'] || 0) + 2; needs['focus'] = (needs['focus'] || 0) + 2; }
-      if (answers.rumination <= -1) { needs['presence'] = (needs['presence'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; needs['procrastination'] = (needs['procrastination'] || 0) + 1.5; }
+      if (answers.rumination >= 1) { needs['presence'] = (needs['presence'] || 0) + 2; needs['lacher-prise'] = (needs['lacher-prise'] || 0) + 1.5; needs['procrastination'] = (needs['procrastination'] || 0) + 1.5; }
       if (answers.qualitePensees <= -1) { needs['compassion'] = (needs['compassion'] || 0) + 2; needs['mindset'] = (needs['mindset'] || 0) + 1; }
       if (answers.vitesseMentale >= 1) needs['calmer'] = (needs['calmer'] || 0) + 1.5;
       if (answers.sentimentControle <= -1) needs['ancrage'] = (needs['ancrage'] || 0) + 1.5;
