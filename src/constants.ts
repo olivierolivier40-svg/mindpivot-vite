@@ -729,6 +729,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_etreinte_ombre_phase_3_name', instruction: 'ritual_etreinte_ombre_phase_3_instruction', duration: 60 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/etreinte-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/etreinte-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/etreinte-es.wav',
+        },
         modal: {
           titre: 'ritual_etreinte_ombre_modal_title',
           icon: '🎭',
@@ -758,6 +763,11 @@ export const RITUELS: Ritual[] = [
             { type: 'video', name: 'ritual_fureur_tigre_phase_3_name', instruction: 'ritual_fureur_tigre_phase_3_instruction', duration: 40, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tigre.mp4' },
             { type: 'image', name: 'ritual_fureur_tigre_phase_4_name', instruction: 'ritual_fureur_tigre_phase_4_instruction', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/tigre4.png' },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/fureur_tigre-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/fureur_tigre-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/fureur_tigre-es.wav',
         },
         modal: {
           titre: 'ritual_fureur_tigre_modal_title',
@@ -815,6 +825,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_interrupteur_cosmique_phase_3_name', instruction: 'ritual_interrupteur_cosmique_phase_3_instruction', duration: 25 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/interrupteur_cosmique-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/interrupteur_cosmique-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/interrupteur_cosmique-es.wav',
+        },
         modal: {
           titre: 'ritual_interrupteur_cosmique_modal_title',
           icon: '🌌',
@@ -844,6 +859,11 @@ export const RITUELS: Ritual[] = [
             { type: 'video', name: 'ritual_masque_tombe_phase_3_name', instruction: 'ritual_masque_tombe_phase_3_instruction', duration: 40, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/masque.mp4' },
             { type: 'texte', name: 'ritual_masque_tombe_phase_4_name', instruction: 'ritual_masque_tombe_phase_4_instruction', duration: 20 },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/masque-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/masque-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/masque-es.wav',
         },
         modal: {
           titre: 'ritual_masque_tombe_modal_title',
