@@ -923,6 +923,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_power_posing_phase_3_name', instruction: 'ritual_power_posing_phase_3_instruction', duration: 15 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/power_posing-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/power-posing-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/power-posing-es.wav',
+        },
         modal: {
           titre: 'ritual_power_posing_modal_title',
           icon: '🦸',
@@ -952,6 +957,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_recyclage_emotionnel_phase_3_name', instruction: 'ritual_recyclage_emotionnel_phase_3_instruction', duration: 30 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/recyclage_emmotionnel-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/recyclage_emmotionnel-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/recyclage_emmotionnel-es.wav',
+        },
         modal: {
           titre: 'ritual_recyclage_emotionnel_modal_title',
           icon: '♻️',
@@ -980,6 +990,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_regard_infini_phase_2_name', instruction: 'ritual_regard_infini_phase_2_instruction', duration: 25 },
             { type: 'texte', name: 'ritual_regard_infini_phase_3_name', instruction: 'ritual_regard_infini_phase_3_instruction', duration: 25 },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/regard_infini-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/regard_infini-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/regard_infini-es.wav',
         },
         modal: {
           titre: 'ritual_regard_infini_modal_title',
@@ -1669,6 +1684,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_porte_interieure_phase_3_name', instruction: 'ritual_porte_interieure_phase_3_instruction', duration: 30 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/porte_interieure-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/porte_interieure-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/porte_interieure-es.wav',
+        },
         modal: {
           titre: 'ritual_porte_interieure_modal_title',
           icon: '🚪',
@@ -1789,6 +1809,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', instruction: 'ritual_sagesse_tolteque_accord_4', duration: 30 },
             { type: 'texte', instruction: 'ritual_sagesse_tolteque_accord_5', duration: 30 },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sagesse_tolteque-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sagesse_tolteque-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sagesse_tolteque-es.wav',
         },
         modal: {
           titre: 'ritual_sagesse_tolteque_modal_title',
