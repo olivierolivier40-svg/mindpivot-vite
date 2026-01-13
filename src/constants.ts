@@ -1491,6 +1491,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', instruction: 'ritual_activation_qi_phase_5', duration: 20 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_qi-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_qi-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_qi-es.wav',
+        },
         modal: {
             titre: 'ritual_activation_qi_modal_title',
             icon: '⚡',
@@ -1520,6 +1525,11 @@ export const RITUELS: Ritual[] = [
             { type: 'image', name: 'ritual_activation_grace_phase_3_name', instruction: 'ritual_activation_grace_phase_3_instruction', duration: 25, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/mainspriere2.png' },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_grace-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_grace-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_grace-es.wav',
+        },
         modal: {
           titre: 'ritual_activation_grace_modal_title',
           icon: '🕊️',
@@ -1542,6 +1552,11 @@ export const RITUELS: Ritual[] = [
         haptique: {},
         tags: ['joie', 'mindset', 'compassion', 'gratitude'],
         isPremium: false,
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/journal_gratitude_express-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/journal_gratitude_express-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/journal_gratitude_express-es.wav',
+        },
         modal: {
             titre: 'ritual_gratitude_90_modal_title',
             icon: '🙏',
@@ -1846,6 +1861,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_scan_54321_phase_5_name', instruction: 'ritual_scan_54321_phase_5_instruction', duration: 15 },
             { type: 'texte', name: 'ritual_scan_54321_phase_6_name', instruction: 'ritual_scan_54321_phase_6_instruction', duration: 10 },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/scan_54321-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/scan_54321-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/scan_54321-es.wav',
         },
         modal: {
             titre: 'ritual_scan_54321_modal_title',
