@@ -778,15 +778,15 @@
     
     "ritual_piege_souris_cosmique_modal_go_further": "• <a href=\"https://www.psychologue.net/articles/la-defusion-cognitive-de-la-therapie-d-acceptation-et-d-engagement\" target=\"_blank\" rel=\"noopener noreferrer\">La défusion cognitive (Psychologue.net)</a><br/>• <a href=\"https://www.actmindfully.com.au/acceptance-commitment-therapy/\" target=\"_blank\" rel=\"noopener noreferrer\">Acceptance & Commitment Therapy (ACT Mindfully)</a>",
     
-    "ritual_piege_souris_cosmique_phase_1_name": "Le Piège",
-    "ritual_piege_souris_cosmique_phase_1_instruction": "Identifie ta pensée inquiète, celle qui tourne en boucle.\n\nVisualise-la comme un fromage doré posé sur un piège à souris. Appétissant, mais piégé.",
+        "ritual_piege_souris_cosmique_phase_1_name": "Le Piège",
+    "ritual_piege_souris_cosmique_phase_1_instruction": "Identifie ta pensée inquiète, celle qui tourne en boucle.\nVisualise-la comme un fromage doré posé sur un piège à souris.\nAppétissant, mais piégé.",
     
     "ritual_piege_souris_cosmique_phase_2_name": "La Souris",
-    "ritual_piege_souris_cosmique_phase_2_instruction": "Observe la petite souris (ton mental) qui s'approche, curieuse, tentée.\n\nElle veut analyser, résoudre, comprendre. Regarde-la sans jugement.",
+    "ritual_piege_souris_cosmique_phase_2_instruction": "Observe la petite souris (ton mental) qui s'approche, curieuse, tentée.",
     
     "ritual_piege_souris_cosmique_phase_3_name": "Le Recul",
-    "ritual_piege_souris_cosmique_phase_3_instruction": "Prends conscience que tu es celui qui observe toute la scène.\n\nNi le fromage, ni la souris. Juste le témoin. Et depuis cet espace, tu peux choisir de ne pas mordre.", "ritual_pluie_interieure_label": "Pluie Intérieure",
-    "ritual_pluie_interieure_modal_title": "Pluie Intérieure",
+    "ritual_piege_souris_cosmique_phase_3_instruction": "Prends conscience que tu es celui qui observe toute la scène.\nNi le fromage, ni la souris. \nJuste le témoin. Et depuis cet espace, tu peux choisir de ne pas mordre.", 
+     "ritual_pluie_interieure_modal_title": "Pluie Intérieure",
     "ritual_pluie_interieure_modal_why": "Ce rituel de visualisation et de nettoyage énergétique t'aide à te purifier des tensions et des émotions négatives accumulées.\n\nIl procure une sensation de fraîcheur, de clarté et de renouveau intérieur.",
     "ritual_pluie_interieure_modal_how": "Ferme les yeux et laisse-toi guider par les instructions.\n\nVisualise une pluie bienfaisante qui coule à travers toi, emportant tout ce qui n'a plus lieu d'être et te laissant propre et apaisé(e).",
     "ritual_pluie_interieure_modal_tips": "Engage tes sens dans la visualisation.\n\nImagine le son de la pluie, sa température agréable, l'odeur de propre qu'elle laisse. \n\nSens réellement les tensions s'écouler par tes pieds.",
@@ -949,15 +949,15 @@
     "ritual_sourire_organes_modal_go_further": "• <a href=\"https://www.tao-garden.com/six-healing-sounds-inner-smile/\" target=\"_blank\" rel=\"noopener noreferrer\">The Inner Smile Meditation (Mantak Chia)</a><br/>• <a href=\"https://www.psychologies.com/Bien-etre/Prevention/Systeme-immunitaire/Articles-et-Dossiers/Le-sourire-interieur-la-meditation-qui-fait-du-bien\" target=\"_blank\" rel=\"noopener noreferrer\">Le sourire intérieur, la méditation qui fait du bien (Psychologies)</a>",
 "ritual_sourire_organes_phase_intro": "Respire profondément, à ton rythme.\nVisualise une lumière dorée qui naît en toi et se répand, comme du miel.\nTu vas visiter tes organes, ces compagnons silencieux.",
 
-"ritual_sourire_organes_phase_coeur": "Descends jusqu'à ton Cœur, ce tambour fidèle.\nSens sa couleur rouge profonde, son mouvement incessant.\nOffre-lui un sourire, comme à un vieil ami.\nÉcoute-le répondre par une onde de chaleur.",
+"ritual_sourire_organes_phase_coeur": "Descends jusqu'à ton Cœur, ce tambour fidèle.\nSens sa couleur rouge profonde, son mouvement incessant.",
 
-"ritual_sourire_organes_phase_poumons": "Remonte vers tes Poumons, ces ailes intérieures.\nBaigne-les d'une lumière blanche, lumineuse et légère.\nÀ l'inspire, accueille le courage. À l'expire, libère ce qui pèse.\nReconnais leur danse ininterrompue.",
+"ritual_sourire_organes_phase_poumons": "Remonte vers tes Poumons, ces ailes intérieures.\nBaigne-les d'une lumière blanche, lumineuse et légère.",
 
-"ritual_sourire_organes_phase_foie": "Glisse vers ton Foie, gardien sous ta côte droite.\nEnveloppe-le d'un vert émeraude, frais comme une forêt après la pluie.\nCe qui brûlait se transforme en douceur.\nSens l'apaisement se diffuser.",
+"ritual_sourire_organes_phase_foie": "Glisse vers ton Foie, gardien sous ta côte droite.",
 
-"ritual_sourire_organes_phase_reins": "Voyage jusqu'à tes Reins, ancrés dans le creux de ton dos.\nPlonge-les dans un bleu océanique, profond et rassurant.\nLà où était l'inquiétude, invite le calme.\nSouris-leur comme on sourit à l'eau.",
+"ritual_sourire_organes_phase_reins": "Voyage jusqu'à tes Reins, ancrés dans le creux de ton dos.",
 
-"ritual_sourire_organes_phase_rate": "Achève par ta Rate et ton Pancréas, nichés à gauche.\nInonde-les d'une lumière jaune-or, chaude comme un après-midi d'été.\nCe qui s'agitait se dépose. La confiance s'installe.\nTon corps entier respire l'harmonie.",
+"ritual_sourire_organes_phase_rate": "Achève par ta Rate et ton Pancréas, nichés à gauche.",
 "ritual_synchro_gamma_label": "Synchro Gamma",
     "ritual_synchro_gamma_modal_title": "Synchro Gamma",
     "ritual_synchro_gamma_modal_why": "Ce rituel est conçu pour induire une synchronisation des ondes cérébrales Gamma (40 Hz), associées aux états de haute performance, de concentration intense (\"flow\") et de perception accrue.",

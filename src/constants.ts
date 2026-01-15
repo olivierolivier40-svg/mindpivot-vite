@@ -894,6 +894,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_piege_souris_cosmique_phase_3_name', instruction: 'ritual_piege_souris_cosmique_phase_3_instruction', duration: 35 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/piege_souris_cosmique-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/piege_souris_cosmique-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/piege_souris_cosmique-es.wav',
+        },
         modal: {
           titre: 'ritual_piege_souris_cosmique_modal_title',
           icon: '🐭',
@@ -1586,6 +1591,11 @@ export const RITUELS: Ritual[] = [
             { type: 'video', name: 'ritual_intention_glissante_phase_3_name', instruction: 'ritual_intention_glissante_phase_3_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/IG2.mp4' },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/intentio_glissante-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/intentio_glissante-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/intentio_glissante-es.wav',
+        },
         modal: {
           titre: 'ritual_intention_glissante_modal_title',
           icon: '🍃',
@@ -1669,6 +1679,11 @@ export const RITUELS: Ritual[] = [
             { type: 'video', name: 'ritual_pluie_interieure_phase_3_name', instruction: 'ritual_instruct_pluie_interieure_3', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pluie3.mp4' },
             { type: 'video', name: 'ritual_pluie_interieure_phase_4_name', instruction: 'ritual_instruct_pluie_interieure_4_new', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pluie4.mp4' },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/pluie_interieure-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/pluie_interieure-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/pluie_interieure-es.wav',
         },
         modal: {
           titre: 'ritual_pluie_interieure_modal_title',
@@ -1793,6 +1808,11 @@ export const RITUELS: Ritual[] = [
             { type: 'video', instruction: 'ritual_sourire_organes_phase_reins', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/reins.mp4' },
             { type: 'video', instruction: 'ritual_sourire_organes_phase_rate', duration: 25, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/rate-pancreas.mp4' },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sourire_organes-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sourire_organes-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/sourire_organes-es.wav',
         },
         modal: {
             titre: 'ritual_sourire_organes_modal_title',
