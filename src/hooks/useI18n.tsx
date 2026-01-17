@@ -339,7 +339,7 @@ const frTranslations: { [key: string]: string } = {
     "label_tensionCorporelle_3": "Basse",
     "label_tensionCorporelle_4": "Détendu(e)",
     "label_fatiguePhysique_title": "Fatigue Physique",
-    "label_fatiguePhysique_0": "Très Élevée",
+    "label_fatiguePhysique_0": "Très fatigué",
     "label_fatiguePhysique_1": "Élevée",
     "label_fatiguePhysique_2": "Normale",
     "label_fatiguePhysique_3": "Basse",
