@@ -75,6 +75,7 @@ function App() {
   const [editingSession, setEditingSession] = useState<Session | null>(null);
   const [editingText, setEditingText] = useState("");
   const [favoriteRituals, setFavoriteRituals] = useState<Set<string>>(new Set());
+  const [ritualFlags, setRitualFlags] = useState<Record<string, { done: boolean; redo: boolean; share: boolean }>>({});
   const [favoritesFilterActive, setFavoritesFilterActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [tagFilter, setTagFilter] = useState<string | null>(null);
@@ -98,6 +99,7 @@ function App() {
           const storedBadges = JSON.parse(localStorage.getItem('mindPivotBadges') || '{}') as Partial<Record<BadgeId, string>>; setUnlockedBadges(storedBadges);
           const storedSound = JSON.parse(localStorage.getItem('mindPivotSound') || 'null') as SoundSettings | null; if (storedSound) setSoundSettings(storedSound);
           const storedFavorites = JSON.parse(localStorage.getItem('mindPivotFavorites') || '[]') as string[]; setFavoriteRituals(new Set(storedFavorites));
+          const storedFlags = JSON.parse(localStorage.getItem('mindPivotRitualFlags') || '{}'); setRitualFlags(storedFlags);
           const storedTheme = localStorage.getItem('mindPivotTheme') as Theme | null; if (storedTheme && themes.includes(storedTheme)) setTheme(storedTheme); else setTheme('light');
           const storedPremium = localStorage.getItem('mindPivotPremium') === 'true'; setIsPremiumUser(storedPremium);
           const storedProgram = JSON.parse(localStorage.getItem('mindPivotActiveProgram') || 'null') as ActiveProgram | null; setActiveProgram(storedProgram);
@@ -113,6 +115,7 @@ function App() {
   useEffect(() => { localStorage.setItem('mindPivotActiveProgram', JSON.stringify(activeProgram)); }, [activeProgram]);
   useEffect(() => { localStorage.setItem('mindPivotCompletedPrograms', JSON.stringify(completedPrograms)); }, [completedPrograms]);
   useEffect(() => { try { localStorage.setItem('mindPivotFavorites', JSON.stringify(Array.from(favoriteRituals))); } catch (e) { console.error("Failed to save favorites:", e); } }, [favoriteRituals]);
+  useEffect(() => { try { localStorage.setItem('mindPivotRitualFlags', JSON.stringify(ritualFlags)); } catch (e) { console.error("Failed to save ritual flags:", e); } }, [ritualFlags]);
 
   const toggleFavorite = (ritualId: string) => {
     setFavoriteRituals(prev => {
@@ -120,6 +123,16 @@ function App() {
         if (newFavorites.has(ritualId)) newFavorites.delete(ritualId);
         else newFavorites.add(ritualId);
         return newFavorites;
+    });
+  };
+
+  const toggleRitualFlag = (ritualId: string, flag: 'done' | 'redo' | 'share') => {
+    setRitualFlags(prev => {
+        const currentFlags = prev[ritualId] || { done: false, redo: false, share: false };
+        return {
+            ...prev,
+            [ritualId]: { ...currentFlags, [flag]: !currentFlags[flag] }
+        };
     });
   };
 
@@ -268,8 +281,8 @@ function App() {
           try {
               localStorage.removeItem('mindPivotSessions'); localStorage.removeItem('mindPivotBadges'); localStorage.removeItem('mindPivotFavorites');
               localStorage.removeItem('mindPivotTheme'); localStorage.removeItem('mindPivotOnboarded'); localStorage.removeItem('mindPivotPremium');
-              localStorage.removeItem('mindPivotActiveProgram'); localStorage.removeItem('mindPivotCompletedPrograms');
-              setSessions([]); setUnlockedBadges({}); setFavoriteRituals(new Set()); setTheme('dark'); setIsPremiumUser(false);
+              localStorage.removeItem('mindPivotActiveProgram'); localStorage.removeItem('mindPivotCompletedPrograms'); localStorage.removeItem('mindPivotRitualFlags');
+              setSessions([]); setUnlockedBadges({}); setFavoriteRituals(new Set()); setRitualFlags({}); setTheme('dark'); setIsPremiumUser(false);
               setActiveProgram(null); setCompletedPrograms([]); navigateTo('welcome'); alert(t('settings_clear_data_success'));
           } catch (e) { console.error("Failed to clear data:", e); alert(t('settings_clear_data_error')); }
       }
@@ -506,7 +519,7 @@ function App() {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {suggestedRituals.map(ritual => (
-                    <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} code={ritualCodes[ritual.id]} />
+                    <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} code={ritualCodes[ritual.id]} flags={ritualFlags[ritual.id]} onToggleFlag={(flag) => toggleRitualFlag(ritual.id, flag)} />
                   ))}
                 </div>
                 <Button variant="ghost" onClick={resetAndGoHome} className="mt-8">{t('back_to_home')}</Button>
@@ -546,7 +559,7 @@ function App() {
                           </div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {filteredRituals.map(ritual => <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} code={ritualCodes[ritual.id]} />)}
+                            {filteredRituals.map(ritual => <RitualCard key={ritual.id} ritual={ritual} onStart={handleStartRitual} onInfo={handleInfoRitual} isFavorite={favoriteRituals.has(ritual.id)} onToggleFavorite={toggleFavorite} isPremiumUser={isPremiumUser} code={ritualCodes[ritual.id]} flags={ritualFlags[ritual.id]} onToggleFlag={(flag) => toggleRitualFlag(ritual.id, flag)} />)}
                         </div>
                     </div>
                 </div>
