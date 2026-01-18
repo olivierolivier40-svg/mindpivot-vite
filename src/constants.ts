@@ -1636,19 +1636,24 @@ export const RITUELS: Ritual[] = [
         label: 'ritual_micro_awe_label',
         category: 'micro-rituel',
         playerType: 'slideshow',
-        dureeSec: 60,
+        dureeSec: 75,
         donut: 'off',
         haptique: {},
         tags: ['joie', 'inspiration', 'lacher-prise', 'rumination'],
         isPremium: false,
         data: {
             images: [
-                { url: 'https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg', caption: 'ritual_micro_awe_caption_1', duration: 12 },
-                { url: 'https://images.pexels.com/photos/33044/sunflower-sun-summer-yellow.jpg', caption: 'ritual_micro_awe_caption_2', duration: 12 },
-                { url: 'https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg', caption: 'ritual_micro_awe_caption_3', duration: 12 },
-                { url: 'https://magnetiseur-dax.fr/webapp/Aura/flocon.png', caption: 'ritual_micro_awe_caption_4', duration: 12 },
-                { url: 'https://magnetiseur-dax.fr/webapp/Aura/foret2.png', caption: 'ritual_micro_awe_caption_5', duration: 12 },
+                { url: 'https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg', caption: 'ritual_micro_awe_caption_1', duration: 15 },
+                { url: 'https://images.pexels.com/photos/33044/sunflower-sun-summer-yellow.jpg', caption: 'ritual_micro_awe_caption_2', duration: 15 },
+                { url: 'https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg', caption: 'ritual_micro_awe_caption_3', duration: 15 },
+                { url: 'https://magnetiseur-dax.fr/webapp/Aura/flocon.png', caption: 'ritual_micro_awe_caption_4', duration: 15 },
+                { url: 'https://magnetiseur-dax.fr/webapp/Aura/foret2.png', caption: 'ritual_micro_awe_caption_5', duration: 15 },
             ]
+        },
+        audioGuidance: {
+            fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/micro_awe-fr.wav',
+            en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/micro_awe-en.wav',
+            es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/micro_awe-es.wav',
         },
         modal: {
             titre: 'ritual_micro_awe_modal_title',
