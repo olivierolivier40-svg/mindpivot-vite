@@ -162,7 +162,27 @@ export const CITATIONS = [
     { q: "Le bonheur n'est pas quelque chose de prêt à l'emploi. Il vient de vos propres actions.", a: "Dalaï Lama" },
     { q: "Ne laisse pas le bruit des opinions des autres étouffer ta voix intérieure.", a: "Steve Jobs" },
     { q: "On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.", a: "Antoine de Saint-Exupéry" },
-    { q: "Tout voyage de mille lieues commence par un premier pas.", a: "Lao Tseu" }
+    { q: "Tout voyage de mille lieues commence par un premier pas.", a: "Lao Tseu" },
+    { q: "Connais-toi toi-même et tu connaîtras l'univers et les dieux.", a: "Socrate" },
+    { q: "Ce que tu penses, tu le deviens. Ce que tu ressens, tu l'attires. Ce que tu imagines, tu le crées.", a: "Bouddha" },
+    { q: "L'âme qui voit la beauté peut parfois marcher seule.", a: "Goethe" },
+    { q: "Tout est énergie, et c'est tout ce qu'il y a à comprendre dans la vie. Aligne-toi à la fréquence de la réalité que tu souhaites.", a: "Albert Einstein" },
+    { q: "Le silence est la langue de Dieu, tout le reste n'est que mauvaise traduction.", a: "Rumi" },
+    { q: "Celui qui regarde à l'extérieur rêve. Celui qui regarde à l'intérieur s'éveille.", a: "Carl Jung" },
+    { q: "La vie est un mystère à vivre, non un problème à résoudre.", a: "Osho" },
+    { q: "Comme en haut, ainsi en bas. Comme à l'intérieur, ainsi à l'extérieur.", a: "Hermès Trismégiste" },
+    { q: "L'homme est la mesure de toutes choses.", a: "Protagoras" },
+    { q: "Entre le stimulus et la réponse, il y a un espace. Dans cet espace se trouve notre pouvoir de choisir.", a: "Viktor Frankl" },
+    { q: "Celui qui conquiert les autres est fort. Celui qui se conquiert lui-même est puissant.", a: "Lao Tseu" },
+    { q: "L'univers entier est en toi. Demande tout à toi-même.", a: "Rumi" },
+    { q: "Ce n'est pas parce que les choses sont difficiles que nous n'osons pas, c'est parce que nous n'osons pas qu'elles sont difficiles.", a: "Sénèque" },
+    { q: "Sois le changement que tu veux voir dans le monde.", a: "Gandhi" },
+    { q: "La seule vraie sagesse est de savoir que vous ne savez rien.", a: "Socrate" },
+    { q: "Tout ce que nous sommes est le résultat de ce que nous avons pensé.", a: "Bouddha" },
+    { q: "L'âme prend les couleurs de tes pensées.", a: "Marc Aurèle" },
+    { q: "Le véritable voyage de découverte ne consiste pas à chercher de nouveaux paysages, mais à avoir de nouveaux yeux.", a: "Marcel Proust" },
+    { q: "Celui qui a un pourquoi peut supporter presque n'importe quel comment.", a: "Friedrich Nietzsche" },
+    { q: "La nature ne fait rien en vain. Dans toute la nature, il y a quelque chose de merveilleux.", a: "Aristote" }
 ];
 
 export const BENTO_MANTRAS = {
