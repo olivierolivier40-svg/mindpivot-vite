@@ -1049,6 +1049,11 @@ export const RITUELS: Ritual[] = [
             { type: 'image', name: 'ritual_salut_quantique_phase_3_name', instruction: 'ritual_salut_quantique_phase_3_instruction', duration: 40, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/double3.png' },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/salut_quantique-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/salut_quantique_en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/salut_quantique_es.wav',
+        },
         modal: {
           titre: 'ritual_salut_quantique_modal_title',
           icon: '⚛️',
@@ -1142,6 +1147,11 @@ export const RITUELS: Ritual[] = [
             { type: 'image', name: 'ritual_vibration_tellurique_phase_4_name', instruction: 'ritual_vibration_tellurique_phase_4_instruction', duration: 60, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/vib3.png' },
             { type: 'texte', name: 'ritual_vibration_tellurique_phase_5_name', instruction: 'ritual_vibration_tellurique_phase_5_instruction', duration: 65 },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/vibration-tellurique-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/vibration-tellurique-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/vibration-tellurique-es.wav',
         },
         modal: {
           titre: 'ritual_vibration_tellurique_modal_title',
