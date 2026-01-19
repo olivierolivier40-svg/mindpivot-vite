@@ -714,6 +714,11 @@ export const RITUELS: Ritual[] = [
             { type: 'texte', name: 'ritual_eft_mini_phase_4_name', instruction: 'ritual_eft_mini_phase_3_instruction', duration: 20 },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/eft_express-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/eft_express-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/eft_express-es.wav',
+        },
         modal: {
           titre: 'ritual_eft_mini_modal_title',
           icon: '👆',
