@@ -1084,9 +1084,9 @@ export const RITUELS: Ritual[] = [
         data: {
           phases: [
             { type: 'image', name: 'ritual_synchro_gamma_phase_1_name', instruction: 'ritual_synchro_gamma_phase_1_instruction', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/chaise.png' },
-            { type: 'video', name: 'ritual_synchro_gamma_phase_2_name', instruction: 'ritual_synchro_gamma_phase_2_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/oeilgaucheferme.mp4' },
-            { type: 'video', name: 'ritual_synchro_gamma_phase_3_name', instruction: 'ritual_synchro_gamma_phase_3_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/oeildroitferme.mp4' },
-            { type: 'video', name: 'ritual_synchro_gamma_phase_4_name', instruction: 'ritual_synchro_gamma_phase_4_instruction', duration: 30, videoUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/oeillouche.mp4' },
+            { type: 'image', name: 'ritual_synchro_gamma_phase_2_name', instruction: 'ritual_synchro_gamma_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/synchrogammaODopen.png' },
+            { type: 'image', name: 'ritual_synchro_gamma_phase_3_name', instruction: 'ritual_synchro_gamma_phase_3_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/synchrogammaOGopen.png' },
+            { type: 'image', name: 'ritual_synchro_gamma_phase_4_name', instruction: 'ritual_synchro_gamma_phase_4_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/synchrogammaLouche.png' },
             { 
               type: 'respiration', 
               name: 'ritual_synchro_gamma_phase_5_name', 
@@ -1100,6 +1100,11 @@ export const RITUELS: Ritual[] = [
               ]
             },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/synchro_gamma-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/synchro_gamma-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/synchro_gamma-es.wav',
         },
         modal: {
           titre: 'ritual_synchro_gamma_modal_title',
