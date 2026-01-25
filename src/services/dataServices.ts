@@ -4,11 +4,11 @@ import type { Session, BadgeId } from '../types.ts';
 
 // Clés pour le LocalStorage
 const LS_KEYS = {
-  SESSIONS: 'mindPivotSessions',
-  BADGES: 'mindPivotBadges',
-  FAVORITES: 'mindPivotFavorites',
-  PROGRAM: 'mindPivotActiveProgram',
-  COMPLETED_PROGRAMS: 'mindPivotCompletedPrograms',
+  SESSIONS: 'StopAndZenSessions',
+  BADGES: 'StopAndZenBadges',
+  FAVORITES: 'StopAndZenFavorites',
+  PROGRAM: 'StopAndZenActiveProgram',
+  COMPLETED_PROGRAMS: 'StopAndZenCompletedPrograms',
 };
 
 // --- Types ---

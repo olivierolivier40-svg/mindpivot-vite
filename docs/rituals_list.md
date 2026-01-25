@@ -1,4 +1,4 @@
-# Liste Détaillée des Rituels MindPivot
+# Liste Détaillée des Rituels StopAndZen
 
 Ce document recense l'intégralité des rituels disponibles dans l'application, classés par catégorie. Pour chaque rituel, vous trouverez une description de ses mécanismes, de ses bienfaits et de ses fondements théoriques (neurosciences, psychologie, traditions).
 

@@ -1,6 +1,6 @@
-# MindPivot
+# StopAndZen
 
-MindPivot est une application web de micro-rituels conçus pour aider les utilisateurs à apaiser leur esprit, clarifier leurs pensées et dynamiser leur journée en moins de 3 minutes.
+StopAndZen est une application web de micro-rituels conçus pour aider les utilisateurs à apaiser leur esprit, clarifier leurs pensées et dynamiser leur journée en moins de 3 minutes.
 
 ## Documentation
 
