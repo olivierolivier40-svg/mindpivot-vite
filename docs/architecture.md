@@ -1,6 +1,6 @@
-# Architecture de MindPivot
+# Architecture de StopAndZen
 
-Ce document décrit l'architecture générale de l'application MindPivot, les choix technologiques et la structure des données.
+Ce document décrit l'architecture générale de l'application StopAndZen, les choix technologiques et la structure des données.
 
 ## Stack Technologique
 

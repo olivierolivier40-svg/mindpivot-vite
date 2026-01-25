@@ -122,7 +122,7 @@ export const FAQPage = ({ onNavigate }: FAQPageProps) => {
             {t('faq_cta_subtitle')}
           </p>
           <a 
-            href="mailto:mindpivot.contact@gmail.com"
+            href="mailto:StopAndZen.contact@gmail.com"
             className="font-poppins inline-flex items-center justify-center gap-2 font-semibold rounded-xl cursor-pointer text-center transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent h-12 px-4 py-3 bg-accent text-white shadow-md hover:bg-link hover:translate-y-[-2px] hover:shadow-2xl hover:shadow-accent/30"
           >
             {t('faq_cta_button')}

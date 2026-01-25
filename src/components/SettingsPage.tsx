@@ -115,7 +115,7 @@ export const SettingsPage = ({
             <Card>
                 <h3 className="font-bold text-lg mb-4 text-accent">{t('settings_section_bug_report')}</h3>
                 <p className="text-muted text-sm mb-3">{t('settings_bug_report_description')}</p>
-                <a href="mailto:mindpivot.contact@gmail.com" className="font-poppins inline-flex items-center justify-center gap-2 font-semibold rounded-xl cursor-pointer text-center transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent h-9 px-3 py-2 text-sm bg-transparent text-fg border border-white/20 hover:bg-white/10 button-secondary-themed hover:scale-[1.02]">
+                <a href="mailto:StopAndZen.contact@gmail.com" className="font-poppins inline-flex items-center justify-center gap-2 font-semibold rounded-xl cursor-pointer text-center transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent h-9 px-3 py-2 text-sm bg-transparent text-fg border border-white/20 hover:bg-white/10 button-secondary-themed hover:scale-[1.02]">
                   {t('settings_bug_report_button')}
                 </a>
             </Card>

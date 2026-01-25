@@ -95,27 +95,27 @@ function App() {
   useEffect(() => { document.documentElement.style.fontSize = `${textSize * 16}px`; }, [textSize]);
   useEffect(() => { 
       try { 
-          const storedSessions = JSON.parse(localStorage.getItem('mindPivotSessions') || '[]') as Session[]; setSessions(storedSessions); 
-          const storedBadges = JSON.parse(localStorage.getItem('mindPivotBadges') || '{}') as Partial<Record<BadgeId, string>>; setUnlockedBadges(storedBadges);
-          const storedSound = JSON.parse(localStorage.getItem('mindPivotSound') || 'null') as SoundSettings | null; if (storedSound) setSoundSettings(storedSound);
-          const storedFavorites = JSON.parse(localStorage.getItem('mindPivotFavorites') || '[]') as string[]; setFavoriteRituals(new Set(storedFavorites));
-          const storedFlags = JSON.parse(localStorage.getItem('mindPivotRitualFlags') || '{}'); setRitualFlags(storedFlags);
-          const storedTheme = localStorage.getItem('mindPivotTheme') as Theme | null; if (storedTheme && themes.includes(storedTheme)) setTheme(storedTheme); else setTheme('light');
-          const storedPremium = localStorage.getItem('mindPivotPremium') === 'true'; setIsPremiumUser(storedPremium);
-          const storedProgram = JSON.parse(localStorage.getItem('mindPivotActiveProgram') || 'null') as ActiveProgram | null; setActiveProgram(storedProgram);
-          const storedCompletedPrograms = JSON.parse(localStorage.getItem('mindPivotCompletedPrograms') || '[]') as CompletedProgram[]; setCompletedPrograms(storedCompletedPrograms);
-          const hasOnboarded = localStorage.getItem('mindPivotOnboarded');
+          const storedSessions = JSON.parse(localStorage.getItem('StopAndZenSessions') || '[]') as Session[]; setSessions(storedSessions); 
+          const storedBadges = JSON.parse(localStorage.getItem('StopAndZenBadges') || '{}') as Partial<Record<BadgeId, string>>; setUnlockedBadges(storedBadges);
+          const storedSound = JSON.parse(localStorage.getItem('StopAndZenSound') || 'null') as SoundSettings | null; if (storedSound) setSoundSettings(storedSound);
+          const storedFavorites = JSON.parse(localStorage.getItem('StopAndZenFavorites') || '[]') as string[]; setFavoriteRituals(new Set(storedFavorites));
+          const storedFlags = JSON.parse(localStorage.getItem('StopAndZenRitualFlags') || '{}'); setRitualFlags(storedFlags);
+          const storedTheme = localStorage.getItem('StopAndZenTheme') as Theme | null; if (storedTheme && themes.includes(storedTheme)) setTheme(storedTheme); else setTheme('light');
+          const storedPremium = localStorage.getItem('StopAndZenremium') === 'true'; setIsPremiumUser(storedPremium);
+          const storedProgram = JSON.parse(localStorage.getItem('StopAndZenActiveProgram') || 'null') as ActiveProgram | null; setActiveProgram(storedProgram);
+          const storedCompletedPrograms = JSON.parse(localStorage.getItem('StopAndZenCompletedPrograms') || '[]') as CompletedProgram[]; setCompletedPrograms(storedCompletedPrograms);
+          const hasOnboarded = localStorage.getItem('StopAndZenOnboarded');
           if (!hasOnboarded) setShowOnboarding(true);
       } catch(e) { console.error('Failed to load data'); } 
   }, []);
 
-  useEffect(() => { localStorage.setItem('mindPivotSound', JSON.stringify(soundSettings)); }, [soundSettings]);
-  useEffect(() => { localStorage.setItem('mindPivotTheme', theme); }, [theme]);
-  useEffect(() => { localStorage.setItem('mindPivotPremium', String(isPremiumUser)); }, [isPremiumUser]);
-  useEffect(() => { localStorage.setItem('mindPivotActiveProgram', JSON.stringify(activeProgram)); }, [activeProgram]);
-  useEffect(() => { localStorage.setItem('mindPivotCompletedPrograms', JSON.stringify(completedPrograms)); }, [completedPrograms]);
-  useEffect(() => { try { localStorage.setItem('mindPivotFavorites', JSON.stringify(Array.from(favoriteRituals))); } catch (e) { console.error("Failed to save favorites:", e); } }, [favoriteRituals]);
-  useEffect(() => { try { localStorage.setItem('mindPivotRitualFlags', JSON.stringify(ritualFlags)); } catch (e) { console.error("Failed to save ritual flags:", e); } }, [ritualFlags]);
+  useEffect(() => { localStorage.setItem('StopAndZenSound', JSON.stringify(soundSettings)); }, [soundSettings]);
+  useEffect(() => { localStorage.setItem('StopAndZenTheme', theme); }, [theme]);
+  useEffect(() => { localStorage.setItem('StopAndZenPremium', String(isPremiumUser)); }, [isPremiumUser]);
+  useEffect(() => { localStorage.setItem('StopAndZenActiveProgram', JSON.stringify(activeProgram)); }, [activeProgram]);
+  useEffect(() => { localStorage.setItem('StopAndZenompletedPrograms', JSON.stringify(completedPrograms)); }, [completedPrograms]);
+  useEffect(() => { try { localStorage.setItem('StopAndZenFavorites', JSON.stringify(Array.from(favoriteRituals))); } catch (e) { console.error("Failed to save favorites:", e); } }, [favoriteRituals]);
+  useEffect(() => { try { localStorage.setItem('StopAndZenRitualFlags', JSON.stringify(ritualFlags)); } catch (e) { console.error("Failed to save ritual flags:", e); } }, [ritualFlags]);
 
   const toggleFavorite = (ritualId: string) => {
     setFavoriteRituals(prev => {
@@ -209,13 +209,13 @@ function App() {
           try {
               setSessions(prevSessions => {
                   const updatedSessions = [...prevSessions, newSession];
-                  localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions));
+                  localStorage.setItem('StopAndZenSessions', JSON.stringify(updatedSessions));
                   return updatedSessions;
               });
               if (newlyUnlockedBadgeId && !unlockedBadges[newlyUnlockedBadgeId]) {
                   setUnlockedBadges(prevBadges => {
                       const updatedBadges = { ...prevBadges, [newlyUnlockedBadgeId]: new Date().toISOString() };
-                      localStorage.setItem('mindPivotBadges', JSON.stringify(updatedBadges));
+                      localStorage.setItem('StopAndZenBadges', JSON.stringify(updatedBadges));
                       return updatedBadges;
                   });
                   setHasUnseenBadge(true);
@@ -235,7 +235,7 @@ function App() {
                     if (!unlockedBadges[parcoursBadgeId] && isBadgeUnlocked(parcoursBadgeId, sessions, streaks, updated)) {
                          setUnlockedBadges(prevBadges => {
                             const updatedBadges = { ...prevBadges, [parcoursBadgeId]: new Date().toISOString() };
-                            localStorage.setItem('mindPivotBadges', JSON.stringify(updatedBadges));
+                            localStorage.setItem('StopAndZenBadges', JSON.stringify(updatedBadges));
                             return updatedBadges;
                         });
                         setHasUnseenBadge(true);
@@ -250,9 +250,9 @@ function App() {
       else navigateTo('suggestions');
   };
 
-  const handleDeleteSession = (sessionId: string) => { if (window.confirm(t('journal_delete_confirm'))) { setSessions(prevSessions => { const updatedSessions = prevSessions.filter(s => s.id !== sessionId); localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions)); return updatedSessions; }); } };
+  const handleDeleteSession = (sessionId: string) => { if (window.confirm(t('journal_delete_confirm'))) { setSessions(prevSessions => { const updatedSessions = prevSessions.filter(s => s.id !== sessionId); localStorage.setItem('StopAndZenSessions', JSON.stringify(updatedSessions)); return updatedSessions; }); } };
   const handleEditSession = (session: Session) => { setEditingSession(session); setEditingText(session.journal || ""); };
-  const handleSaveEdit = () => { if(!editingSession) return; setSessions(prevSessions => { const updatedSessions = prevSessions.map(s => s.id === editingSession.id ? { ...s, journal: editingText } : s); localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions)); return updatedSessions; }); setEditingSession(null); setEditingText(""); };
+  const handleSaveEdit = () => { if(!editingSession) return; setSessions(prevSessions => { const updatedSessions = prevSessions.map(s => s.id === editingSession.id ? { ...s, journal: editingText } : s); localStorage.setItem('StopAndZenSessions', JSON.stringify(updatedSessions)); return updatedSessions; }); setEditingSession(null); setEditingText(""); };
 
   const handleRequestJournalFeedback = async (session: Session) => {
     if (!session.journal) return;
@@ -265,23 +265,23 @@ function App() {
         const feedback = await generateGeminiText(prompt);
         setSessions(prevSessions => {
             const updatedSessions = prevSessions.map(s => s.id === session.id ? { ...s, iaFeedback: feedback.trim() } : s);
-            localStorage.setItem('mindPivotSessions', JSON.stringify(updatedSessions));
+            localStorage.setItem('StopAndZenSessions', JSON.stringify(updatedSessions));
             return updatedSessions;
         });
     } catch (error) { console.error("Gemini journal feedback error:", error); } finally { setIsLoadingJournalFeedbackForSession(null); }
   };
 
   const handleOnboardingComplete = () => {
-    try { localStorage.setItem('mindPivotOnboarded', 'true'); setShowOnboarding(false); } 
+    try { localStorage.setItem('StopAndZenOnboarded', 'true'); setShowOnboarding(false); } 
     catch (e) { console.error("Failed to save onboarding status", e); setShowOnboarding(false); }
   };
 
   const clearAllData = () => {
       if (window.confirm(t('settings_clear_data_confirm'))) {
           try {
-              localStorage.removeItem('mindPivotSessions'); localStorage.removeItem('mindPivotBadges'); localStorage.removeItem('mindPivotFavorites');
-              localStorage.removeItem('mindPivotTheme'); localStorage.removeItem('mindPivotOnboarded'); localStorage.removeItem('mindPivotPremium');
-              localStorage.removeItem('mindPivotActiveProgram'); localStorage.removeItem('mindPivotCompletedPrograms'); localStorage.removeItem('mindPivotRitualFlags');
+              localStorage.removeItem('StopAndZenSessions'); localStorage.removeItem('StopAndZenBadges'); localStorage.removeItem('StopAndZenFavorites');
+              localStorage.removeItem('StopAndZenTheme'); localStorage.removeItem('StopAndZenOnboarded'); localStorage.removeItem('StopAndZenPremium');
+              localStorage.removeItem('StopAndZenActiveProgram'); localStorage.removeItem('StopAndZenCompletedPrograms'); localStorage.removeItem('StopAndZenRitualFlags');
               setSessions([]); setUnlockedBadges({}); setFavoriteRituals(new Set()); setRitualFlags({}); setTheme('dark'); setIsPremiumUser(false);
               setActiveProgram(null); setCompletedPrograms([]); navigateTo('welcome'); alert(t('settings_clear_data_success'));
           } catch (e) { console.error("Failed to clear data:", e); alert(t('settings_clear_data_error')); }
@@ -404,7 +404,7 @@ function App() {
   const infoRitualData = RITUELS.find(r => r.id === infoModalRitualId);
   const programInfoData = PROGRAMS.find(p => p.id === programInfoModalId);
   const streaks = calculateSessionStreaks(sessions);
-  const handleShare = async () => { if(navigator.share){ try { await navigator.share({ title: 'MindPivot', text: 'Une webapp de micro-rituels pour apaiser, clarifier et dynamiser.', url: window.location.href }); } catch(e) { console.error('Share failed', e); } } else { setShowShareModal(true); } };
+  const handleShare = async () => { if(navigator.share){ try { await navigator.share({ title: 'StopAndZen', text: 'Une webapp de micro-rituels pour apaiser, clarifier et dynamiser.', url: window.location.href }); } catch(e) { console.error('Share failed', e); } } else { setShowShareModal(true); } };
   const handleShareBadge = async (badge: Badge) => { if(navigator.share){ try { await navigator.share({ title: t('journey_badge_share_title'), text: t('journey_badge_share_text', { badgeName: t(badge.name), badgeIcon: badge.icon }), url: window.location.href }); } catch(e) { console.error('Share failed', e); } } else { alert(t('share_not_supported')); } };
   
   const isBrowser = typeof window !== 'undefined' && typeof navigator !== 'undefined';
@@ -667,7 +667,7 @@ function App() {
       <div className="container mx-auto max-w-lg p-4 pb-24 relative">
         {currentScreen !== 'player' && !showOnboarding && (
             <header className="flex justify-between items-start mb-6">
-                <div><button onClick={resetAndGoHome} className="text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent rounded"><h1 className="text-2xl font-bold">MindPivot 🔥 <span title={t('tooltip_daily_rituals')}>{dailySessionCount}</span></h1></button><p className="text-sm text-muted">{t('header_subtitle')}</p></div>
+                <div><button onClick={resetAndGoHome} className="text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent rounded"><h1 className="text-2xl font-bold">StopAndZen 🔥 <span title={t('tooltip_daily_rituals')}>{dailySessionCount}</span></h1></button><p className="text-sm text-muted">{t('header_subtitle')}</p></div>
                 <div className="flex flex-col items-end gap-2"><Button onClick={() => navigateTo('all')} size="small" className="btn-gradient-cta">{t('all_rituals_button')}</Button><div className="flex items-center"><Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('howitworks')} aria-label={t('settings_how_it_works')}><span className="font-bold text-xl leading-none">?</span></Button><Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('settings')} aria-label={t('settings_title')}><SettingsIcon /></Button><Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={handleShare} aria-label={t('settings_share_title')}><ShareIcon /></Button></div></div>
             </header>
         )}
