@@ -1,3 +1,4 @@
+
 # Liste Détaillée des Rituels StopAndZen
 
 Ce document recense l'intégralité des rituels disponibles dans l'application, classés par catégorie. Pour chaque rituel, vous trouverez une description de ses mécanismes, de ses bienfaits et de ses fondements théoriques (neurosciences, psychologie, traditions).
@@ -152,9 +153,9 @@ La "respiration victorieuse" ou "océanique". En contractant légèrement la glo
 *(Premium - 1 min 15)*
 Une technique d'expiration forcée et expressive. En expulsant l'air violemment par la bouche, souvent accompagné d'un mouvement des bras et d'une grimace (tirer la langue), on libère mécaniquement la pression du diaphragme et du plexus solaire. C'est un outil de "nettoyage" immédiat pour évacuer une frustration, une colère ou une tension accumulée, transformant l'énergie stagnante en vitalité.
 
-### **R 8 - Soupir Physiologique**
-*(Gratuit - 2 min)*
-Mis en avant par les neurosciences (Huberman Lab) comme le moyen le plus rapide pour réduire le stress en temps réel. Une double inspiration par le nez (pour regonfler les alvéoles pulmonaires) suivie d'une longue expiration par la bouche. Cela maximise l'évacuation du CO2 et active immédiatement le frein parasympathique du cœur. À utiliser dès qu'on sent le stress monter pour "casser" la réaction d'anxiété.
+### **R 8 - Le Soupir Libérateur**
+*(Gratuit - 1 min 20)*
+Le soupir est un réflexe physiologique puissant de décharge du système nerveux. Ce rituel utilise une respiration avec une expiration prolongée et audible pour agir comme une 'ventouse' qui évacue les charges énergétiques. Il active le nerf vague, vous faisant passer instantanément d'un état de stress à un état de détente.
 
 ### **R 9 - Réponse Vagale Dorsale**
 *(Premium - 3 min 15)*
@@ -220,3 +221,7 @@ La technique d'ancrage d'urgence par excellence pour les crises d'angoisse ou la
 ### **MR 14 - Ho'oponopono**
 *(Premium - 2 min)*
 Rituel hawaïen de pardon et de réconciliation. La répétition du mantra "Désolé, Pardon, Merci, Je t'aime" vise à nettoyer les mémoires inconscientes et les liens négatifs. C'est une pratique de responsabilité radicale et de libération. Elle permet d'apaiser les conflits relationnels (même à distance) et de retrouver la paix intérieure en dissolvant les rancœurs et les jugements.
+
+### **MR 15 - Clôture des Boucles Ouvertes**
+*(Premium - 2 min 30)*
+Rituel cognitivo-symbolique pour fermer les « boucles mentales » non résolues. En identifiant, nommant et effectuant un geste symbolique de fermeture pour une tâche ou un souci en suspens, on réduit l'effet Zeigarnik (la tension mentale liée à l'inachevé). Cela permet de libérer l'esprit pour le repos ou le sommeil.

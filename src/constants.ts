@@ -1,3 +1,4 @@
+
 import type { Ritual, Program, Badge, BadgeId } from './types.ts';
 
 export const SOUND_OPTIONS: Record<'bol' | 'diapason' | 'gong' | 'none', { url: string }> = {
@@ -77,7 +78,7 @@ export const PROGRAMS: Program[] = [
         durationDays: 7,
         description: 'program_anti_stress_7j_description',
         isPremium: false,
-        ritualIds: ['rit.soupir_physio_120', 'rit.equilibre_5_5', 'rit.body_scan_180', 'rit.scan_54321', 'rit.eft_mini', 'rit.automassage_cervical', 'rit.pluie_interieure'],
+        ritualIds: ['rit.soupir_liberateur', 'rit.equilibre_5_5', 'rit.body_scan_180', 'rit.scan_54321', 'rit.eft_mini', 'rit.automassage_cervical', 'rit.pluie_interieure'],
         details: { objective: 'program_anti_stress_7j_details_objective', mechanism: 'program_anti_stress_7j_details_mechanism', benefits: 'program_anti_stress_7j_details_benefits' }
     },
     {
@@ -1467,24 +1468,31 @@ export const RITUELS: Ritual[] = [
         },
     },
     {
-        id: 'rit.soupir_physio_120',
-        label: 'ritual_soupir_physio_120_label',
+        id: 'rit.soupir_liberateur',
+        label: 'ritual_soupir_liberateur_label',
         category: 'respiration',
-        playerType: 'respiration',
-        dureeSec: 120,
-        donut: 'on_custom_soupir',
-        haptique: { onPhaseChange: true },
-        tags: ['stress', 'anxiete', 'apaiser', 'respiration', 'calmer'],
+        playerType: 'phased-ritual',
+        dureeSec: 80,
+        donut: 'off',
+        haptique: {},
+        tags: ['stress', 'respiration', 'lacher-prise', 'détente'],
         isPremium: false,
+        data: {
+            phases: [
+                { type: 'texte', instruction: 'ritual_soupir_liberateur_phase_1', duration: 20 },
+                { type: 'texte', instruction: 'ritual_soupir_liberateur_phase_2', duration: 45 },
+                { type: 'texte', instruction: 'ritual_soupir_liberateur_phase_3', duration: 15 },
+            ]
+        },
         modal: {
-            titre: 'ritual_soupir_physio_120_modal_title',
+            titre: 'ritual_soupir_liberateur_modal_title',
             icon: '😮‍💨',
             sections: {
-                pourquoi: 'ritual_soupir_physio_120_modal_why',
-                comment: 'ritual_soupir_physio_120_modal_how',
-                conseils: 'ritual_soupir_physio_120_modal_tips',
-                enSavoirPlus: 'ritual_soupir_physio_120_modal_learn_more',
-                pourAllerPlusLoin: 'ritual_soupir_physio_120_modal_go_further'
+                pourquoi: 'ritual_soupir_liberateur_modal_why',
+                comment: 'ritual_soupir_liberateur_modal_how',
+                conseils: 'ritual_soupir_liberateur_modal_tips',
+                enSavoirPlus: 'ritual_soupir_liberateur_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_soupir_liberateur_modal_go_further'
             },
         },
     },
@@ -1968,6 +1976,37 @@ export const RITUELS: Ritual[] = [
                 conseils: 'ritual_hooponopono_modal_tips',
                 enSavoirPlus: 'ritual_hooponopono_modal_learn_more',
                 pourAllerPlusLoin: 'ritual_hooponopono_modal_go_further',
+            },
+        },
+    },
+    {
+        id: 'rit.cloture_boucles',
+        label: 'ritual_cloture_boucles_label',
+        category: 'micro-rituel',
+        playerType: 'phased-ritual',
+        dureeSec: 150,
+        donut: 'off',
+        haptique: {},
+        tags: ['charge-mentale', 'sommeil', 'lacher-prise', 'mindset'],
+        isPremium: true,
+        data: {
+            phases: [
+                { type: 'texte', instruction: 'ritual_cloture_boucles_phase_1', duration: 30 },
+                { type: 'texte', instruction: 'ritual_cloture_boucles_phase_2', duration: 30 },
+                { type: 'texte', instruction: 'ritual_cloture_boucles_phase_3', duration: 30 },
+                { type: 'texte', instruction: 'ritual_cloture_boucles_phase_4', duration: 30 },
+                { type: 'texte', instruction: 'ritual_cloture_boucles_phase_5', duration: 30 },
+            ]
+        },
+        modal: {
+            titre: 'ritual_cloture_boucles_modal_title',
+            icon: '🔒',
+            sections: {
+                pourquoi: 'ritual_cloture_boucles_modal_why',
+                comment: 'ritual_cloture_boucles_modal_how',
+                conseils: 'ritual_cloture_boucles_modal_tips',
+                enSavoirPlus: 'ritual_cloture_boucles_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_cloture_boucles_modal_go_further'
             },
         },
     },
