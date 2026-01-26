@@ -1479,10 +1479,15 @@ export const RITUELS: Ritual[] = [
         isPremium: false,
         data: {
             phases: [
-                { type: 'texte', instruction: 'ritual_soupir_liberateur_phase_1', duration: 20 },
-                { type: 'texte', instruction: 'ritual_soupir_liberateur_phase_2', duration: 45 },
-                { type: 'texte', instruction: 'ritual_soupir_liberateur_phase_3', duration: 15 },
+                { type: 'image', instruction: 'ritual_soupir_liberateur_phase_1', duration: 20, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/soupirLib1.png' },
+                { type: 'image', instruction: 'ritual_soupir_liberateur_phase_2', duration: 45, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/soupirLib2.png' },
+                { type: 'image', instruction: 'ritual_soupir_liberateur_phase_3', duration: 15, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/soupirLib3.png' },
             ]
+        },
+           audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/soupir_liberateur-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/soupir_liberateur-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/soupir_liberateur-es.wav',
         },
         modal: {
             titre: 'ritual_soupir_liberateur_modal_title',
@@ -1997,6 +2002,12 @@ export const RITUELS: Ritual[] = [
                 { type: 'texte', instruction: 'ritual_cloture_boucles_phase_4', duration: 30 },
                 { type: 'texte', instruction: 'ritual_cloture_boucles_phase_5', duration: 30 },
             ]
+        },
+        
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/cloture_boucles-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/cloture_boucles-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/cloture_boucles-es.wav',
         },
         modal: {
             titre: 'ritual_cloture_boucles_modal_title',

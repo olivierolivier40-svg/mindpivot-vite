@@ -1376,17 +1376,17 @@ const frTranslations: { [key: string]: string } = {
 
 "ritual_soupir_liberateur_modal_how": "Le rituel suit une logique corporelle simple, conçue pour amplifier un mécanisme naturel.\n\n1. Prise de Conscience : porte ton attention sur ton corps. Cela augmente la perception interne (interoception) et prépare le relâchement. Il ne s’agit pas d’analyser, mais de sentir.\n2. Les Trois Soupirs : inspire par le nez pour préparer l’expansion pulmonaire. La courte rétention stabilise le souffle. Expire lentement et audiblement par la bouche pour permettre une décharge mécanique du diaphragme et des tensions associées. Le son favorise le relâchement réflexe et engage tout le corps dans l’expiration.\n3. L’Accueil : laisse ta respiration reprendre son rythme naturel. Cette phase permet à ton système nerveux d’intégrer le changement et d’ancrer la sensation de relâchement.\nTrois cycles suffisent pour produire un apaisement perceptible, sans effort ni contrôle excessif.",
 
-"ritual_soupir_liberateur_modal_tips": "Utilise-le en sortie de réunion, après une interaction tendue, avant de rentrer chez toi ou dès que tu sens une montée de tension (gorge serrée, souffle court, épaules hautes). Ce rituel agit comme un micro-réglage de ton système nerveux. Plus tu le pratiques régulièrement, plus ton corps apprend à se réguler rapidement.",
+"ritual_soupir_liberateur_modal_tips": "Utilise-le en sortie de réunion, après une interaction tendue, avant de rentrer chez toi ou dès que tu sens une montée de tension (gorge serrée, souffle court, épaules hautes). \n\nCe rituel agit comme un micro-réglage de ton système nerveux. \n\nPlus tu le pratiques régulièrement, plus ton corps apprend à se réguler rapidement.",
 
 "ritual_soupir_liberateur_modal_learn_more": "Le soupir joue un rôle clé dans l’équilibre respiratoire et émotionnel. Ton cerveau l’utilise spontanément pour prévenir l’accumulation de tension physiologique et maintenir une respiration efficace. Lorsque tu le reproduis volontairement, ce mécanisme devient un outil somatique puissant : ton corps comprend qu’il peut relâcher sans danger. Cette sensation de sécurité corporelle est essentielle pour calmer durablement le mental. En régulant le souffle, tu agis directement sur le rythme cardiaque, le tonus vagal et la perception globale du stress. Le soupir te rappelle que ton corps sait naturellement comment se calmer, à condition de lui en laisser l’espace.",
 
 "ritual_soupir_liberateur_modal_go_further": "• <a href=\"https://www.cell.com/neuron/fulltext/S0896-6273(16)30609-1\" target=\"_blank\" rel=\"noopener noreferrer\">Neural control of sighing – Li et al., Neuron (2016)</a>\n• <a href=\"https://hubermanlab.com/how-to-control-your-stress-response/\" target=\"_blank\" rel=\"noopener noreferrer\">Physiological sigh & stress response – Huberman Lab</a>\n• <a href=\"https://www.psychologytoday.com/us/blog/body-sense/201003/the-psychology-sighing\" target=\"_blank\" rel=\"noopener noreferrer\">The Psychology of Sighing – Psychology Today</a>",
 
-"ritual_soupir_liberateur_phase_1": "Phase 1 : Prise de Conscience\n\nFerme les yeux, scanne ton corps et identifie une zone de tension.",
+"ritual_soupir_liberateur_phase_1": "Ferme les yeux, scanne ton corps et identifie une zone de tension.",
 
-"ritual_soupir_liberateur_phase_2": "Phase 2 : Les Trois Soupirs Porteurs\n\nInspire par le nez (4s), retiens (1s).\nExpire par la bouche avec un long soupir audible (8s).\nPause poumons vides (2s).\n\nVisualise la tension qui quitte ton corps à chaque soupir.",
+"ritual_soupir_liberateur_phase_2": "Inspire par le nez (4s), retiens (1s).\nExpire par la bouche avec un long soupir audible (8s). Ceci à 3 reprises",
 
-"ritual_soupir_liberateur_phase_3": "Phase 3 : L'Accueil\n\nLaisse ta respiration reprendre son cours naturel et ressens l'apaisement dans la zone que tu as libérée.",
+"ritual_soupir_liberateur_phase_3": "Laisse ta respiration reprendre son cours naturel et ressens l'apaisement dans la zone que tu as libérée.",
 
    "ritual_cloture_boucles_label": "Clôture des Boucles Ouvertes",
 "ritual_cloture_boucles_modal_title": "Clôture des Boucles Ouvertes",
@@ -1401,15 +1401,15 @@ const frTranslations: { [key: string]: string } = {
 
 "ritual_cloture_boucles_modal_go_further": "• <a href=\"https://fr.wikipedia.org/wiki/Effet_Zeigarnik\" target=\"_blank\" rel=\"noopener noreferrer\">Comprendre l’effet Zeigarnik</a>\n• <a href=\"https://contextualscience.org/act\" target=\"_blank\" rel=\"noopener noreferrer\">Acceptance and Commitment Therapy (ACT)</a>",
 
-"ritual_cloture_boucles_phase_1": "IDENTIFIER\n\nIdentifie mentalement une seule boucle ouverte (tâche, conflit, pensée en suspens).",
+"ritual_cloture_boucles_phase_1": "Identifie mentalement une seule boucle ouverte (tâche, conflit, pensée en suspens).",
 
-"ritual_cloture_boucles_phase_2": "NOMMER\n\nNomme-la clairement : « Ceci n’est pas à résoudre maintenant ».",
+"ritual_cloture_boucles_phase_2": "Nomme-la clairement et répète : \n\n« Ceci n’est pas à résoudre maintenant ».",
 
-"ritual_cloture_boucles_phase_3": "GESTE SYMBOLIQUE\n\nFerme ta main fermement, comme pour capturer la pensée ou la tâche.\nPose ensuite ta main sur ta cuisse et ouvre-la lentement pour la déposer.",
+"ritual_cloture_boucles_phase_3": "Ferme ta main fermement, comme pour capturer la pensée ou la tâche.\n\nPose ensuite ta main sur ta cuisse et ouvre-la lentement pour la regarder.",
 
-"ritual_cloture_boucles_phase_4": "VISUALISER\n\nVisualise la boucle se transformer en un point neutre, immobile, posé à côté de toi.",
+"ritual_cloture_boucles_phase_4": "Visualise la boucle se transformer en un point neutre, immobile, posé à côté de toi.",
 
-"ritual_cloture_boucles_phase_5": "RESPIRER\n\nRespire lentement et profondément.\nRessens la sensation de complétude et de relâchement qui s’installe."
+"ritual_cloture_boucles_phase_5": "Respire lentement et profondément 30 secondes.\n\nRessens la sensation de complétude et de relâchement qui s’installe."
 
 
   };
