@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import type { Ritual, BadgeId, SoundSettings } from '../types.ts';
 import { Button } from './Button.tsx';
 import { BADGES, SOUND_OPTIONS } from '../constants.ts';
 import { Card } from './Card.tsx';
 import { useI18n } from '../hooks/useI18n.tsx';
+import { SpeechMicButton } from './SpeechMicButton.tsx';
 
 interface CongratsAndJournalProps {
   ritual: Ritual;
@@ -35,6 +35,10 @@ export const CongratsAndJournal = ({ ritual, onDone, onRestart, newlyUnlockedBad
     }
   }, [soundSettings]);
 
+  const handleVoiceInput = (text: string) => {
+      setJournalText(prev => prev + (prev && !prev.endsWith(' ') ? ' ' : '') + text);
+  };
+
   const unlockedBadge = newlyUnlockedBadgeId ? BADGES[newlyUnlockedBadgeId] : null;
 
   return (
@@ -57,8 +61,11 @@ export const CongratsAndJournal = ({ ritual, onDone, onRestart, newlyUnlockedBad
             <p className="font-semibold mb-6">💧 <strong>{t('congrats_drink_water')}</strong></p>
 
 
-            <div className="mb-6">
-                <label htmlFor="journal" className="block text-sm font-medium text-muted mb-2">{t('congrats_journal_prompt_ia')}</label>
+            <div className="mb-6 relative">
+                <div className="flex justify-between items-center mb-2">
+                    <label htmlFor="journal" className="block text-sm font-medium text-muted text-left">{t('congrats_journal_prompt_ia')}</label>
+                    <SpeechMicButton onTranscript={handleVoiceInput} />
+                </div>
                 <textarea id="journal" value={journalText} onChange={e => setJournalText(e.target.value)} rows={4} placeholder={t('congrats_notes_placeholder')} className="w-full p-2 rounded-lg bg-white/10 border border-white/20 focus:ring-accent focus:border-accent" />
             </div>
 

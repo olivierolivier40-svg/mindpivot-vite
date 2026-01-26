@@ -1,5 +1,7 @@
 {
-  "name": "StopAndZen français 2501 début",
+  "name": "StopAndZen français 2601 5 avec micro mais pb feedback",
   "description": "",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "microphone"
+  ]
 }
