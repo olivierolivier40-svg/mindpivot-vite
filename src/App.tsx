@@ -23,6 +23,7 @@ import { ProgramCard } from './components/ProgramCard.tsx';
 import { HowItWorksPage } from './components/HowItWorksPage.tsx';
 import { FAQPage } from './components/FAQPage.tsx';
 import { SettingsPage } from './components/SettingsPage.tsx';
+import { SpeechMicButton } from './components/SpeechMicButton.tsx';
 
 // --- SVG Icons ---
 const HomeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>;
@@ -253,6 +254,7 @@ function App() {
   const handleDeleteSession = (sessionId: string) => { if (window.confirm(t('journal_delete_confirm'))) { setSessions(prevSessions => { const updatedSessions = prevSessions.filter(s => s.id !== sessionId); localStorage.setItem('StopAndZenSessions', JSON.stringify(updatedSessions)); return updatedSessions; }); } };
   const handleEditSession = (session: Session) => { setEditingSession(session); setEditingText(session.journal || ""); };
   const handleSaveEdit = () => { if(!editingSession) return; setSessions(prevSessions => { const updatedSessions = prevSessions.map(s => s.id === editingSession.id ? { ...s, journal: editingText } : s); localStorage.setItem('StopAndZenSessions', JSON.stringify(updatedSessions)); return updatedSessions; }); setEditingSession(null); setEditingText(""); };
+  const handleEditVoiceInput = (text: string) => { setEditingText(prev => prev + (prev && !prev.endsWith(' ') ? ' ' : '') + text); };
 
   const handleRequestJournalFeedback = async (session: Session) => {
     if (!session.journal) return;
@@ -629,9 +631,27 @@ function App() {
 </button>
                              <div className="flex gap-1"><Button size="small" variant="ghost" onClick={() => handleEditSession(session)}>{t('journal_edit')}</Button><Button size="small" variant="ghost" className="text-bad" onClick={() => handleDeleteSession(session.id)}>{t('journal_delete')}</Button></div>
                             </div>
+                            <p className="text-xs text-muted mb-2">
+    {new Date(session.timestamp).toLocaleDateString('fr', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+</p>
                             {session.journal ? <p className="text-sm mt-2 whitespace-pre-wrap">{session.journal}</p> : <p className="text-sm mt-2 text-muted italic">{t('journal_no_notes')}</p>}
                             {session.iaFeedback && <div className="mt-3 pt-3 border-t border-white/20 text-sm text-accent-info flex gap-2"><span className="font-bold">{t('journal_ia_coach_feedback_label')}</span><p className="italic">{session.iaFeedback}</p></div>}
-                            {session.journal && !session.iaFeedback && isPremiumUser && <div className="mt-3"><Button size="small" variant="info" onClick={() => handleRequestJournalFeedback(session)} disabled={isLoadingJournalFeedbackForSession === session.id}>{isLoadingJournalFeedbackForSession === session.id ? t('journal_ia_coach_loading') : t('journal_ia_coach_button')}</Button></div>}
+                            {session.journal && !session.iaFeedback && (
+    <div className="mt-3">
+        <Button 
+            size="small" 
+            variant="info" 
+            onClick={() => handleRequestJournalFeedback(session)} 
+            disabled={isLoadingJournalFeedbackForSession === session.id}
+        >
+            {isLoadingJournalFeedbackForSession === session.id 
+                ? t('journal_ia_coach_loading') 
+                : (isPremiumUser ? t('journal_ia_coach_button') : `🔒 ${t('journal_ia_coach_button')}`)
+            }
+        </Button>
+    </div>
+)}
+                            
                           </Card>
                         )
                       })}
@@ -689,7 +709,14 @@ function App() {
       {helpInfo && HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT] && <Modal show={!!helpInfo} title={t(HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT].title)} onClose={() => setHelpInfo(null)}><p>{t(HELP_CONTENT[helpInfo as keyof typeof HELP_CONTENT].text)}</p></Modal>}
       <Modal show={showInstallModal} title={t('settings_install_title')} onClose={() => setShowInstallModal(false)}>{isIOS && <p dangerouslySetInnerHTML={{ __html: t('settings_install_ios')}} />}{isAndroid && <p dangerouslySetInnerHTML={{ __html: t('settings_install_android')}} />}</Modal>
       <Modal show={showShareModal} title={t('settings_share_title')} onClose={() => setShowShareModal(false)}><p>{t('settings_share_text')}</p><input type="text" readOnly value={window.location.href} className="w-full p-2 mt-2 rounded-lg bg-white/10 border border-white/20"/></Modal>
-      {editingSession && (<Modal show={!!editingSession} title={t('journal_edit_session_title', { date: new Date(editingSession.timestamp).toLocaleDateString() })} onClose={() => setEditingSession(null)}><textarea value={editingText} onChange={e => setEditingText(e.target.value)} rows={5} className="w-full p-2 rounded-lg bg-white/10 border border-white/20 focus:ring-accent focus:border-accent" /><div className="flex justify-end gap-2 mt-4"><Button variant="primary" onClick={handleSaveEdit}>{t('journal_save')}</Button><Button variant="secondary" onClick={() => setEditingSession(null)}>{t('journal_cancel')}</Button></div></Modal>)}
+      {editingSession && (<Modal show={!!editingSession} title={t('journal_edit_session_title', { date: new Date(editingSession.timestamp).toLocaleDateString() })} onClose={() => setEditingSession(null)}>
+        <div className="relative mb-4">
+            <div className="flex justify-end mb-2">
+                <SpeechMicButton onTranscript={handleEditVoiceInput} />
+            </div>
+            <textarea value={editingText} onChange={e => setEditingText(e.target.value)} rows={5} className="w-full p-2 rounded-lg bg-white/10 border border-white/20 focus:ring-accent focus:border-accent" />
+        </div>
+        <div className="flex justify-end gap-2 mt-4"><Button variant="primary" onClick={handleSaveEdit}>{t('journal_save')}</Button><Button variant="secondary" onClick={() => setEditingSession(null)}>{t('journal_cancel')}</Button></div></Modal>)}
       <PremiumModal show={showPremiumModal} onClose={() => setShowPremiumModal(false)} onUpgrade={() => { setIsPremiumUser(true); setShowPremiumModal(false); }} />
     </div>
   );
