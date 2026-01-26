@@ -1409,7 +1409,9 @@ const frTranslations: { [key: string]: string } = {
 
 "ritual_cloture_boucles_phase_4": "Visualise la boucle se transformer en un point neutre, immobile, posé à côté de toi.",
 
-"ritual_cloture_boucles_phase_5": "Respire lentement et profondément 30 secondes.\n\nRessens la sensation de complétude et de relâchement qui s’installe."
+"ritual_cloture_boucles_phase_5": "Respire lentement et profondément 30 secondes.\n\nRessens la sensation de complétude et de relâchement qui s’installe.",
+
+"journal_restart_ritual_tooltip": "Clique pour recommencer ce rituel"
 
 
   };

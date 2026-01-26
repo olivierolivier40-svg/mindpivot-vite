@@ -619,8 +619,15 @@ function App() {
                         return (
                           <Card key={session.id}>
                             <div className="flex justify-between items-start">
-                              <div><h3 className="font-bold">{t(ritual.label)}</h3><p className="text-xs text-muted">{new Date(session.timestamp).toLocaleString('fr', { dateStyle: 'long', timeStyle: 'short' })}</p></div>
-                              <div className="flex gap-1"><Button size="small" variant="ghost" onClick={() => handleEditSession(session)}>{t('journal_edit')}</Button><Button size="small" variant="ghost" className="text-bad" onClick={() => handleDeleteSession(session.id)}>{t('journal_delete')}</Button></div>
+<button 
+    onClick={() => handleStartRitual(ritual.id, 'journal')} 
+    className="font-bold text-lg text-left hover:text-accent transition-colors flex items-center gap-2 group focus:outline-none"
+    title={t('journal_restart_ritual_tooltip')}
+>
+    {t(ritual.label)}
+    <span className="text-sm opacity-30 group-hover:opacity-100 transition-opacity transform group-hover:rotate-180 duration-500">↻</span>
+</button>
+                             <div className="flex gap-1"><Button size="small" variant="ghost" onClick={() => handleEditSession(session)}>{t('journal_edit')}</Button><Button size="small" variant="ghost" className="text-bad" onClick={() => handleDeleteSession(session.id)}>{t('journal_delete')}</Button></div>
                             </div>
                             {session.journal ? <p className="text-sm mt-2 whitespace-pre-wrap">{session.journal}</p> : <p className="text-sm mt-2 text-muted italic">{t('journal_no_notes')}</p>}
                             {session.iaFeedback && <div className="mt-3 pt-3 border-t border-white/20 text-sm text-accent-info flex gap-2"><span className="font-bold">{t('journal_ia_coach_feedback_label')}</span><p className="italic">{session.iaFeedback}</p></div>}
