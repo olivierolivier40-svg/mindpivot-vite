@@ -1207,6 +1207,11 @@ export const RITUELS: Ritual[] = [
             },
           ],
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_vagale_ventrale-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_vagale_ventrale-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/activation_vagale_ventrale-es.wav',
+        },
         modal: {
           titre: 'ritual_vagale_ventral_modal_title',
           icon: '🐬',
@@ -1454,6 +1459,11 @@ export const RITUELS: Ritual[] = [
             { type: 'image', name: 'ritual_souffle_dragon_phase_2_name', instruction: 'ritual_souffle_dragon_phase_2_instruction', duration: 30, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/dragon2.png' },
             { type: 'texte', name: 'ritual_souffle_dragon_phase_3_name', instruction: 'ritual_souffle_dragon_phase_3_instruction', duration: 15 },
           ]
+        },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/souffle_dragon-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/souffle_dragon-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/souffle_dragon-es.wav',
         },
         modal: {
           titre: 'ritual_souffle_dragon_modal_title',
