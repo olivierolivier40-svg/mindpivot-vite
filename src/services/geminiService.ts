@@ -6,7 +6,7 @@ export async function generateGeminiText(prompt: string): Promise<string> {
     const apiKey = process.env.API_KEY;
     
     if (!apiKey) {
-        console.error("Clé API Gemini non trouvée dans l'environnement.");
+        console.error("Clé API Gemini non trouvée dans l'environnement (generateGeminiText).");
         return "Erreur de configuration : Clé API manquante. Impossible de contacter le coach.";
     }
 
@@ -20,7 +20,7 @@ export async function generateGeminiText(prompt: string): Promise<string> {
     return response.text || "Je n'ai pas pu générer de réponse, réessaie plus tard.";
 
   } catch (error) {
-    console.error("Erreur lors de l'appel à Gemini:", error);
+    console.error("Erreur lors de l'appel à Gemini (generateGeminiText):", error);
     return "Désolé, une erreur est survenue lors de la communication avec l'IA. Vérifie ta connexion et réessaie.";
   }
 }
@@ -32,7 +32,11 @@ export async function generateSazyChat(
 ): Promise<string> {
     try {
         const apiKey = process.env.API_KEY;
-        if (!apiKey) throw new Error("API Key missing");
+        // Debug log pour vérifier si la clé est présente (ne pas logger la clé elle-même en prod)
+        if (!apiKey) {
+            console.error("SAZY ERROR: API Key missing in process.env.API_KEY");
+            throw new Error("API Key missing");
+        }
 
         const ai = new GoogleGenAI({ apiKey });
         
@@ -45,7 +49,6 @@ export async function generateSazyChat(
         // Inject dynamic context into the last user message if present
         if (userContext && contents.length > 0 && contents[contents.length - 1].role === 'user') {
             const lastMsg = contents[contents.length - 1];
-            // We prepend context to the user's message but keep it hidden/system-like
             lastMsg.parts[0].text = `[Info Système - Contexte Utilisateur Caché : ${userContext}]\n\n${lastMsg.parts[0].text}`;
         }
 
@@ -58,10 +61,20 @@ export async function generateSazyChat(
             }
         });
 
-        return response.text || "Je suis là, mais je n'ai pas trouvé les mots. Peux-tu répéter ?";
+        if (!response || !response.text) {
+            console.error("SAZY ERROR: Empty response from Gemini");
+            throw new Error("Empty response");
+        }
 
-    } catch (error) {
-        console.error("Erreur Sazy Chat:", error);
-        return "Désolé, j'ai eu un petit vertige numérique. On reprend ?";
+        return response.text;
+
+    } catch (error: any) {
+        console.error("--------------------------------");
+        console.error("SAZY FATAL ERROR DETAILS:");
+        console.error("Message:", error.message);
+        console.error("Stack:", error.stack);
+        if (error.response) console.error("Response data:", error.response);
+        console.error("--------------------------------");
+        return "Désolé, j'ai eu un petit vertige numérique (Erreur API). Vérifie la console pour les détails techniques.";
     }
 }
