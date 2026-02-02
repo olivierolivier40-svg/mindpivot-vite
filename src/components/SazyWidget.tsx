@@ -19,11 +19,11 @@ export const SazyWidget = ({ onClick }: SazyWidgetProps) => {
     return (
         <div 
             className="fixed bottom-0 left-1/2 -translate-x-1/2 z-0 w-full max-w-sm flex justify-center pointer-events-none"
-            style={{ height: '160px' }}
+            style={{ height: '220px' }}
         >
             {/* Bulle de dialogue */}
             <div 
-                className={`absolute top-4 pointer-events-auto transition-all duration-500 ease-out transform ${
+                className={`absolute top-0 pointer-events-auto transition-all duration-500 ease-out transform ${
                     isHovered || isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90'
                 }`}
                 style={{ zIndex: 10 }}
@@ -37,23 +37,23 @@ export const SazyWidget = ({ onClick }: SazyWidgetProps) => {
                 </button>
             </div>
 
-            {/* Avatar Sazy CSS (Ne dépend pas d'une image externe) */}
+            {/* Avatar Sazy CSS */}
             <div 
-                className={`absolute bottom-[-20px] transition-transform duration-700 ease-in-out cursor-pointer pointer-events-auto group ${
-                    isVisible ? 'translate-y-0' : 'translate-y-[120%]'
-                } hover:translate-y-[-10px]`}
+                className={`absolute bottom-6 transition-transform duration-700 ease-in-out cursor-pointer pointer-events-auto group ${
+                    isVisible ? 'translate-y-0' : 'translate-y-[150%]'
+                } hover:-translate-y-2`}
                 onClick={onClick}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <div className="relative w-32 h-32">
+                <div className="relative w-28 h-28">
                     {/* Halo lumineux */}
                     <div className="absolute inset-0 bg-indigo-500/30 blur-2xl rounded-full animate-pulse"></div>
                     
                     {/* Cercle principal */}
-                    <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 p-1 shadow-xl overflow-hidden border-4 border-white/20">
+                    <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 p-1 shadow-xl overflow-hidden border-4 border-white/20 ring-1 ring-white/10">
                         <div className="w-full h-full bg-indigo-950/20 backdrop-blur-sm flex items-center justify-center rounded-full">
-                            <span className="text-6xl filter drop-shadow-lg transform transition-transform group-hover:scale-110 duration-300">🌸</span>
+                            <span className="text-5xl filter drop-shadow-lg transform transition-transform group-hover:scale-110 duration-300">🌸</span>
                         </div>
                         
                         {/* Reflet brillant */}
