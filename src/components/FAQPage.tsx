@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { Button } from './Button.tsx';
@@ -19,6 +20,7 @@ export const FAQPage = ({ onNavigate }: FAQPageProps) => {
   
   const categories = [
     { id: 'all', labelKey: 'faq_category_all', icon: '🌟' },
+    { id: 'sazy', labelKey: 'faq_category_sazy', icon: '👱‍♀️' },
     { id: 'usage', labelKey: 'faq_category_usage', icon: '🎯' },
     { id: 'science', labelKey: 'faq_category_science', icon: '🧬' },
     { id: 'premium', labelKey: 'faq_category_premium', icon: '✨' },
@@ -26,6 +28,9 @@ export const FAQPage = ({ onNavigate }: FAQPageProps) => {
   ];
 
   const faqs = [
+    { id: 'sazy-who', category: 'sazy', qKey: 'faq_q_sazy_who', aKey: 'faq_a_sazy_who' },
+    { id: 'sazy-modes', category: 'sazy', qKey: 'faq_q_sazy_modes', aKey: 'faq_a_sazy_modes' },
+    { id: 'sazy-privacy', category: 'sazy', qKey: 'faq_q_sazy_privacy', aKey: 'faq_a_sazy_privacy' },
     { id: 'science-base', category: 'science', qKey: 'faq_q_science_base', aKey: 'faq_a_science_base' },
     { id: 'confidentiality', category: 'tech', qKey: 'faq_q_confidentiality', aKey: 'faq_a_confidentiality' },
     { id: 'frequency', category: 'usage', qKey: 'faq_q_frequency', aKey: 'faq_a_frequency' },

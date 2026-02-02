@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useI18n } from '../hooks/useI18n.tsx';
 import { Button } from './Button.tsx';
@@ -28,6 +29,7 @@ export const HowItWorksPage = ({ onNavigate }: HowItWorksPageProps) => {
         <div className="flex flex-col items-center gap-3 mb-8">
           {[
             { id: 'process', label: 'howitworks_tab_process', icon: '🔄' },
+            { id: 'sazy', label: 'howitworks_tab_sazy', icon: '👱‍♀️' },
             { id: 'science', label: 'howitworks_tab_science', icon: '🧬' },
             { id: 'tips', label: 'howitworks_tab_tips', icon: '💡' }
           ].map(tab => (
@@ -90,6 +92,42 @@ export const HowItWorksPage = ({ onNavigate }: HowItWorksPageProps) => {
                 <div className="text-3xl mb-2">✨</div>
                 <h3 className="text-lg font-semibold mb-2">{t('howitworks_process_bonus2_title')}</h3>
                 <p className="text-sm text-muted">{t('howitworks_process_bonus2_desc')}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'sazy' && (
+          <div className="space-y-8 animate-fade-in">
+            <div className="bg-card rounded-2xl p-6 sm:p-8 border border-white/10 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-10 text-9xl">👱‍♀️</div>
+              <h2 className="text-2xl font-bold mb-4 text-accent">
+                {t('howitworks_sazy_title')}
+              </h2>
+              <p className="text-lg text-muted mb-8 max-w-xl">
+                {t('howitworks_sazy_intro')}
+              </p>
+              
+              <div className="space-y-6 relative z-10">
+                {[
+                  { icon: '🧠', title: 'howitworks_sazy_step1_title', desc: 'howitworks_sazy_step1_desc' },
+                  { icon: '🔗', title: 'howitworks_sazy_step2_title', desc: 'howitworks_sazy_step2_desc' },
+                  { icon: '🌙', title: 'howitworks_sazy_step3_title', desc: 'howitworks_sazy_step3_desc' }
+                ].map(step => (
+                  <div key={step.title} className="bg-white/5 rounded-xl p-6 border border-white/5 hover:border-accent/30 transition-colors">
+                    <div className="flex items-start gap-4">
+                      <div className="text-4xl">{step.icon}</div>
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2 text-fg">
+                          {t(step.title)}
+                        </h3>
+                        <p className="text-muted leading-relaxed">
+                          {t(step.desc)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

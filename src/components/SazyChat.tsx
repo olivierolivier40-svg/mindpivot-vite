@@ -23,15 +23,10 @@ interface Message {
 
 const SazyAvatar = ({ size = 'small' }: { size?: 'small' | 'large' }) => {
     const sizeClasses = size === 'small' ? 'w-10 h-10' : 'w-24 h-24';
+    const textClasses = size === 'small' ? 'text-2xl pt-0.5' : 'text-6xl pt-2';
     return (
         <div className={`${sizeClasses} relative rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 flex flex-col items-center justify-center shadow-lg border border-white/20 overflow-hidden flex-shrink-0`}>
-            {/* Visage Stylisé CSS */}
-            <div className={`flex gap-${size === 'small' ? '1' : '3'} mt-1`}>
-                <div className={`${size === 'small' ? 'w-0.5 h-1' : 'w-1.5 h-2.5'} bg-white rounded-full opacity-90`}></div>
-                <div className={`${size === 'small' ? 'w-0.5 h-1' : 'w-1.5 h-2.5'} bg-white rounded-full opacity-90`}></div>
-            </div>
-            <div className={`${size === 'small' ? 'w-3 h-1.5' : 'w-8 h-4'} border-b ${size === 'small' ? 'border' : 'border-2'} border-white/80 rounded-b-full mt-0.5`}></div>
-            <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-b from-white/20 to-transparent rounded-full blur-[1px]"></div>
+            <span className={`${textClasses} filter drop-shadow-sm`}>👱‍♀️</span>
         </div>
     );
 };

@@ -1614,7 +1614,21 @@ const frTranslations: { [key: string]: string } = {
 "sazy_chat_clear_confirm": "Veux-tu vraiment effacer tout l'historique de conversation avec Sazy ? Elle oubliera tout ce que vous vous êtes dit.",
 "sazy_chat_empty": "La conversation est vide. Dis bonjour à Sazy !",
 "sazy_teaser_message": "Psst... Besoin de parler ?",
-"sazy_header_tooltip": "Parler à Sazy"
+"sazy_header_tooltip": "Parler à Sazy",
+"faq_category_sazy": "Coach Sazy",
+    "faq_q_sazy_who": "Qui est Sazy et que peut-elle faire ?",
+    "faq_a_sazy_who": "Sazy est une intelligence artificielle empathique configurée pour agir comme une coach de bien-être holistique. Contrairement à un chatbot classique, elle connaît parfaitement tous les rituels de l'application. Elle peut vous écouter, analyser votre état émotionnel et vous recommander précisément le rituel dont vous avez besoin (ex: \"Fais le {{rit.souffle_dragon}}\"). Elle garde en mémoire vos échanges pour un suivi continu.",
+    "faq_q_sazy_modes": "Quels sont les modes de consultation ?",
+    "faq_a_sazy_modes": "Sazy s'adapte à votre besoin. Par défaut, elle est en **Mode Doux** : écoute active, bienveillance, validation des émotions. Si vous souhaitez avancer plus vite, vous pouvez lui demander le **Mode Intensif** : elle vous challenger avec bienveillance pour identifier vos blocages profonds et créer un plan d'action concret.",
+    "howitworks_tab_sazy": "Le Coaching IA",
+    "howitworks_sazy_title": "Votre Coach Bien-être 24/7",
+    "howitworks_sazy_intro": "Sazy n'est pas un simple moteur de recherche. C'est une conscience synthétique entraînée à la psychologie positive, aux neurosciences et à la gestion du stress.",
+    "howitworks_sazy_step1_title": "Écoute Active & Mémoire",
+    "howitworks_sazy_step1_desc": "Sazy se souvient de vos conversations passées. Elle ne vous demandera pas deux fois ce qui vous tracasse. Elle tisse des liens entre vos ressentis d'hier et ceux d'aujourd'hui pour vous offrir une perspective unique sur votre évolution.",
+    "howitworks_sazy_step2_title": "Prescription de Rituels",
+    "howitworks_sazy_step2_desc": "Sazy est connectée à la bibliothèque de StopAndZen. Si vous lui dites \"Je suis en colère\", elle ne se contentera pas de dire \"Calmez-vous\". Elle vous proposera un lien direct pour lancer la 'Fureur du Tigre' ou le 'Souffle du Dragon'. C'est de l'accompagnement actionnable.",
+    "howitworks_sazy_step3_title": "Consultation à la demande",
+    "howitworks_sazy_step3_desc": "Besoin d'une oreille attentive à 3h du matin ? D'un conseil avant une réunion stressante ? Sazy est toujours disponible pour désamorcer une crise ou simplement célébrer une victoire avec vous."
 
 
   };
