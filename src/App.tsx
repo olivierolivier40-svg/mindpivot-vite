@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { RITUELS, SOUND_OPTIONS, PROGRAMS, BADGES, BADGE_CATEGORIES, LABELS, HELP_CONTENT } from './constants.ts';
 import type { Ritual, Session, Badge, BadgeId, SoundSettings, ActiveProgram, CompletedProgram } from './types.ts';
@@ -24,6 +25,8 @@ import { HowItWorksPage } from './components/HowItWorksPage.tsx';
 import { FAQPage } from './components/FAQPage.tsx';
 import { SettingsPage } from './components/SettingsPage.tsx';
 import { SpeechMicButton } from './components/SpeechMicButton.tsx';
+import { SazyWidget } from './components/SazyWidget.tsx';
+import { SazyChat } from './components/SazyChat.tsx';
 
 // --- SVG Icons ---
 const HomeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>;
@@ -37,6 +40,11 @@ const SettingsIcon = () => (
   </svg>
 );
 const ShareIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>;
+const SazyIcon = () => (
+    <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20">
+        <img src="https://magnetiseur-dax.fr/webapp/Aura/Sazy-home.png" alt="Sazy" className="w-full h-full object-cover object-top bg-indigo-900" />
+    </div>
+);
 
 const themes = ['dark', 'light', 'aurora', 'dyslexia-tdah'];
 type Theme = 'dark' | 'light' | 'aurora' | 'dyslexia-tdah';
@@ -247,7 +255,7 @@ function App() {
               }
           }
       }
-      if (['all', 'program', 'random'].includes(ritualEntryPoint)) navigateTo('welcome');
+      if (['all', 'program', 'random', 'sazy'].includes(ritualEntryPoint)) navigateTo('welcome');
       else navigateTo('suggestions');
   };
 
@@ -284,6 +292,7 @@ function App() {
               localStorage.removeItem('StopAndZenSessions'); localStorage.removeItem('StopAndZenBadges'); localStorage.removeItem('StopAndZenFavorites');
               localStorage.removeItem('StopAndZenTheme'); localStorage.removeItem('StopAndZenOnboarded'); localStorage.removeItem('StopAndZenPremium');
               localStorage.removeItem('StopAndZenActiveProgram'); localStorage.removeItem('StopAndZenCompletedPrograms'); localStorage.removeItem('StopAndZenRitualFlags');
+              localStorage.removeItem('StopAndZenSazyHistory');
               setSessions([]); setUnlockedBadges({}); setFavoriteRituals(new Set()); setRitualFlags({}); setTheme('dark'); setIsPremiumUser(false);
               setActiveProgram(null); setCompletedPrograms([]); navigateTo('welcome'); alert(t('settings_clear_data_success'));
           } catch (e) { console.error("Failed to clear data:", e); alert(t('settings_clear_data_error')); }
@@ -292,6 +301,7 @@ function App() {
 
   const goBack = () => {
     if(currentScreen === 'player') navigateTo(lastScreen);
+    else if(currentScreen === 'sazy') navigateTo('welcome');
     else if(['all', 'stats', 'journal', 'parcours', 'programs', 'profile', 'howitworks', 'faq', 'settings'].includes(currentScreen)) { resetAndGoHome(); }
     else if (currentScreen === 'suggestions') navigateTo('checkin_pensees');
     else if (currentScreen === 'checkin_pensees') navigateTo('checkin_emotions');
@@ -443,7 +453,7 @@ function App() {
                   </div>
                 </Card>
               )}
-              <div className="w-full mt-4">
+              <div className="w-full mt-4 pb-48">
                 <h2 className="text-3xl font-bold" dangerouslySetInnerHTML={{ __html: t('welcome_title') }} />
                 <p className="text-muted mt-2 mb-8 text-lg">{t('welcome_subtitle')}</p>
                 <div className="w-full h-px bg-white/10 my-8"></div>
@@ -453,8 +463,25 @@ function App() {
                   <Button onClick={handleRandomRitual} variant="secondary" className="w-full !text-white !bg-[var(--color-accent-tertiary)] !border-[var(--color-accent-tertiary)] hover:!bg-opacity-80 group">{textPart} <span className="inline-block animate-roll-dice">{emojiPart}</span></Button>
                 </div>
               </div>
+              <SazyWidget onClick={() => {
+                  if (isPremiumUser) {
+                      navigateTo('sazy');
+                  } else {
+                      setShowPremiumModal(true);
+                  }
+              }} />
             </div>
           );
+        case 'sazy':
+            const checkinSummary = { energie, humeur, chargeMentale, tensionCorporelle, fatiguePhysique, agitation, joie, tristesse, colere, peur, sensibilite, clarteMentale, rumination, orientationTemporelle, qualitePensees, vitesseMentale, sentimentControle };
+            return (
+                <SazyChat 
+                    onBack={() => navigateTo('welcome')} 
+                    checkinData={checkinSummary} 
+                    sessions={sessions}
+                    onStartRitual={(id) => handleStartRitual(id, 'sazy')}
+                />
+            );
         case 'checkin_rapide': return <CheckinPage {...{ energie, setEnergie, humeur, setHumeur, chargeMentale, setChargeMentale, onNavigate: navigateTo, onBack: resetAndGoHome, onHelp: setHelpInfo }} />;
         case 'checkin_general':
           return (
@@ -692,15 +719,27 @@ function App() {
   return (
     <div className="min-h-screen text-fg font-sans">
       <div className="container mx-auto max-w-lg p-4 pb-24 relative">
-        {currentScreen !== 'player' && !showOnboarding && (
+        {currentScreen !== 'player' && currentScreen !== 'sazy' && !showOnboarding && (
             <header className="flex justify-between items-start mb-6">
                 <div><button onClick={resetAndGoHome} className="text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent rounded"><h1 className="text-2xl font-bold">StopAndZen 🔥 <span title={t('tooltip_daily_rituals')}>{dailySessionCount}</span></h1></button><p className="text-sm text-muted">{t('header_subtitle')}</p></div>
-                <div className="flex flex-col items-end gap-2"><Button onClick={() => navigateTo('all')} size="small" className="btn-gradient-cta">{t('all_rituals_button')}</Button><div className="flex items-center"><Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('howitworks')} aria-label={t('settings_how_it_works')}><span className="font-bold text-xl leading-none">?</span></Button><Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('settings')} aria-label={t('settings_title')}><SettingsIcon /></Button><Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={handleShare} aria-label={t('settings_share_title')}><ShareIcon /></Button></div></div>
+                <div className="flex flex-col items-end gap-2">
+                    <Button onClick={() => navigateTo('all')} size="small" className="btn-gradient-cta">{t('all_rituals_button')}</Button>
+                    <div className="flex items-center">
+                        <Button variant="ghost" size="small" className="!p-0 w-8 h-8 mr-1" onClick={() => { if(isPremiumUser) navigateTo('sazy'); else setShowPremiumModal(true); }} aria-label={t('sazy_header_tooltip')}>
+                            <SazyIcon />
+                        </Button>
+                        <Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('howitworks')} aria-label={t('settings_how_it_works')}><span className="font-bold text-xl leading-none">?</span></Button>
+                        <Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={() => navigateTo('settings')} aria-label={t('settings_title')}><SettingsIcon /></Button>
+                        <Button variant="ghost" size="small" className="!p-0 w-8 h-8" onClick={handleShare} aria-label={t('settings_share_title')}><ShareIcon /></Button>
+                    </div>
+                </div>
             </header>
         )}
         {renderScreen()}
       </div>
-      {currentScreen !== 'player' && !showOnboarding && (<footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-white/10 flex justify-around"><FooterButton icon={<HomeIcon/>} label={t('nav_home')} onClick={() => navigateTo('welcome')} isActive={currentScreen === 'welcome'} /><FooterButton icon={<JourneyIcon/>} label={t('nav_journey')} onClick={() => navigateTo('parcours')} isActive={['parcours', 'programs'].includes(currentScreen)} hasNotification={hasUnseenBadge} /><FooterButton icon={<JournalIcon/>} label={t('nav_journal')} onClick={() => navigateTo('journal')} isActive={currentScreen === 'journal'} /><FooterButton icon={<StatsIcon/>} label={t('nav_stats')} onClick={() => navigateTo('stats')} isActive={currentScreen === 'stats'} /><FooterButton icon={<ProfileIcon/>} label={t('nav_profile')} onClick={() => navigateTo('profile')} isActive={currentScreen === 'profile'} /></footer>)}
+      {currentScreen !== 'player' && currentScreen !== 'sazy' && !showOnboarding && (<footer className="fixed bottom-0 left-0 right-0 bg-card border-t border-white/10 flex justify-around"><FooterButton icon={<HomeIcon/>} label={t('nav_home')} onClick={() => navigateTo('welcome')} isActive={currentScreen === 'welcome'} /><FooterButton icon={<JourneyIcon/>} label={t('nav_journey')} onClick={() => navigateTo('parcours')} isActive={['parcours', 'programs'].includes(currentScreen)} hasNotification={hasUnseenBadge} /><FooterButton icon={<JournalIcon/>} label={t('nav_journal')} onClick={() => navigateTo('journal')} isActive={currentScreen === 'journal'} /><FooterButton icon={<StatsIcon/>} label={t('nav_stats')} onClick={() => navigateTo('stats')} isActive={currentScreen === 'stats'} /><FooterButton icon={<ProfileIcon/>} label={t('nav_profile')} onClick={() => navigateTo('profile')} isActive={currentScreen === 'profile'} /></footer>)}
+      
+      {/* Existing Modals */}
       {infoRitualData && <Modal show={!!infoRitualData} title={`${infoRitualData.modal.icon} ${t(infoRitualData.modal.titre)} (${Math.floor(infoRitualData.dureeSec / 60)}:${('0' + (infoRitualData.dureeSec % 60)).slice(-2)} ${t('unit_min')})`} onClose={closeInfoModal}>
           <div className="space-y-4 max-h-[60vh] overflow-y-auto"><div><h4 className="font-bold text-accent">{t('why')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.pourquoi).replace(/\n/g, '<br />') }}></p></div><div><h4 className="font-bold text-accent">{t('how')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.comment).replace(/\n/g, '<br />') }}></p></div><div><h4 className="font-bold text-accent">{t('tips')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.conseils).replace(/\n/g, '<br />') }}></p></div>{infoRitualData.modal.sections.enSavoirPlus && (<div><h4 className="font-bold text-accent">{t('learn_more')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.enSavoirPlus).replace(/\n/g, '<br />') }}></p></div>)}{infoRitualData.modal.sections.pourAllerPlusLoin && (<div><h4 className="font-bold text-accent">{t('go_further')}</h4><p className="text-muted whitespace-pre-line" dangerouslySetInnerHTML={{ __html: t(infoRitualData.modal.sections.pourAllerPlusLoin).replace(/\n/g, '<br />') }}></p></div>)}<div className="pt-4 flex justify-end gap-2">{currentScreen !== 'player' && (<Button variant="primary" onClick={() => { closeInfoModal(); handleStartRitual(infoRitualData.id, 'all'); }}>{t('start')}</Button>)}<Button variant="info" onClick={closeInfoModal}>{t('close')}</Button></div></div>
       </Modal>}

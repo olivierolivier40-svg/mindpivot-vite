@@ -1,7 +1,7 @@
+
 import { useCallback } from 'react';
 
-// The full content of locales/fr.json is now embedded here.
-// This is the single source of truth for all French translations.
+// The full content of locales/fr.json is embedded here.
 const frTranslations: { [key: string]: string } = {
     "close": "Fermer",
     "start": "Démarrer",
@@ -172,10 +172,10 @@ const frTranslations: { [key: string]: string } = {
     "player_nadi_finger_position_title": "Position des doigts (Nasagra Mudra)",
     "player_nadi_finger_position_desc": "Utilise ton pouce pour boucher une narine et ton annulaire pour boucher l'autre. L'index et le majeur peuvent être posés entre les sourcils.",
     "player_couleur_choose_color": "Choisis une couleur et clique sur démarrer pour te connecter à cette couleur",
-    "player_sagesse_phase_1": "Médite sur cette citation :",
-    "player_sagesse_phase_2": "Comment résonne-t-elle en toi ?",
-    "player_sagesse_phase_3": "Quelle action peux-tu poser aujourd'hui inspirée par cette sagesse ?",
-    "player_sagesse_phase_4": "Intègre cette pensée.",
+    "player_sagesse_phase_1": "Médite sur cette citation, laisse ces mots décanter en toi :",
+    "player_sagesse_phase_2": "Comment résonne-t-elle en toi ? \n\nOù cette parole te touche-t-elle ?",
+    "player_sagesse_phase_3": "Quelle action peux-tu poser aujourd'hui inspirée par cette sagesse ? \n\nQuel geste discret pourrait naître de cette lumière aujourd'hui ?",
+    "player_sagesse_phase_4": "Intègre cette pensée. \n\nLaisse cette graine germer.",
     "player_organe_smile_instruction": "Souris à : {organName}",
     "congrats_title": "Félicitations !",
     "congrats_completed_ritual": "Tu as complété le rituel \"{ritualLabel}\".",
@@ -197,7 +197,7 @@ const frTranslations: { [key: string]: string } = {
     "premium_modal_later_button": "Plus tard",
     "onboarding_skip": "Passer",
     "onboarding_next": "Suivant",
- "onboarding_start": "Commencer l'aventure",
+    "onboarding_start": "Commencer l'aventure",
     "onboarding_slide1_title": "Bienvenue dans StopAndZen",
     "onboarding_slide1_text": "Et si tes pauses devenaient des portes ? \n\nQuelques minutes pour revenir à toi, trouver ton centre, respirer vraiment.",
     "onboarding_slide2_title": "Un rituel pour chaque besoin",
@@ -454,7 +454,7 @@ const frTranslations: { [key: string]: string } = {
     "breathe_out": "Expire",
     "hold_full": "Rétention poumons pleins",
     "hold_empty": "Rétention poumons vides",
-"bento_mantra_classic": "Classique",
+   "bento_mantra_classic": "Classique",
 "bento_mantra_classic_short_inhale": "J'inspire, je prends de l'énergie",
 "bento_mantra_classic_short_exhale": "J'expire, mon corps se détend",
 "bento_mantra_classic_long_inhale": "J'inspire, je prends de l'énergie, mes batteries se rechargent",
@@ -570,7 +570,7 @@ const frTranslations: { [key: string]: string } = {
 "ritual_acupression_calme_modal_learn_more": "L’acupression repose sur la stimulation mécanique de zones riches en terminaisons nerveuses. Le point Laogong, situé au centre de la paume, est traditionnellement associé à l’apaisement et à la régulation émotionnelle. Le point Hegu, entre le pouce et l’index, est largement utilisé pour réduire les tensions, les douleurs et l’agitation interne. D’un point de vue contemporain, ces stimulations favorisent une modulation de la douleur et du stress via les voies nerveuses et la libération de médiateurs apaisants, tout en renforçant la conscience corporelle.",
 
 "ritual_acupression_calme_modal_go_further": "• <a href='https://www.passeportsante.net/fr/therapies/Fiche.aspx?doc=acupression_th' target='_blank' rel='noopener noreferrer'>L'acupression, une alliée contre le stress (Passeport Santé)</a><br/>• <a href='https://www.healthline.com/health/pressure-points-for-stress' target='_blank' rel='noopener noreferrer'>5 Pressure Points for Stress Relief (Healthline)</a>",
- "ritual_antidote_kinesique_label": "Antidote Kinésique",
+   "ritual_antidote_kinesique_label": "Antidote Kinésique",
     "ritual_antidote_kinesique_phase_1_name": "Intention",
     "ritual_antidote_kinesique_phase_1_instruction": "Identifie une pensée ou une émotion stressante que tu souhaites neutraliser.",
     "ritual_antidote_kinesique_phase_2_new_name": "Localisation des points",
@@ -583,7 +583,7 @@ const frTranslations: { [key: string]: string } = {
     "ritual_antidote_kinesique_phase_4_instruction": "Fredonne quelques notes de \"Au clair de la lune\" puis compte jusqu'à 5.",
     "ritual_antidote_kinesique_phase_5_name": "Intégration",
     "ritual_antidote_kinesique_phase_5_instruction": "Repense à l'émotion initiale. Évalue son intensité maintenant.",
-    "ritual_antidote_kinesique_modal_title": "Antidote Kinésique",
+  "ritual_antidote_kinesique_modal_title": "Antidote Kinésique",
 
 "ritual_antidote_kinesique_modal_why": "Ce rituel vise à diminuer la charge émotionnelle associée à un stress précis en sollicitant simultanément le corps, les sens et l’attention. En combinant stimulation de points, mouvements oculaires bilatéraux et tâches cognitives simples, tu engages plusieurs réseaux neurologiques à la fois. Cette stimulation croisée aide le système nerveux à sortir d’une réponse figée et à réorganiser l’information émotionnelle. Sur le plan somatique, le rituel favorise une sensation de relâchement et de neutralisation progressive du stress, sans chercher à l’effacer ni à le nier.",
 
@@ -605,13 +605,14 @@ const frTranslations: { [key: string]: string } = {
 
 "ritual_arbre_tempete_modal_learn_more": "Inspirée de la bioénergétique et du Qi Gong, cette pratique s’appuie sur le lien direct entre posture, tonus musculaire et état émotionnel. Sentir ses appuis et sa capacité d’adaptation renforce le sentiment de sécurité corporelle. D’un point de vue neuro-somatique, apprendre à rester présent malgré de légers déséquilibres aide le système nerveux à tolérer l’incertitude sans basculer en mode défensif. La résilience devient alors une expérience vécue, et non une simple idée.",
 
-"ritual_arbre_tempete_modal_go_further": "• <a href=\"https://www.psychologies.com/Bien-etre/Medecines-douces/Se-soigner-autrement/Articles-et-Dossiers/L-ancrage-la-methode-pour-se-sentir-plus-fort\" target=\"_blank\" rel=\"noopener noreferrer\">L'ancrage, la méthode pour se sentir plus fort (Psychologies)</a><br/>• <a href=\"https://www.verywellmind.com/grounding-techniques-for-anxiety-4773855\" target=\"_blank\" rel=\"noopener noreferrer\">Grounding Techniques for Anxiety (Verywell Mind)</a>",    "ritual_arbre_tempete_phase_1_name": "Enracinement",
+"ritual_arbre_tempete_modal_go_further": "• <a href=\"https://www.psychologies.com/Bien-etre/Medecines-douces/Se-soigner-autrement/Articles-et-Dossiers/L-ancrage-la-methode-pour-se-sentir-plus-fort\" target=\"_blank\" rel=\"noopener noreferrer\">L'ancrage, la méthode pour se sentir plus fort (Psychologies)</a><br/>• <a href=\"https://www.verywellmind.com/grounding-techniques-for-anxiety-4773855\" target=\"_blank\" rel=\"noopener noreferrer\">Grounding Techniques for Anxiety (Verywell Mind)</a>",
+    "ritual_arbre_tempete_phase_1_name": "Enracinement",
     "ritual_arbre_tempete_phase_1_instruction": "Sens des racines pousser sous tes pieds, s'enfonçant profondément dans la terre. \nPuise sa force et sa stabilité.",
     "ritual_arbre_tempete_phase_2_name": "Flexibilité",
     "ritual_arbre_tempete_phase_2_instruction": "Un vent puissant souffle. \nLaisse ton tronc et tes branches bouger avec souplesse, tes racines te gardent stable.",
     "ritual_arbre_tempete_phase_3_name": "Calme",
     "ritual_arbre_tempete_phase_3_instruction": "La tempête est passée. \nSens le calme revenir. \nTu es toujours là, fort(e) et serein(e).",
-"ritual_automassage_cervical_label": "Automassage Cervical",
+  "ritual_automassage_cervical_label": "Automassage Cervical",
 "ritual_automassage_cervical_modal_title": "Automassage Cervical",
 
 "ritual_automassage_cervical_modal_why": "Ce rituel cible les tensions accumulées dans la nuque et les épaules, zones particulièrement sensibles au stress et à la charge mentale. Sur le plan neuro-somatique, ces tensions sont liées à une activation prolongée des muscles posturaux et à une vigilance excessive. L’automassage envoie des signaux mécaniques apaisants au système nerveux périphérique, favorisant un relâchement réflexe. Il améliore la circulation locale, réduit la raideur musculaire et induit rapidement une sensation de détente globale, souvent ressentie jusque dans la respiration et la tête.",
@@ -627,7 +628,7 @@ const frTranslations: { [key: string]: string } = {
     "ritual_automassage_cervical_phase_1_instruction": "Tourne doucement la tête de gauche à droite, puis penche l'oreille vers l'épaule de chaque côté.",
     "ritual_automassage_cervical_phase_2a_name": "Massage Trapèze (D)",
     "ritual_automassage_cervical_phase_2_instruction": "Avec la main gauche, masse fermement le muscle trapèze droit, de l'épaule vers le cou.",
-        "ritual_automassage_cervical_phase_2b_instruction": "Avec la main droite, masse fermement le muscle trapèze gauche, de l'épaule vers le cou.",
+            "ritual_automassage_cervical_phase_2b_instruction": "Avec la main droite, masse fermement le muscle trapèze gauche, de l'épaule vers le cou.",
     "ritual_automassage_cervical_phase_2b_name": "Massage Trapèze (G)",
     "ritual_automassage_cervical_phase_3_name": "Pression Occiput",
     "ritual_automassage_cervical_phase_3_instruction": "Avec tes doigts, masse les points sensibles à la base du crâne, de chaque côté de la colonne.",
@@ -658,7 +659,7 @@ const frTranslations: { [key: string]: string } = {
     "ritual_bascule_vibratoire_phase_2_instruction": "Debout, bras vers le ciel, secoue tout ton corps. Saute, tremble, libère l'énergie stagnante.",
     "ritual_bascule_vibratoire_phase_3_name": "Posture de Puissance",
     "ritual_bascule_vibratoire_phase_3_instruction": "Ancre-toi dans une posture de puissance. Sens la confiance et la force te remplir. RESPIRE",
- "ritual_bascule_vibratoire_modal_title": "Bascule Vibratoire",
+   "ritual_bascule_vibratoire_modal_title": "Bascule Vibratoire",
 
 "ritual_bascule_vibratoire_modal_why": "Ce rituel s’appuie sur le principe de la cognition incarnée : ton état émotionnel n’est pas seulement produit par tes pensées, il est co-créé par ta posture, ton tonus musculaire et ton mouvement. Lorsque tu restes immobile dans une posture de fermeture, le cerveau reçoit un message de menace ou d’impuissance. En changeant radicalement de posture et en introduisant du mouvement, tu envoies un signal clair de transition. La phase d’exagération permet de rendre l’état négatif conscient et corporel. La phase de secousse libère l’excès d’activation. La posture finale de puissance installe un nouvel état interne plus ouvert, plus stable et plus confiant. Sur le plan somatique, cette bascule aide le système nerveux à quitter un mode défensif pour revenir vers une mobilisation saine et orientée vers l’action.",
 
@@ -681,9 +682,14 @@ const frTranslations: { [key: string]: string } = {
 "ritual_body_scan_180_modal_learn_more": "Le body scan est une pratique centrale du programme MBSR (Mindfulness-Based Stress Reduction). Il développe la conscience intéroceptive, un facteur clé de la régulation du stress et des émotions. Des études montrent que renforcer cette capacité améliore la tolérance aux sensations inconfortables et réduit la réactivité émotionnelle. Sur le plan somatique, apprendre à rester présent aux sensations corporelles crée un sentiment de sécurité interne et aide le système nerveux à sortir des boucles d’hypervigilance.",
 
 "ritual_body_scan_180_modal_go_further": "• <a href=\"https://www.association-mindfulness.org/mbsr-definition-bienfaits-et-origines/\" target=\"_blank\" rel=\"noopener noreferrer\">Le programme MBSR (Association Mindfulness)</a><br/>• <a href=\"https://www.mindful.org/a-body-scan-meditation-to-cultivate-mindfulness/\" target=\"_blank\" rel=\"noopener noreferrer\">A Body Scan Meditation (Mindful.org)</a>",
-   
-    "ritual_butterfly_hug_label": "Câlin du Papillon",
-    "ritual_butterfly_hug_modal_title": "Câlin du Papillon (Butterfly Hug)",
+ "ritual_butterfly_hug_label": "Câlin du Papillon",
+    "ritual_butterfly_hug_phase_1_name": "Identification",
+    "ritual_butterfly_hug_phase_1_instruction": "Pense à une situation légèrement stressante ou une émotion désagréable.",
+    "ritual_butterfly_hug_phase_2_name": "Stimulation Bilatérale",
+    "ritual_butterfly_hug_phase_2_instruction": "Croise les bras et tapote alternativement sur tes épaules, à un rythme lent et régulier. Laisse tes pensées aller et venir.",
+    "ritual_butterfly_hug_phase_3_name": "Intégration",
+    "ritual_butterfly_hug_phase_3_instruction": "Arrête de tapoter, respire profondément et observe ce qui a changé.",
+  "ritual_butterfly_hug_modal_title": "Câlin du Papillon (Butterfly Hug)",
 
 "ritual_butterfly_hug_modal_why": "Cette technique d’auto-apaisement issue de l’EMDR utilise la stimulation bilatérale alternée pour réguler le système nerveux lorsque l’anxiété ou une charge émotionnelle est présente. En sollicitant alternativement les deux côtés du corps, tu engages des circuits cérébraux impliqués dans l’intégration émotionnelle. Sur le plan somatique, le contact des mains sur les épaules crée une sensation de contenance et de sécurité. Sur le plan neuropsychologique, ce rythme alterné aide à diminuer l’hyperactivation et à rendre les émotions plus tolérables, permettant au cerveau de les traiter sans être submergé.",
 
@@ -706,7 +712,7 @@ const frTranslations: { [key: string]: string } = {
 "ritual_connexion_holofractographique_modal_learn_more_extra": "Ce rituel s’inspire de modèles contemporains et symboliques, notamment des idées popularisées par ****, selon lesquelles chaque partie contiendrait l’information du tout. Sur un plan rigoureux, le principe holographique est une hypothèse explorée en physique théorique, encore débattue. Ici, il est utilisé comme une métaphore expérientielle : une manière poétique d’explorer la non-séparation et la continuité, thèmes présents dans de nombreuses traditions contemplatives. L’objectif n’est pas d’adhérer à une théorie, mais d’induire un état subjectif d’ouverture et de recul.",
 
 "ritual_connexion_holofractographique_modal_go_further": "• <a href=\"https://www.pourlascience.fr/sd/physique/lunivers-est-il-un-hologramme-7049.php\" target=\"_blank\" rel=\"noopener noreferrer\">L’univers est-il un hologramme ? (Pour la Science)</a><br/>• <a href=\"https://www.resonancescience.org/about-the-holographic-principle\" target=\"_blank\" rel=\"noopener noreferrer\">About the Holographic Principle (Resonance Science Foundation)</a>",
-  "ritual_connexion_holofractographique_phase_1_name": "Point Intérieur",
+    "ritual_connexion_holofractographique_phase_1_name": "Point Intérieur",
     "ritual_connexion_holofractographique_phase_1_instruction": "Visualise un point de lumière infiniment dense et brillant au centre de ton ventre.",
     "ritual_connexion_holofractographique_phase_2_name": "Expansion",
     "ritual_connexion_holofractographique_phase_2_instruction": "Imagine ce point contenant l'univers entier. Zoome à l'intérieur pour voir les galaxies, les étoiles...",
@@ -1243,7 +1249,7 @@ const frTranslations: { [key: string]: string } = {
     
     "ritual_souffle_dragon_phase_3_name": "Apaisement",
     "ritual_souffle_dragon_phase_3_instruction": "Laisse tes bras retomber naturellement.\nRespire calmement et ressens le vide créé, l'espace libéré en toi.\nUne nouvelle énergie, plus légère, peut maintenant circuler.",
-   "ritual_soupir_physio_120_label": "Soupir Physiologique",
+  "ritual_soupir_physio_120_label": "Soupir Physiologique",
 "ritual_soupir_physio_120_modal_title": "Soupir Physiologique",
 
 "ritual_soupir_physio_120_modal_why": "Ce rituel repose sur des recherches solides en neurosciences et en physiologie respiratoire. Il s’agit du moyen le plus rapide identifié à ce jour pour faire baisser le stress et l’anxiété en temps réel. En utilisant une double inspiration suivie d’une expiration longue, tu actives un mécanisme réflexe naturel de régulation du système nerveux. Sur le plan somatique, cette respiration agit comme un frein biologique : elle réduit l’hyperactivation, stabilise le rythme cardiaque et ramène le corps vers un état de sécurité. Ce protocole est particulièrement efficace lorsque le stress est déjà installé et que le mental peine à se calmer.",
@@ -1268,8 +1274,8 @@ const frTranslations: { [key: string]: string } = {
 "ritual_vagale_dorsal_modal_learn_more": "Cette technique s'appuie sur la Théorie Polyvagale du Dr Stephen Porges, qui révolutionne notre compréhension du système nerveux autonome. Contrairement à l'ancienne vision duale (sympathique = stress, parasympathique = détente), Porges a découvert que le nerf vague parasympathique se divise en deux branches distinctes avec des fonctions opposées.\n\nLe nerf vague ventral (myélinisé, moderne) gère l'engagement social, la connexion, le calme en présence d'autrui. Le nerf vague dorsal (non-myélinisé, ancestral) gère l'immobilisation profonde : c'est le système le plus ancien, hérité des reptiles, qui active la conservation d'énergie maximale, la digestion profonde, et dans les cas extrêmes, la sidération (freeze). En utilisant cette respiration spécifique, tu actives volontairement la branche dorsale de façon bénéfique, sans stress.\n\nL'expiration nasale prolongée (8 temps vs 4 temps d'inspiration) stimule massivement le nerf vague en créant une pression intrathoracique qui envoie des signaux de sécurité au tronc cérébral. La position de la langue contre le palais complète un circuit énergétique subtil reconnu en médecine chinoise (connexion entre les méridiens Ren Mai et Du Mai) et en yoga (Khechari Mudra), amplifiant l'effet apaisant. La tête penchée active le réflexe de soumission/repos présent chez tous les mammifères. Ces trois éléments combinés créent un effet synergique puissant : ton système nerveux bascule dans un mode de restauration profonde, idéal avant le sommeil ou après un stress intense.",
 
 "ritual_vagale_dorsal_modal_go_further": "• <a href=\"https://www.stephenporges.com/\" target=\"_blank\" rel=\"noopener noreferrer\">The Polyvagal Theory (Stephen Porges)</a><br/>• <a href=\"https://www.psychologies.com/Therapies/Toutes-les-therapies/Psychotherapies/Articles-et-Dossiers/La-theorie-polyvagale-une-revolution-dans-la-comprehension-de-nos-emotions\" target=\"_blank\" rel=\"noopener noreferrer\">La théorie polyvagale : une révolution (Psychologies)</a><br/>• <a href=\"https://www.youtube.com/results?search_query=polyvagal+theory+exercises\" target=\"_blank\" rel=\"noopener noreferrer\">Polyvagal Theory Exercises : pratiques guidées (YouTube)</a>",
-    "ritual_vagale_dorsal_immersive_instructions": "Allonge-toi. Respire lentement. Inspire sur 4, expire sur 8.",
- 
+  "ritual_vagale_dorsal_immersive_instructions": "Allonge-toi. Respire lentement. Inspire sur 4, expire sur 8.",
+  
     "ritual_vagale_ventral_label": "Activation Vagale Ventrale",
      "ritual_vagale_ventral_modal_title": "Activation Vagale Ventrale",
 "ritual_vagale_ventral_phase_1_name": "Posture",
@@ -1287,7 +1293,7 @@ const frTranslations: { [key: string]: string } = {
 "ritual_vagale_ventral_modal_learn_more": "Selon la théorie polyvagale, développée par ****, le nerf vague ventral constitue notre état physiologique de référence lorsque nous nous sentons en sécurité. Dans cet état, le corps peut se détendre tout en restant présent et connecté aux autres. Les stimulations douces comme la respiration lente, les mouvements oculaires, le fredonnement ou le chant tonifient cette branche vagale. Elles augmentent la capacité du système nerveux à rester stable et relationnel même en situation de stress modéré.",
 
 "ritual_vagale_ventral_modal_go_further": "• <a href=\"https://www.rhythmofbreathing.com/polyvagal-theory\" target=\"_blank\" rel=\"noopener noreferrer\">Polyvagal Theory and Breathing (Rhythm of Breathing)</a><br/>• <a href=\"https://www.psychologytoday.com/us/blog/the-new-normal/202206/polyvagal-theory-and-the-importance-of-feeling-safe\" target=\"_blank\" rel=\"noopener noreferrer\">The Importance of Feeling Safe (Psychology Today)</a>",
- "program_anti_stress_7j_title": "Fondations Anti-Stress",
+    "program_anti_stress_7j_title": "Fondations Anti-Stress",
     "program_anti_stress_7j_description": "Un parcours de 7 jours pour construire ta boîte à outils de base contre le stress quotidien.",
     "program_anti_stress_7j_details_objective": "T'apprendre des techniques simples et efficaces pour désamorcer le stress en temps réel et augmenter ta résilience sur le long terme.",
     "program_anti_stress_7j_details_mechanism": "Ce programme utilise une combinaison de techniques de respiration pour réguler le système nerveux (cohérence cardiaque, soupir physio), et de pratiques de pleine conscience pour t'ancrer dans le présent (body scan, 5-4-3-2-1).",
@@ -1595,7 +1601,20 @@ const frTranslations: { [key: string]: string } = {
 
 "ritual_cloture_boucles_phase_5": "Respire lentement et profondément 30 secondes.\n\nRessens la sensation de complétude et de relâchement qui s’installe.",
 
-"journal_restart_ritual_tooltip": "Clique pour recommencer ce rituel"
+"journal_restart_ritual_tooltip": "Clique pour recommencer ce rituel",
+"sazy_name": "Sazy",
+"sazy_role": "Coach Bien-être",
+"sazy_welcome_title": "Rencontre Sazy",
+"sazy_welcome_subtitle": "Ton intelligence bienveillante, disponible 24/7 pour t'écouter, te guider et apaiser ton mental.",
+"sazy_welcome_instruction_1": "Sazy se souvient de vos échanges pour mieux t'accompagner.",
+"sazy_welcome_instruction_2": "Tout reste privé, stocké uniquement sur ton téléphone.",
+"sazy_welcome_start_button": "Démarrer une consultation",
+"sazy_chat_input_placeholder": "Parle-moi de ce que tu ressens...",
+"sazy_chat_clear_button": "Effacer la mémoire",
+"sazy_chat_clear_confirm": "Veux-tu vraiment effacer tout l'historique de conversation avec Sazy ? Elle oubliera tout ce que vous vous êtes dit.",
+"sazy_chat_empty": "La conversation est vide. Dis bonjour à Sazy !",
+"sazy_teaser_message": "Psst... Besoin de parler ?",
+"sazy_header_tooltip": "Parler à Sazy"
 
 
   };
