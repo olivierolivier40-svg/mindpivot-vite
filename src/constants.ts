@@ -1245,6 +1245,11 @@ export const RITUELS: Ritual[] = [
             { type: 'image', instruction: 'ritual_pont_hemispherique_phase_7_inst', duration: 10, imageUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/pontHemispherique5.png' },
           ]
         },
+        audioGuidance: {
+          fr: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/pont_hemispherique-fr.wav',
+          en: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/pont_hemispherique-en.wav',
+          es: 'https://magnetiseur-dax.fr/webapp/Aura/guidance/pont_hemispherique-es.wav',
+        },
         modal: {
             titre: 'ritual_pont_hemispherique_modal_titre',
             icon: '🌉',
