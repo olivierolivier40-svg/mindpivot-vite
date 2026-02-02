@@ -21,6 +21,16 @@ interface Message {
     timestamp: number;
 }
 
+const SazyAvatar = ({ size = 'small' }: { size?: 'small' | 'large' }) => {
+    const sizeClasses = size === 'small' ? 'w-10 h-10 text-xl' : 'w-24 h-24 text-5xl';
+    return (
+        <div className={`${sizeClasses} rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 flex items-center justify-center shadow-lg border border-white/20 relative overflow-hidden flex-shrink-0`}>
+            <span className="filter drop-shadow-md">🌸</span>
+            <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-b from-white/20 to-transparent rounded-full blur-[1px]"></div>
+        </div>
+    );
+};
+
 export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyChatProps) => {
     const { t } = useI18n();
     const [messages, setMessages] = useState<Message[]>([]);
@@ -28,14 +38,12 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Détection de la langue du navigateur (fr, en, es) - par défaut 'fr'
     const getBrowserLang = () => {
         if (typeof navigator === 'undefined') return 'fr';
         const lang = navigator.language.split('-')[0];
         return ['fr', 'en', 'es'].includes(lang) ? lang : 'fr';
     };
 
-    // Charger l'historique
     useEffect(() => {
         const saved = localStorage.getItem('StopAndZenSazyHistory');
         if (saved) {
@@ -47,7 +55,6 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
         }
     }, []);
 
-    // Sauvegarder l'historique
     useEffect(() => {
         localStorage.setItem('StopAndZenSazyHistory', JSON.stringify(messages));
         scrollToBottom();
@@ -78,17 +85,14 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
         setInputValue('');
         setIsTyping(true);
 
-        // Préparation du contexte intelligent
         const todaySessions = sessions.filter(s => new Date(s.timestamp).toDateString() === new Date().toDateString()).length;
         const moodContext = `[Data: Energie=${checkinData.energie}/4, Humeur=${checkinData.humeur}/4, Rituels aujourd'hui=${todaySessions}]`;
 
         try {
-            // Utilisation de la langue du navigateur pour le prompt système
             const systemPrompt = typeof constructSazyPrompt === 'function' 
                 ? constructSazyPrompt(RITUELS, getBrowserLang())
                 : "Tu es un coach bien-être."; 
             
-            // On envoie l'historique complet pour la mémoire + le nouveau message
             const historyForAi = [...messages, newUserMsg].map(m => ({ role: m.role, text: m.text }));
             
             const responseText = await generateSazyChat(historyForAi, systemPrompt, moodContext);
@@ -106,7 +110,7 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
             const errorMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'model',
-                text: "Désolé, je ne parviens pas à réfléchir pour le moment. Vérifie ta clé API dans la console.",
+                text: "Je n'arrive pas à me connecter. Vérifie que ta clé API est bien configurée dans le fichier .env (VITE_API_KEY).",
                 timestamp: Date.now()
             };
             setMessages(prev => [...prev, errorMsg]);
@@ -117,7 +121,6 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
 
     const parseRitualLinks = (text: string) => {
         if (!text) return null;
-        // Regex pour trouver {{rit.id}}
         const parts = text.split(/(\{\{rit\.[a-z0-9_]+\}\})/g);
         
         return parts.map((part, index) => {
@@ -139,7 +142,6 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
                 }
                 return null;
             }
-            // Rendu du texte normal avec sauts de ligne
             return <span key={index} dangerouslySetInnerHTML={{ __html: part.replace(/\n/g, '<br/>') }} />;
         });
     };
@@ -153,7 +155,7 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
                 <div className="flex items-center gap-3">
                     <Button variant="ghost" size="small" onClick={onBack}>←</Button>
                     <div className="relative">
-                        <img src="https://magnetiseur-dax.fr/webapp/Aura/Sazy-home.png" alt="Sazy" className="w-10 h-10 rounded-full border border-white/20 object-cover object-top bg-indigo-900" onError={(e) => e.currentTarget.style.display = 'none'} />
+                        <SazyAvatar size="small" />
                         <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-card"></span>
                     </div>
                     <div>
@@ -168,8 +170,8 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {!hasStarted && (
                     <div className="text-center text-muted mt-10 opacity-70 flex flex-col items-center justify-center h-full pb-20">
-                        <div className="w-24 h-24 mb-6 rounded-full overflow-hidden border-4 border-white/10 shadow-xl bg-indigo-900">
-                             <img src="https://magnetiseur-dax.fr/webapp/Aura/Sazy-home.png" alt="Sazy" className="w-full h-full object-cover object-top" />
+                        <div className="mb-6">
+                             <SazyAvatar size="large" />
                         </div>
                         <p className="max-w-xs mx-auto mb-8">{t('sazy_welcome_subtitle')}</p>
                         <Button 
@@ -214,7 +216,7 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
                 <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area - Visible seulement si la conversation a commencé */}
+            {/* Input Area */}
             {hasStarted && (
                 <div className="p-4 bg-card/80 backdrop-blur-md border-t border-white/10 animate-fade-in-up">
                     <div className="flex items-end gap-2 max-w-2xl mx-auto">

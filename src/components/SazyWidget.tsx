@@ -19,11 +19,11 @@ export const SazyWidget = ({ onClick }: SazyWidgetProps) => {
     return (
         <div 
             className="fixed bottom-0 left-1/2 -translate-x-1/2 z-0 w-full max-w-sm flex justify-center pointer-events-none"
-            style={{ height: '180px' }}
+            style={{ height: '160px' }}
         >
             {/* Bulle de dialogue */}
             <div 
-                className={`absolute top-0 pointer-events-auto transition-all duration-500 ease-out transform ${
+                className={`absolute top-4 pointer-events-auto transition-all duration-500 ease-out transform ${
                     isHovered || isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90'
                 }`}
                 style={{ zIndex: 10 }}
@@ -37,28 +37,29 @@ export const SazyWidget = ({ onClick }: SazyWidgetProps) => {
                 </button>
             </div>
 
-            {/* Image Sazy - Position ajustée (translate-y-[20%]) pour la rendre plus visible */}
+            {/* Avatar Sazy CSS (Ne dépend pas d'une image externe) */}
             <div 
-                className={`absolute bottom-[-10px] transition-transform duration-700 ease-in-out cursor-pointer pointer-events-auto group ${
-                    isVisible ? 'translate-y-[20%]' : 'translate-y-[100%]'
-                } hover:translate-y-[10%]`}
+                className={`absolute bottom-[-20px] transition-transform duration-700 ease-in-out cursor-pointer pointer-events-auto group ${
+                    isVisible ? 'translate-y-0' : 'translate-y-[120%]'
+                } hover:translate-y-[-10px]`}
                 onClick={onClick}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                style={{ width: '220px' }}
             >
-                <img 
-                    src="https://magnetiseur-dax.fr/webapp/Aura/Sazy-home.png" 
-                    alt="Sazy"
-                    className="w-full h-auto drop-shadow-[0_-5px_15px_rgba(255,255,255,0.3)]"
-                    onError={(e) => {
-                        console.warn("Image Sazy failed to load");
-                        e.currentTarget.style.display = 'none';
-                        e.currentTarget.parentElement!.innerHTML = '<div class="w-24 h-24 bg-indigo-500 rounded-full flex items-center justify-center text-4xl border-4 border-white shadow-lg mx-auto mb-4">🌸</div>';
-                    }}
-                />
-                
-                <div className="absolute inset-0 animate-subtle-pulse opacity-0 group-hover:opacity-100 bg-gradient-to-t from-accent/20 to-transparent rounded-full blur-xl transition-opacity duration-500" />
+                <div className="relative w-32 h-32">
+                    {/* Halo lumineux */}
+                    <div className="absolute inset-0 bg-indigo-500/30 blur-2xl rounded-full animate-pulse"></div>
+                    
+                    {/* Cercle principal */}
+                    <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 p-1 shadow-xl overflow-hidden border-4 border-white/20">
+                        <div className="w-full h-full bg-indigo-950/20 backdrop-blur-sm flex items-center justify-center rounded-full">
+                            <span className="text-6xl filter drop-shadow-lg transform transition-transform group-hover:scale-110 duration-300">🌸</span>
+                        </div>
+                        
+                        {/* Reflet brillant */}
+                        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-b from-white/30 to-transparent rounded-full blur-[2px]"></div>
+                    </div>
+                </div>
             </div>
         </div>
     );
