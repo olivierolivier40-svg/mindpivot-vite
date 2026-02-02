@@ -22,10 +22,15 @@ interface Message {
 }
 
 const SazyAvatar = ({ size = 'small' }: { size?: 'small' | 'large' }) => {
-    const sizeClasses = size === 'small' ? 'w-10 h-10 text-xl' : 'w-24 h-24 text-5xl';
+    const sizeClasses = size === 'small' ? 'w-10 h-10' : 'w-24 h-24';
     return (
-        <div className={`${sizeClasses} rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 flex items-center justify-center shadow-lg border border-white/20 relative overflow-hidden flex-shrink-0`}>
-            <span className="filter drop-shadow-md">🌸</span>
+        <div className={`${sizeClasses} relative rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 flex flex-col items-center justify-center shadow-lg border border-white/20 overflow-hidden flex-shrink-0`}>
+            {/* Visage Stylisé CSS */}
+            <div className={`flex gap-${size === 'small' ? '1' : '3'} mt-1`}>
+                <div className={`${size === 'small' ? 'w-0.5 h-1' : 'w-1.5 h-2.5'} bg-white rounded-full opacity-90`}></div>
+                <div className={`${size === 'small' ? 'w-0.5 h-1' : 'w-1.5 h-2.5'} bg-white rounded-full opacity-90`}></div>
+            </div>
+            <div className={`${size === 'small' ? 'w-3 h-1.5' : 'w-8 h-4'} border-b ${size === 'small' ? 'border' : 'border-2'} border-white/80 rounded-b-full mt-0.5`}></div>
             <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-b from-white/20 to-transparent rounded-full blur-[1px]"></div>
         </div>
     );
@@ -150,10 +155,15 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
 
     return (
         <div className="fixed inset-0 z-50 bg-bg flex flex-col animate-fade-in">
-            {/* Header */}
-            <header className="p-4 flex items-center justify-between border-b border-white/10 bg-card/50 backdrop-blur-md">
+            {/* Sticky Header */}
+            <header className="sticky top-0 z-10 p-4 flex items-center justify-between border-b border-white/10 bg-card/80 backdrop-blur-xl shadow-sm">
                 <div className="flex items-center gap-3">
-                    <Button variant="ghost" size="small" onClick={onBack}>←</Button>
+                    <Button variant="ghost" size="small" onClick={onBack} aria-label="Fermer" className="!p-1">
+                        {/* Croix de fermeture */}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </Button>
                     <div className="relative">
                         <SazyAvatar size="small" />
                         <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-card"></span>

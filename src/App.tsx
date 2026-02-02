@@ -40,9 +40,15 @@ const SettingsIcon = () => (
   </svg>
 );
 const ShareIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>;
+
+// Nouvel icône Sazy CSS (Visage) pour le Header
 const SazyIcon = () => (
-    <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20">
-        <img src="https://magnetiseur-dax.fr/webapp/Aura/Sazy-home.png" alt="Sazy" className="w-full h-full object-cover object-top bg-indigo-900" />
+    <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 via-purple-500 to-pink-400 border border-white/20 flex flex-col items-center justify-center overflow-hidden">
+        <div className="flex gap-1 mt-0.5">
+            <div className="w-0.5 h-1 bg-white rounded-full opacity-90"></div>
+            <div className="w-0.5 h-1 bg-white rounded-full opacity-90"></div>
+        </div>
+        <div className="w-3 h-1.5 border-b border-white/80 rounded-b-full mt-0.5"></div>
     </div>
 );
 
