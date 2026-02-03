@@ -1624,7 +1624,9 @@
     "howitworks_sazy_step2_title": "Prescription de Rituels",
     "howitworks_sazy_step2_desc": "Sazy est connectée à la bibliothèque de StopAndZen. Si vous lui dites \"Je suis en colère\", elle ne se contentera pas de dire \"Calmez-vous\". Elle vous proposera un lien direct pour lancer la 'Fureur du Tigre' ou le 'Souffle du Dragon'. C'est de l'accompagnement actionnable.",
     "howitworks_sazy_step3_title": "Consultation à la demande",
-    "howitworks_sazy_step3_desc": "Besoin d'une oreille attentive à 3h du matin ? D'un conseil avant une réunion stressante ? Sazy est toujours disponible pour désamorcer une crise ou simplement célébrer une victoire avec vous."
+    "howitworks_sazy_step3_desc": "Besoin d'une oreille attentive à 3h du matin ? D'un conseil avant une réunion stressante ? Sazy est toujours disponible pour désamorcer une crise ou simplement célébrer une victoire avec vous.",
+    "faq_q_sazy_privacy": "Sazy lit-elle mes conversations ?",
+    "faq_a_sazy_privacy": "Les conversations avec Sazy sont traitées par l'IA pour générer des réponses, mais l'historique est stocké <strong>localement sur votre appareil</strong>. Si vous effacez vos données ou changez de téléphone, la conversation est perdue. C'est le gage de votre confidentialité."
 
 
   }
