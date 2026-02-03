@@ -79,8 +79,8 @@
     "journal_delete": "Supprimer",
     "journal_delete_confirm": "Es-tu sûr de vouloir supprimer cette entrée ?",
     "journal_no_notes": "Aucune note pour cette session.",
-    "journal_ia_coach_feedback_label": "Coach IA :",
-    "journal_ia_coach_button": "Recevoir un feedback de l'IA",
+    "journal_ia_coach_feedback_label": "Coach Sazy :",
+    "journal_ia_coach_button": "Recevoir un feedback de Sazy",
     "journal_ia_coach_loading": "Analyse en cours...",
     "journal_edit_session_title": "Modifier l'entrée du {date}",
     "journal_save": "Enregistrer",
@@ -186,14 +186,14 @@
     "premium_modal_title": "✨ Passe à Premium ✨",
     "premium_modal_subtitle": "Débloque tout le potentiel de StopAndZen pour une transformation en profondeur.",
     "premium_modal_feature1": "Accès à <strong>tous les rituels et parcours</strong>, y compris les plus avancés.",
-    "premium_modal_feature2": "<strong>Feedback personnalisé de l'IA</strong> sur tes entrées de journal pour approfondir ta réflexion.",
-    "premium_modal_feature3": "Statistiques <strong>avancées</strong> pour suivre ton évolution.",
-    "premium_modal_feature4": "Soutiens le <strong>développement futur</strong> de l'application.",
+    "premium_modal_feature2": "<strong>Feedback personnalisé de Sazy, ta coach</strong>, elle analyse tes ressentis, fait le lien avec ton historique et t’oriente avec précision.\n- Proposition de consultations en mode <strong>doux</strong> ou <strong>intensif</strong>.",
+    "premium_modal_feature3": "Statistiques <strong>avancées</strong> pour suivre ton évolution et cheminement.",
+    "premium_modal_feature4": "Soutiens une application conçue pour durer, évoluer et rester respectueuse de <strong>ta vie privée.</strong> .",
     "premium_modal_upgrade_button": "Passer Premium",
     "premium_modal_later_button": "Plus tard",
     "onboarding_skip": "Passer",
     "onboarding_next": "Suivant",
-"onboarding_start": "Commencer l'aventure",
+    "onboarding_start": "Commencer l'aventure",
     "onboarding_slide1_title": "Bienvenue dans StopAndZen",
     "onboarding_slide1_text": "Et si tes pauses devenaient des portes ? \n\nQuelques minutes pour revenir à toi, trouver ton centre, respirer vraiment.",
     "onboarding_slide2_title": "Un rituel pour chaque besoin",
@@ -765,7 +765,7 @@
 "ritual_etreinte_ombre_phase_2_instruction": "Approche-toi avec curiosité, sans défense.\n\"Que cherches-tu à me dire ? De quoi as-tu peur pour moi ?\"\nLaisse les réponses monter, même si elles te surprennent.",
 "ritual_etreinte_ombre_phase_3_name": "Intégration",
 "ritual_etreinte_ombre_phase_3_instruction": "Remercie cette part pour sa vigilance, son message.\n\nOuvre tes bras. Sens-la revenir vers toi, se fondre en toi.\nTu es plus entier maintenant.",
-   "ritual_fureur_tigre_label": "Fureur du Tigre",
+  "ritual_fureur_tigre_label": "Fureur du Tigre",
 "ritual_fureur_tigre_modal_title": "Fureur du Tigre",
 
 "ritual_fureur_tigre_modal_why": "Ce rituel somatique et expressif permet de libérer la colère et la frustration de manière consciente et sécurisée. La colère est une énergie de mobilisation : lorsqu’elle n’est pas exprimée, elle a tendance à se figer dans le corps sous forme de tensions chroniques, de fatigue ou de somatisations. Sur le plan neuro-somatique, retenir la colère maintient le système nerveux en état d’activation défensive. En lui offrant une voie d’expression physique, vocale et intentionnelle, tu permets au corps de compléter un cycle émotionnel naturel. L’objectif n’est pas de nourrir la colère, mais de la traverser pour retrouver clarté, vitalité et stabilité.",
@@ -803,7 +803,7 @@
     "ritual_interrupteur_cosmique_phase_2_instruction": "Imagine que tu t'élèves : tu vois ta maison, ta ville, ta région, ton pays, la Terre, le système solaire, puis l'univers entier. \nFerme les yeux et imagine que tu décolles...",
     "ritual_interrupteur_cosmique_phase_3_name": "Relativisation",
     "ritual_interrupteur_cosmique_phase_3_instruction": "Depuis cette perspective cosmique, regarde ta pensée initiale. \nEst-elle toujours aussi importante ? Respire dans cet espace.",
-   "ritual_masque_tombe_label": "Masque qui Tombe",
+  "ritual_masque_tombe_label": "Masque qui Tombe",
 "ritual_masque_tombe_modal_title": "Masque qui Tombe",
 
 "ritual_masque_tombe_modal_why": "Ce rituel cible une zone clé souvent négligée : le visage. Les muscles faciaux se contractent en permanence sous l’effet du stress, de la retenue émotionnelle et des exigences sociales (se contenir, sourire, paraître calme). Ces micro-tensions envoient au cerveau des signaux d’alerte continus. En contractant puis relâchant volontairement l’ensemble du visage, tu permets une décharge réflexe profonde. Sur le plan neuro-somatique, ce relâchement facial agit comme un message direct de sécurité : la respiration se libère, le tonus général baisse et l’état émotionnel s’apaise. L’objectif est de laisser tomber le « masque » musculaire pour retrouver une expression neutre, vivante et détendue.",
@@ -815,7 +815,7 @@
 "ritual_masque_tombe_modal_learn_more": "Ce rituel est une application ciblée de la relaxation musculaire progressive développée par ****. Le visage possède une représentation très importante dans le cortex somatosensoriel, ce qui signifie que toute variation de tonus facial a un impact disproportionné sur l’état global du système nerveux. Détendre le visage réduit l’activation liée au stress, facilite l’apaisement émotionnel et améliore la conscience corporelle. Cette approche est particulièrement efficace pour les personnes qui somatisent le stress au niveau de la mâchoire, des yeux ou du front.",
 
 "ritual_masque_tombe_modal_go_further": "• <a href=\"https://www.passeportsante.net/fr/Therapies/Guide/Fiche.aspx?doc=relaxation_progressive_jacobson_th\" target=\"_blank\" rel=\"noopener noreferrer\">La relaxation progressive de Jacobson (Passeport Santé)</a><br/>• <a href=\"https://www.healthline.com/health/progressive-muscle-relaxation\" target=\"_blank\" rel=\"noopener noreferrer\">Progressive Muscle Relaxation (Healthline)</a>",
-   "ritual_masque_tombe_phase_1_name": "Crispation",
+    "ritual_masque_tombe_phase_1_name": "Crispation",
     "ritual_masque_tombe_phase_1_instruction": "Inspire et crispe tous les muscles de ton visage : front, yeux, nez, mâchoire. Tiens la tension.",
     "ritual_masque_tombe_phase_2_name": "Relâchement",
     "ritual_masque_tombe_phase_2_instruction": "Expire d'un coup et relâche complètement tous les muscles. Sens ton visage devenir lourd et détendu.",
@@ -825,7 +825,7 @@
     "ritual_masque_tombe_phase_4_instruction": "Prends un instant pour apprécier la sensation d'un visage complètement détendu. \n\nTu peux fermer les yeux et focaliser ton attention sur ton visage détendu",
     "ritual_micro_awe_label": "Micro-Awe",
     "ritual_micro_awe_modal_title": "Micro-Awe (Micro-Émerveillement)",
-"ritual_micro_awe_modal_why": "Ce rituel cultive l’émerveillement, une émotion puissante qui agit directement sur le système nerveux. Face à quelque chose de vaste, beau ou complexe, ton attention sort naturellement des préoccupations centrées sur toi-même. Cette bascule réduit l’activité liée au stress et à la rumination mentale. Des recherches montrent que même de courtes expériences d’émerveillement diminuent le stress, augmentent les comportements prosociaux comme la générosité et favorisent une meilleure régulation émotionnelle. Sur le plan somatique, l’émerveillement s’accompagne souvent d’une respiration plus ample, d’un relâchement de la poitrine et d’une sensation d’ouverture corporelle, signes d’un passage vers un état plus apaisé et connecté.",
+   "ritual_micro_awe_modal_why": "Ce rituel cultive l’émerveillement, une émotion puissante qui agit directement sur le système nerveux. Face à quelque chose de vaste, beau ou complexe, ton attention sort naturellement des préoccupations centrées sur toi-même. Cette bascule réduit l’activité liée au stress et à la rumination mentale. Des recherches montrent que même de courtes expériences d’émerveillement diminuent le stress, augmentent les comportements prosociaux comme la générosité et favorisent une meilleure régulation émotionnelle. Sur le plan somatique, l’émerveillement s’accompagne souvent d’une respiration plus ample, d’un relâchement de la poitrine et d’une sensation d’ouverture corporelle, signes d’un passage vers un état plus apaisé et connecté.",
 
 "ritual_micro_awe_modal_how": "Laisse-toi simplement imprégner par les images, sans chercher à analyser ni interpréter.\n\nAutorise ton regard à se poser et à explorer librement ce qui est présenté. Ouvre-toi à la beauté, à la vastitude ou à la complexité de ce que tu observes, que ce soit la nature, l’univers ou l’art.\n\nL’expérience agit surtout lorsque tu permets à ton corps et à ton système nerveux de recevoir, sans effort volontaire.",
 
@@ -834,7 +834,7 @@
 "ritual_micro_awe_modal_learn_more": "L’émerveillement (Awe) est une émotion qui surgit lorsque ton cerveau est confronté à quelque chose de plus vaste que ses cadres habituels de compréhension. Cette confrontation douce oblige à réajuster temporairement les schémas mentaux, ce qui réduit l’auto-centrage et calme l’activité de rumination. Sur le plan neurologique et psychologique, l’émerveillement favorise un sentiment de connexion, de perspective et d’humilité. Il agit comme un régulateur naturel, aidant le corps à sortir d’un état de vigilance excessive pour retrouver une ouverture calme et stable.",
 
 "ritual_micro_awe_modal_go_further": "• <a href=\"https://www.cerveauetpsycho.fr/sd/psychologie/les-bienfaits-de-l-emerveillement-19815.php\" target=\"_blank\" rel=\"noopener noreferrer\">Les bienfaits de l’émerveillement (Cerveau & Psycho)</a><br/>• <a href=\"https://ggsc.berkeley.edu/what_is_awe\" target=\"_blank\" rel=\"noopener noreferrer\">What is Awe? (Greater Good Science Center)</a>",
-"ritual_micro_awe_caption_1": "Des milliards d'étoiles dans notre galaxie...",
+ "ritual_micro_awe_caption_1": "Des milliards d'étoiles dans notre galaxie...",
     "ritual_micro_awe_caption_2": "La géométrie parfaite d'un tournesol...",
     "ritual_micro_awe_caption_3": "La puissance tranquille d'une chaîne de montagnes...",
     "ritual_micro_awe_caption_4": "L'infinie complexité d'un flocon de neige...",
@@ -851,7 +851,6 @@
     "ritual_piege_souris_cosmique_modal_learn_more": "En ACT, cette pratique s'appelle la \"défusion cognitive\".\n\nElle crée un espace entre toi et tes pensées. Elle te rappelle que tes pensées ne sont que des événements mentaux, pas des ordres ni des vérités absolues. Cette métaphore légère aide à alléger ce qui paraît lourd.",
     
     "ritual_piege_souris_cosmique_modal_go_further": "• <a href=\"https://www.psychologue.net/articles/la-defusion-cognitive-de-la-therapie-d-acceptation-et-d-engagement\" target=\"_blank\" rel=\"noopener noreferrer\">La défusion cognitive (Psychologue.net)</a><br/>• <a href=\"https://www.actmindfully.com.au/acceptance-commitment-therapy/\" target=\"_blank\" rel=\"noopener noreferrer\">Acceptance & Commitment Therapy (ACT Mindfully)</a>",
-    
         "ritual_piege_souris_cosmique_phase_1_name": "Le Piège",
     "ritual_piege_souris_cosmique_phase_1_instruction": "Identifie ta pensée inquiète, celle qui tourne en boucle.\nVisualise-la comme un fromage doré posé sur un piège à souris.\nAppétissant, mais piégé.",
     
@@ -860,7 +859,7 @@
     
     "ritual_piege_souris_cosmique_phase_3_name": "Le Recul",
     "ritual_piege_souris_cosmique_phase_3_instruction": "Prends conscience que tu es celui qui observe toute la scène.\nNi le fromage, ni la souris. \nJuste le témoin. Et depuis cet espace, tu peux choisir de ne pas mordre.", 
-   "ritual_pluie_interieure_label": "Pluie Intérieure",
+"ritual_pluie_interieure_label": "Pluie Intérieure",
 
 "ritual_pluie_interieure_modal_title": "Pluie Intérieure",
 
@@ -873,7 +872,7 @@
 "ritual_pluie_interieure_modal_learn_more": "Les pratiques de purification par l’eau sont présentes dans de nombreuses traditions car elles s’appuient sur un symbole universel de régulation et de renouvellement. Sur le plan psychologique et neurocognitif, la visualisation active les mêmes réseaux cérébraux que l’expérience réelle. Donner au cerveau une image claire de « nettoyage » facilite le lâcher-prise émotionnel. Sur le plan somatique, cette métaphore soutient la libération des tensions en autorisant le corps à terminer un cycle de stress sans passer par l’analyse mentale.",
 
 "ritual_pluie_interieure_modal_go_further": "• <a href=\"https://www.psychologies.com/Bien-etre/Medecines-douces/Se-soigner-autrement/Articles-et-Dossiers/La-visualisation-creatrice-comment-ca-marche\" target=\"_blank\" rel=\"noopener noreferrer\">La visualisation créatrice (Psychologies)</a><br/>• <a href=\"https://www.healthline.com/health/mental-health/visualization-meditation\" target=\"_blank\" rel=\"noopener noreferrer\">Visualization Meditation (Healthline)</a>",
-"ritual_porte_interieure_label": "Porte Intérieure",
+ "ritual_porte_interieure_label": "Porte Intérieure",
 
 "ritual_porte_interieure_modal_title": "Porte Intérieure",
 
@@ -887,12 +886,12 @@
 
 "ritual_porte_interieure_modal_go_further": "• <a href=\"https://www.mindful.org/meditation/mindfulness-getting-started/\" target=\"_blank\" rel=\"noopener noreferrer\">How to Practice Mindfulness (Mindful.org)</a><br/>• <a href=\"https://www.psychologies.com/Bien-etre/Prevention/Systeme-immunitaire/Articles-et-Dossiers/Comment-se-proteger-des-emotions-negatives-des-autres\" target=\"_blank\" rel=\"noopener noreferrer\">Se protéger des émotions négatives (Psychologies)</a>",
     "ritual_porte_interieure_phase_1_name": "L'Extérieur",
-"ritual_porte_interieure_phase_1_instruction": "Accueille les sons qui voyagent jusqu'à toi, la caresse de l'air sur ton visage, les traces invisibles des odeurs. \nTout ce qui existe au-delà de toi.",
+   "ritual_porte_interieure_phase_1_instruction": "Accueille les sons qui voyagent jusqu'à toi, la caresse de l'air sur ton visage, les traces invisibles des odeurs. \nTout ce qui existe au-delà de toi.",
     "ritual_porte_interieure_phase_2_name": "La Frontière",
     "ritual_porte_interieure_phase_2_instruction": "Découvre cette fine pellicule qui te sépare du monde. \nSens où l'air te touche, où le tissu te contient. \nC'est le seuil.",
     "ritual_porte_interieure_phase_3_name": "L'Intérieur",
     "ritual_porte_interieure_phase_3_instruction": "Traverse le seuil. Écoute le souffle qui t'anime, le pouls qui bat en secret, les vagues de sensations. \nTu es arrivé·e.",
-"ritual_power_posing_label": "Posture de Puissance",
+    "ritual_power_posing_label": "Posture de Puissance",
     "ritual_power_posing_modal_title": "Posture de Puissance",
     
     "ritual_power_posing_modal_why": "Ce rituel utilise le langage secret entre ton corps et ton esprit.\n\nEn adoptant une posture d'ouverture et d'ancrage, tu invites ton système nerveux à se sentir en sécurité, confiant et présent. Ton corps parle à ton cerveau.",
@@ -909,11 +908,11 @@
     "ritual_power_posing_phase_1_instruction": "Trouve un espace où tu peux te déployer sans retenue.\nMets-toi debout, pieds écartés, bien plantés dans le sol. \nSens la terre sous toi.",
     
     "ritual_power_posing_phase_2_name": "Déploiement",
-    "ritual_power_posing_phase_2_instruction": "Pose tes mains sur tes hanches, ouvre ta poitrine, lève ton regard.Respire largement dans cet espace que tu crées. Sens combien de place tu peux prendre. Et tiens la posture !",
+    "ritual_power_posing_phase_2_instruction": "Pose tes mains sur tes hanches, ouvre ta poitrine, lève ton regard.\nRespire largement dans cet espace que tu crées. Sens combien de place tu peux prendre. Et tiens la posture !",
     
     "ritual_power_posing_phase_3_name": "Empreinte",
-    "ritual_power_posing_phase_3_instruction": "Relâche la posture en douceur, mais garde son empreinte en toi.\n\nCette sensation d'amplitude, d'ancrage, de présence : elle t'appartient. \nEmporte-la avec toi.",  
-  "ritual_priere_du_soir_label": "Prière du Soir (Laïque)",
+    "ritual_power_posing_phase_3_instruction": "Relâche la posture en douceur, mais garde son empreinte en toi.\n\nCette sensation d'amplitude, d'ancrage, de présence : elle t'appartient. \nEmporte-la avec toi.",
+   "ritual_priere_du_soir_label": "Prière du Soir (Laïque)",
 "ritual_priere_du_soir_modal_title": "Prière du Soir (Laïque)",
 
 "ritual_priere_du_soir_modal_why": "Ce rituel, inspiré de l’Examen de Conscience ignacien dans une forme laïque, aide ton système nerveux à clore la journée de manière structurée et apaisante. Il permet de passer d’un état d’activité et de stimulation à un état de repos intérieur. En revisitant consciemment les moments vécus, tu aides ton cerveau à fermer les boucles émotionnelles encore actives. Sur le plan somatique, cette relecture favorise un relâchement progressif des tensions et prépare le corps au sommeil. Le rituel soutient la gratitude, le lâcher-prise et une sensation de complétude qui facilite l’endormissement.",
@@ -945,7 +944,7 @@
     "ritual_priere_du_soir_phase_9_instruction": "Je lâche le contrôle.",
     "ritual_priere_du_soir_phase_10_name": "Paix",
     "ritual_priere_du_soir_phase_10_instruction": "Que la paix soit avec moi.",
-   "ritual_recyclage_emotionnel_label": "Recyclage Émotionnel",
+ "ritual_recyclage_emotionnel_label": "Recyclage Émotionnel",
 "ritual_recyclage_emotionnel_modal_title": "Recyclage Émotionnel",
 
 "ritual_recyclage_emotionnel_modal_why": "Ce rituel de visualisation et de mouvement aide ton système nerveux à traiter une émotion difficile sans la bloquer ni la rejeter. Plutôt que de réprimer l’émotion — ce qui maintient une tension interne — tu lui offres un chemin de transformation. Sur le plan somatique, ressentir l’émotion dans le corps permet de compléter le cycle émotionnel naturel. Le mouvement guidé des mains soutient cette décharge en donnant au corps une action concrète de régulation. Cette approche favorise une transformation progressive de l’intensité émotionnelle en une énergie plus neutre, parfois vécue comme plus claire ou plus disponible.",
@@ -957,7 +956,7 @@
 "ritual_recyclage_emotionnel_modal_learn_more": "De nombreuses approches somatiques et psychocorporelles considèrent l’émotion comme une énergie de mobilisation du corps. Lorsqu’elle n’est pas exprimée ou intégrée, elle reste active sous forme de tension ou de rumination. Ce rituel s’inspire à la fois de pratiques d’alchimie interne, où l’énergie est transformée plutôt que supprimée, et de principes issus de la PNL et des thérapies orientées corps. Le mouvement symbolique aide le cerveau à enregistrer que l’émotion a été reconnue, traitée et intégrée, réduisant ainsi sa charge résiduelle.",
 
 "ritual_recyclage_emotionnel_modal_go_further": "• <a href=\"https://www.psychologies.com/Moi/Moi-et-les-autres/Emotion/Articles-et-Dossiers/Comment-transformer-ses-emotions-negatives-en-emotions-positives\" target=\"_blank\" rel=\"noopener noreferrer\">Transformer ses émotions négatives (Psychologies)</a><br/>• <a href=\"https://tinybuddha.com/blog/how-to-process-difficult-emotions-and-why-its-important/\" target=\"_blank\" rel=\"noopener noreferrer\">How to Process Difficult Emotions (Tiny Buddha)</a>",
-   "ritual_recyclage_emotionnel_phase_1_name": "Localisation",
+  "ritual_recyclage_emotionnel_phase_1_name": "Localisation",
     "ritual_recyclage_emotionnel_phase_1_instruction": "Identifie une émotion difficile et ressens où elle se loge dans ton corps. \nPlonge toi dans une scène quelques instants et revient au corps pour ressentir.",
     "ritual_recyclage_emotionnel_phase_2_name": "Transformation",
     "ritual_recyclage_emotionnel_phase_2_instruction": "Avec tes mains, rassemble cette énergie, amène-la à ton cœur et visualise qu'elle se transforme en lumière.",
@@ -975,13 +974,14 @@
 "ritual_regard_infini_modal_learn_more": "Le lien entre vision et état nerveux est bien documenté : une vision large et panoramique active le système parasympathique, associé au calme et à la sécurité. À l’inverse, une vision étroite est souvent corrélée au stress et à la vigilance. Les pratiques contemplatives anciennes utilisaient intuitivement cette relation en associant regard, posture et souffle. Lever les yeux favorise l’ouverture et la perspective, tandis que les baisser soutient l’ancrage corporel. L’intégration consciente des deux permet de créer un sentiment de plénitude et de stabilité intérieure.",
 
 "ritual_regard_infini_modal_go_further": "• <a href=\"https://www.youtube.com/watch?v=b_h8p55cWfM\" target=\"_blank\" rel=\"noopener noreferrer\">Using Your Vision to Turn On Relaxation – Andrew Huberman</a><br/>• <a href=\"https://www.passeportsante.net/fr/Therapies/Guide/Fiche.aspx?doc=ancrage_th\" target=\"_blank\" rel=\"noopener noreferrer\">L’ancrage : se reconnecter à la Terre (Passeport Santé)</a><br/>• <a href=\"https://www.kaizen-magazine.com/article/la-contemplation-du-ciel-une-pratique-ancestrale-pour-apaiser-lesprit/\" target=\"_blank\" rel=\"noopener noreferrer\">La contemplation du ciel, une pratique ancestrale (Kaizen Magazine)</a>",
-    "ritual_regard_infini_phase_1_name": "L'Infini du Ciel",
+ "ritual_regard_infini_phase_1_name": "L'Infini du Ciel",
     "ritual_regard_infini_phase_1_instruction": "Debout, regard levé vers le ciel.\nLaisse ton regard se perdre dans l'immensité.\nInspire profond par le nez : J'inspire l'infini du Ciel.\nSens la légèreté et l'expansion.",
     "ritual_regard_infini_phase_2_name": "L'Infini de la Terre",
     "ritual_regard_infini_phase_2_instruction": "Regard baissé vers le sol.\nEnracine ton regard dans les profondeurs de la Terre.\nInspire profond : J'inspire l'infini de la Terre.\nRessens la stabilité et la force.",
     "ritual_regard_infini_phase_3_name": "L'Infini Intérieur",
-    "ritual_regard_infini_phase_3_instruction": "Tête droite, yeux fermés, main sur le cœur.\nVisualise les deux infinis (Ciel et Terre) qui se rencontrent en ton cœur.\nAffirme à voix basse : Je suis l'infini, ici, présent et disponible.\nRessens l'unité et la plénitude.",
-"ritual_sagesse_minute_label": "Sagesse Minute",
+    "ritual_regard_infini_phase_3_instruction": "Tête droite, yeux fermés, main sur le cœur.\nVisualise les deux infinis (Ciel et Terre) qui se rencontrent en ton cœur.\nAffirme à voix basse : Je suis l'infini, ici, présent et disponible.\nRessens l'unité et la plénitude.", 
+    
+  "ritual_sagesse_minute_label": "Sagesse Minute",
 "ritual_sagesse_minute_modal_title": "Sagesse Minute",
 
 "ritual_sagesse_minute_modal_why": "Ce rituel t’offre un temps court de décélération cognitive en t’exposant à une parole de sagesse éprouvée. Une citation agit comme un point d’appui mental capable de modifier temporairement ton cadre de pensée. Sur le plan neuropsychologique, ce type de réflexion brève favorise le recadrage cognitif et réduit l’automatisme des schémas mentaux habituels. Sur le plan somatique, ralentir pour contempler une idée permet une détente globale et une mise à distance émotionnelle. Ce rituel apporte ainsi clarté, perspective et orientation intérieure pour éclairer ta journée.",
@@ -1020,7 +1020,7 @@
   "ritual_sagesse_tolteque_accord_3": "<strong>3. Je ne fais aucune supposition</strong><br/><br/>Je trouve le courage de poser des questions et de communiquer clairement pour éviter les malentendus.",
   "ritual_sagesse_tolteque_accord_4": "<strong>4. Je fais toujours de mon mieux</strong><br/><br/>Mon 'mieux' change à chaque instant. <br/>En le faisant, j'évite l'auto-jugement, l'auto-critique et les regrets.",
   "ritual_sagesse_tolteque_accord_5": "<strong>5. Je suis sceptique, mais j'écoute</strong><br/>Je n'adhère pas aveuglément à ce que j'entends, y compris mes propres croyances. <br/><br/>J'écoute et respire.",
-   "ritual_salut_quantique_label": "Salut Quantique",
+    "ritual_salut_quantique_label": "Salut Quantique",
 "ritual_salut_quantique_modal_title": "Salut Quantique",
 
 "ritual_salut_quantique_modal_why": "Ce rituel de visualisation t’aide à activer un état interne aligné avec tes aspirations futures. En te reliant consciemment à une version de toi qui a déjà intégré les compétences, les choix et la stabilité émotionnelle recherchés, tu crées un repère interne clair. Sur le plan neuropsychologique, se projeter de manière incarnée dans un futur désirable favorise la motivation, la cohérence émotionnelle et l’orientation de l’action. Sur le plan somatique, ressentir dès maintenant les qualités de ton Moi futur (calme, assurance, clarté) permet au corps de s’ajuster progressivement à cet état, renforçant la confiance et la capacité à avancer de manière alignée.",
@@ -1032,13 +1032,13 @@
 "ritual_salut_quantique_modal_learn_more": "Les recherches en neurosciences montrent que le cerveau active des réseaux similaires lorsqu’une expérience est vécue ou intensément imaginée. Cette capacité d’imagerie mentale permet de préparer le corps et l’esprit à de nouveaux comportements. Inspiré des travaux de ****, ce rituel s’appuie sur l’idée que ressentir dès maintenant les émotions associées à un futur souhaité favorise la plasticité neuronale et comportementale. En répétant cette expérience, tu entraînes ton système nerveux à reconnaître cet état comme familier et atteignable, ce qui facilite des choix plus cohérents au quotidien.",
 
 "ritual_salut_quantique_modal_go_further": "• <a href=\"https://drjoedispenza.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Site officiel de Joe Dispenza</a><br/>• <a href=\"https://www.psychologies.com/Moi/Developpement-personnel/Methodes/Articles-et-Dossiers/Joe-Dispenza-ou-la-reprogrammation-du-cerveau\" target=\"_blank\" rel=\"noopener noreferrer\">Joe Dispenza ou la reprogrammation du cerveau (Psychologies)</a>",
-   "ritual_salut_quantique_phase_1_name": "Le Passé",
+    "ritual_salut_quantique_phase_1_name": "Le Passé",
     "ritual_salut_quantique_phase_1_instruction": "Visualise ton Moi du passé, avec ses doutes et ses peurs. Regarde-le avec compassion, sans jugement.",
     "ritual_salut_quantique_phase_2_name": "Le Futur",
     "ritual_salut_quantique_phase_2_instruction": "Maintenant, visualise ton Moi futur idéal, confiant et épanoui. Vois-le te sourire et te faire un signe.",
     "ritual_salut_quantique_phase_3_name": "La Connexion",
     "ritual_salut_quantique_phase_3_instruction": "Sens ce Moi futur s'investir en toi et te transmettre sa force, sa sagesse et sa confiance. Respire cette énergie.",
-  "ritual_scan_54321_label": "Scan Sensoriel 5-4-3-2-1",
+"ritual_scan_54321_label": "Scan Sensoriel 5-4-3-2-1",
 "ritual_scan_54321_modal_title": "Scan Sensoriel 5-4-3-2-1",
 
 "ritual_scan_54321_modal_why": "Cette technique d’ancrage est conçue pour calmer rapidement l’anxiété et les états de panique en réorientant ton attention vers le moment présent. Lorsque l’anxiété monte, le système nerveux entre en hypervigilance et l’attention se replie sur des scénarios internes. En mobilisant volontairement les cinq sens, tu aides ton cerveau à sortir de ces boucles mentales pour se reconnecter à l’environnement immédiat, perçu comme plus sûr. Sur le plan somatique, cette focalisation sensorielle stabilise la respiration, réduit la tension corporelle et soutient un retour progressif à un état de sécurité.",
@@ -1051,7 +1051,7 @@
 
 "ritual_scan_54321_modal_go_further": "• <a href=\"https://www.aemc.fr/la-technique-du-5-4-3-2-1-pour-gerer-son-anxiete\" target=\"_blank\" rel=\"noopener noreferrer\">La technique du 5-4-3-2-1 (AEMC)</a><br/>• <a href=\"https://www.urmc.rochester.edu/behavioral-health-partners/bhp-blog/april-2018/5-4-3-2-1-coping-technique-for-anxiety.aspx\" target=\"_blank\" rel=\"noopener noreferrer\">5-4-3-2-1 Coping Technique for Anxiety (University of Rochester)</a>",
 "ritual_scan_54321_phase_1_name": "Introduction",
-    "ritual_scan_54321_phase_1_instruction": "Laisse ton souffle s'approfondir, à son propre rythme. \nTu vas traverser tes sens, l'un après l'autre, comme autant de portes vers l'instant présent.",
+    "ritual_scan_54321_phase_1_instruction": "Laisse ton souffle s'approfondir, à son propre rythme.\nTu vas traverser tes sens, l'un après l'autre, comme autant de portes vers l'instant présent.",
     "ritual_scan_54321_phase_2_name": "5 - Vue",
     "ritual_scan_54321_phase_2_instruction": "Accueille 5 présences visuelles autour de toi. \nPas seulement des objets, mais des formes, des couleurs, des jeux de lumière. Nomme-les doucement.",
     "ritual_scan_54321_phase_3_name": "4 - Toucher",
@@ -1062,7 +1062,7 @@
     "ritual_scan_54321_phase_5_instruction": "Capte 2 fragrances qui flottent dans l'air. \nSubtiles, presque imperceptibles peut-être. L'odeur de ta peau, d'un espace, d'un souvenir récent.",
     "ritual_scan_54321_phase_6_name": "1 - Goût",
     "ritual_scan_54321_phase_6_instruction": "Reconnais 1 saveur présente en bouche, si discrète soit-elle. \nLe goût de ta salive, une trace de repas, ou simplement le goût de ton silence intérieur.",
-   "ritual_sourire_organes_label": "Sourire aux Organes",
+    "ritual_sourire_organes_label": "Sourire aux Organes",
 "ritual_sourire_organes_modal_title": "Sourire aux Organes",
 
 "ritual_sourire_organes_modal_why": "Ce rituel issu des pratiques taoïstes agit comme une forme de régulation émotionnelle somatique. En dirigeant volontairement une attention bienveillante vers tes organes, tu engages un dialogue corps-esprit apaisant. Sur le plan physiologique, cultiver des émotions positives comme la gratitude et la douceur favorise une détente viscérale et soutient l’équilibre du système nerveux autonome. Sur le plan somatique, cette pratique aide à relâcher des tensions internes souvent inconscientes et à restaurer une relation plus respectueuse et sécurisante avec ton propre corps.",
@@ -1087,15 +1087,18 @@
 "ritual_sourire_organes_phase_rate": "Achève par ta Rate et ton Pancréas, nichés à gauche.",
 "ritual_synchro_gamma_label": "Synchro Gamma",
     "ritual_synchro_gamma_modal_title": "Synchro Gamma",
+    
     "ritual_synchro_gamma_modal_why": "Ce rituel neurologique avancé est conçu pour induire une synchronisation des ondes cérébrales Gamma (autour de 40 Hz), les fréquences les plus rapides et les plus subtiles du cerveau.\n\nLes ondes Gamma sont associées aux états de haute performance cognitive, de concentration intense (l'état de \"flow\"), de perception accrue et d'intégration sensorielle optimale. C'est la signature électrique de la conscience unifiée : quand différentes régions de ton cerveau dialoguent en parfaite harmonie pour créer une expérience cohérente et lucide. En activant volontairement ces ondes par des techniques spécifiques de focalisation visuelle et respiratoire, tu accèdes à un état de clarté mentale exceptionnelle, propice à la créativité, à la résolution de problèmes complexes et à la présence totale.",
+    
     "ritual_synchro_gamma_modal_how": "Ce rituel combine des exercices de focalisation oculaire inhabituels avec une respiration structurée pour stimuler l'activation des ondes Gamma.\n\nTu commences par fixer intensément un point noir avec ton œil droit uniquement (l'autre fermé), puis tu changes d'œil. Cette alternance crée une activation asymétrique de tes hémisphères cérébraux. Ensuite vient l'étape la plus puissante : les deux yeux ouverts, tu croises légèrement ton regard pour loucher et faire apparaître deux points au lieu d'un. Maintenir cette vision double demande une concentration intense qui stimule directement les zones cérébrales productrices d'ondes Gamma. Enfin, tu stabilises cet état par une respiration en carré (inspire-retiens-expire-retiens, à parts égales) qui synchronise ton système nerveux. Le rituel te guide à travers ces phases pour activer, amplifier et ancrer cet état de haute conscience.",
      "ritual_synchro_gamma_modal_tips": "Ne te frustre pas si tu ne ressens rien d'extraordinaire au début.\nC'est un entraînement mental. La clé est la focalisation et l'intention. \nTu vas fixer un point alternativement avec chaque oeil, puis croiser le regard pour loucher et voir 2 points et tenir avant une séquence de respiration en carrée.", 
-        "ritual_synchro_gamma_modal_learn_more": "Les ondes Gamma oscillent entre 30 et 100 Hz, avec une fréquence optimale autour de 40 Hz. Ce sont les ondes cérébrales les plus rapides et les plus énergétiques.\n\nElles ont été particulièrement étudiées chez les méditants bouddhistes expérimentés (notamment les moines tibétains ayant plus de 10 000 heures de pratique), qui présentent des niveaux exceptionnellement élevés d'activité Gamma, même au repos. Ces ondes sont liées à la capacité remarquable du cerveau à \"lier\" (binding) des informations provenant de différentes régions sensorielles et cognitives pour former une perception unifiée, cohérente et consciente.\n\nNeurologiquement, les ondes Gamma facilitent la communication ultra-rapide entre neurones distants, créant une synchronisation globale du cerveau. Elles sont associées à l'apprentissage accéléré, la mémoire de travail optimale, la résolution créative de problèmes, et les états de conscience élevée. Des recherches récentes suggèrent que la stimulation Gamma pourrait même avoir des effets protecteurs contre le déclin cognitif et certaines pathologies neurologiques. En t'entraînant à activer volontairement ces ondes, tu développes littéralement ta capacité à accéder à ton plein potentiel mental.",
-       "ritual_synchro_gamma_modal_go_further": "• <a href=\"https://www.cerveauetpsycho.fr/sd/neurosciences/les-ondes-gamma-synchronisent-les-neurones-3870.php\" target=\"_blank\" rel=\"noopener noreferrer\">Les ondes gamma synchronisent les neurones (Cerveau & Psycho)</a><br/>• <a href=\"https://www.neurohacker.com/what-are-gamma-brainwaves\" target=\"_blank\" rel=\"noopener noreferrer\">What Are Gamma Brainwaves? (Neurohacker Collective)</a><br/>• <a href=\"https://www.pnas.org/doi/10.1073/pnas.0407401101\" target=\"_blank\" rel=\"noopener noreferrer\">Long-term meditators self-induce high-amplitude gamma synchrony (PNAS)</a>",
+    "ritual_synchro_gamma_modal_learn_more": "Les ondes Gamma oscillent entre 30 et 100 Hz, avec une fréquence optimale autour de 40 Hz. Ce sont les ondes cérébrales les plus rapides et les plus énergétiques.\n\nElles ont été particulièrement étudiées chez les méditants bouddhistes expérimentés (notamment les moines tibétains ayant plus de 10 000 heures de pratique), qui présentent des niveaux exceptionnellement élevés d'activité Gamma, même au repos. Ces ondes sont liées à la capacité remarquable du cerveau à \"lier\" (binding) des informations provenant de différentes régions sensorielles et cognitives pour former une perception unifiée, cohérente et consciente.\n\nNeurologiquement, les ondes Gamma facilitent la communication ultra-rapide entre neurones distants, créant une synchronisation globale du cerveau. Elles sont associées à l'apprentissage accéléré, la mémoire de travail optimale, la résolution créative de problèmes, et les états de conscience élevée. Des recherches récentes suggèrent que la stimulation Gamma pourrait même avoir des effets protecteurs contre le déclin cognitif et certaines pathologies neurologiques. En t'entraînant à activer volontairement ces ondes, tu développes littéralement ta capacité à accéder à ton plein potentiel mental.",
+    
+    "ritual_synchro_gamma_modal_go_further": "• <a href=\"https://www.cerveauetpsycho.fr/sd/neurosciences/les-ondes-gamma-synchronisent-les-neurones-3870.php\" target=\"_blank\" rel=\"noopener noreferrer\">Les ondes gamma synchronisent les neurones (Cerveau & Psycho)</a><br/>• <a href=\"https://www.neurohacker.com/what-are-gamma-brainwaves\" target=\"_blank\" rel=\"noopener noreferrer\">What Are Gamma Brainwaves? (Neurohacker Collective)</a><br/>• <a href=\"https://www.pnas.org/doi/10.1073/pnas.0407401101\" target=\"_blank\" rel=\"noopener noreferrer\">Long-term meditators self-induce high-amplitude gamma synchrony (PNAS)</a>",
     "ritual_synchro_gamma_phase_1_name": "Position",
 "ritual_synchro_gamma_phase_1_instruction": "Assis(e) droit(e), colonne vertébrale alignée, les pieds bien à plat sur le sol.",
 "ritual_synchro_gamma_phase_2_name": "Œil Droit",
-"ritual_synchro_gamma_phase_2_instruction": "Ferme l'œil gauche et fixe un point devant toi avec ton œil droit. Pleinement concentré/e",
+"ritual_synchro_gamma_phase_2_instruction": "Ferme l'œil gauche et fixe un point devant toi avec ton œil droit, pleinement concentré/e",
 "ritual_synchro_gamma_phase_3_name": "Œil Gauche",
 "ritual_synchro_gamma_phase_3_instruction": "Ferme l'œil droit et fixe le même point avec ton œil gauche. Focus sur le point.",
 "ritual_synchro_gamma_phase_4_name": "Vision Double",
@@ -1109,7 +1112,7 @@
     "ritual_trataka_modal_tips": "Ne force jamais. La concentration doit rester douce et détendue, pas crispée.\n\nSi tes yeux larmoient, c'est normal : c'est un processus de purification naturel.\n\nPrêt/e pour 1min30 ?",
       "ritual_trataka_modal_learn_more": "Trataka (du sanskrit \"regarder fixement\") est l'un des six Shatkarmas (pratiques de purification yogiques) du Hatha Yoga traditionnel, mentionné dans des textes anciens comme la Gheranda Samhita.\n\nCette pratique opère sur plusieurs niveaux : physiquement, elle renforce les muscles oculaires, le nerf optique et stimule la production de larmes purifiantes. Neurologiquement, en stabilisant le regard, tu réduis les microsaccades oculaires inconscientes (ces minuscules mouvements que tes yeux font constamment), directement liées à l'agitation mentale. Un regard immobile = un esprit paisible.\n\nÉnergétiquement, Trataka active et purifie Ajna chakra (le troisième œil), siège de l'intuition et de la vision intérieure. Les yogis l'utilisent pour développer la concentration nécessaire aux états méditatifs profonds. Avec une pratique régulière, tu remarqueras une amélioration de ta mémoire, de ta clarté mentale, et une réduction significative du bavardage mental.",
       "ritual_trataka_modal_go_further": "• <a href=\"https://www.yoga-journal.fr/le-nettoyage-des-yeux-par-trataka/\" target=\"_blank\" rel=\"noopener noreferrer\">Le nettoyage des yeux par Trataka (Yoga Journal France)</a><br/>• <a href=\"https://www.yogapedia.com/definition/5491/trataka\" target=\"_blank\" rel=\"noopener noreferrer\">Trataka : définition et bienfaits (Yogapedia)</a><br/>• <a href=\"https://www.artofliving.org/fr-fr/trataka-meditation\" target=\"_blank\" rel=\"noopener noreferrer\">Méditation Trataka (Art of Living)</a>",
-  "ritual_vibration_tellurique_label": "Vibration Tellurique (TRE)",
+   "ritual_vibration_tellurique_label": "Vibration Tellurique (TRE)",
 "ritual_vibration_tellurique_modal_title": "Vibration Tellurique (TRE®)",
 
 "ritual_vibration_tellurique_modal_why": "Ce rituel s’appuie sur la méthode TRE® pour activer un mécanisme réflexe naturel de régulation du système nerveux : le tremblement neurogène. Lorsque le corps est exposé à un stress intense ou prolongé, des tensions profondes peuvent rester stockées dans les muscles, en particulier autour du bassin et du psoas. En déclenchant volontairement ces micro-tremblements, tu permets au corps de terminer un cycle de stress inachevé. Sur le plan somatique, cette vibration favorise une décharge progressive des tensions chroniques, une sensation d’ancrage plus profond et un retour vers un état de sécurité corporelle.",
@@ -1121,7 +1124,7 @@
 "ritual_vibration_tellurique_modal_learn_more": "Le TRE® a été développé par ****, à partir de l’observation que les mammifères tremblent spontanément après une situation de danger pour libérer l’excès d’activation nerveuse. Chez l’humain, ce réflexe est souvent inhibé par le contrôle volontaire ou les normes sociales. Le TRE® réactive ce mécanisme inné de décharge, permettant de réduire l’hyperactivation du système nerveux et de relâcher des schémas de contraction musculaire installés parfois depuis longtemps.",
 
 "ritual_vibration_tellurique_modal_go_further": "• <a href=\"https://traumahealing.org/\" target=\"_blank\" rel=\"noopener noreferrer\">What is TRE®? (Official Website)</a><br/>• <a href=\"https://www.psychologies.com/Bien-etre/Medecines-douces/Se-soigner-autrement/Articles-et-Dossiers/Le-TRE-une-methode-pour-se-liberer-du-stress-post-traumatique\" target=\"_blank\" rel=\"noopener noreferrer\">Le TRE®, une méthode pour se libérer du stress (Psychologies)</a>",
- "ritual_vibration_tellurique_phase_1_name": "Préparation",
+    "ritual_vibration_tellurique_phase_1_name": "Préparation",
     "ritual_vibration_tellurique_phase_1_instruction": "Allonge-toi sur le dos, genoux pliés, pieds à plat sur le sol.",
     "ritual_vibration_tellurique_phase_3_name": "Activation",
     "ritual_vibration_tellurique_phase_3_instruction": "Soulève légèrement ton bassin de quelques centimètres. \nMaintiens la position.",
@@ -1129,7 +1132,7 @@
     "ritual_vibration_tellurique_phase_4_instruction": "Laisse les tremblements naturels apparaître dans tes jambes et ton bassin. Ne résiste pas. Respire.",
     "ritual_vibration_tellurique_phase_5_name": "Intégration",
     "ritual_vibration_tellurique_phase_5_instruction": "Repose ton bassin et ramène tes genoux l'un contre l'autre. \nPrends cette minute qui vient pour ressentir les effets.",
- "ritual_box_4_4_4_4_label": "Respiration Carrée (4-4-4-4)",
+    "ritual_box_4_4_4_4_label": "Respiration Carrée (4-4-4-4)",
     "ritual_box_4_4_4_4_modal_title": "Respiration Carrée (4-4-4-4)",
     
     "ritual_box_4_4_4_4_modal_why": "Cette technique de respiration structurée, aussi appelée \"Box Breathing\", est un outil de régulation nerveuse d'une efficacité remarquable pour calmer le système nerveux, affiner la concentration et gérer le stress même dans les situations les plus intenses.\n\nUtilisée par les Navy SEALs, les athlètes olympiques, les pilotes de chasse et les dirigeants sous haute pression, elle te permet de maintenir un état de calme vigilant et de performance optimale quand tout autour de toi s'emballe. En quelques cycles seulement, tu peux passer d'un état d'agitation ou de dispersion à un état de clarté mentale et de maîtrise intérieure. C'est ta technique d'urgence pour retrouver ton centre.",
@@ -1154,7 +1157,7 @@
     "ritual_calme_4_7_8_modal_learn_more": "La respiration 4-7-8 est basée sur le pranayama yogique ancien, notamment la technique appelée \"Nadi Shodhana\" (respiration alternée), adaptée pour l'occidental moderne.\n\nPhysiologiquement, l'expiration prolongée (8 temps, soit le double de l'inspiration) active massivement le système nerveux parasympathique, responsable de la réponse de relaxation, de la digestion, de la récupération et de la réparation cellulaire. La rétention de 7 temps permet une oxygénation optimale du sang : l'oxygène a le temps de diffuser pleinement dans les alvéoles pulmonaires et de saturer l'hémoglobine. Cette sur-oxygénation temporaire combinée à l'activation parasympathique produit un effet de détente profonde quasi immédiat. La pratique régulière (deux fois par jour pendant 6-8 semaines) peut avoir des effets durables : abaissement du rythme cardiaque au repos, réduction de la pression artérielle, amélioration de la qualité du sommeil, diminution des réponses anxieuses automatiques. Le Dr. Weil la recommande comme \"la technique de relaxation la plus puissante qu'il connaisse\".",
     
     "ritual_calme_4_7_8_modal_go_further": "• <a href=\"https://www.drweil.com/videos-features/videos/the-4-7-8-breath-health-benefits-demonstration/\" target=\"_blank\" rel=\"noopener noreferrer\">The 4-7-8 Breath: Health Benefits & Demonstration (Dr. Andrew Weil)</a><br/>• <a href=\"https://www.medicalnewstoday.com/articles/324417\" target=\"_blank\" rel=\"noopener noreferrer\">What is the 4-7-8 breathing technique? (Medical News Today)</a><br/>• <a href=\"https://www.youtube.com/results?search_query=4-7-8+breathing+sleep\" target=\"_blank\" rel=\"noopener noreferrer\">4-7-8 Breathing for Sleep : guides pratiques (YouTube)</a>",
-   "ritual_coherence_bento_label": "Cohérence Cardiaque Bento",
+     "ritual_coherence_bento_label": "Cohérence Cardiaque Bento",
     "ritual_coherence_bento_modal_title": "Cohérence Cardiaque Bento",
     
     "ritual_coherence_bento_modal_why": "Ce rituel innovant créé par Olivier Bentolila combine la puissance de la cohérence cardiaque (respiration à 6 cycles par minute) avec la répétition synchronisée de mantras pour créer un effet de programmation mentale profonde.\n\nEn alignant ta respiration, ton rythme cardiaque et tes suggestions mentales, tu utilises l'état de réceptivité accrue induit par la cohérence cardiaque pour ancrer des intentions positives directement dans ton système nerveux. Quand ton cœur est en cohérence, ton cerveau entre dans un état optimal d'apprentissage et de transformation : les mantras répétés à ce moment précis s'impriment plus profondément. Tu ne te contentes pas de te détendre, tu reprogrammes activement ton état intérieur : énergie, détente, confiance, clarté. C'est une méditation active qui aligne le cœur, le corps et l'esprit vers un état désiré.",
@@ -1193,7 +1196,7 @@
     "ritual_nadi_shodhana_120_modal_learn_more": "Nadi Shodhana signifie littéralement \"purification des canaux\" en sanskrit. Dans la physiologie yogique, les Nadis sont des canaux subtils par lesquels circule le Prana (énergie vitale), comparable au Qi de la médecine chinoise. Les trois Nadis principaux sont Ida (canal lunaire, féminin, froid, narine gauche), Pingala (canal solaire, masculin, chaud, narine droite) et Sushumna (canal central, le long de la colonne vertébrale).\n\nEn équilibrant la respiration entre les deux narines, tu harmonises Ida et Pingala, permettant au Prana de circuler librement dans Sushumna, ce qui éveille un état de conscience claire et méditative. Neurologiquement, la respiration par la narine gauche active davantage l'hémisphère droit (créativité, intuition, émotions) et stimule le système parasympathique (repos, apaisement), tandis que la narine droite active l'hémisphère gauche (logique, analyse, langage) et le système sympathique (action, éveil). En alternant, tu synchronises littéralement tes deux hémisphères, créant une cohérence cérébrale mesurable par EEG. C'est pourquoi commencer par la narine gauche (Ida) induit un effet apaisant, et commencer par la droite (Pingala) un effet plus dynamisant. Des études montrent que Nadi Shodhana réduit l'anxiété, améliore la concentration, abaisse la pression artérielle et favorise un sommeil de meilleure qualité. C'est une pratique préparatoire essentielle à la méditation profonde.",
     
     "ritual_nadi_shodhana_120_modal_go_further": "• <a href=\"https://www.yoga-journal.fr/nadi-shodhana-la-respiration-alternee-pour-retrouver-son-calme/\" target=\"_blank\" rel=\"noopener noreferrer\">Nadi Shodhana : la respiration alternée (Yoga Journal France)</a><br/>• <a href=\"https://www.yogapedia.com/definition/5026/nadi-shodhana\" target=\"_blank\" rel=\"noopener noreferrer\">Nadi Shodhana : définition et technique (Yogapedia)</a><br/>• <a href=\"https://www.youtube.com/results?search_query=nadi+shodhana+tutorial\" target=\"_blank\" rel=\"noopener noreferrer\">Nadi Shodhana Tutorial : démonstrations guidées (YouTube)</a>",
-    "ritual_nadi_shodhana_120_apaisant_step_1": "Inspire Gauche",
+      "ritual_nadi_shodhana_120_apaisant_step_1": "Inspire Gauche",
     "ritual_nadi_shodhana_120_apaisant_step_2": "Expire Droite",
     "ritual_nadi_shodhana_120_apaisant_step_3": "Inspire Droite",
     "ritual_nadi_shodhana_120_apaisant_step_4": "Expire Gauche",
@@ -1209,7 +1212,7 @@
     "ritual_nadi_shodhana_120_dynamisant_caption_2": "Bouche la narine droite, expire lentement par la gauche.",
     "ritual_nadi_shodhana_120_dynamisant_caption_3": "Inspire lentement par la gauche.",
     "ritual_nadi_shodhana_120_dynamisant_caption_4": "Bouche la narine gauche, expire lentement par la droite.",
-   "ritual_respiration_freinee_udjai_label": "Respiration Ujjayi",
+"ritual_respiration_freinee_udjai_label": "Respiration Ujjayi",
     "ritual_respiration_freinee_udjai_modal_title": "Respiration Ujjayi (Respiration de l'Océan)",
     
     "ritual_respiration_freinee_udjai_modal_why": "Cette technique de respiration yogique ancestrale calme profondément l'esprit agité et réchauffe le corps de l'intérieur.\n\nLe son doux et constant produit par la gorge devient un point d'ancrage puissant pour ta concentration, une vague sonore intérieure qui te ramène inlassablement au moment présent. Cette friction subtile de l'air crée une vibration apaisante qui masse doucement ton système nerveux. \n\nTu passes d'un mental dispersé à un état méditatif naturel, porté par le rythme régulier de ton océan intérieur. C'est une respiration qui t'habite et te centre.",
@@ -1221,7 +1224,7 @@
     "ritual_respiration_freinee_udjai_modal_learn_more": "Ujjayi (prononcé \"ou-dja-yi\") signifie \"victorieux\" ou \"conquérant\" en sanskrit, non pas dans le sens de domination, mais de maîtrise douce et de victoire sur l'agitation mentale.\n\nPhysiologiquement, la légère friction de l'air dans la gorge stimule le nerf vague, ce qui active le système nerveux parasympathique (relaxation). \n\nCette respiration aide à réguler la pression sanguine, ralentit le rythme cardiaque et induit un état de calme vigilant. Elle réchauffe aussi le corps en augmentant légèrement la température interne, d'où son utilisation dans les pratiques dynamiques.\n\nUjjayi est la respiration de base dans les styles de yoga Vinyasa et Ashtanga, où elle accompagne et synchronise chaque mouvement. Les yogis l'appellent aussi \"respiration psychique\" car elle favorise l'introspection et la connexion corps-esprit. Le son constant sert de mantra naturel, un objet de méditation accessible à tous.",
     
     "ritual_respiration_freinee_udjai_modal_go_further": "• <a href=\"https://www.yoga-journal.fr/pranayama-ujjayi-la-respiration-victorieuse/\" target=\"_blank\" rel=\"noopener noreferrer\">Ujjayi, la respiration victorieuse (Yoga Journal France)</a><br/>• <a href=\"https://www.yogapedia.com/definition/5135/ujjayi\" target=\"_blank\" rel=\"noopener noreferrer\">Ujjayi Pranayama : technique et bienfaits (Yogapedia)</a><br/>• <a href=\"https://www.youtube.com/watch?v=nGX4MgzgpOE\" target=\"_blank\" rel=\"noopener noreferrer\">Ujjayi Breath Tutorial : démonstration détaillée (YouTube)</a>",
-  "ritual_souffle_dragon_label": "Souffle du Dragon",
+    "ritual_souffle_dragon_label": "Souffle du Dragon",
     "ritual_souffle_dragon_modal_title": "Souffle du Dragon",
     
     "ritual_souffle_dragon_modal_why": "Un rituel de libération cathartique qui transforme instantanément la frustration, la colère ou l'énergie stagnante en espace intérieur dégagé.\n\nComme le dragon mythique qui crache le feu pour se purifier, tu utilises ton souffle et ta voix pour expulser ce qui t'encombre. Cette pratique réveille ta puissance primal et te reconnecte à ton feu intérieur, non pas pour détruire, mais pour transmuter. En quelques expirations intenses, tu libères ce qui était comprimé et tu crées de la place pour quelque chose de neuf.",
@@ -1254,7 +1257,7 @@
 "ritual_soupir_physio_120_modal_learn_more": "La double inspiration permet de rouvrir les alvéoles pulmonaires partiellement collabées par le stress, améliorant immédiatement l’oxygénation et l’élimination du dioxyde de carbone. Cette correction respiratoire envoie un signal clair au cerveau indiquant que la menace est passée. Le message est transmis via les voies respiratoires et nerveuses, entraînant une baisse rapide de l’activation sympathique et un engagement parasympathique. Ce mécanisme a été largement mis en lumière par les travaux de **** et du Dr ****, spécialistes des circuits neuronaux de la respiration.",
 
 "ritual_soupir_physio_120_modal_go_further": "• <a href=\"https://hubermanlab.com/neural-network-for-calm-breathing-tools/\" target=\"_blank\" rel=\"noopener noreferrer\">Neural Network for Calm – Huberman Lab</a><br/>• <a href=\"https://www.youtube.com/watch?v=kSZKIupBUuc\" target=\"_blank\" rel=\"noopener noreferrer\">The Physiological Sigh – vidéo explicative</a>",
-   "ritual_vagale_dorsal_label": "Réponse Vagale Dorsale",
+  "ritual_vagale_dorsal_label": "Réponse Vagale Dorsale",
     "ritual_vagale_dorsal_modal_title": "Réponse Vagale Dorsale",
 "ritual_vagale_dorsal_step_1": "Inspire (Nez)",
 "ritual_vagale_dorsal_step_2": "Expire (Nez) + Langue au palais",
@@ -1262,7 +1265,7 @@
 
 "ritual_vagale_dorsal_modal_how": "Installe-toi dans une position confortable qui favorise la relaxation profonde : allongé sur le dos, bras le long du corps, ou assis avec la tête légèrement penchée vers l'avant (menton vers la poitrine, sans forcer).\n\nFerme les yeux. Place délicatement le bout de ta langue contre ton palais, juste derrière tes dents du haut, et maintiens cette position pendant toute la pratique. Inspire calmement par le nez pendant 4 temps, en gonflant ton ventre. Puis expire très lentement par le nez pendant 8 temps (le double de l'inspiration) en pressant doucement mais fermement ta langue contre ton palais. Sens la connexion entre ta langue et ton palais comme un circuit qui se ferme, bouclant l'énergie apaisante. Continue ce cycle pendant 2 à 5 minutes : l'effet cumulatif s'approfondit à chaque expiration. Ton rythme cardiaque ralentit, ta respiration devient plus subtile, ton mental s'apaise naturellement.",
 
-"ritual_vagale_dorsal_modal_tips": "La tête penchée vers l'avant (si assis) favorise naturellement le réflexe de relaxation.\n\nLa pression de la langue boucle un circuit énergétique apaisant.\n\nInspire 4 secondes, Expire 8 secondes.",
+"ritual_vagale_dorsal_modal_tips": "La tête penchée vers l'avant (si assis) favorise naturellement le réflexe de relaxation.\n\nLa pression de la langue boucle un circuit énergétique apaisant. \n\nInspire 4 secondes, Expire 8 secondes.",
 
 "ritual_vagale_dorsal_modal_learn_more": "Cette technique s'appuie sur la Théorie Polyvagale du Dr Stephen Porges, qui révolutionne notre compréhension du système nerveux autonome. Contrairement à l'ancienne vision duale (sympathique = stress, parasympathique = détente), Porges a découvert que le nerf vague parasympathique se divise en deux branches distinctes avec des fonctions opposées.\n\nLe nerf vague ventral (myélinisé, moderne) gère l'engagement social, la connexion, le calme en présence d'autrui. Le nerf vague dorsal (non-myélinisé, ancestral) gère l'immobilisation profonde : c'est le système le plus ancien, hérité des reptiles, qui active la conservation d'énergie maximale, la digestion profonde, et dans les cas extrêmes, la sidération (freeze). En utilisant cette respiration spécifique, tu actives volontairement la branche dorsale de façon bénéfique, sans stress.\n\nL'expiration nasale prolongée (8 temps vs 4 temps d'inspiration) stimule massivement le nerf vague en créant une pression intrathoracique qui envoie des signaux de sécurité au tronc cérébral. La position de la langue contre le palais complète un circuit énergétique subtil reconnu en médecine chinoise (connexion entre les méridiens Ren Mai et Du Mai) et en yoga (Khechari Mudra), amplifiant l'effet apaisant. La tête penchée active le réflexe de soumission/repos présent chez tous les mammifères. Ces trois éléments combinés créent un effet synergique puissant : ton système nerveux bascule dans un mode de restauration profonde, idéal avant le sommeil ou après un stress intense.",
 
@@ -1538,17 +1541,18 @@
 "ritual_pont_hemispherique_modal_titre": "Le Pont Hémisphérique",
   "ritual_pont_hemispherique_modal_why": "Ce rituel agit comme une architecture neuronale vivante, construisant délicatement un dialogue intérieur entre les pôles opposés de votre conscience. \n\nIl ne se contente pas de synchroniser les hémisphères cérébraux ; il orchestre une véritable symphonie neuronale où la logique linéaire du gauche et l'intuition holistique du droit trouvent un langage commun. \n\nEn stimulant avec précision le corps calleux – ce pont biologique de 200 millions de fibres nerveuses – via des mouvements croisés intentionnels et une respiration rythmique consciente, il déverrouille des états de cohérence cérébrale. \n\nCette harmonisation interne transforme la confusion mentale, les dilemmes paralysants et la rumination stérile en une clarté émergente, faisant naître des insights créatifs qui semblent surgir d'une source plus profonde et plus unifiée que votre pensée habituelle.",
   "ritual_pont_hemispherique_modal_how": "Installez-vous dans une posture d'écoute intérieure, le dos droit mais non rigide, ancré dans l'instant présent. \n\nCommencez par identifier avec douceur le nœud de votre dilemme, sans chercher à le forcer. \n\nSuivez ensuite le cheminement sensoriel : appuyez alternativement sur vos genoux pour ancrer le conflit dans le corps. \n\nPuis, engagez-vous dans la danse subtile de la respiration bilatérale alternée, où le souffle et le mouvement tissent une toile de connexion entre vos côtés. \n\nAccélérez ce flux pour fusionner les énergies, avant de sceller le processus par l'étreinte croisée finale – un geste archétypal d'intégration. \n\nChaque étape est une invitation à laisser faire, à observer comment le corps peut résoudre ce que l'esprit seul peine à dénouer.",
- "ritual_pont_hemispherique_modal_tips": "Ne force pas la réponse. \n\nLaissez l'insight (l'apparition de la solution/réponse) émerger naturellement pendant la phase de silence. \n\nLa respiration doit rester fluide.",
+  "ritual_pont_hemispherique_modal_tips": "Ne force pas la réponse. \n\nLaissez l'insight (l'apparition de la solution/réponse) émerger naturellement pendant la phase de silence. \n\nLa respiration doit rester fluide.",
 "ritual_pont_hemispherique_phase_1_inst": "IDENTIFICATION (20s)\nIdentifie ton dilemme ou confusion intérieure.\nNe cherche pas de solution, pose simplement la question.",
 "ritual_pont_hemispherique_phase_2_inst": "ANCRAGE SENSORIEL (25s)\n Appuie alternativement tes mains sur le genou correspondant. Ressens la pression et la texture du tissu ou de la peau.",
 "ritual_pont_hemispherique_phase_3_inst": "RESPIRATION BILATÉRALE (45s)\nInspire = main droite levée à l'épaule.nExpire = main gauche levée, main droite posée. Suis le mouvement de tes yeux.",
 "ritual_pont_hemispherique_phase_4_inst": "FUSION (30s)\nAccélère légèrement le rythme.Imagine construire un pont de lumière entre tes deux hémisphères.",
 "ritual_pont_hemispherique_phase_5_inst": "GESTE DE L'INTÉGRATEUR (20s)\nCroise tes bras sur tes épaules (main droite sur l'épaule gauche). Serre doucement cette étreinte en 'X'.",
 "ritual_pont_hemispherique_phase_6_inst": "SILENCE ET RÉCEPTION (30s)\n Yeux fermés, demande-toi : 'Quelle est la perspective unifiée ?\nAccueille ce qui émerge sans jugement",
-"ritual_pont_hemispherique_phase_7_inst": "ANCRAGE FINAL (10s)\nMains sur les cuisses, paumes vers le haut.\nInspire profondément et sourie intérieurement.",  "ritual_pont_hemispherique_modal_learn_more": "Ce rituel s'appuie sur le principe fondamental de neuroplasticité et d'intégration interhémisphérique. Le corps calleux, cette autoroute neuronale composée de millions de fibres, est bien plus qu'une simple structure anatomique ; c'est le médiateur essentiel de la conscience unifiée. \n\nLa stimulation bilatérale alternée (mouvement, respiration, poursuite oculaire) n'est pas aléatoire : elle reproduit un pattern naturel de traitement de l'information qui favorise la résolution des blocages. \n\nElle oblige le cerveau à sortir des rails neuronaux habituels – la boucle ruminative de l'hémisphère gauche ou la submersion émotionnelle de l'hémisphère droit – pour forger de nouvelles connexions. Cet état de 'cohérence cérébrale' émergente est le terrain où les insights, ces compréhensions soudaines et complètes, peuvent jaillir, offrant des solutions qui synthétisent logique, intuition et sagesse corporelle.",
+"ritual_pont_hemispherique_phase_7_inst": "ANCRAGE FINAL (10s)\nMains sur les cuisses, paumes vers le haut.\nInspire profondément et sourie intérieurement.",
+  "ritual_pont_hemispherique_modal_learn_more": "Ce rituel s'appuie sur le principe fondamental de neuroplasticité et d'intégration interhémisphérique. Le corps calleux, cette autoroute neuronale composée de millions de fibres, est bien plus qu'une simple structure anatomique ; c'est le médiateur essentiel de la conscience unifiée. \n\nLa stimulation bilatérale alternée (mouvement, respiration, poursuite oculaire) n'est pas aléatoire : elle reproduit un pattern naturel de traitement de l'information qui favorise la résolution des blocages. \n\nElle oblige le cerveau à sortir des rails neuronaux habituels – la boucle ruminative de l'hémisphère gauche ou la submersion émotionnelle de l'hémisphère droit – pour forger de nouvelles connexions. Cet état de 'cohérence cérébrale' émergente est le terrain où les insights, ces compréhensions soudaines et complètes, peuvent jaillir, offrant des solutions qui synthétisent logique, intuition et sagesse corporelle.",
   "ritual_pont_hemispherique_modal_go_further": "• **Plongez dans les mécanismes** : Explorez les recherches sur la stimulation bilatérale, notamment dans les protocoles d'EMDR (Désensibilisation et Retraitement par les Mouvements Oculaires), qui utilisent ce principe pour traiter les souvenirs traumatiques, démontrant son pouvoir d'intégration profonde.\n\n• **Pratiquez avec intention** : Utilisez ce rituel non seulement en cas de blocage, mais comme un 'entraînement cérébral' régulier avant des sessions de création, de prise de décision complexe ou de méditation, pour augmenter votre fluidité cognitive et intuitive.\n\n• **Élargissez la perspective** : Lisez des travaux sur la psychologie énergétique ou les neurosciences contemplatives, qui étudient comment des pratiques corps-esprit spécifiques modifient la structure et la fonction du cerveau.\n\n• **Ressource approfondie** : <a href='https://www.cerveauetpsycho.fr/sd/neurosciences/le-corps-calleux-pont-entre-les-deux-hemispheres-3870.php' target='_blank' rel='noopener noreferrer'>Le corps calleux : Pont entre les deux hémisphères (Cerveau & Psycho)</a> – Un article fondateur pour comprendre l'architecture de votre unité cérébrale.",
-"player_audio_guidance_label": "guidance voix",
-"card_flag_done": "Fait",
+    "player_audio_guidance_label": "guidance voix",
+    "card_flag_done": "Fait",
 "card_flag_redo": "À refaire",
 "card_flag_share": "À partager",
 "ritual_soupir_liberateur_label": "Le Soupir Libérateur",
@@ -1558,7 +1562,7 @@
 
 "ritual_soupir_liberateur_modal_how": "Le rituel suit une logique corporelle simple, conçue pour amplifier un mécanisme naturel.\n\n1. Prise de Conscience : porte ton attention sur ton corps. Cela augmente la perception interne (interoception) et prépare le relâchement. Il ne s’agit pas d’analyser, mais de sentir.\n2. Les Trois Soupirs : inspire par le nez pour préparer l’expansion pulmonaire. La courte rétention stabilise le souffle. Expire lentement et audiblement par la bouche pour permettre une décharge mécanique du diaphragme et des tensions associées. Le son favorise le relâchement réflexe et engage tout le corps dans l’expiration.\n3. L’Accueil : laisse ta respiration reprendre son rythme naturel. Cette phase permet à ton système nerveux d’intégrer le changement et d’ancrer la sensation de relâchement.\nTrois cycles suffisent pour produire un apaisement perceptible, sans effort ni contrôle excessif.",
 
-"ritual_soupir_liberateur_modal_tips": "Utilise-le en sortie de réunion, après une interaction tendue, avant de rentrer chez toi ou dès que tu sens une montée de tension (gorge serrée, souffle court, épaules hautes). \nCe rituel agit comme un micro-réglage de ton système nerveux. \nPlus tu le pratiques régulièrement, plus ton corps apprend à se réguler rapidement.",
+"ritual_soupir_liberateur_modal_tips": "Utilise-le en sortie de réunion, après une interaction tendue, avant de rentrer chez toi ou dès que tu sens une montée de tension (gorge serrée, souffle court, épaules hautes). \n\nCe rituel agit comme un micro-réglage de ton système nerveux. \n\nPlus tu le pratiques régulièrement, plus ton corps apprend à se réguler rapidement.",
 
 "ritual_soupir_liberateur_modal_learn_more": "Le soupir joue un rôle clé dans l’équilibre respiratoire et émotionnel. Ton cerveau l’utilise spontanément pour prévenir l’accumulation de tension physiologique et maintenir une respiration efficace. Lorsque tu le reproduis volontairement, ce mécanisme devient un outil somatique puissant : ton corps comprend qu’il peut relâcher sans danger. Cette sensation de sécurité corporelle est essentielle pour calmer durablement le mental. En régulant le souffle, tu agis directement sur le rythme cardiaque, le tonus vagal et la perception globale du stress. Le soupir te rappelle que ton corps sait naturellement comment se calmer, à condition de lui en laisser l’espace.",
 
@@ -1570,7 +1574,7 @@
 
 "ritual_soupir_liberateur_phase_3": "Laisse ta respiration reprendre son cours naturel et ressens l'apaisement dans la zone que tu as libérée.",
 
-"ritual_cloture_boucles_label": "Clôture des Boucles Ouvertes",
+   "ritual_cloture_boucles_label": "Clôture des Boucles Ouvertes",
 "ritual_cloture_boucles_modal_title": "Clôture des Boucles Ouvertes",
 
 "ritual_cloture_boucles_modal_why": "Les boucles ouvertes correspondent à des situations inachevées que ton cerveau continue de maintenir actives en arrière-plan. Cette activation constante sollicite inutilement ton attention, augmente la charge mentale et empêche un véritable repos, notamment le soir. Ce rituel agit à la fois sur le plan cognitif et corporel : il aide ton système nerveux à comprendre qu’une préoccupation peut être mise en pause sans danger. En donnant un signal clair de fin temporaire, tu permets au corps de relâcher la vigilance associée à cette pensée. Sur le plan somatique, cela se traduit par un apaisement des tensions diffuses (front, ventre, poitrine) et une sensation de complétude qui facilite la détente et le sommeil.",
@@ -1593,6 +1597,34 @@
 
 "ritual_cloture_boucles_phase_5": "Respire lentement et profondément 30 secondes.\n\nRessens la sensation de complétude et de relâchement qui s’installe.",
 
-"journal_restart_ritual_tooltip": "Clique pour recommencer ce rituel"
+"journal_restart_ritual_tooltip": "Clique pour recommencer ce rituel",
+"sazy_name": "Sazy",
+"sazy_role": "Coach Bien-être",
+"sazy_welcome_title": "Rencontre Sazy",
+"sazy_welcome_subtitle": "Un espace d’écoute et de guidance personnalisé, basé sur les rituels StopAndZen.\n\nSazy connaît tous les rituels de l’app et te guide vers celui dont tu as réellement besoin, au bon moment.",
+"sazy_welcome_instruction_1": "Sazy se souvient de vos échanges pour mieux t'accompagner. \nTout reste privé, stocké uniquement sur ton téléphone.",
+"sazy_welcome_instruction_2": "Au-delà des rituels, Sazy adapte sa façon de t’accompagner :\nDoux ou Intensif, selon ce dont tu as besoin.",
+"sazy_welcome_start_button": "Démarrer une consultation",
+"sazy_chat_input_placeholder": "Parle-moi de ce que tu ressens...",
+"sazy_chat_clear_button": "Effacer la mémoire",
+"sazy_chat_clear_confirm": "Veux-tu vraiment effacer tout l'historique de conversation avec Sazy ? Elle oubliera tout ce que vous vous êtes dit.",
+"sazy_chat_empty": "La conversation est vide. Dis bonjour à Sazy !",
+"sazy_teaser_message": "Psst... Besoin de parler ?",
+"sazy_header_tooltip": "Parler à Sazy",
+"faq_category_sazy": "Coach Sazy",
+    "faq_q_sazy_who": "Qui est Sazy et que peut-elle faire ?",
+    "faq_a_sazy_who": "Sazy est une intelligence artificielle empathique configurée pour agir comme une coach de bien-être holistique. Contrairement à un chatbot classique, elle connaît parfaitement tous les rituels de l'application. Elle peut vous écouter, analyser votre état émotionnel et vous recommander précisément le rituel dont vous avez besoin (ex: \"Fais le {{rit.souffle_dragon}}\"). Elle garde en mémoire vos échanges pour un suivi continu.",
+    "faq_q_sazy_modes": "Quels sont les modes de consultation ?",
+    "faq_a_sazy_modes": "Sazy s'adapte à votre besoin. Par défaut, elle est en **Mode Doux** : écoute active, bienveillance, validation des émotions. Si vous souhaitez avancer plus vite, vous pouvez lui demander le **Mode Intensif** : elle vous challenger avec bienveillance pour identifier vos blocages profonds et créer un plan d'action concret.",
+    "howitworks_tab_sazy": "Le Coaching IA",
+    "howitworks_sazy_title": "Votre Coach Bien-être 24/7",
+    "howitworks_sazy_intro": "Sazy n'est pas un simple moteur de recherche. C'est une conscience synthétique entraînée à la psychologie positive, aux neurosciences et à la gestion du stress.",
+    "howitworks_sazy_step1_title": "Écoute Active & Mémoire",
+    "howitworks_sazy_step1_desc": "Sazy se souvient de vos conversations passées. Elle ne vous demandera pas deux fois ce qui vous tracasse. Elle tisse des liens entre vos ressentis d'hier et ceux d'aujourd'hui pour vous offrir une perspective unique sur votre évolution.",
+    "howitworks_sazy_step2_title": "Prescription de Rituels",
+    "howitworks_sazy_step2_desc": "Sazy est connectée à la bibliothèque de StopAndZen. Si vous lui dites \"Je suis en colère\", elle ne se contentera pas de dire \"Calmez-vous\". Elle vous proposera un lien direct pour lancer la 'Fureur du Tigre' ou le 'Souffle du Dragon'. C'est de l'accompagnement actionnable.",
+    "howitworks_sazy_step3_title": "Consultation à la demande",
+    "howitworks_sazy_step3_desc": "Besoin d'une oreille attentive à 3h du matin ? D'un conseil avant une réunion stressante ? Sazy est toujours disponible pour désamorcer une crise ou simplement célébrer une victoire avec vous."
+
 
   }
