@@ -481,7 +481,7 @@ function App() {
                     onBack={() => navigateTo('welcome')} 
                     checkinData={checkinSummary} 
                     sessions={sessions}
-                    onStartRitual={(id) => handleStartRitual(id, 'sazy')}
+                    onStartRitual={(id: string) => handleStartRitual(id, 'sazy')}
                 />
             );
         case 'checkin_rapide': return <CheckinPage {...{ energie, setEnergie, humeur, setHumeur, chargeMentale, setChargeMentale, onNavigate: navigateTo, onBack: resetAndGoHome, onHelp: setHelpInfo }} />;
