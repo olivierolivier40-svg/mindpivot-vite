@@ -174,15 +174,28 @@ export const SazyChat = ({ onBack, checkinData, sessions, onStartRitual }: SazyC
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {!hasStarted && (
-                    <div className="text-center text-muted mt-10 opacity-70 flex flex-col items-center justify-center h-full pb-20">
-                        <div className="mb-6">
+                    <div className="text-center text-muted mt-4 opacity-90 flex flex-col items-center justify-center h-full pb-20">
+                        <div className="mb-6 scale-110">
                              <SazyAvatar size="large" />
                         </div>
-                        <p className="max-w-xs mx-auto mb-8">{t('sazy_welcome_subtitle')}</p>
+                        <h3 className="text-2xl font-bold text-fg mb-2">{t('sazy_welcome_title')}</h3>
+                        <p className="max-w-xs mx-auto mb-6 text-lg leading-relaxed">{t('sazy_welcome_subtitle')}</p>
+                        
+                        <div className="bg-white/5 rounded-xl p-4 border border-white/10 max-w-xs mx-auto mb-8 text-left space-y-3">
+                            <div className="flex gap-3">
+                                <span className="text-xl">🧠</span>
+                                <p className="text-sm text-muted-darker leading-snug">{t('sazy_welcome_instruction_1')}</p>
+                            </div>
+                            <div className="flex gap-3">
+                                <span className="text-xl">🔒</span>
+                                <p className="text-sm text-muted-darker leading-snug">{t('sazy_welcome_instruction_2')}</p>
+                            </div>
+                        </div>
+
                         <Button 
                             variant="primary" 
                             size="large"
-                            className="pulse-animation shadow-accent/20 shadow-xl"
+                            className="pulse-animation shadow-accent/20 shadow-xl px-8"
                             onClick={() => handleSendMessage("Bonjour Sazy")}
                         >
                             {t('sazy_welcome_start_button')}
