@@ -2000,6 +2000,31 @@ export const RITUELS: Ritual[] = [
         },
     },
     {
+        id: 'rit.canon_pachelbel_432',
+        label: 'ritual_canon_pachelbel_432_label',
+        category: 'neuro',
+        playerType: 'audio-guide',
+        dureeSec: 272,
+        donut: 'off',
+        haptique: {},
+        tags: ['musique', 'apaiser', 'sommeil', 'stress', 'neuro'],
+        isPremium: true,
+        data: {
+            audioUrl: 'https://www.magnetiseur-dax.fr/webapp/Aura/Canon_Pachelbel432.mp3'
+        },
+        modal: {
+            titre: 'ritual_canon_pachelbel_432_modal_title',
+            icon: '🎻',
+            sections: {
+                pourquoi: 'ritual_canon_pachelbel_432_modal_why',
+                comment: 'ritual_canon_pachelbel_432_modal_how',
+                conseils: 'ritual_canon_pachelbel_432_modal_tips',
+                enSavoirPlus: 'ritual_canon_pachelbel_432_modal_learn_more',
+                pourAllerPlusLoin: 'ritual_canon_pachelbel_432_modal_go_further'
+            }
+        }
+    },
+    {
         id: 'rit.cloture_boucles',
         label: 'ritual_cloture_boucles_label',
         category: 'micro-rituel',
