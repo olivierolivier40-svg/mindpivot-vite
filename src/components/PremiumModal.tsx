@@ -37,6 +37,10 @@ export const PremiumModal = ({ show, onClose, onUpgrade }: PremiumModalProps) =>
                         <CheckIcon />
                         <span dangerouslySetInnerHTML={{ __html: t('premium_modal_feature4')}}></span>
                     </li>
+                      <li className="flex items-start gap-3">
+                        <CheckIcon />
+                        <span dangerouslySetInnerHTML={{ __html: t('premium_modal_feature5')}}></span>
+                    </li>
                 </ul>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <Button onClick={onUpgrade} variant="primary" size="large">
